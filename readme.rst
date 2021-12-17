@@ -19,7 +19,7 @@ and Drug Administration, Center for Food Safety and Applied Nutrition.
 Introduction
 ------------
 
-The CFSAN Wastewater Analysis Pipeline uses reference-based alignments to create a matrix of
+The CFSAN Wastewater Analysis Pipeline uses a reference-based alignments to create a matrix of
 SNPs for a given set of samples. The process generally starts off by finding
 a reference that is appropriate for the samples of interest, and collecting
 the sample sequence data into an appropriate directory structure. The SNP
@@ -38,21 +38,36 @@ the analysis of relatively distantly related organisms, where there is not
 a single reference sequence appropriate for all the organisms for which an
 analysis is desired.
 
-The CFSAN SNP Pipeline is written in Python with some embedded bash snippets. The
-code is designed to be straightforward to install and run
-from the command line. A configuration file supports customizing the
-behavior of the pipeline. In situations where additional customization is desired, the
+The CFSAN Wastewater Analysis Pipeline was written in predominantly in Bash 
+with some functionalities implemented in Python with Numpy and Matplotlib. The
+code is designed to be straightforward to deploy and run
+from the command line. The configuration file (prepareEnvironment.sh) 
+provided aims to enumerate the 
+dependencies on other tools and the other scripts assume that all referred
+executables are available in the search path. URL contained therein 
+refer to the repositories that they can be acquired from.
+In situations where additional customization is desired, the
 code is not highly complex and should be easy to modify as necessary.
 
+
+
+Example usage
+-------------------
 Examples of using the code are provided. These examples serve as both
 unit tests, and as examples that can be modified to work on other data
 sets of interest.
 
 
-Citing SNP Pipeline
--------------------
 
-If you are making use of this package, please cite our repository.
+Citing C-WAP
+-------------------
+This work is currently unpublished. If you are making use of this package, 
+we would appreciate if you gave credit to our repository. 
+
+The html->pdf conversion tool (wkhtmltopdf) is not our work and has been 
+provided for user convenience. For more information and updates, please visit 
+https://github.com/wkhtmltopdf. 
+
 
 
 License
