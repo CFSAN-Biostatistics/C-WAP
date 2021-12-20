@@ -4,6 +4,10 @@
 # To be executed on a compute node, if available.
 # Execution on a local computer is possible, though it might take about an hour.
 
+# Exit if any of these commands fail
+set -e
+
+
 outDir=$1
 referenceSequence=$2
 primerBedFile=$3

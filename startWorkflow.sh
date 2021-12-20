@@ -3,6 +3,8 @@
 # Covid Wastewater Analysis Code
 # A driver script that parses the input arguments, and starts the analysis and reporting codes
 
+# Exit if any of these commands fail
+set -e
 
 
 usageshort() {
