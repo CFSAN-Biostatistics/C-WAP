@@ -51,7 +51,9 @@ Additionally, the `test` directory includes an example with PacBio data.  To run
 
 `cd test`  
 
-`./runTest.sh`, which invoke the following command `../startWorkflow.sh -s ./test.fastq.gz -o ./testOutput -b ../covidRefSequences/varskipShort.bed`  
+`./runTest.sh`
+
+This will invoke the following command `../startWorkflow.sh -s ./test.fastq.gz -o ./testOutput -b ../covidRefSequences/varskipShort.bed`  
 
 ### Output
 
