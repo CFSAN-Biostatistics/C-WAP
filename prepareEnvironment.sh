@@ -8,7 +8,9 @@
 set -e
 
 
+
 echo Loading necessary modules...
+module purge
 module load /nfs/software/modules/kraken2/2.1.2 bracken
 module load samtools/1.13 ivar
 module load bowtie2
@@ -42,9 +44,7 @@ if ! command -v ./wkhtmltopdf; then
 fi
 
 
-
 export organisation=@fda.hhs.gov
 
-
-echo Environment is set
+echo The environment is set
 

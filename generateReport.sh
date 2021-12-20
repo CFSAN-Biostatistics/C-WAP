@@ -11,12 +11,13 @@ outDir=$1
 primerBedFile=$2
 performQConly=$3
 platform=$4
+sampleName=$5
 
-if [[ -z $6 ]]; then
-	singlefilename=$5
+if [[ -z $7 ]]; then
+	singlefilename=$6
 else
-	R1filename=$5
-	R2filename=$6	
+	R1filename=$6
+	R2filename=$7	
 fi
 
 
@@ -93,13 +94,6 @@ timestamp=`date +%Y-%m-%d,\ %T\ %Z`
 
 
 echo "<table>" >> $reportFile
-
-# Output sample name to the report file
-if [[ -n "$singlefilename" ]]; then
-	sampleName=`basename $singlefilename | awk -F '_' '{ print $1 }' | awk -F '.' '{ print $1 }'`
-else
-	sampleName=`basename $R1filename | awk -F '_' '{ print $1 }' | awk -F '.' '{ print $1 }'`
-fi
 echo "<tr>" >> $reportFile
 echo "    <td>Sample name:</td><td>$sampleName</td>" | tee -a $reportFile
 echo "</tr>" >> $reportFile
@@ -122,7 +116,7 @@ echo "</table>" >> $reportFile
 #######################################################
 # Collection of read statistics
 samtools stats $outDir/sorted.bam | grep ^SN | cut -f 2- > $outDir/sorted.stats
-rm $outDir/sorted.bam $outDir/sorted.bam.bai
+rm $outDir/sorted.bam
 numAligned=`cat $outDir/sorted.stats | grep "reads mapped:" | awk '{ print $NF }'`
 avgQuality=`cat $outDir/sorted.stats | grep "average quality" | awk '{ print $NF }'`
 avgLength=`cat $outDir/sorted.stats | grep "average length" | awk '{ print $NF }'`
@@ -136,12 +130,12 @@ avgCoveragePassed=`expr $avgLengthPassed \* $numPassedQuality / 29903`
 
 
 # Deduce the total number of reads from the kraken2 output
-numUnclassified=`head $outDir/k2.out | grep -w unclassified | awk '{ print $2 }'`
+numUnclassified=`head $outDir/k2-std.out | grep -w unclassified | awk '{ print $2 }'`
 if [[ -z $numUnclassified ]]; then
 	numUnclassified=0
 fi
 
-numClassified=`head $outDir/k2.out | grep -w root | awk '{ print $2 }'`
+numClassified=`head $outDir/k2-std.out | grep -w root | awk '{ print $2 }'`
 if [[ -z $numClassified ]]; then
 	numClassified=0
 fi
@@ -260,29 +254,29 @@ numUncoveredLoci=`cat $outDir/pos-coverage-quality.tsv | awk '{ print $2 }' | gr
 numPoorlyCoveredLoci=`cat $outDir/pos-coverage-quality.tsv | awk '{ print $2 }' |
 						grep -w -e 0 -e 1 -e 2 -e 3 -e 4 -e 5 -e 6 -e 7 -e 8 -e 9 | wc -l`
 
-numCovid=`cat $outDir/k2.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $2 }'`
-numHuman=`cat $outDir/k2.out | grep sapiens | awk '{ print $2 }'`
-numSynthetic=`cat $outDir/k2.out | grep other | grep 28384 | awk '{ print $2 }'`
+numCovid=`cat $outDir/k2-std.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $2 }'`
+numHuman=`cat $outDir/k2-std.out | grep sapiens | awk '{ print $2 }'`
+numSynthetic=`cat $outDir/k2-std.out | grep other | grep 28384 | awk '{ print $2 }'`
 
 if [[ -z $numCovid ]]; then
 	pctCovid=0
 	numCovid=0
 else
-	pctCovid=`cat $outDir/k2.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $1 }'`
+	pctCovid=`cat $outDir/k2-std.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $1 }'`
 fi
 
 if [[ -z $numHuman ]]; then
 	pctHuman=0
 	numHuman=0
 else
-	pctHuman=`cat $outDir/k2.out | grep sapiens | awk '{ print $1 }'`
+	pctHuman=`cat $outDir/k2-std.out | grep sapiens | awk '{ print $1 }'`
 fi
 
 if [[ -z $numSynthetic ]]; then
 	pctSynthetic=0
 	numSynthetic=0
 else
-	pctSynthetic=`cat $outDir/k2.out | grep other | grep 28384 | awk '{ print $1 }'`
+	pctSynthetic=`cat $outDir/k2-std.out | grep other | grep 28384 | awk '{ print $1 }'`
 fi
 
 
@@ -327,7 +321,7 @@ if ! $performQConly; then
 	# Characterisation of the consensus sequence based on Pangolin output
 	# Calculation of the consensus sequence is used to determine the predominant lineage.
 	# If available, use the WHO label.
-	consensusLineage=`tail -n 1 $outDir/lineage_report.csv | awk -F "," '{ print $2 }'`
+	consensusLineage=`tail -n 1 $outDir/pangolin_lineage_report.csv | awk -F "," '{ print $2 }'`
 	WHOlabel=`cat ./pangolin2WHOlabel.txt | grep $consensusLineage | awk -F " " '{ print $2 }'`
 	if  [[ -n $WHOlabel ]]; then
 		consensusLineage=$WHOlabel
@@ -436,7 +430,7 @@ echo `kallisto version`"." >> $reportFile
 
 variantDBfile=./covidRefSequences/varDefinitions.pkl
 allIncludedLineages=`./listVariantsAvail.py $variantDBfile`
-echo "Lineage definitions were obtained on" `date +%Y-%m-%d -r ./constellations/constellations/definitions` \
+echo "Lineage definitions were compiled on" `date +%Y-%m-%d -r ./covidRefSequences/varDefinitions.pkl` \
 		"from <a href=\"https://github.com/cov-lineages/constellations/tree/main/constellations/definitions\">constellations</a>." >> $reportFile
 echo "Lineage signature file was compiled on" `date +%Y-%m-%d -r $variantDBfile` \
 		"and includes lineages: $allIncludedLineages." >> $reportFile
@@ -453,8 +447,8 @@ echo Generating pdf output...
 # The program was obtained from: https://wkhtmltopdf.org/downloads.html
 # And unpacked locally by:
 # rpm2cpio wkhtmltox-0.12.6-1.centos7.x86_64.rpm  | cpio -i -d
-./wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 \
-	--margin-left 0 --margin-right 0 --print-media-type --title "Wastewater report" \
-	$outDir/report/report.html $outDir/report/report.pdf
+#./wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 \
+#	--margin-left 0 --margin-right 0 --print-media-type --title "Wastewater report" \
+#	$outDir/report/report.html $outDir/report/report.pdf
 
 

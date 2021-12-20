@@ -230,8 +230,16 @@ if [ -z "$referenceSequence" ]; then
 fi
 
 if [ -z "$outDir" ]; then
-    echo "No output directory has been provided. Defaulting to ./"
-	outDir=./
+    echo "No output directory has been provided. Defaulting to ./out"
+	outDir=./out
+fi
+
+
+# Output sample name to the report file
+if [[ -n "$singlefilename" ]]; then
+	sampleName=`basename $singlefilename | awk -F '_' '{ print $1 }' | awk -F '.' '{ print $1 }'`
+else
+	sampleName=`basename $R1filename | awk -F '_' '{ print $1 }' | awk -F '.' '{ print $1 }'`
 fi
 
 
@@ -252,17 +260,29 @@ if $useHPC; then
 	# export TMPDIR=$outDir
 
 	echo Executing in SLURM mode, submitting job
-	jobID=$(sbatch --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log ./executeAnalysis.sh $outDir \
-		$referenceSequence $primerBedFile $performQConly $platform $R1filename $R2filename $singlefilename)
+	jobID=$(sbatch --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log \
+		./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly \
+		$platform $sampleName $R1filename $R2filename $singlefilename)
 	
-	sbatch -N 1 -c 2 --time 0:30:00 --dependency=afterok:$jobID -o $outDir/reporting.log ./generateReport.sh $outDir \
-		$primerBedFile $performQConly $platform $R1filename $R2filename $singlefilename
+	sbatch -N 1 -c 2 --time 0:30:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
+		./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName \
+		$R1filename $R2filename $singlefilename
 else
 	# Ordinary desktop (or another scheduler). Execute the job as is.
 	echo Executing in desktop mode
-	./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly $platform $R1filename $R2filename $singlefilename
-	./generateReport.sh $outDir $primerBedFile $performQConly $platform $R1filename $R2filename $singlefilename
+	./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly $platform $sampleName \
+		$R1filename $R2filename $singlefilename | tee $outDir/execution.log
+	./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName $R1filename $R2filename \
+		$singlefilename | tee $outDir/reporting.log
 fi
+
+
+# Optionally add the sample name as prefix to all files generated.
+if true; then
+	for file in $(ls $outDir); do
+		mv $outDir/$file $outDir/${sampleName}_${file}
+	done
+fi 
 
 
 echo "(Well) done!"

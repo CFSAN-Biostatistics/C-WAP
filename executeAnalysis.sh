@@ -13,12 +13,13 @@ referenceSequence=$2
 primerBedFile=$3
 performQConly=$4
 platform=$5
+sampleName=$6
 
-if [[ -z $7 ]]; then
-	singlefilename=$6
+if [[ -z $8 ]]; then
+	singlefilename=$7
 else
-	R1filename=$6
-	R2filename=$7	
+	R1filename=$7
+	R2filename=$8	
 fi
 
 
@@ -54,14 +55,14 @@ if [[ $platform == Illumina ]]; then
 		bowtie2 --no-unal --threads $numThreads -x $refSeqBasename -U $singlefilename -S $outDir/aligned.sam
 		
 		echo Running kraken2...
-		kraken2 $singlefilename --threads $numThreads --report $outDir/k2.out > /dev/null
+		kraken2 $singlefilename --threads $numThreads --report $outDir/k2-std.out > /dev/null
 	else	
 		echo Running Bowtie2...
 		bowtie2 --no-unal --threads $numThreads -x $refSeqBasename -1 $R1filename -2 $R2filename \
 			-S $outDir/aligned.sam
 		
 		echo Running kraken2...
-		kraken2 --paired $R1filename $R2filename --threads $numThreads --report $outDir/k2.out > /dev/null
+		kraken2 --paired $R1filename $R2filename --threads $numThreads --report $outDir/k2-std.out > /dev/null
 	fi
 else
 	# Align the reads to the reference sequence to obtain a sorted bam file	
@@ -82,7 +83,7 @@ else
 	fi
 
 	echo Running kraken2...
-	kraken2 $singlefilename --threads $numThreads --report $outDir/k2.out > /dev/null
+	kraken2 $singlefilename --threads $numThreads --report $outDir/k2-std.out > /dev/null
 fi
 
 
@@ -146,6 +147,8 @@ if ! $performQConly; then
 	#######################################################
 	echo Pangolin lineage assignment in progress...
 	pangolin --alignment $outDir/consensus.fa --threads $numThreads --outdir $outDir
+	mv $outDir/lineage_report.csv $outDir/pangolin_lineage_report.csv 
+	rm $outDir/sequences.aln.fasta
 
 
 	#########################################################################################
@@ -161,6 +164,7 @@ if ! $performQConly; then
 	kraken2 $outDir/resorted.fastq --db ./customDBs/majorCovidDB --threads $numThreads\
 				--report $outDir/k2-majorCovid.out > /dev/null
 	bracken -d ./customDBs/majorCovidDB -i $outDir/k2-majorCovid.out -o $outDir/majorCovid.bracken -l P
+	rm $outDir/allCovid.bracken $outDir/majorCovid.bracken
 
 
 	#########################################################################################
