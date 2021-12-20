@@ -167,7 +167,7 @@ done
 
 if [ -z "$outDir" ]; then
     echo "No output directory has been provided. Defaulting to ./out"
-	outDir=./out
+	outDir=`readlink -f ./out`
 fi
 
 
