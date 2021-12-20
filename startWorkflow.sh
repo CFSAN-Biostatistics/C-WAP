@@ -114,7 +114,7 @@ while getopts ":hqgpnf:r:s:o:w:b:" option; do
 				echo File $OPTARG does not exist.
 				exit 1
 			else
-				R1filename=$OPTARG
+				R1filename=`readlink -f $OPTARG`
 			fi
 			;;
 		r)
@@ -122,7 +122,7 @@ while getopts ":hqgpnf:r:s:o:w:b:" option; do
 				echo File $OPTARG does not exist.
 				exit 1
 			else
-				R2filename=$OPTARG
+				R2filename=`readlink -f $OPTARG`
 			fi
 			;;
 		s)
@@ -130,7 +130,7 @@ while getopts ":hqgpnf:r:s:o:w:b:" option; do
 				echo File $OPTARG does not exist.
 				exit 1
 			else
-				singlefilename=$OPTARG
+				singlefilename=`readlink -f $OPTARG`
 			fi
 			;;
 		b)
@@ -138,11 +138,11 @@ while getopts ":hqgpnf:r:s:o:w:b:" option; do
 				echo "File $OPTARG does not exist."
 				exit 1
 			else
-				primerBedFile=$OPTARG
+				primerBedFile=`readlink -f $OPTARG`
 			fi
 			;;
 		o)
-			outDir=$OPTARG
+			outDir=`readlink -f $OPTARG`
 			if ! [[ -d "$outDir" ]]; then
 				echo "Output folder $outDir does not exist. Created."
 				mkdir $outDir
@@ -157,11 +157,18 @@ while getopts ":hqgpnf:r:s:o:w:b:" option; do
 				echo "File $OPTARG does not exist."
 				exit 1
 			else
-				referenceSequence=$OPTARG
+				referenceSequence=`readlink -f $OPTARG`
 			fi
 			;;
 	esac
 done
+
+
+
+if [ -z "$outDir" ]; then
+    echo "No output directory has been provided. Defaulting to ./out"
+	outDir=./out
+fi
 
 
 # Path to the folder containing the scripts
@@ -229,11 +236,6 @@ if [ -z "$referenceSequence" ]; then
 	referenceSequence=./covidRefSequences/wuhan.fa
 fi
 
-if [ -z "$outDir" ]; then
-    echo "No output directory has been provided. Defaulting to ./out"
-	outDir=./out
-fi
-
 
 # Output sample name to the report file
 if [[ -n "$singlefilename" ]]; then
@@ -264,9 +266,12 @@ if $useHPC; then
 		./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly \
 		$platform $sampleName $R1filename $R2filename $singlefilename)
 	
-	sbatch -N 1 -c 2 --time 0:30:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
+	jobID2=$(sbatch --parsable -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
 		./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName \
-		$R1filename $R2filename $singlefilename
+		$R1filename $R2filename $singlefilename)
+
+	sbatch -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID2 -o $outDir/printing.log \
+		./html2pdf.sh $outDir $sampleName
 else
 	# Ordinary desktop (or another scheduler). Execute the job as is.
 	echo Executing in desktop mode
@@ -274,15 +279,8 @@ else
 		$R1filename $R2filename $singlefilename | tee $outDir/execution.log
 	./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName $R1filename $R2filename \
 		$singlefilename | tee $outDir/reporting.log
+	./html2pdf.sh $outDir $sampleName
 fi
-
-
-# Optionally add the sample name as prefix to all files generated.
-if true; then
-	for file in $(ls $outDir); do
-		mv $outDir/$file $outDir/${sampleName}_${file}
-	done
-fi 
 
 
 echo "(Well) done!"

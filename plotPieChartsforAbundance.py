@@ -2,7 +2,8 @@
 
 import matplotlib.pyplot as plt
 from matplotlib.colors import to_hex
-import sys, csv
+import sys
+import csv
 import numpy as np
 import pickle
 
@@ -26,24 +27,26 @@ freyjaOutputFile = sys.argv[7]
 # Import the pre-processed variant definitions from file
 with open(variantDBfilename, 'rb') as file:
     uniqueVarNames = pickle.load(file)
-    #uniqueMutationLabels = pickle.load(file)
-    #var2mut = pickle.load(file)
-    #mut2var = pickle.load(file) # Skipped these for efficiency
-    #importantVars = pickle.load(file)
-    #pos2gene = pickle.load(file)
-    #gene2pos = pickle.load(file)
-    #sigMutationMatrix = pickle.load(file)
+    # uniqueMutationLabels = pickle.load(file)
+    # var2mut = pickle.load(file)
+    # mut2var = pickle.load(file) # Skipped these for efficiency
+    # importantVars = pickle.load(file)
+    # pos2gene = pickle.load(file)
+    # gene2pos = pickle.load(file)
+    # sigMutationMatrix = pickle.load(file)
 
 
 # Translation table for pangolin and WHO names of variants
-pangolin2WHO={ 'B.1.1.7':'Alpha', 'B.1.351':'Beta', 'P.1':'Gamma', 'B.1.427':'Epsilon', 'B.1.429':'Epsilon',
-        'B.1.525':'Eta', 'B.1.526':'Iota', 'B.1.617.1':'Kappa', 'B.1.621':'Mu', 'B.1.621.1':'Mu', 'P.2':'Zeta',
-        'B.1.617.3':'B.1.617.3', 'B.1.617.2':'Delta', 'AY':'Delta', 'B.1.1.529':'Omicron', 'BA.1':'Omicron', 
-        'BA.2':'Omicron', 'wt':'wt', 'wt-wuhan':'wt', 'A.21':'Bat', 'other':'Other', 'A':'Other' }
+pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427': 'Epsilon', 'B.1.429': 'Epsilon',
+                'B.1.525': 'Eta', 'B.1.526': 'Iota', 'B.1.617.1': 'Kappa', 'B.1.621': 'Mu', 'B.1.621.1': 'Mu',
+                'P.2': 'Zeta', 'B.1.617.3': 'B.1.617.3', 'B.1.617.2': 'Delta', 'AY': 'Delta',
+                'B.1.1.529': 'Omicron', 'BA.1': 'Omicron', 'BA.2': 'Omicron', 'wt': 'wt', 'wt-wuhan': 'wt',
+                'A.21': 'Bat', 'other': 'Other', 'A': 'Other'}
 # 'B':'wt',
 
+
 # Convert each variant to a WHO-compatible name, if one exists
-def getDisplayName (pangolinName):
+def getDisplayName(pangolinName):
     if pangolinName in pangolin2WHO:
         # Exact correspondance to a published name
         return pangolin2WHO[pangolinName]
@@ -52,24 +55,21 @@ def getDisplayName (pangolinName):
         return pangolinName
     else:
         # Check if this is a sublineage of a defined lineage
-        for i in range(pangolinName.count('.'),0,-1):
-            superVariant = '.'.join( pangolinName.split('.')[0:i] )
+        for i in range(pangolinName.count('.'), 0, -1):
+            superVariant = '.'.join(pangolinName.split('.')[0:i])
             if superVariant in pangolin2WHO:
                 return pangolin2WHO[superVariant]
-        
+
         # No name seems to correspond to it, return itself
         return pangolinName
 
 
-
 # Assign a pre-determined color to each display name
-#colorCycle = plt.rcParams['axes.prop_cycle'].by_key()['color']
 rgbColors = plt.get_cmap('tab20').colors + plt.get_cmap('Accent').colors
-colorCycle = [ to_hex(color) for color in rgbColors ]
-assignedHexColor = { getDisplayName(uniqueVarNames[i]):colorCycle[ord(uniqueVarNames[i][0])%len(colorCycle)] 
-                        for i in range(0,len(uniqueVarNames)) }
+colorCycle = [to_hex(color) for color in rgbColors]
+assignedHexColor = {getDisplayName(uniqueVarNames[i]): colorCycle[ord(uniqueVarNames[i][0]) % len(colorCycle)]
+                    for i in range(0, len(uniqueVarNames))}
 assignedHexColor['Other'] = '#BBBBBB'
-
 
 
 ########################################################################
@@ -77,33 +77,33 @@ assignedHexColor['Other'] = '#BBBBBB'
 # Only display variants that are >= x% abundant
 # Less frequent variants will be cumulated under 'other' category
 def drawPieChart(names2percentages, outfilename, title=''):
-    minPlotThreshold = 5 # in %
-    
+    minPlotThreshold = 5  # in %
+
     colors2plot = []
     percentages2plot = []
     names2plot = []
     for name in names2percentages.keys():
         dname = getDisplayName(name)
         freq = names2percentages[name]
-        if dname!='Other' and freq>=minPlotThreshold:
+        if dname != 'Other' and freq >= minPlotThreshold:
             names2plot.append(dname)
             percentages2plot.append(freq)
-    
+
     # Cumulate all other infrequent variants under "other" category
     names2plot.append('Other')
-    percentages2plot = np.append(percentages2plot, 100-np.sum(percentages2plot) )
+    percentages2plot = np.append(
+        percentages2plot, 100-np.sum(percentages2plot))
     colors2plot = [assignedHexColor[name] for name in names2plot]
-    
-    explosionArray = np.full(len(percentages2plot),0.07)
-    plt.rcParams.update({'font.size':12})
+
+    explosionArray = np.full(len(percentages2plot), 0.07)
+    plt.rcParams.update({'font.size': 12})
     plt.pie(percentages2plot, labels=names2plot, autopct='%1.1f%%', shadow=False,
-        explode=explosionArray, colors=colors2plot)
+            explode=explosionArray, colors=colors2plot)
     plt.axis('equal')
-    plt.title(title);
+    plt.title(title)
     plt.savefig(outfilename, dpi=300)
     plt.close()
-    
-    
+
 
 ########################################################
 # Process the results of linear deconvolution approach
@@ -119,23 +119,22 @@ with open(variantFreqFilename, 'r') as infile:
         else:
             names2percentages[dname] = cFreq
         counter += 1
-        
-drawPieChart(names2percentages, outputDirectory+'/pieChart_deconvolution.png', 
-    title='Abundance of variants by deconvolution')
 
+drawPieChart(names2percentages, outputDirectory+'/pieChart_deconvolution.png',
+             title='Abundance of variants by deconvolution')
 
 
 ########################################################
 # Process the results of linear deconvolution approach
 # Read the tsv file generated by kallisto
-kallistoHits={}
+kallistoHits = {}
 with open(kallistoFilename, 'r') as infile:
     reader = csv.reader(infile, delimiter="\t")
-    next(reader) # Skip the header
+    next(reader)  # Skip the header
     for row in reader:
         pangoName = row[0].split('_')[0]
         dname = getDisplayName(pangoName)
-        numberHits=float(row[3])
+        numberHits = float(row[3])
         if dname in kallistoHits:
             kallistoHits[dname].append(numberHits)
         else:
@@ -150,26 +149,27 @@ for varWHOname in kallistoHits:
 totalNumReads = sum(kallistoHits.values())
 names2percentages = {}
 for varWHOname in kallistoHits:
-    names2percentages[varWHOname] = 100.0*kallistoHits[varWHOname]/totalNumReads
-    
-drawPieChart(names2percentages, outputDirectory+'/pieChart_kallisto.png', 
-    title='Abundance of variants by kallisto')
+    names2percentages[varWHOname] = 100.0 * \
+        kallistoHits[varWHOname]/totalNumReads
+
+drawPieChart(names2percentages, outputDirectory+'/pieChart_kallisto.png',
+             title='Abundance of variants by kallisto')
 
 
 with open(outputDirectory + '/kallisto.out', 'w') as outfile:
     for name in names2percentages:
-        outfile.write('%s\t%.1f\n' % (name, names2percentages[name]) )
+        outfile.write('%s\t%.1f\n' % (name, names2percentages[name]))
 
 
 ########################################################
 # Process the results of kraken2+bracken approach
 # Read the tsv file generated by bracken
-def importBrackenOutput (brackenFilename):
-    brackenHits={}
+def importBrackenOutput(brackenFilename):
+    brackenHits = {}
     with open(brackenFilename, 'r') as infile:
         reader = csv.reader(infile, delimiter="\t")
-        next(reader) # Skip the header (root)
-        next(reader) # Skip the header (covid)
+        next(reader)  # Skip the header (root)
+        next(reader)  # Skip the header (covid)
         for row in reader:
             pctHits = float(row[0])
             varDispName = getDisplayName(row[5]).strip()
@@ -178,37 +178,34 @@ def importBrackenOutput (brackenFilename):
 
 
 brackenHits = importBrackenOutput(k2_allCovidFilename)
-drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_allCovid.png', 
-    title='Abundance of variants by\n kraken2+bracken, using allCovid DB')
+drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_allCovid.png',
+             title='Abundance of variants by\n kraken2+bracken, using allCovid DB')
 
 brackenHits = importBrackenOutput(k2_majorCovidFilename)
-drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_majorCovid.png', 
-    title='Abundance of variants by\n kraken2+bracken, using majorCovid DB')
-
+drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_majorCovid.png',
+             title='Abundance of variants by\n kraken2+bracken, using majorCovid DB')
 
 
 ########################################################
 # Process the abundance estimates by Freyja
 with open(freyjaOutputFile, 'r') as infile:
     reader = csv.reader(infile, delimiter="\t")
-    next(reader) # Skip header, freyja.variants.tsv
+    next(reader)  # Skip header, freyja.variants.tsv
     varname_pct = next(reader)[1]
-    
-varname_pct = varname_pct.replace("(","")
-varname_pct = varname_pct.replace(")","")
-varname_pct = varname_pct.replace("'","")
-varname_pct = varname_pct.replace("[","")
-varname_pct = varname_pct.replace("]","")
-varname_pct = varname_pct.replace(" ","")
+
+varname_pct = varname_pct.replace("(", "")
+varname_pct = varname_pct.replace(")", "")
+varname_pct = varname_pct.replace("'", "")
+varname_pct = varname_pct.replace("[", "")
+varname_pct = varname_pct.replace("]", "")
+varname_pct = varname_pct.replace(" ", "")
 varname_pct = varname_pct.split(',')
 
 freyjaHits = {}
-for i in range(0,len(varname_pct),2):
+for i in range(0, len(varname_pct), 2):
     name = varname_pct[i]
     pct = 100*float(varname_pct[i+1])
     freyjaHits[name] = pct
 
-drawPieChart(freyjaHits, outputDirectory+'/pieChart_freyja.png', 
-    title='Abundance of variants by Freyja')
-
-
+drawPieChart(freyjaHits, outputDirectory+'/pieChart_freyja.png',
+             title='Abundance of variants by Freyja')

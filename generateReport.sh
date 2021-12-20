@@ -441,14 +441,10 @@ echo "</body>" >> $reportFile
 echo "</html>" >> $reportFile	
 
 
-#######################################################
-echo Generating pdf output...
-# Optionally generate a pdf version of the report file by rendering the html file
-# The program was obtained from: https://wkhtmltopdf.org/downloads.html
-# And unpacked locally by:
-# rpm2cpio wkhtmltox-0.12.6-1.centos7.x86_64.rpm  | cpio -i -d
-#./wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 \
-#	--margin-left 0 --margin-right 0 --print-media-type --title "Wastewater report" \
-#	$outDir/report/report.html $outDir/report/report.pdf
 
-
+##################################################################
+# Add the sample name as prefix to all files generated.
+for file in $(ls $outDir); do
+	mv $outDir/$file $outDir/${sampleName}_${file}
+done
+ 

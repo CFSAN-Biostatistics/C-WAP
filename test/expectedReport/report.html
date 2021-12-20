@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table {
+	width: 100%;
+	font-family: sans-serif;
+}
+
+td, th {
+	border: 0.1em solid #DDDDDD;
+	padding: 0.3em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #CCE4F1;
+}
+
+tr:nth-child(even) {
+	background-color: #FFFFFF;
+}
+
+
+div {
+	width: 100%;
+	display: flex;
+	align-items: center;
+    justify-content:center;
+}
+#figdiv {
+	display:inline-block;
+	width: 100%;
+}
+#caption {
+	display:inline-block;
+	width: 95%;
+	background-color: #CCE4F1;
+	border-left: 1em solid #007CBA;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin-left: 0;
+	text-align: justify;
+}
+
+
+@media print {
+	body {
+		margin-top: 0;
+		margin-left: 20mm;
+		margin-right: 20mm;
+		
+		font-family:sans-serif;
+		background-color: #FFFFFF;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 30%;
+		background-position: 5em 0em;
+	}
+}
+
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+}
+
+</style>
+
+<title>Wastewater report</title>
+<link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
+</head>
+
+<body>
+
+<br><br>
+<h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
+<h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
+<table>
+<tr>
+    <td>Sample name:</td><td>test</td>
+</tr>
+<tr>
+    <td>Date generated:</td><td>2021-12-20, 15:52:41 EST</td>
+</tr>
+<tr>
+    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href="mailto:Tunc.Kayikcioglu@@fda.hhs.gov?subject=Wastewater report generated on 2021-12-20, 15:52:41 EST">Tunc.Kayikcioglu@@fda.hhs.gov</a>)</td>
+</tr>
+</table>
+
+<br>
+<h2>Sequencing summary</h2>
+<table>
+<tr>
+    <td>Sequencing chemistry:</td><td>Missing with Missing</td>
+</tr>
+<tr>
+    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3//">NA		(0,0)</a></td>
+</tr>
+<tr>
+    <td>Sampling date:</td><td>Missing</a></td>
+</tr>
+<tr>
+    <td>Collected by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Sequenced by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Total number of reads:</td><td>14115</td>
+</tr>
+<tr>
+    <td>Reads aligned:</td><td>11629 (82%)</td>
+</tr>
+<tr>
+    <td>Average read quality:</td><td>90.1</td>
+</tr>
+<tr>
+    <td>Average read length:</td><td>728</td>
+</tr>
+<tr>
+    <td>Reads passing filter:</td><td>11629 (82%)</td>
+</tr>
+<tr>
+    <td>Average read quality passing filter:</td><td>90.1</td>
+</tr>
+<tr>
+    <td>Average read length passing filter:</td><td>728</td>
+</tr>
+<tr>
+    <td>Average coverage passing filter:</td><td>283X</td>
+</tr>
+</table>
+<br>
+A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum 		read quality &#8805; 20 within a sliding window of width 4.
+
+<br><br>
+<h2>Overall sequence characteristics</h2>
+<img src="./coverage.png" alt="Coverage vs. genome coordinate plot" width="49%" class="center">
+<img src="./quality.png" alt="Quality vs. genome coordinate plot" width="49%" class="center">
+<p> NOTE: The red shaded areas marked with a (<font color=red>*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses.
+<br><br><br><br>
+<img src="./depthHistogram.png" alt="Coverage histogram" width="49%" class="center">
+<img src="./qualityHistogram.png" alt="Quality histogram" width="49%" class="center">
+
+<br>
+<table>
+<tr>
+    <td># uncovered genomic coordinates (0X) by kit design:</td><td>149 nt 
+		(0%)</td>
+</tr>
+<tr>
+    <td># uncovered genomic coordinates (0X):</td><td>12787 nt (42%)</td>
+</tr>
+<tr>
+    <td># poorly covered genomic coordinates (<10X):</td><td>16164 nt (54%)</td>
+</tr>
+<tr>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>14085 reads (99.79%) </td>
+</tr>
+<tr>
+    <td>Hits to human genome (kraken2):</td><td>0 reads (0%)</td>
+</tr>
+<tr>
+    <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>2 reads (0.01%)</td>
+</tr>
+</table>
+<br>
+<h2>Detected variants (Experimental)</h2>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_deconvolution.png" alt="Abundance of variants by deconvolution" width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_kallisto.png" alt="Abundance of variants by kallisto" width="100%">
+    </div>
+</div>
+<div id="caption">
+    <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a> 
+		is estimated to constitute 21.00% of the viral		particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.31.		Variants that were detected less than 5% were grouped under "Other"
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 		the <a href="https://outbreak.info/situation-reports?pango=wt">wt</a> lineage. 		If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 		are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 		kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=Delta"		>Delta</a> lineage. Accuracy of this measure is expected to improve if the 		input data consists of long reads as opposed to convolution.
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_allCovid.png" alt="Abundance of variants by kraken2+bracken"						width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"						width="100%">
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"						width="50%">
+    </div>
+</div>
+<br>
+<p> Under the assumption that the presence of a variant requires the detection
+    of all respective mutations of the variant, the characteric mutations which support the presence of
+    the respective variant are indicated in the respective column of the table. Numbers show the number
+    of mutations detected, if any, and the number of mutations expected to be present based on the
+    variant definitions.
+<table>
+<tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=Omicron">Omicron</a></td><td><a href="https://outbreak.info/situation-reports?pango=Beta">Beta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Gamma">Gamma</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a></td><td><a href="https://outbreak.info/situation-reports?pango=Alpha">Alpha</a></td><td><a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(1 of 87)<br>S:D614G<br></td><td>(0 of 14)<br></td><td>(0 of 16)<br></td><td>(5 of 13)<br>M:I82T<br>N:D377Y<br>N:R203M<br>ORF3A:S26L<br>S:P681R<br></td><td>(0 of 23)<br></td><td>(5 of 13)<br>M:I82T<br>N:D377Y<br>N:R203M<br>ORF3A:S26L<br>S:P681R<br></td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+    <td>VUI</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=Zeta">Zeta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=A.23.1+E484K">A.23.1+E484K</a></td><td><a href="https://outbreak.info/situation-reports?pango=Eta">Eta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Theta">Theta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(3 of 17)<br>N:D377Y<br>N:R203M<br>S:P681R<br></td><td>(0 of 7)<br></td><td>(4 of 11)<br>N:R203M<br>ORF1AB:T3646A<br>ORF3A:S26L<br>S:P681R<br></td><td>(1 of 13)<br>S:P681R<br></td><td>(1 of 16)<br>M:I82T<br></td><td>(0 of 17)<br></td><td>(1 of 19)<br>M:I82T<br></td>
+</tr>
+</table>
+<br>
+
+<h2>Detected mutations</h2>
+Only genomic coordinates with at least X coverage were considered.
+<br>
+<table>
+<tr>
+    <th>Position</th> <th>Ref. base</th> <th>Alt. base</th> <th>Alt. freq</th> <th>p-value</th> <th>Mutation name</th> <th>Compatible lineages</th>
+</tr>
+<tr>
+    <td>1578</td> <td>T</td> <td>G</td> <td>0.097</td> <td nowrap>1.15E-06</td><td>ORF1AB:V438G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1582</td> <td>T</td> <td>-GG</td> <td>0.102</td> <td nowrap>1.75E-05</td><td>DEL:1582:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1590</td> <td>G</td> <td>-T</td> <td>0.117</td> <td nowrap>2.61E-06</td><td>DEL:1590:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1594</td> <td>C</td> <td>+TT</td> <td>0.093</td> <td nowrap>5.82E-05</td><td>NUC:C1594+TT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1595</td> <td>G</td> <td>T</td> <td>0.103</td> <td nowrap>6.00E-07</td><td>ORF1AB:E444*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1596</td> <td>A</td> <td>T</td> <td>0.104</td> <td nowrap>5.37E-07</td><td>ORF1AB:E444V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1598</td> <td>G</td> <td>T</td> <td>0.104</td> <td nowrap>5.68E-07</td><td>ORF1AB:G445C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2214</td> <td>A</td> <td>G</td> <td>0.065</td> <td nowrap>2.03E-04</td><td>ORF1AB:K650R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2217</td> <td>T</td> <td>+AGG</td> <td>0.065</td> <td nowrap>2.16E-03</td><td>NUC:T2217+AGG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2218</td> <td>T</td> <td>C</td> <td>0.065</td> <td nowrap>2.03E-04</td><td>NUC:T2218C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2221</td> <td>C</td> <td>A</td> <td>0.065</td> <td nowrap>2.10E-04</td><td>NUC:C2221A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2222</td> <td>T</td> <td>G</td> <td>0.065</td> <td nowrap>2.10E-04</td><td>ORF1AB:S653A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2225</td> <td>A</td> <td>+CACCCGTC</td> <td>0.059</td> <td nowrap>3.58E-03</td><td>NUC:A2225+CACCCGTC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2228</td> <td>T</td> <td>+GACCCGGGTAA</td> <td>0.084</td> <td nowrap>4.87E-04</td><td>NUC:T2228+GACCCGGGTAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2230</td> <td>T</td> <td>C</td> <td>0.054</td> <td nowrap>4.13E-04</td><td>NUC:T2230C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2235</td> <td>G</td> <td>T</td> <td>0.059</td> <td nowrap>1.65E-04</td><td>ORF1AB:C657F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2237</td> <td>G</td> <td>T</td> <td>0.054</td> <td nowrap>3.37E-04</td><td>ORF1AB:E658*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2239</td> <td>A</td> <td>C</td> <td>0.059</td> <td nowrap>1.65E-04</td><td>ORF1AB:E658D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2242</td> <td>T</td> <td>G</td> <td>0.056</td> <td nowrap>1.45E-04</td><td>ORF1AB:I659M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2243</td> <td>G</td> <td>+T</td> <td>0.060</td> <td nowrap>3.79E-03</td><td>NUC:G2243+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2245</td> <td>C</td> <td>T</td> <td>0.060</td> <td nowrap>1.01E-04</td><td>NUC:C2245T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2246</td> <td>G</td> <td>+T</td> <td>0.060</td> <td nowrap>4.41E-03</td><td>NUC:G2246+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2267</td> <td>G</td> <td>+TCATAGCTGTTTCCTGTAATTA</td> <td>0.104</td> <td nowrap>7.08E-04</td><td>NUC:G2267+TCATAGCTGTTTCCTGTAATTA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2272</td> <td>G</td> <td>T</td> <td>0.111</td> <td nowrap>2.14E-05</td><td>ORF1AB:K669N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2275</td> <td>A</td> <td>+TCTGCATAGAC</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:A2275+TCTGCATAGAC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2279</td> <td>A</td> <td>+G</td> <td>0.104</td> <td nowrap>7.08E-04</td><td>NUC:A2279+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2282</td> <td>G</td> <td>A</td> <td>0.120</td> <td nowrap>8.88E-06</td><td>ORF1AB:E673K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2284</td> <td>G</td> <td>A</td> <td>0.104</td> <td nowrap>4.27E-05</td><td>NUC:G2284A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2287</td> <td>T</td> <td>G</td> <td>0.104</td> <td nowrap>4.51E-05</td><td>ORF1AB:S674R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2288</td> <td>G</td> <td>+GC</td> <td>0.104</td> <td nowrap>5.89E-04</td><td>NUC:G2288+GC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2292</td> <td>A</td> <td>+AGGCCAGCAGCAAC</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:A2292+AGGCCAGCAGCAAC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2294</td> <td>A</td> <td>+G</td> <td>0.104</td> <td nowrap>7.08E-04</td><td>NUC:A2294+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2296</td> <td>A</td> <td>+AAAGGTG</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:A2296+AAAGGTG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2297</td> <td>T</td> <td>+GAG</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:T2297+GAG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2298</td> <td>T</td> <td>+AAA</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:T2298+AAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2300</td> <td>T</td> <td>+G</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:T2300+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2303</td> <td>A</td> <td>+CAAACAACAAC</td> <td>0.104</td> <td nowrap>7.41E-04</td><td>NUC:A2303+CAAACAACAAC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2306</td> <td>C</td> <td>+AAG</td> <td>0.104</td> <td nowrap>6.77E-04</td><td>NUC:C2306+AAG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2310</td> <td>T</td> <td>C</td> <td>0.104</td> <td nowrap>4.26E-05</td><td>ORF1AB:V682A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2314</td> <td>T</td> <td>C</td> <td>0.104</td> <td nowrap>4.50E-05</td><td>NUC:T2314C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2318</td> <td>T</td> <td>G</td> <td>0.106</td> <td nowrap>3.79E-05</td><td>ORF1AB:F685V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2319</td> <td>T</td> <td>+GAACACC</td> <td>0.097</td> <td nowrap>1.27E-03</td><td>NUC:T2319+GAACACC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2320</td> <td>T</td> <td>C</td> <td>0.097</td> <td nowrap>8.97E-05</td><td>NUC:T2320C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2324</td> <td>G</td> <td>-CTT</td> <td>0.097</td> <td nowrap>1.27E-03</td><td>DEL:2324:3</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2328</td> <td>T</td> <td>A</td> <td>0.098</td> <td nowrap>9.43E-05</td><td>ORF1AB:L688*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2330</td> <td>T</td> <td>A</td> <td>0.106</td> <td nowrap>4.48E-05</td><td>ORF1AB:C689S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2334</td> <td>C</td> <td>+TAGT</td> <td>0.106</td> <td nowrap>7.47E-04</td><td>NUC:C2334+TAGT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2336</td> <td>G</td> <td>+CC</td> <td>0.106</td> <td nowrap>7.47E-04</td><td>NUC:G2336+CC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2337</td> <td>A</td> <td>+T</td> <td>0.106</td> <td nowrap>7.47E-04</td><td>NUC:A2337+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2340</td> <td>C</td> <td>+TTTTTGAGGGT</td> <td>0.091</td> <td nowrap>2.27E-03</td><td>NUC:C2340+TTTTTGAGGGT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2344</td> <td>C</td> <td>G</td> <td>0.106</td> <td nowrap>4.23E-05</td><td>ORF1AB:I693M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2347</td> <td>T</td> <td>-A</td> <td>0.106</td> <td nowrap>7.14E-04</td><td>DEL:2347:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2352</td> <td>G</td> <td>+AAGCGCTC</td> <td>0.098</td> <td nowrap>1.27E-03</td><td>NUC:G2352+AAGCGCTC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2354</td> <td>G</td> <td>+AAAAACAGCAA</td> <td>0.098</td> <td nowrap>1.27E-03</td><td>NUC:G2354+AAAAACAGCAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2356</td> <td>A</td> <td>+AGT</td> <td>0.098</td> <td nowrap>1.27E-03</td><td>NUC:A2356+AGT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2359</td> <td>T</td> <td>A</td> <td>0.098</td> <td nowrap>9.41E-05</td><td>NUC:T2359A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2360</td> <td>A</td> <td>+CGCC</td> <td>0.098</td> <td nowrap>1.22E-03</td><td>NUC:A2360+CGCC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2364</td> <td>T</td> <td>A</td> <td>0.098</td> <td nowrap>9.41E-05</td><td>ORF1AB:L700H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2365</td> <td>T</td> <td>A</td> <td>0.114</td> <td nowrap>2.12E-05</td><td>NUC:T2365A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2366</td> <td>A</td> <td>T</td> <td>0.098</td> <td nowrap>9.41E-05</td><td>ORF1AB:K701*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6309</td> <td>G</td> <td>+GCTCC</td> <td>0.066</td> <td nowrap>2.02E-04</td><td>NUC:G6309+GCTCC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6311</td> <td>A</td> <td>T</td> <td>0.076</td> <td nowrap>3.49E-08</td><td>ORF1AB:T2016S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6381</td> <td>T</td> <td>A</td> <td>0.909</td> <td nowrap>3.12E-05</td><td>ORF1AB:L2039H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6387</td> <td>G</td> <td>A</td> <td>0.600</td> <td nowrap>7.74E-03</td><td>ORF1AB:C2041Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6390</td> <td>A</td> <td>T</td> <td>1.000</td> <td nowrap>1.08E-05</td><td>ORF1AB:E2042V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6392</td> <td>G</td> <td>C</td> <td>1.000</td> <td nowrap>1.08E-05</td><td>ORF1AB:D2043H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7184</td> <td>A</td> <td>G</td> <td>0.400</td> <td nowrap>5.80E-03</td><td>ORF1AB:I2307V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7196</td> <td>A</td> <td>T</td> <td>0.562</td> <td nowrap>7.14E-05</td><td>ORF1AB:I2311F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7222</td> <td>T</td> <td>C</td> <td>0.346</td> <td nowrap>8.15E-04</td><td>NUC:T7222C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7223</td> <td>G</td> <td>A</td> <td>0.375</td> <td nowrap>3.98E-04</td><td>ORF1AB:A2320T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7228</td> <td>T</td> <td>C</td> <td>0.321</td> <td nowrap>7.05E-04</td><td>NUC:T7228C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7229</td> <td>G</td> <td>+A</td> <td>0.357</td> <td nowrap>1.03E-03</td><td>NUC:G7229+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7230</td> <td>G</td> <td>T</td> <td>0.357</td> <td nowrap>2.07E-04</td><td>ORF1AB:G2322V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7232</td> <td>T</td> <td>+C</td> <td>0.321</td> <td nowrap>2.61E-03</td><td>NUC:T7232+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7234</td> <td>A</td> <td>T</td> <td>0.444</td> <td nowrap>5.07E-05</td><td>ORF1AB:L2323F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7239</td> <td>C</td> <td>+T</td> <td>0.321</td> <td nowrap>1.32E-03</td><td>NUC:C7239+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7240</td> <td>A</td> <td>C</td> <td>0.321</td> <td nowrap>7.05E-04</td><td>NUC:A7240C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7241</td> <td>G</td> <td>T</td> <td>0.481</td> <td nowrap>5.24E-06</td><td>ORF1AB:E2326*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7243</td> <td>G</td> <td>T</td> <td>0.333</td> <td nowrap>2.42E-04</td><td>ORF1AB:E2326D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7244</td> <td>T</td> <td>+A</td> <td>0.321</td> <td nowrap>2.61E-03</td><td>NUC:T7244+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7245</td> <td>G</td> <td>C</td> <td>0.370</td> <td nowrap>7.87E-05</td><td>ORF1AB:W2327S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7250</td> <td>T</td> <td>G</td> <td>0.393</td> <td nowrap>3.62E-05</td><td>ORF1AB:L2329V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7251</td> <td>T</td> <td>A</td> <td>0.276</td> <td nowrap>2.60E-03</td><td>ORF1AB:L2329*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7252</td> <td>G</td> <td>A</td> <td>0.448</td> <td nowrap>1.53E-05</td><td>NUC:G7252A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7253</td> <td>G</td> <td>A</td> <td>0.448</td> <td nowrap>1.06E-05</td><td>ORF1AB:A2330T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7256</td> <td>T</td> <td>C</td> <td>0.467</td> <td nowrap>5.21E-06</td><td>ORF1AB:Y2331H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7258</td> <td>T</td> <td>+C</td> <td>0.300</td> <td nowrap>1.90E-03</td><td>NUC:T7258+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7261</td> <td>T</td> <td>A</td> <td>0.483</td> <td nowrap>7.65E-06</td><td>NUC:T7261A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7262</td> <td>C</td> <td>+AAG</td> <td>0.300</td> <td nowrap>3.36E-03</td><td>NUC:C7262+AAG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7264</td> <td>T</td> <td>+GATGAA</td> <td>0.300</td> <td nowrap>2.56E-03</td><td>NUC:T7264+GATGAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7266</td> <td>T</td> <td>+ACAACCGTCTACAACATG</td> <td>0.300</td> <td nowrap>1.36E-03</td><td>NUC:T7266+ACAACCGTCTACAACATG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7269</td> <td>C</td> <td>+A</td> <td>0.286</td> <td nowrap>1.02E-03</td><td>NUC:C7269+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7270</td> <td>T</td> <td>A</td> <td>0.206</td> <td nowrap>3.28E-03</td><td>NUC:T7270A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7272</td> <td>G</td> <td>A</td> <td>0.378</td> <td nowrap>1.27E-05</td><td>ORF1AB:R2336K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7273</td> <td>G</td> <td>C</td> <td>0.278</td> <td nowrap>1.12E-04</td><td>ORF1AB:R2336S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7275</td> <td>T</td> <td>G</td> <td>0.189</td> <td nowrap>5.67E-03</td><td>ORF1AB:F2337C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7278</td> <td>T</td> <td>C</td> <td>0.270</td> <td nowrap>1.42E-04</td><td>ORF1AB:F2338S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7279</td> <td>C</td> <td>+ATACATAATAAAATGA</td> <td>0.270</td> <td nowrap>1.33E-03</td><td>NUC:C7279+ATACATAATAAAATGA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7280</td> <td>T</td> <td>+GCAAAGAAG</td> <td>0.270</td> <td nowrap>1.02E-03</td><td>NUC:T7280+GCAAAGAAG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7286</td> <td>C</td> <td>+A</td> <td>0.289</td> <td nowrap>4.06E-04</td><td>NUC:C7286+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7289</td> <td>G</td> <td>C</td> <td>0.297</td> <td nowrap>5.52E-05</td><td>ORF1AB:G2342R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7290</td> <td>G</td> <td>T</td> <td>0.421</td> <td nowrap>2.42E-07</td><td>ORF1AB:G2342V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7291</td> <td>A</td> <td>+ACC</td> <td>0.282</td> <td nowrap>5.48E-04</td><td>NUC:A7291+ACC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7292</td> <td>T</td> <td>A</td> <td>0.316</td> <td nowrap>7.09E-05</td><td>ORF1AB:L2343M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7294</td> <td>G</td> <td>A</td> <td>0.316</td> <td nowrap>4.03E-05</td><td>NUC:G7294A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7296</td> <td>C</td> <td>A</td> <td>0.175</td> <td nowrap>2.71E-03</td><td>ORF1AB:A2344D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7298</td> <td>G</td> <td>A</td> <td>0.280</td> <td nowrap>1.00E-05</td><td>ORF1AB:A2345T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7526</td> <td>G</td> <td>+A</td> <td>0.121</td> <td nowrap>5.42E-66</td><td>NUC:G7526+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7531</td> <td>A</td> <td>+AGTTGGT</td> <td>0.098</td> <td nowrap>2.49E-51</td><td>NUC:A7531+AGTTGGT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7534</td> <td>T</td> <td>G</td> <td>0.111</td> <td nowrap>2.88E-99</td><td>ORF1AB:C2423W</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7535</td> <td>A</td> <td>T</td> <td>0.108</td> <td nowrap>3.84E-95</td><td>ORF1AB:T2424S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8355</td> <td>G</td> <td>T</td> <td>0.146</td> <td nowrap>6.04E-136</td><td>ORF1AB:R2697L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8356</td> <td>T</td> <td>G</td> <td>0.174</td> <td nowrap>2.39E-164</td><td>NUC:T8356G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8360</td> <td>A</td> <td>G</td> <td>0.151</td> <td nowrap>1.06E-141</td><td>ORF1AB:I2699V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8362</td> <td>T</td> <td>C</td> <td>0.159</td> <td nowrap>3.44E-149</td><td>NUC:T8362C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8777</td> <td>T</td> <td>G</td> <td>0.240</td> <td nowrap>5.79E-03</td><td>ORF1AB:F2838V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8787</td> <td>G</td> <td>A</td> <td>0.471</td> <td nowrap>3.00E-04</td><td>ORF1AB:R2841H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8789</td> <td>G</td> <td>T</td> <td>0.438</td> <td nowrap>4.35E-03</td><td>ORF1AB:G2842C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8790</td> <td>G</td> <td>T</td> <td>0.312</td> <td nowrap>9.81E-03</td><td>ORF1AB:G2842V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8811</td> <td>A</td> <td>T</td> <td>0.500</td> <td nowrap>3.87E-03</td><td>ORF1AB:K2849I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8818</td> <td>C</td> <td>T</td> <td>0.500</td> <td nowrap>6.19E-03</td><td>NUC:C8818T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11201</td> <td>A</td> <td>G</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>ORF1AB:T3646A</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a>, <a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a></td>
+</tr>
+<tr>
+    <td>11332</td> <td>A</td> <td>G</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>NUC:A11332G</td> <td><a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a></td>
+</tr>
+<tr>
+    <td>11393</td> <td>A</td> <td>+T</td> <td>0.243</td> <td nowrap>7.20E-113</td><td>NUC:A11393+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11394</td> <td>C</td> <td>G</td> <td>0.246</td> <td nowrap>8.50E-174</td><td>ORF1AB:T3710R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11395</td> <td>A</td> <td>G</td> <td>0.123</td> <td nowrap>5.45E-83</td><td>NUC:A11395G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11396</td> <td>C</td> <td>A</td> <td>0.111</td> <td nowrap>2.01E-74</td><td>ORF1AB:L3711I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11397</td> <td>T</td> <td>G</td> <td>0.132</td> <td nowrap>5.33E-91</td><td>ORF1AB:L3711R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11399</td> <td>A</td> <td>G</td> <td>0.105</td> <td nowrap>3.26E-70</td><td>ORF1AB:M3712V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11401</td> <td>G</td> <td>C</td> <td>0.102</td> <td nowrap>2.67E-67</td><td>ORF1AB:M3712I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11402</td> <td>A</td> <td>+C</td> <td>0.083</td> <td nowrap>1.54E-30</td><td>NUC:A11402+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11403</td> <td>A</td> <td>C</td> <td>0.084</td> <td nowrap>1.08E-55</td><td>ORF1AB:N3713T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11405</td> <td>G</td> <td>C</td> <td>0.098</td> <td nowrap>3.28E-65</td><td>ORF1AB:V3714L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11406</td> <td>T</td> <td>+G</td> <td>0.312</td> <td nowrap>7.76E-132</td><td>NUC:T11406+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11408</td> <td>T</td> <td>+A</td> <td>0.344</td> <td nowrap>1.56E-132</td><td>NUC:T11408+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11411</td> <td>A</td> <td>+GG</td> <td>0.309</td> <td nowrap>6.98E-114</td><td>NUC:A11411+GG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11415</td> <td>T</td> <td>C</td> <td>0.053</td> <td nowrap>6.07E-35</td><td>ORF1AB:L3717P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12165</td> <td>C</td> <td>A</td> <td>0.198</td> <td nowrap>6.35E-78</td><td>ORF1AB:A3967D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12166</td> <td>T</td> <td>A</td> <td>0.198</td> <td nowrap>4.22E-77</td><td>NUC:T12166A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12168</td> <td>T</td> <td>+G</td> <td>0.197</td> <td nowrap>1.16E-51</td><td>NUC:T12168+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12170</td> <td>G</td> <td>+AC</td> <td>0.196</td> <td nowrap>1.24E-51</td><td>NUC:G12170+AC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12172</td> <td>T</td> <td>+TCAAA</td> <td>0.196</td> <td nowrap>2.81E-51</td><td>NUC:T12172+TCAAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12173</td> <td>A</td> <td>+TT</td> <td>0.196</td> <td nowrap>1.04E-51</td><td>NUC:A12173+TT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12473</td> <td>C</td> <td>+G</td> <td>0.193</td> <td nowrap>1.41E-38</td><td>NUC:C12473+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12478</td> <td>G</td> <td>+CGGGGTAAAAAATCTGACGATGCT</td> <td>0.182</td> <td nowrap>5.91E-36</td><td>NUC:G12478+CGGGGTAAAAAATCTGACGATGCT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12480</td> <td>T</td> <td>+TG</td> <td>0.173</td> <td nowrap>3.98E-34</td><td>NUC:T12480+TG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12484</td> <td>C</td> <td>G</td> <td>0.183</td> <td nowrap>8.00E-55</td><td>NUC:C12484G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12485</td> <td>A</td> <td>T</td> <td>0.179</td> <td nowrap>5.29E-53</td><td>ORF1AB:I4074L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14408</td> <td>C</td> <td>T</td> <td>1.000</td> <td nowrap>2.15E-86</td><td>ORF1AB:P314L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16618</td> <td>G</td> <td>C</td> <td>0.750</td> <td nowrap>6.17E-07</td><td>ORF1AB:E1051Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16621</td> <td>A</td> <td>T</td> <td>0.810</td> <td nowrap>7.52E-09</td><td>ORF1AB:R1052*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16622</td> <td>G</td> <td>C</td> <td>0.682</td> <td nowrap>5.50E-07</td><td>ORF1AB:R1052T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16623</td> <td>A</td> <td>+TGCAATTGTTTTTCAG</td> <td>0.652</td> <td nowrap>1.14E-04</td><td>NUC:A16623+TGCAATTGTTTTTCAG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16624</td> <td>C</td> <td>+TATTTT</td> <td>0.625</td> <td nowrap>1.09E-04</td><td>NUC:C16624+TATTTT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16645</td> <td>A</td> <td>C</td> <td>0.602</td> <td nowrap>1.14E-27</td><td>ORF1AB:T1060P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16646</td> <td>C</td> <td>+CAT</td> <td>0.589</td> <td nowrap>3.74E-16</td><td>NUC:C16646+CAT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16650</td> <td>C</td> <td>T</td> <td>0.627</td> <td nowrap>9.79E-30</td><td>NUC:C16650T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16651</td> <td>A</td> <td>C</td> <td>0.583</td> <td nowrap>5.07E-27</td><td>ORF1AB:K1062Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16653</td> <td>A</td> <td>G</td> <td>0.593</td> <td nowrap>1.71E-27</td><td>NUC:A16653G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16654</td> <td>G</td> <td>T</td> <td>0.586</td> <td nowrap>3.39E-28</td><td>ORF1AB:A1063S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16656</td> <td>T</td> <td>A</td> <td>0.593</td> <td nowrap>2.23E-28</td><td>NUC:T16656A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16657</td> <td>A</td> <td>G</td> <td>0.573</td> <td nowrap>1.05E-27</td><td>ORF1AB:T1064A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16662</td> <td>G</td> <td>T</td> <td>0.562</td> <td nowrap>1.13E-27</td><td>ORF1AB:E1065D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16663</td> <td>G</td> <td>-A</td> <td>0.549</td> <td nowrap>1.19E-16</td><td>DEL:16663:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16664</td> <td>A</td> <td>T</td> <td>0.067</td> <td nowrap>9.23E-03</td><td>ORF1AB:E1066V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16665</td> <td>G</td> <td>C</td> <td>0.547</td> <td nowrap>9.15E-28</td><td>ORF1AB:E1066D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16667</td> <td>C</td> <td>A</td> <td>0.054</td> <td nowrap>6.80E-03</td><td>ORF1AB:T1067K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16668</td> <td>A</td> <td>+ATCGTT</td> <td>0.489</td> <td nowrap>4.61E-16</td><td>NUC:A16668+ATCGTT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16670</td> <td>T</td> <td>G</td> <td>0.052</td> <td nowrap>6.64E-03</td><td>ORF1AB:F1068C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16671</td> <td>T</td> <td>C</td> <td>0.100</td> <td nowrap>6.15E-05</td><td>NUC:T16671C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16675</td> <td>C</td> <td>+GGGTTTGCGGTGTAAG</td> <td>0.449</td> <td nowrap>2.00E-16</td><td>NUC:C16675+GGGTTTGCGGTGTAAG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16676</td> <td>T</td> <td>+GCAGCCC</td> <td>0.409</td> <td nowrap>2.01E-16</td><td>NUC:T16676+GCAGCCC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16678</td> <td>T</td> <td>G</td> <td>0.080</td> <td nowrap>7.06E-05</td><td>ORF1AB:S1071A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16679</td> <td>C</td> <td>A</td> <td>0.079</td> <td nowrap>6.19E-05</td><td>ORF1AB:S1071Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16681</td> <td>T</td> <td>G</td> <td>0.132</td> <td nowrap>3.49E-08</td><td>ORF1AB:Y1072D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16683</td> <td>T</td> <td>A</td> <td>0.081</td> <td nowrap>2.13E-11</td><td>ORF1AB:Y1072*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16685</td> <td>G</td> <td>A</td> <td>0.400</td> <td nowrap>1.94E-78</td><td>ORF1AB:G1073D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16686</td> <td>T</td> <td>G</td> <td>0.730</td> <td nowrap>0.00E+00</td><td>NUC:T16686G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16687</td> <td>A</td> <td>G</td> <td>0.076</td> <td nowrap>2.47E-46</td><td>ORF1AB:I1074V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16688</td> <td>T</td> <td>G</td> <td>0.127</td> <td nowrap>2.48E-121</td><td>ORF1AB:I1074S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16689</td> <td>T</td> <td>A</td> <td>0.398</td> <td nowrap>2.23E-284</td><td>NUC:T16689A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16690</td> <td>G</td> <td>T</td> <td>0.098</td> <td nowrap>2.40E-64</td><td>ORF1AB:A1075S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16691</td> <td>C</td> <td>G</td> <td>0.375</td> <td nowrap>1.59E-267</td><td>ORF1AB:A1075G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16692</td> <td>T</td> <td>C</td> <td>0.409</td> <td nowrap>0.00E+00</td><td>NUC:T16692C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16693</td> <td>A</td> <td>+TTCC</td> <td>0.094</td> <td nowrap>5.95E-37</td><td>NUC:A16693+TTCC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16695</td> <td>T</td> <td>A</td> <td>0.292</td> <td nowrap>2.96E-206</td><td>NUC:T16695A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16696</td> <td>G</td> <td>A</td> <td>0.266</td> <td nowrap>1.03E-186</td><td>ORF1AB:V1077I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16697</td> <td>T</td> <td>C</td> <td>0.418</td> <td nowrap>0.00E+00</td><td>ORF1AB:V1077A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16699</td> <td>C</td> <td>G</td> <td>0.105</td> <td nowrap>3.54E-70</td><td>ORF1AB:R1078G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17122</td> <td>G</td> <td>T</td> <td>0.357</td> <td nowrap>7.67E-267</td><td>ORF1AB:A1219S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17649</td> <td>C</td> <td>+CATG</td> <td>0.086</td> <td nowrap>7.64E-03</td><td>NUC:C17649+CATG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17651</td> <td>T</td> <td>+CA</td> <td>0.086</td> <td nowrap>7.64E-03</td><td>NUC:T17651+CA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17655</td> <td>A</td> <td>+GT</td> <td>0.086</td> <td nowrap>7.37E-03</td><td>NUC:A17655+GT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17656</td> <td>A</td> <td>C</td> <td>0.088</td> <td nowrap>7.25E-04</td><td>ORF1AB:M1397L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17660</td> <td>T</td> <td>G</td> <td>0.086</td> <td nowrap>8.34E-04</td><td>ORF1AB:F1398C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17663</td> <td>A</td> <td>G</td> <td>0.086</td> <td nowrap>8.34E-04</td><td>ORF1AB:Y1399C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18616</td> <td>A</td> <td>+CGCGCAGGGAATGGAT</td> <td>0.055</td> <td nowrap>6.63E-03</td><td>NUC:A18616+CGCGCAGGGAATGGAT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18617</td> <td>C</td> <td>A</td> <td>0.056</td> <td nowrap>8.35E-04</td><td>ORF1AB:T1717K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20648</td> <td>C</td> <td>T</td> <td>0.073</td> <td nowrap>3.29E-03</td><td>ORF1AB:P2394L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20650</td> <td>A</td> <td>C</td> <td>0.347</td> <td nowrap>7.44E-22</td><td>ORF1AB:K2395Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20652</td> <td>A</td> <td>G</td> <td>0.329</td> <td nowrap>1.32E-24</td><td>NUC:A20652G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20654</td> <td>T</td> <td>G</td> <td>0.479</td> <td nowrap>5.90E-39</td><td>ORF1AB:L2396*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20657</td> <td>A</td> <td>C</td> <td>0.118</td> <td nowrap>1.00E-08</td><td>ORF1AB:Q2397P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20659</td> <td>T</td> <td>C</td> <td>0.120</td> <td nowrap>7.66E-09</td><td>ORF1AB:S2398P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20660</td> <td>C</td> <td>A</td> <td>0.185</td> <td nowrap>1.18E-12</td><td>ORF1AB:S2398Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20662</td> <td>A</td> <td>T</td> <td>0.305</td> <td nowrap>2.43E-26</td><td>ORF1AB:S2399C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20664</td> <td>T</td> <td>+CCAC</td> <td>0.276</td> <td nowrap>9.11E-17</td><td>NUC:T20664+CCAC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20667</td> <td>A</td> <td>+C</td> <td>0.106</td> <td nowrap>6.80E-06</td><td>NUC:A20667+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20668</td> <td>G</td> <td>A</td> <td>0.304</td> <td nowrap>6.99E-24</td><td>ORF1AB:A2401T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20670</td> <td>G</td> <td>T</td> <td>0.059</td> <td nowrap>4.57E-05</td><td>NUC:G20670T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20672</td> <td>G</td> <td>T</td> <td>0.051</td> <td nowrap>1.81E-04</td><td>ORF1AB:W2402L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20673</td> <td>G</td> <td>T</td> <td>0.091</td> <td nowrap>1.57E-08</td><td>ORF1AB:W2402C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20675</td> <td>A</td> <td>+GC</td> <td>0.127</td> <td nowrap>1.29E-07</td><td>NUC:A20675+GC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20676</td> <td>A</td> <td>+GGG</td> <td>0.279</td> <td nowrap>5.22E-17</td><td>NUC:A20676+GGG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20677</td> <td>C</td> <td>A</td> <td>0.282</td> <td nowrap>5.81E-24</td><td>ORF1AB:P2404T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21560</td> <td>A</td> <td>+CCTCCCTCAGTCAGCACC</td> <td>0.323</td> <td nowrap>2.14E-03</td><td>NUC:A21560+CCTCCCTCAGTCAGCACC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21561</td> <td>C</td> <td>T</td> <td>0.323</td> <td nowrap>4.92E-04</td><td>NUC:C21561T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21562</td> <td>A</td> <td>C</td> <td>0.355</td> <td nowrap>1.59E-04</td><td>NUC:A21562C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21565</td> <td>G</td> <td>C</td> <td>0.450</td> <td nowrap>7.93E-04</td><td>S:M1I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23403</td> <td>A</td> <td>G</td> <td>0.996</td> <td nowrap>8.69E-156</td><td>S:D614G</td> <td><a href="https://outbreak.info/situation-reports?pango=Omicron">Omicron</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Lambda">Lambda</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Iota">Iota</a>, <a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=Mu">Mu</a></td>
+</tr>
+<tr>
+    <td>23546</td> <td>T</td> <td>G</td> <td>0.100</td> <td nowrap>8.30E-06</td><td>S:C662G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23548</td> <td>T</td> <td>+AGCAAAAA</td> <td>0.742</td> <td nowrap>2.79E-42</td><td>NUC:T23548+AGCAAAAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23550</td> <td>A</td> <td>T</td> <td>0.769</td> <td nowrap>2.01E-85</td><td>S:D663V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23604</td> <td>C</td> <td>G</td> <td>0.978</td> <td nowrap>8.67E-25</td><td>S:P681R</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=A.23.1+E484K">A.23.1+E484K</a>, <a href="https://outbreak.info/situation-reports?pango=A.23.1">A.23.1</a>, <a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td>
+</tr>
+<tr>
+    <td>23630</td> <td>C</td> <td>-A</td> <td>0.455</td> <td nowrap>8.20E-06</td><td>DEL:23630:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23636</td> <td>A</td> <td>+CACTC</td> <td>0.850</td> <td nowrap>1.62E-04</td><td>NUC:A23636+CACTC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23639</td> <td>A</td> <td>C</td> <td>0.900</td> <td nowrap>3.05E-09</td><td>S:I693L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23641</td> <td>T</td> <td>A</td> <td>0.850</td> <td nowrap>1.13E-09</td><td>NUC:T23641A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23642</td> <td>G</td> <td>+CA</td> <td>0.700</td> <td nowrap>2.83E-04</td><td>NUC:G23642+CA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23644</td> <td>C</td> <td>+A</td> <td>0.700</td> <td nowrap>5.79E-04</td><td>NUC:C23644+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23647</td> <td>C</td> <td>+TGGCCGTCGTTTT</td> <td>0.737</td> <td nowrap>3.02E-04</td><td>NUC:C23647+TGGCCGTCGTTTT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23650</td> <td>T</td> <td>G</td> <td>0.737</td> <td nowrap>2.93E-07</td><td>NUC:T23650G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23652</td> <td>T</td> <td>G</td> <td>0.789</td> <td nowrap>1.47E-07</td><td>S:M697R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23656</td> <td>A</td> <td>G</td> <td>0.158</td> <td nowrap>2.60E-03</td><td>NUC:A23656G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23658</td> <td>T</td> <td>C</td> <td>0.778</td> <td nowrap>8.06E-07</td><td>S:L699P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23659</td> <td>T</td> <td>+GCGG</td> <td>0.789</td> <td nowrap>4.14E-04</td><td>NUC:T23659+GCGG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23663</td> <td>G</td> <td>+TTC</td> <td>1.000</td> <td nowrap>1.40E-04</td><td>NUC:G23663+TTC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23667</td> <td>A</td> <td>+GGTTATAAGTATC</td> <td>0.833</td> <td nowrap>4.61E-04</td><td>NUC:A23667+GGTTATAAGTATC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23673</td> <td>C</td> <td>G</td> <td>0.833</td> <td nowrap>7.33E-08</td><td>S:S704*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23674</td> <td>A</td> <td>T</td> <td>0.882</td> <td nowrap>1.31E-07</td><td>NUC:A23674T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24715</td> <td>C</td> <td>T</td> <td>0.600</td> <td nowrap>7.74E-03</td><td>NUC:C24715T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>25469</td> <td>C</td> <td>T</td> <td>1.000</td> <td nowrap>1.08E-05</td><td>ORF3A:S26L</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td>
+</tr>
+<tr>
+    <td>26767</td> <td>T</td> <td>C</td> <td>1.000</td> <td nowrap>1.29E-08</td><td>M:I82T</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=Eta">Eta</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a>, <a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td>
+</tr>
+<tr>
+    <td>26917</td> <td>C</td> <td>T</td> <td>1.000</td> <td nowrap>4.99E-08</td><td>M:P132L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28693</td> <td>T</td> <td>C</td> <td>0.704</td> <td nowrap>1.56E-31</td><td>NUC:T28693C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28694</td> <td>A</td> <td>+CTGACAC</td> <td>0.616</td> <td nowrap>3.02E-16</td><td>NUC:A28694+CTGACAC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28705</td> <td>T</td> <td>A</td> <td>0.213</td> <td nowrap>8.10E-10</td><td>N:D144E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28706</td> <td>C</td> <td>G</td> <td>0.221</td> <td nowrap>1.73E-10</td><td>N:H145D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28707</td> <td>A</td> <td>T</td> <td>0.221</td> <td nowrap>1.16E-10</td><td>N:H145L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28710</td> <td>T</td> <td>+CCAATTTGA</td> <td>0.221</td> <td nowrap>7.69E-08</td><td>NUC:T28710+CCAATTTGA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28881</td> <td>G</td> <td>T</td> <td>0.993</td> <td nowrap>2.42E-80</td><td>N:R203M</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td>
+</tr>
+<tr>
+    <td>28916</td> <td>G</td> <td>T</td> <td>1.000</td> <td nowrap>2.16E-83</td><td>N:G215C</td> <td><a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a></td>
+</tr>
+<tr>
+    <td>28963</td> <td>T</td> <td>+AG</td> <td>0.086</td> <td nowrap>1.49E-04</td><td>NUC:T28963+AG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28966</td> <td>G</td> <td>T</td> <td>0.096</td> <td nowrap>1.72E-06</td><td>N:E231D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28972</td> <td>A</td> <td>C</td> <td>0.162</td> <td nowrap>4.07E-11</td><td>N:K233N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28973</td> <td>A</td> <td>+CCCGC</td> <td>0.084</td> <td nowrap>3.36E-04</td><td>NUC:A28973+CCCGC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28975</td> <td>G</td> <td>+CACGAGCT</td> <td>0.076</td> <td nowrap>4.60E-04</td><td>NUC:G28975+CACGAGCT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28976</td> <td>T</td> <td>+CATCCAATTTGATGGCAC</td> <td>0.085</td> <td nowrap>1.49E-04</td><td>NUC:T28976+CATCCAATTTGATGGCAC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28978</td> <td>T</td> <td>+TTACGCAGTTG</td> <td>0.076</td> <td nowrap>4.60E-04</td><td>NUC:T28978+TTACGCAGTTG</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28979</td> <td>G</td> <td>+T</td> <td>0.087</td> <td nowrap>8.08E-05</td><td>NUC:G28979+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28985</td> <td>G</td> <td>+GTGTGACTTCCATTCCCTGCGCGTC</td> <td>0.076</td> <td nowrap>1.65E-04</td><td>NUC:G28985+GTGTGACTTCCATTCCCTGCGCGTC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29402</td> <td>G</td> <td>T</td> <td>1.000</td> <td nowrap>3.01E-25</td><td>N:D377Y</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td>
+</tr>
+<tr>
+    <td>29742</td> <td>G</td> <td>T</td> <td>1.000</td> <td nowrap>3.01E-25</td><td>NUC:G29742T</td> <td><a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a></td>
+</tr>
+</table>
+<br>
+
+<h2>Software configuration</h2>
+Minimap2: 2.22-r1101
+samtools 1.13 Using htslib 1.13, 
+iVar version 1.3.1, 
+Kraken version 2.1.2, 
+kallisto, version 0.46.2.
+Lineage definitions were compiled on 2021-12-17 from <a href="https://github.com/cov-lineages/constellations/tree/main/constellations/definitions">constellations</a>.
+Lineage signature file was compiled on 2021-12-17 and includes lineages: A.23.1, A.23.1+E484K, AV1, AY.4, AY.4.2, Alpha, B.1.1.318, B.1.1.7+E484K, B.1.617.1, B.1.617.2+K417N, B.1.617.3, Beta, Delta, Epsilon, Eta, Gamma, Iota, Lambda, Mu, Omicron, Theta, Zeta, wt.
+Lineage assignment to the consensus sequence was performed by pangolin 3.1.17 using the classification tree of pangoLEARN 2021-12-06.
+
+</body>
+</html>

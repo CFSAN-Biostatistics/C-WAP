@@ -12,7 +12,6 @@ infilename = sys.argv[1]
 # Import the pre-processed variant definitions from file
 with open(infilename, 'rb') as file:
     uniqueVarNames = pickle.load(file)
-    
     # These can be skipped as unneeded
     # uniqueMutationLabels = pickle.load(file)
     # var2mut = pickle.load(file)
@@ -21,10 +20,7 @@ with open(infilename, 'rb') as file:
     # pos2gene = pickle.load(file)
     # gene2pos = pickle.load(file)
     # sigMutationMatrix = pickle.load(file)
-    
+
 
 # Print a concise list of variants available among the pickled definitions
 print('%s' % ', '.join(uniqueVarNames))
-
-
-
