@@ -47,14 +47,6 @@ Download and save
 The driver script is `startWorkflow.sh` and a standard execution with paired end illumina reads would be:  
 `startWorkflow.sh -f sample1_R1.txt -r sample2_R2.fastq -o outputDir`
 
-Additionally, the `test` directory includes an example with PacBio data.  To run:
-
-`cd test`  
-
-`./runTest.sh`
-
-This will invoke the following command `../startWorkflow.sh -s ./test.fastq.gz -o ./testOutput -b ../covidRefSequences/varskipShort.bed`  
-
 ### Output
 
 C-WAP produces a number of files from the various processing steps.  

@@ -26,26 +26,43 @@ tr:nth-child(even) {
 }
 
 
-div {
-	width: 100%;
-	display: flex;
-	align-items: center;
-    justify-content:center;
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 50%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
 }
-#figdiv {
-	display:inline-block;
-	width: 100%;
-}
-#caption {
-	display:inline-block;
-	width: 95%;
-	background-color: #CCE4F1;
-	border-left: 1em solid #007CBA;
-	padding-left: 1em;
-	padding-right: 1em;
-	margin-left: 0;
-	text-align: justify;
-}
+
 
 
 @media print {
@@ -61,21 +78,26 @@ div {
 		background-size: 30%;
 		background-position: 5em 0em;
 	}
-}
-
-@media screen {
-	body {
-		margin-top: 3em;
-		margin-bottom: 7em;
-		margin-left: 10em;
-		margin-right: 10em;
-		
-		font-family:sans-serif;
-		background-color: #F0F0F0;
-		background-image: url('https://www.fda.gov/media/99813/download');
-		background-repeat: no-repeat;
-		background-size: 20%;
-		background-position: 11em 2em;
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 49%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
 	}
 }
 

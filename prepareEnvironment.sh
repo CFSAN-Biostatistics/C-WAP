@@ -19,10 +19,13 @@ module load edirect
 
 
 echo Loading conda modules...
-condaBin=/projects/covidtrakr/software/miniconda3/bin/
+#condaBin=/projects/covidtrakr/software/miniconda3/bin/
+condaBin=~/scratch/software/miniconda3/bin/
+
 export PATH=$PATH:$condaBin
 
-pangolinDir=/projects/covidtrakr/software/miniconda3/envs/pangolin/bin
+#pangolinDir=/projects/covidtrakr/software/miniconda3/envs/pangolin/bin
+pangolinDir=~/scratch/software/miniconda3/envs/pangolin/bin
 export PATH=$PATH:$pangolinDir
 
 
@@ -31,20 +34,22 @@ export PATH=$PATH:$pangolinDir
 freyja () {
 	originalPath=$PYTHONPATH
 	unset PYTHONPATH
-	/projects/covidtrakr/software/miniconda3/envs/freyja-env/bin/freyja $@
+#	/projects/covidtrakr/software/miniconda3/envs/freyja-env/bin/freyja $@
+	~/scratch/software/miniconda3/envs/freyja-env/bin/freyja $@
 	export PYTHONPATH=$originalPath
 }
 export -f freyja
 
 
-if ! command -v ./wkhtmltopdf; then
+if ! command -v wkhtmltopdf; then
 	echo ERROR: wkhtmltopdf does not exist.
 	echo Hint: You can download from: "https://wkhtmltopdf.org/downloads.html"
 	exit 1
 fi
 
 
-export organisation=@fda.hhs.gov
+export organisation=fda.hhs.gov
+
 
 echo The environment is set
 

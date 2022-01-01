@@ -41,8 +41,7 @@ pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427'
                 'B.1.525': 'Eta', 'B.1.526': 'Iota', 'B.1.617.1': 'Kappa', 'B.1.621': 'Mu', 'B.1.621.1': 'Mu',
                 'P.2': 'Zeta', 'B.1.617.3': 'B.1.617.3', 'B.1.617.2': 'Delta', 'AY': 'Delta',
                 'B.1.1.529': 'Omicron', 'BA.1': 'Omicron', 'BA.2': 'Omicron', 'wt': 'wt', 'wt-wuhan': 'wt',
-                'A.21': 'Bat', 'other': 'Other', 'A': 'Other'}
-# 'B':'wt',
+                'A.21': 'Bat', 'other': 'Other', 'A': 'wt'}
 
 
 # Convert each variant to a WHO-compatible name, if one exists
@@ -167,13 +166,18 @@ with open(outputDirectory + '/kallisto.out', 'w') as outfile:
 def importBrackenOutput(brackenFilename):
     brackenHits = {}
     with open(brackenFilename, 'r') as infile:
+        # If there were no reads that are variant specific, bracken generates
+        # an empty file output, even no header to skip. 
+        
         reader = csv.reader(infile, delimiter="\t")
-        next(reader)  # Skip the header (root)
-        next(reader)  # Skip the header (covid)
         for row in reader:
             pctHits = float(row[0])
             varDispName = getDisplayName(row[5]).strip()
-            brackenHits[varDispName] = pctHits
+            
+            # Skip the header if column2 is either root or covid.
+            if varDispName not in ['root', 'covid']:
+                brackenHits[varDispName] = pctHits
+            
     return brackenHits
 
 

@@ -115,9 +115,8 @@ samtools mpileup -aa -A -d 10000 -B -Q 0 --reference $referenceSequence -o $outD
 
 
 echo Calling variants...
-minDepthThreshold=10
 cat $outDir/pile.up | ivar variants -p $outDir/rawVarCalls -g ./covidRefSequences/covidGenomeAnnotation-NCBI.gff \
-	-r $referenceSequence -m $minDepthThreshold
+	-r $referenceSequence -m 10
 
 
 

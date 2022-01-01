@@ -64,7 +64,7 @@ useHPC=false
 
 while getopts ":hqgpnf:r:s:o:w:b:" option; do
 	if [ "$option" == ":" ]; then
-	echo "Missing argument for option -- '$OPTARG'"
+		echo "Missing argument for option -- '$OPTARG'"
 		echo
 		usageshort
 		exit 1
@@ -251,8 +251,7 @@ fi
 
 # Set the environment by loading necessary modules, conda packages etc.
 # This is system specific, please adjust the provided script according to your own setup.
-source ./prepareEnvironment.sh
-
+# source ./prepareEnvironment.sh
 
 # Check whether the system is an HPC controlled via SLURM
 if $useHPC; then
@@ -262,16 +261,19 @@ if $useHPC; then
 	# export TMPDIR=$outDir
 
 	echo Executing in SLURM mode, submitting job
-	jobID=$(sbatch --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log \
+	jobID=$(sbatch -p test --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log \
 		./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly \
 		$platform $sampleName $R1filename $R2filename $singlefilename)
 	
-	jobID2=$(sbatch --parsable -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
-		./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName \
+	jobID2=$(sbatch -p test --parsable -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
+		--kill-on-invalid-dep=yes ./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName \
 		$R1filename $R2filename $singlefilename)
-
-	sbatch -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID2 -o $outDir/printing.log \
-		./html2pdf.sh $outDir $sampleName
+	
+	#sbatch -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID2 -o $outDir/printing.log \
+	#	./html2pdf.sh $outDir $sampleName
+	
+	echo All jobs submitted. Job IDs:
+	echo $jobID $jobID2
 else
 	# Ordinary desktop (or another scheduler). Execute the job as is.
 	echo Executing in desktop mode
@@ -280,9 +282,9 @@ else
 	./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName $R1filename $R2filename \
 		$singlefilename | tee $outDir/reporting.log
 	./html2pdf.sh $outDir $sampleName
+
+	echo "All done!"
+	exit 0
 fi
 
-
-echo "(Well) done!"
-exit 0
 
