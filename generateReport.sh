@@ -37,19 +37,19 @@ if [[ ${srrNumber:0:3} == 'SRR' ]]; then
 	# The tool returns error: too many requests, bypassing by redirection of error
 	sraQueryResult=$(esearch -db sra -query $srrNumber 2>/dev/null)
 	if echo $sraQueryResult | grep -q "<Count>1</Count>"; then
+		# Get runinfo from SRA
 		echo Downloading and parsing metadata for $srrNumber...	
-		
-		# Get runinfo
+		echo "$sraQueryResult" | efetch --format runinfo
 		SRRmetadata=`echo "$sraQueryResult" | efetch --format runinfo 2>/dev/null | grep $srrNumber`
+		echo 000 $SRRmetadata
 		
 		libraryProtocol=`echo $SRRmetadata | awk -F ',' '{print $13}'`
 		seqInstrument=`echo $SRRmetadata | awk -F ',' '{print $20}'`
 		isolate=`echo $SRRmetadata  | awk -F ',' '{print $30}'`	
 		
-		# Get biosample number
-		SAMN=`echo $SRRmetadata | awk -F ',' '{print $26}'`
-
 		# Get metadata out of biosample db
+		echo Fetching biosample data
+		SAMN=`echo $SRRmetadata | awk -F ',' '{print $26}'`
 		SAMNmetadata=`efetch -db biosample -id $SAMN 2>/dev/null`
 		
 		collectionDate=`echo "$SAMNmetadata" | grep "collection date" | awk -F '"' '{print $2}'`
@@ -81,10 +81,12 @@ fi
 
 #######################################################
 # Prepare an html report. The html file header and standard page banner are copied from a stored file for simplicity.
+echo Preparing html headers...
 reportFile=$outDir/report/report.html
 mkdir $outDir/report
 mv $outDir/*.png $outDir/report/
 cp ./htmlHeader.html $reportFile
+
 
 
 #######################################################

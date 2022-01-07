@@ -96,15 +96,14 @@ samtools sort $outDir/aligned.bam -o $outDir/sorted.bam -@ $numThreads -m ${memP
 rm $outDir/aligned.sam $outDir/aligned.bam
 
 
-# TODO: fix the fragmented/unfragmented library prep issue
+# TODO: Somehow fix the fragmented/unfragmented library prep issue
+# Consider passing "- e" if fragmented
 echo Starting adaptor trimming...
 if [[ $platform == ONT ]]; then
 	# Nanopore has a much lower read quality, so the quality trimming should be much more lax.
-	ivar trim -b $primerBedFile -p $outDir/trimmed -i $outDir/sorted.bam -q 1
+	ivar trim -e -b $primerBedFile -p $outDir/trimmed -i $outDir/sorted.bam -q 1
 else
-	# ivar trim -b $primerBedFile -p $outDir/trimmed -i $outDir/sorted.bam
-	# Pass "- e" if fragmented
-	cp $outDir/sorted.bam $outDir/trimmed.bam
+	ivar trim -e -b $primerBedFile -p $outDir/trimmed -i $outDir/sorted.bam
 fi
 samtools sort $outDir/trimmed.bam -o $outDir/resorted.bam -@ $numThreads -m ${memPerThread}G
 rm $outDir/trimmed.bam

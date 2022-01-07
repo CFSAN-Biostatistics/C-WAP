@@ -34,6 +34,18 @@ with open(pileupFilename) as infile:
             quality[pos] = np.mean([ord(letter) for letter in row[5]]) - 33
 
 
+# Calculate moving averages to smooth out patterns
+window=1000
+
+qualityMA = np.convolve(quality, np.ones(window)/window, 'same')
+qualityMA[0:window] = np.nan
+qualityMA[-window:] = np.nan
+
+readDepthMA = np.convolve(readDepth, np.ones(window)/window, 'same')
+readDepthMA[0:window] = np.nan
+readDepthMA[-window:] = np.nan
+
+
 # Import the list of uncovered genome regions due to kit design
 gapStart = np.empty(GENOME_SIZE)
 gapEnd = np.empty(GENOME_SIZE)
@@ -57,6 +69,8 @@ plt.rcParams.update({'font.size': 14})
 
 plt.plot(posIdx, quality, '.', color=FDAblue)
 plt.plot(posIdx[quality < 30], quality[quality < 30], '.', color='k')
+plt.plot(posIdx, qualityMA, '-', color='m')
+
 
 plt.xlabel('Genome position (kb)')
 plt.ylabel('Average read quality')
@@ -106,17 +120,21 @@ plt.savefig(outputDirectory + '/qualityHistogram.png', dpi=200)
 plt.close()
 
 
+
 #################################################################
-# Generate a plot for sequence coverage vs pos and save in a file
-# If coverage is too high, scale the axes for better view
-if np.mean(readDepth) > 500:
-    plt.plot(posIdx, readDepth/1000, '.', color=FDAblue)
-    plt.plot(posIdx[readDepth < 100],
-             readDepth[readDepth < 100]/1000, '.', color='k')
+# Generate a plot for sequencing depth vs pos and save in a file
+plt.plot(posIdx, readDepth, '.', color=FDAblue)
+plt.plot(posIdx[readDepth < 10], readDepth[readDepth < 10], '.', color='k')
+plt.plot(posIdx, readDepthMA, '-', color='m')
+
+# If coverage is too high, scale the axes for a better view
+if np.mean(readDepth) > 1000:
     plt.ylabel('Coverage depth (1000)')
+    locs, labels = plt.yticks()
+    plt.yticks(locs, (locs/1000).astype('int') )
 else:
-    plt.plot(posIdx, readDepth, '.', color=FDAblue)
     plt.ylabel('Coverage depth')
+
 
 plt.xlabel('Genome position (kb)')
 plt.xlim([0, GENOME_SIZE+1])

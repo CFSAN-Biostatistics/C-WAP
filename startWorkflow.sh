@@ -261,11 +261,11 @@ if $useHPC; then
 	# export TMPDIR=$outDir
 
 	echo Executing in SLURM mode, submitting job
-	jobID=$(sbatch -p test --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log \
+	jobID=$(sbatch $slurmParams --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log \
 		./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly \
 		$platform $sampleName $R1filename $R2filename $singlefilename)
 	
-	jobID2=$(sbatch -p test --parsable -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
+	jobID2=$(sbatch $slurmParams --parsable -N 1 -c 2 --mem-per-cpu=8G --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
 		--kill-on-invalid-dep=yes ./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName \
 		$R1filename $R2filename $singlefilename)
 	
