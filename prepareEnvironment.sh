@@ -8,10 +8,9 @@
 set -e
 
 
-
 echo Loading necessary modules...
 module purge
-module load /nfs/software/modules/kraken2/2.1.2 bracken
+module load /nfs/software/modules/kraken2/2.1.2 bracken/2.5
 module load samtools/1.13 ivar
 module load bowtie2
 module load minimap2/2.22
@@ -49,11 +48,11 @@ if ! command -v wkhtmltopdf; then
 fi
 
 
-
 export organisation=fda.hhs.gov
 
 
-
+# Unset "stop on exit" behaviour so that this script can be sourced for other purposes.
+set +e
 
 echo The environment is set
 

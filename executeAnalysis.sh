@@ -106,7 +106,7 @@ else
 	ivar trim -e -b $primerBedFile -p $outDir/trimmed -i $outDir/sorted.bam
 fi
 samtools sort $outDir/trimmed.bam -o $outDir/resorted.bam -@ $numThreads -m ${memPerThread}G
-rm $outDir/trimmed.bam
+rm $outDir/trimmed.bam $outDir/*.bai
 
 
 echo Generating a pileup file...
@@ -150,40 +150,6 @@ if ! $performQConly; then
 
 
 	#########################################################################################
-	# Generate a new fastq that is covid-only and use for k-mer variant classifiers
-	# It is necessary to work with primer-trimmed reads as their presence might deflect the results.
-	echo Kraken2 lineage assignment in progress...
-	samtools bam2fq $outDir/resorted.bam > $outDir/resorted.fastq
-
-	kraken2 $outDir/resorted.fastq --db ./customDBs/allCovidDB --threads $numThreads\
-				--report $outDir/k2-allCovid.out > /dev/null
-	bracken -d ./customDBs/allCovidDB -i $outDir/k2-allCovid.out -o $outDir/allCovid.bracken -l P
-
-	kraken2 $outDir/resorted.fastq --db ./customDBs/majorCovidDB --threads $numThreads\
-				--report $outDir/k2-majorCovid.out > /dev/null
-	bracken -d ./customDBs/majorCovidDB -i $outDir/k2-majorCovid.out -o $outDir/majorCovid.bracken -l P
-	rm $outDir/allCovid.bracken $outDir/majorCovid.bracken
-
-
-	#########################################################################################
-	# Generation of index files for all target sequences, if needed:
-	# $condaBin/kallisto index --index variants.kalIdx variantGenomeSequences.fa
-	echo Running kallisto to quantify the reads hitting variants...
-	kallisto quant --index ./customDBs/variants.kalIdx --output-dir $outDir \
-			--plaintext -t $numThreads --single -l 500 -s 50 $outDir/resorted.fastq
-	rm $outDir/resorted.fastq $outDir/run_info.json
-	mv $outDir/abundance.tsv $outDir/kallisto_abundance.tsv
-	
-
-	#########################################################################################
-	# Variant estimation via Frejya
-	echo De-mixing via Freyja...
-	freyja variants $outDir/resorted.bam --variants $outDir/freyja.variants.tsv --depths $outDir/freyja.depths --ref $referenceSequence
-	freyja demix $outDir/freyja.variants.tsv $outDir/freyja.depths --output $outDir/freyja.demix
-	rm $outDir/freyja.variants.tsv $outDir/freyja.depths
-
-
-	#########################################################################################
 	# Linear deconvolution approach
 	# Check if the lineage-mutation map file is up-to-date and update otherwise
 	variantDBfile=./covidRefSequences/varDefinitions.pkl
@@ -195,16 +161,74 @@ if ! $performQConly; then
 		echo "Pre-processed variant definitions in $variantDBfile are up-to-date. Using as is."
 	fi
 
-
 	echo Deconvolution-based estimation of the proportion of covid variants
 	./deconvolveVariants.py $outDir/rawVarCalls.tsv $outDir $variantDBfile > $outDir/deconvolution.output
+	
+	#########################################################################################
+	# Generate a new fastq that is covid-only and use for k-mer variant classifiers
+	# It is necessary to work with primer-trimmed reads as their presence might deflect the results.
+	echo Generating a fastq file from trimmed reads...
+	samtools bam2fq $outDir/resorted.bam > $outDir/resorted.fastq
+	
+	if [[ -s $outDir/resorted.fastq ]]; then
+		# Kraken2/bracken based classification
+		echo Kraken2 lineage assignment in progress...	
+		kraken2 $outDir/resorted.fastq --db ./customDBs/allCovidDB --threads $numThreads\
+					--report $outDir/k2-allCovid.out > /dev/null
+		bracken -d ./customDBs/allCovidDB -i $outDir/k2-allCovid.out -o $outDir/allCovid.bracken -l P
 
+		kraken2 $outDir/resorted.fastq --db ./customDBs/majorCovidDB --threads $numThreads\
+					--report $outDir/k2-majorCovid.out > /dev/null
+		bracken -d ./customDBs/majorCovidDB -i $outDir/k2-majorCovid.out -o $outDir/majorCovid.bracken -l P
+		rm $outDir/allCovid.bracken $outDir/majorCovid.bracken
+		
+		#########################################################################################
+		# Generation of index files for all target sequences, if needed:
+		# $condaBin/kallisto index --index variants.kalIdx variantGenomeSequences.fa
+		echo Running kallisto to quantify the reads hitting variants...
+		kallisto quant --index ./customDBs/variants.kalIdx --output-dir $outDir \
+				--plaintext -t $numThreads --single -l 500 -s 50 $outDir/resorted.fastq
+		rm $outDir/resorted.fastq $outDir/run_info.json
+		mv $outDir/abundance.tsv $outDir/kallisto_abundance.tsv
+		
+
+		#########################################################################################
+		# Variant estimation via Frejya
+		
+		# Due to a potential bug, some big fastq's result in a pandas error.
+		# Generate an empty file in this case
+		echo FATAL ERROR > $outDir/freyja.demix
+		echo summarized$'\t'"[('Other', 1.00)]" >> $outDir/freyja.demix
+		
+		echo De-mixing via Freyja...
+		freyja variants $outDir/resorted.bam --variants $outDir/freyja.variants.tsv --depths $outDir/freyja.depths --ref $referenceSequence || true
+		freyja demix $outDir/freyja.variants.tsv $outDir/freyja.depths --output $outDir/freyja.demix || true	
+		rm $outDir/freyja.variants.tsv $outDir/freyja.depths || true
+	else
+		echo Not a single read maps to the covid genome, variant typing impossible.
+		echo Generating empty files without computation...
+		touch $outDir/k2-allCovid_bracken.out $outDir/k2-majorCovid_bracken.out
+		
+		echo NO READS > $outDir/kallisto_abundance.tsv 
+
+		echo NO READS > $outDir/freyja.demix
+		echo summarized$'\t'"[('Other', 1.00)]" >> $outDir/freyja.demix
+		
+		rm $outDir/linearDeconvolution_abundance.csv
+		touch $outDir/linearDeconvolution_abundance.csv
+	fi
+	
+	
 
 	#######################################################
 	# Run the relevant python script to generate pie charts figures
 	echo Generating abundance plots...
 	./plotPieChartsforAbundance.py $outDir $variantDBfile $outDir/linearDeconvolution_abundance.csv \
 			$outDir/kallisto_abundance.tsv $outDir/k2-allCovid_bracken.out $outDir/k2-majorCovid_bracken.out $outDir/freyja.demix
+
+	# Use the following line if using Bracken 2.6.2, as the output naming convention has changed.
+	# ./plotPieChartsforAbundance.py $outDir $variantDBfile $outDir/linearDeconvolution_abundance.csv \
+	#		$outDir/kallisto_abundance.tsv $outDir/k2-allCovid_bracken_phylums.out $outDir/k2-majorCovid_bracken_phylums.out $outDir/freyja.demix
 fi
 
 

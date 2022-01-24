@@ -32,7 +32,7 @@ NUM_VARIANTS = len(uniqueVarNames)
 # Parse the variant call file (vcf from samtools or tsv from iVar) and
 # retain the statistically highly significant mutations detected.
 outfile = open(outputDirectory+"/mutationTable.html", 'w')
-with open(variantFilename) as infile:
+with open(variantFilename, encoding='cp1252') as infile:
     reader = csv.reader(infile, delimiter="\t")
     infile.readline()  # Skip header line
     # Loop over all detected variants and tabulate their identity.
@@ -43,6 +43,10 @@ with open(variantFilename) as infile:
         pValue = float(row[12])
         if pValue < 0.01:
             mutationPos = int(row[1])
+            # The length of the "assembled" reads is longer than the reference genome. Ignore the rest.
+            if mutationPos > 29903:
+                break
+            
             # Avoid duplicate reporting, which happens if multiple overlapping
             # ORF's are present in the GFF file provided to iVar.
             if prevMutPos == mutationPos:

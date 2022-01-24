@@ -120,7 +120,7 @@ with open(variantFreqFilename, 'r') as infile:
         counter += 1
 
 drawPieChart(names2percentages, outputDirectory+'/pieChart_deconvolution.png',
-             title='Abundance of variants by deconvolution')
+             title='Abundance of variants\n by linear regression')
 
 
 ########################################################
@@ -129,7 +129,7 @@ drawPieChart(names2percentages, outputDirectory+'/pieChart_deconvolution.png',
 kallistoHits = {}
 with open(kallistoFilename, 'r') as infile:
     reader = csv.reader(infile, delimiter="\t")
-    next(reader)  # Skip the header
+    next(reader) # Skip the header
     for row in reader:
         pangoName = row[0].split('_')[0]
         dname = getDisplayName(pangoName)
@@ -194,7 +194,7 @@ drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_majorCovid.png',
 # Process the abundance estimates by Freyja
 with open(freyjaOutputFile, 'r') as infile:
     reader = csv.reader(infile, delimiter="\t")
-    next(reader)  # Skip header, freyja.variants.tsv
+    next(reader)  # Skip header, from freyja.demix
     varname_pct = next(reader)[1]
 
 varname_pct = varname_pct.replace("(", "")
@@ -204,6 +204,9 @@ varname_pct = varname_pct.replace("[", "")
 varname_pct = varname_pct.replace("]", "")
 varname_pct = varname_pct.replace(" ", "")
 varname_pct = varname_pct.split(',')
+
+if '' in varname_pct:
+    varname_pct.remove('')
 
 freyjaHits = {}
 for i in range(0, len(varname_pct), 2):

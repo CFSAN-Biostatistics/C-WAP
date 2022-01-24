@@ -261,16 +261,13 @@ if $useHPC; then
 	# export TMPDIR=$outDir
 
 	echo Executing in SLURM mode, submitting job
-	jobID=$(sbatch $slurmParams --parsable -N 1 -c 20 --mem-per-cpu=6G --time 2:00:00 -o $outDir/execution.log \
+	jobID=$(sbatch $slurmParams --parsable -N 1 -c 20 --mem=120G --time 2:00:00 -o $outDir/execution.log \
 		./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly \
 		$platform $sampleName $R1filename $R2filename $singlefilename)
 	
-	jobID2=$(sbatch $slurmParams --parsable -N 1 -c 2 --mem-per-cpu=8G --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
+	jobID2=$(sbatch $slurmParams --parsable -N 1 -c 2 --mem=8G --time 0:10:00 --dependency=afterok:$jobID -o $outDir/reporting.log \
 		--kill-on-invalid-dep=yes ./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName \
 		$R1filename $R2filename $singlefilename)
-	
-	#sbatch -N 1 -c 2 --time 0:10:00 --dependency=afterok:$jobID2 -o $outDir/printing.log \
-	#	./html2pdf.sh $outDir $sampleName
 	
 	echo All jobs submitted. Job IDs:
 	echo $jobID $jobID2
@@ -278,11 +275,10 @@ else
 	# Ordinary desktop (or another scheduler). Execute the job as is.
 	echo Executing in desktop mode
 	./executeAnalysis.sh $outDir $referenceSequence $primerBedFile $performQConly $platform $sampleName \
-		$R1filename $R2filename $singlefilename | tee $outDir/execution.log
+		$R1filename $R2filename $singlefilename 2>&1 | tee $outDir/execution.log
 	./generateReport.sh $outDir $primerBedFile $performQConly $platform $sampleName $R1filename $R2filename \
-		$singlefilename | tee $outDir/reporting.log
-	./html2pdf.sh $outDir $sampleName
-
+		$singlefilename 2>&1 | tee $outDir/reporting.log
+	
 	echo "All done!"
 	exit 0
 fi
