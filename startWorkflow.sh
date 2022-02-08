@@ -217,7 +217,7 @@ if [[ -z $primerBedFile ]]; then
 	case $platform in
 		Illumina)
 			echo A primer.bed file was not provided, defaulting to NEB VarSkip Short kit.
-			primerBedFile=./covidRefSequences/varskipShort.bed
+			primerBedFile=./covidRefSequences/QIAseqDIRECT.bed
 			;;
 		Pacbio)
 			echo A primer.bed file was not provided, defaulting to NEB VarSkip Long protocol.
@@ -225,7 +225,7 @@ if [[ -z $primerBedFile ]]; then
 			;;
 		ONT)
 			echo A primer.bed file was not provided, defaulting to Freed protocol.
-			primerBedFile=./covidRefSequences/freed.bed
+			primerBedFile=./covidRefSequences/varskipLong.bed
 			;;
 	esac
 fi

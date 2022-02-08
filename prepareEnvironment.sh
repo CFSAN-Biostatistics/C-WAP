@@ -15,6 +15,7 @@ module load samtools/1.13 ivar
 module load bowtie2
 module load minimap2/2.22
 module load edirect
+module load nextflow
 
 
 echo Loading conda modules...
@@ -37,8 +38,8 @@ export -f freyja
 
 
 
-#alias wkhtmltopdf="/projects/covidtrakr/software/wkhtmltopdf"
-#export PATH=/projects/covidtrakr/software:$PATH
+# alias wkhtmltopdf="/projects/covidtrakr/software/wkhtmltopdf"
+# export PATH=/projects/covidtrakr/software:$PATH
 
 
 if ! command -v wkhtmltopdf; then
