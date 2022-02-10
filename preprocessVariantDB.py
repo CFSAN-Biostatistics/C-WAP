@@ -12,7 +12,7 @@ import os
 # Pre-process the genomic features of covid genome.
 # Generate a mapping between ORF/gene names and genomic coordinates.
 # Each entry in the dict is name->(startPos, endPos)
-constellationsDir = "/projects/covidtrakr/software/constellations"
+constellationsDir = "/projects/covidtrakr/software/constellations/constellations"
 file = open(constellationsDir + "/data/SARS-CoV-2.json", 'r')
 fileContents = json.load(file)
 file.close()

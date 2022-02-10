@@ -73,7 +73,7 @@ def getSampleName(filename) {
 // Import the list of files to process
 if (isPairedEnd) {
 	FQs = Channel
-	    .fromFilePairs("$params.in/$params.name*_R{1,2}*.fastq*", checkIfExists: true, flat:true)
+	    .fromFilePairs("$params.in/*_R{1,2}*.fastq*", checkIfExists: true, flat:true)
 }
 else {
 	FQs = Channel
@@ -85,6 +85,7 @@ else {
 FQs
 	.view()
 	.into{ input_fq_a; input_fq_b; input_fq_c }
+
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -243,7 +244,6 @@ process krakenVariantCaller {
 	
 	input:
 		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') from resorted_fastq_gz_a
-
 	
 	output:
 		tuple val(sampleName), file('k2-allCovid_bracken.out'), file('k2-majorCovid_bracken.out'), file('k2-allCovid.out'), file('k2-majorCovid.out') into k2_covid_out
@@ -271,7 +271,7 @@ process krakenVariantCaller {
 
 
 process pangolinVariantCaller {
-	cpus 10
+	cpus 4
 	
 	input:
 		tuple val(sampleName), file('resorted.bam') from resorted_bam_c
@@ -303,6 +303,8 @@ process pangolinVariantCaller {
 
 
 process linearDeconVariantCaller {
+	cpus 4
+	
 	input:
 		tuple val(sampleName), file('rawVarCalls.tsv') from ivar_out
 	
