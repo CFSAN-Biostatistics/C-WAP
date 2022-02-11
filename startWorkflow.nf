@@ -48,7 +48,7 @@ else
 
 def printUsage () {
 	println("Example usage: ")
-	println("\t./CWAP.nf --platform i --primers path/to/bed --in path/to/fastq/ --out path/to/outputDir")
+	println("\t./startWorkflow.nf --platform i --primers path/to/bed --in path/to/fastq/ --out path/to/outputDir")
 	println()
 	println("Run the C-WAP workflow that will import the fastq files, trim adaptors, apply quality trimming, call variants and generate a html and pdf report and quit. All fastq files in the provided directory will be processed.")
 	println()
@@ -144,7 +144,6 @@ process runReferenceAlignment {
 	samtools stats resorted.bam | grep ^SN | cut -f 2- > resorted.stats
 	"""
 }
-
 
 
 process trimmedBam2Fastq {
@@ -435,8 +434,8 @@ process getNCBImetadata {
 // Computation is now mostly over. All threads need to synchronise here.
 // We will group based on the sample name and pass everything to the report
 // generation steps.
-reportInputCh = metadata.join(samtools_stats).join( k2_std_out ).join(QChists).join(linearDeconvolution_out).join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out)
-
+reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).join(linearDeconvolution_out)
+						.join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out)
 
 
 ///////////////////////////////////////////////
@@ -467,7 +466,7 @@ process generateReport {
 		
 		export kallistoTopName=`cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }'`
 		
-		$projectDir/generateReport_nf.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd
+		$projectDir/generateReport.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd
 	"""
 }
 
@@ -487,7 +486,7 @@ process summaryPage {
 	
 	shell:
 	"""
-		$projectDir/generateSummary_nf.sh $projectDir/htmlHeader.html $params.variantDBfile $projectDir
+		$projectDir/generateSummary.sh $projectDir/htmlHeader.html $params.variantDBfile $projectDir
 	"""
 }
 

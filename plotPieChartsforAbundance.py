@@ -40,7 +40,7 @@ with open(variantDBfilename, 'rb') as file:
 pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427': 'Epsilon', 'B.1.429': 'Epsilon',
                 'B.1.525': 'Eta', 'B.1.526': 'Iota', 'B.1.617.1': 'Kappa', 'B.1.621': 'Mu', 'B.1.621.1': 'Mu',
                 'P.2': 'Zeta', 'B.1.617.3': 'B.1.617.3', 'B.1.617.2': 'Delta', 'AY': 'Delta',
-                'B.1.1.529': 'Omicron', 'BA.1': 'Omicron', 'BA.2': 'Omicron', 'wt': 'wt', 'wt-wuhan': 'wt',
+                'B.1.1.529': 'Omicron', 'BA': 'Omicron', 'wt': 'wt', 'wt-wuhan': 'wt',
                 'A.21': 'Bat', 'other': 'Other', 'A': 'wt'}
 
 

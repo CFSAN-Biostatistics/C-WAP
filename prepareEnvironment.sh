@@ -15,6 +15,7 @@ module load samtools/1.13 ivar
 module load bowtie2
 module load minimap2/2.22
 module load edirect
+module load bbtools/38.94
 module load nextflow
 
 

@@ -23,6 +23,7 @@ The process includes the following:
 
 ### Dependencies
 
+* [NextFlow v21.0+] (https://www.nextflow.io/docs/latest/index.html)
 * [kraken2 v2.1.2 ](https://github.com/DerrickWood/kraken2)
 * [bracken](https://github.com/jenniferlu717/Bracken)
 * [samtools v1.13 ](https://github.com/samtools/)
