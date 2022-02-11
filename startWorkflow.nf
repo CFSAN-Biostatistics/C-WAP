@@ -62,7 +62,6 @@ def printUsage () {
 }
 
 
-
 // Given a file name, extracts a human readable sample name to be used in the output.
 // Ex: /path/to/dir/something_S1_L2_R1.fastq -> something
 def getSampleName(filename) {
@@ -74,6 +73,7 @@ def getSampleName(filename) {
 if (isPairedEnd) {
 	FQs = Channel
 	    .fromFilePairs("$params.in/*_R{1,2}*.fastq*", checkIfExists: true, flat:true)
+		.map{ tuple(getSampleName(it[1]), it[1], it[2]) }
 }
 else {
 	FQs = Channel
@@ -85,7 +85,6 @@ else {
 FQs
 	.view()
 	.into{ input_fq_a; input_fq_b; input_fq_c }
-
 
 
 //////////////////////////////////////////////////////////////////////////
