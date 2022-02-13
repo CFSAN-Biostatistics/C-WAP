@@ -147,6 +147,8 @@ echo "<p> NOTE: The red shaded areas marked with a (<font color="red">*</font>) 
 echo "<br><br><br><br>" >> $reportFile
 echo "<img src=\"./depthHistogram.png\" alt=\"Coverage histogram\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<img src=\"./qualityHistogram.png\" alt=\"Quality histogram\" width=\"49%\" class=\"center\">" >> $reportFile
+echo "<br><br><br><br>" >> $reportFile
+echo "<img src=\"./readLengthHist.png\" alt=\"Read length histogram\" width=\"49%\" class=\"center\">" >> $reportFile
 echo >> $reportFile
 echo "<br>" >> $reportFile
 

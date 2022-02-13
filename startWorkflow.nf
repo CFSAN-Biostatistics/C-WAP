@@ -84,7 +84,8 @@ else {
 
 FQs
 	.view()
-	.into{ input_fq_a; input_fq_b; input_fq_c }
+	.into{ input_fq_a; input_fq_b; input_fq_c; input_fq_d }
+
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -92,16 +93,17 @@ FQs
 //////////////////////////////////////////////////////////////////////////
 
 // Align the reads to the reference sequence to obtain a sorted bam file
-process runReferenceAlignment {
+process referenceAlignment {
+	cpus 10
+	memory '60 GB'
+	time = '2 h'
+
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_a
 	
 	output:
-		tuple val(sampleName), file('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
+		tuple val(sampleName), env(numReads), file('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
 		tuple val(sampleName), file('sorted.stats'), file('resorted.stats') into samtools_stats
-
-
-	cpus = 10
 	
 	shell:
 	refSeqBasename = params.referenceSequence.replaceAll('.fa$', '')
@@ -126,8 +128,8 @@ process runReferenceAlignment {
 			;;
 	esac
 	
-	samtools view -bS aligned.sam -@ \$numThreads > aligned.bam
-	samtools sort aligned.bam -o sorted.bam -@ \$numThreads
+	# Generation of a sorted bam file from the alignment output
+	samtools sort aligned.sam -o sorted.bam -@ \$numThreads
 	
 	# Nanopore has a much lower read quality, so the quality trimming should be much more lax.
 	if [[ $platform == ONT ]]; then
@@ -141,21 +143,25 @@ process runReferenceAlignment {
 	# Evaluate read statistics
 	samtools stats sorted.bam | grep ^SN | cut -f 2- > sorted.stats
 	samtools stats resorted.bam | grep ^SN | cut -f 2- > resorted.stats
+	numReads=`cat resorted.stats | grep "raw total sequences" | awk '{ print \$4 }'`
 	"""
 }
 
 
 process trimmedBam2Fastq {
 	input:
-		tuple val(sampleName), file('resorted.bam') from resorted_bam_a
+		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_a
 	
 	output:
 		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') into resorted_fastq_gz_a, resorted_fastq_gz_b
 		
 	shell:
 	"""
-		samtools bam2fq resorted.bam > resorted.fastq
-		let "numReads = `cat resorted.fastq | wc -l` / 4"
+		if [[ \$numReads -gt 0 ]]; then
+			samtools bam2fq resorted.bam > resorted.fastq
+		else
+			touch resorted.fastq
+		fi
 		gzip resorted.fastq
 	"""
 }
@@ -164,7 +170,7 @@ process trimmedBam2Fastq {
 
 process generatePileup {
 	input:
-		tuple val(sampleName), file('resorted.bam') from resorted_bam_b
+		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_b
 	
 	output:
 		tuple val(sampleName), file('pile.up') into pile_up_a, pile_up_b
@@ -192,7 +198,7 @@ process variantCalling {
 }
 
 
-process runKraken2stdDB {
+process kraken2stdDB {
 	memory '70 GB'
 	cpus 10
 	
@@ -232,6 +238,25 @@ process plotCoverageQC {
 }
 
 
+// Draw a histogram of all read lengths
+process readLengthHist {
+	input:
+		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_d
+	
+	output:
+		tuple val(sampleName), file('readLengthHist.png') into readLengthHist_png
+		
+	shell:
+	"""
+		gzip -dc R1.fastq.gz > allreads.fastq
+		if $isPairedEnd; then
+			gzip -dc R2.fastq.gz >> allreads.fastq
+		fi
+		cat allreads.fastq | awk 'NR%4==2' | awk "{ print length}" | $projectDir/plotLengthHist.py
+	"""
+}
+
+
 
 // ////////////////////////////////////////////
 // VARIANT CALLING
@@ -251,7 +276,7 @@ process krakenVariantCaller {
 		numThreads=`nproc`
 		
 		# Check the number of reads. Ignore if there are too few reads
-		if [[ \$numReads -gt 10 ]]; then
+		if [[ \$numReads -gt 0 ]]; then
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
 			bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
 
@@ -272,7 +297,7 @@ process pangolinVariantCaller {
 	cpus 4
 	
 	input:
-		tuple val(sampleName), file('resorted.bam') from resorted_bam_c
+		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_c
 	
 	output:
 		tuple val(sampleName), env(consensusLineage), file('lineage_report.csv') into pangolin_out
@@ -348,7 +373,34 @@ process kallistoVariantCaller {
 
 process freyjaVariantCaller {
 	input:
-		tuple val(sampleName), file('resorted.bam') from resorted_bam_d
+		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_d
+		
+	output:
+		tuple val(sampleName), file('freyja.demix') into freyja_out
+		
+	// Due to a potential bug, some big fastqs result in a pandas error.
+	// Start by generating an empty file to circumvent such failure cases
+	
+	shell:
+	"""
+		if [[ \$numReads -gt 0 ]]; then
+			echo Pileup generation for Freyja
+			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths --ref $params.referenceSequence
+			
+			echo Demixing variants by Freyja
+			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix
+		else
+			echo FATAL ERROR > freyja.demix
+			echo summarized\$'\t'"[('Other', 1.00)]" >> freyja.demix
+		fi
+	"""
+}
+
+
+/*
+process freyjaVariantCaller {
+	input:
+		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_d
 		
 	output:
 		tuple val(sampleName), file('freyja.demix') into freyja_out
@@ -368,7 +420,7 @@ process freyjaVariantCaller {
 		freyja demix freyja.variants.tsv freyja.depths --output freyja.demix || true
 	"""
 }
-
+*/
 
 
 
@@ -433,7 +485,7 @@ process getNCBImetadata {
 // Computation is now mostly over. All threads need to synchronise here.
 // We will group based on the sample name and pass everything to the report
 // generation steps.
-reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).join(linearDeconvolution_out)
+reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).join(readLengthHist_png).join(linearDeconvolution_out)
 						.join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out)
 
 
@@ -449,6 +501,7 @@ process generateReport {
 		file('sorted.stats'), file('resorted.stats'),
 		file('k2-std.out'),
 		file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png'),
+		file('readLengthHist.png'),
 		file('linearDeconvolution_abundance.csv'), file('mutationTable.html'), file('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		file('k2-allCovid_bracken.out'), file('k2-majorCovid_bracken.out'), file('k2-allCovid.out'), file('k2-majorCovid.out'),
 		env(consensusLineage), file('lineage_report.csv'),
