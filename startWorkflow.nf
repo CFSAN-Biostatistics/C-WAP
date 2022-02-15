@@ -43,7 +43,7 @@ switch(params.platform) {
 if (params.primerBedFile[0]=='/')
 	primerBedFile=params.primerBedFile
 else
-	primerBedFile="$projectDir/$params.primerBedFile"
+	primerBedFile="$launchDir/$params.primerBedFile"
 
 
 def printUsage () {
@@ -94,9 +94,9 @@ FQs
 
 // Align the reads to the reference sequence to obtain a sorted bam file
 process referenceAlignment {
-	cpus 10
-	memory '60 GB'
-	time = '2 h'
+	cpus 20
+	memory '16 GB'
+	time = '1 h'
 
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_a
@@ -113,7 +113,7 @@ process referenceAlignment {
 		Illumina)
 			if $isPairedEnd; then
 				bowtie2 --no-unal --threads \$numThreads -x $refSeqBasename -1 R1.fastq.gz -2 R2.fastq.gz \
-					-S aligned.sam			
+					-S aligned.sam
 			else
 				bowtie2 --no-unal --threads \$numThreads -x $refSeqBasename -U R1.fastq.gz -S aligned.sam
 			fi
@@ -227,7 +227,7 @@ process plotCoverageQC {
 		tuple val(sampleName), file('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png') into QChists
+		tuple val(sampleName), file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png'), file('terminiDensity.png') into QChists
 		
 	shell:
 	"""
@@ -278,10 +278,20 @@ process krakenVariantCaller {
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ \$numReads -gt 0 ]]; then
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
-			bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
+			if [[ `cat k2-allCovid.out | wc -l` -eq 1 ]]; then
+				# There is a bug in our bracken that fails if no hits.
+				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
+			else
+				bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
+			fi
 
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
-			bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l P
+			if [[ `cat k2-allCovid.out | wc -l` -eq 1 ]]; then
+				# There is a bug in our bracken that fails if no hits.
+				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
+			else
+				bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l P
+			fi
 		else
 			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
 			cp k2-allCovid_bracken.out k2-majorCovid_bracken.out
@@ -427,7 +437,9 @@ process freyjaVariantCaller {
 // A metadata fetch attemp from NCBI via Entrez-Direct
 // Only works if file names explicitly carries an SRR number.
 process getNCBImetadata {
-	executor = 'local'
+	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
+	errorStrategy { sleep(100 * Math.random() as long); return 'retry' }
+	maxRetries = 10
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_c
@@ -436,37 +448,28 @@ process getNCBImetadata {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation) into metadata
 		
 	"""
-	SAMN=Missing
-	libraryProtocol=Missing
-	seqInstrument=Missing
-	isolate=Missing
-	collectionDate=Missing
-	collectedBy=Missing
-	sequencedBy=Missing
-	sampleLatitude=0
-	sampleLongitude=0
-	sampleLocation=NA
-	
 	srrNumber=$sampleName
-	if [[ \${srrNumber:0:3} == 'SRR' ]]; then
+	if [[ $task.attempt -lt 5 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
 		# The tool returns error: too many requests, bypassing by redirection of error
 		sraQueryResult=\$(esearch -db sra -query \$srrNumber 2>/dev/null)
+		
 		if echo \$sraQueryResult | grep -q "<Count>1</Count>"; then
 			# Get runinfo from SRA
-			echo Downloading and parsing metadata for \$srrNumber...	
+			echo Downloading metadata for \$srrNumber...	
 			echo "\$sraQueryResult" | efetch --format runinfo
 			SRRmetadata=`echo "\$sraQueryResult" | efetch --format runinfo 2>/dev/null | grep \$srrNumber`
-			echo 000 \$SRRmetadata
 			
+			echo Parsing...
 			libraryProtocol=`echo \$SRRmetadata | awk -F ',' '{print \$13}'`
 			seqInstrument=`echo \$SRRmetadata | awk -F ',' '{print \$20}'`
 			isolate=`echo \$SRRmetadata  | awk -F ',' '{print \$30}'`	
 			
 			# Get metadata out of biosample db
-			echo Fetching biosample data
+			echo Fetching biosample data...
 			SAMN=`echo \$SRRmetadata | awk -F ',' '{print \$26}'`
 			SAMNmetadata=`efetch -db biosample -id \$SAMN 2>/dev/null`
 			
+			echo Parsing...
 			collectionDate=`echo "\$SAMNmetadata" | grep "collection date" | awk -F '"' '{print \$2}'`
 			collectedBy=`echo "\$SAMNmetadata" | grep "collected by" | awk -F '"' '{print \$2}'`
 			sequencedBy=`echo "\$SAMNmetadata" | grep SEQUENCED_BY | awk '{ \$1=""; print \$0 }'`
@@ -477,6 +480,46 @@ process getNCBImetadata {
 			sampleLocation=`echo "\$SAMNmetadata" | grep "geographic location" | awk -F '"' '{print \$2}'`
 		fi
 	fi
+	
+	if [[ -z \$SAMN ]]; then
+		SAMN=Missing
+	fi
+
+	if [[ -z \$libraryProtocol ]]; then
+		libraryProtocol=Missing
+	fi
+
+	if [[ -z \$seqInstrument ]]; then
+		seqInstrument=Missing
+	fi
+
+	if [[ -z \$isolate ]]; then
+		isolate=Missing
+	fi
+
+	if [[ -z \$collectionDate ]]; then
+		collectionDate=Missing
+	fi
+
+	if [[ -z \$collectedBy ]]; then
+		collectedBy=Missing
+	fi
+
+	if [[ -z \$sequencedBy ]]; then
+		sequencedBy=Missing
+	fi
+
+	if [[ -z \$sampleLatitude ]]; then
+		sampleLatitude="?"
+	fi
+
+	if [[ -z \$sampleLongitude ]]; then
+		sampleLongitude="?"
+	fi
+
+	if [[ -z \$sampleLocation ]]; then
+		sampleLocation=Missing
+	fi	
 	"""
 }
 
@@ -500,7 +543,7 @@ process generateReport {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
 		file('sorted.stats'), file('resorted.stats'),
 		file('k2-std.out'),
-		file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png'),
+		file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png'), file('terminiDensity.png'),
 		file('readLengthHist.png'),
 		file('linearDeconvolution_abundance.csv'), file('mutationTable.html'), file('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		file('k2-allCovid_bracken.out'), file('k2-majorCovid_bracken.out'), file('k2-allCovid.out'), file('k2-majorCovid.out'),

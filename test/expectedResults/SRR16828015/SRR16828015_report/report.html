@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table {
+	width: 100%;
+	font-family: sans-serif;
+}
+
+td, th {
+	border: 0.1em solid #DDDDDD;
+	padding: 0.3em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #CCE4F1;
+}
+
+tr:nth-child(even) {
+	background-color: #FFFFFF;
+}
+
+
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 50%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+
+
+@media print {
+	body {
+		margin-top: 0;
+		margin-left: 20mm;
+		margin-right: 20mm;
+		
+		font-family:sans-serif;
+		background-color: #FFFFFF;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 30%;
+		background-position: 5em 0em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 49%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+</style>
+
+<title>Wastewater report</title>
+<link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
+</head>
+
+<body>
+
+<br><br>
+<h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
+<h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
+<table>
+<tr>
+    <td>Sample name:</td><td>SRR16828015</td>
+</tr>
+<tr>
+    <td>Date generated:</td><td>2022-02-15, 15:52:57 EST</td>
+</tr>
+<tr>
+    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-02-15, 15:52:57 EST\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
+</tr>
+</table>
+
+<br>
+<h2>Sequencing summary</h2>
+<table>
+<tr>
+    <td>Sequencing chemistry:</td><td>AMPLICON with NextSeq 500</td>
+</tr>
+<tr>
+    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3/?/?">USA: West Virginia		(?,?)</a></td>
+</tr>
+<tr>
+    <td>Sampling date:</td><td>2021-02-08</a></td>
+</tr>
+<tr>
+    <td>Collected by:</td><td>Aquavitas</td>
+</tr>
+<tr>
+    <td>Sequenced by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Total number of reads:</td><td>1366018</td>
+</tr>
+<tr>
+    <td>Reads aligned:</td><td>55306 (4%)</td>
+</tr>
+<tr>
+    <td>Average read quality:</td><td>34.6</td>
+</tr>
+<tr>
+    <td>Average read length:</td><td>141</td>
+</tr>
+<tr>
+    <td>Reads passing filter:</td><td>54184 (3%)</td>
+</tr>
+<tr>
+    <td>Average read quality passing filter:</td><td>34.7</td>
+</tr>
+<tr>
+    <td>Average read length passing filter:</td><td>141</td>
+</tr>
+<tr>
+    <td>Average coverage passing filter:</td><td>255X</td>
+</tr>
+</table>
+<br>
+A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum 		read quality &#8805; 20 within a sliding window of width 4.
+
+<br><br>
+<h2>Overall sequence characteristics</h2>
+<img src="./coverage.png" alt="Coverage vs. genome coordinate plot" width="49%" class="center">
+<img src="./quality.png" alt="Quality vs. genome coordinate plot" width="49%" class="center">
+<p> NOTE: The red shaded areas marked with a (<font color=red>*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses. <font color=magenta>Magenta</font> curves represent moving average with a window width of 1kb.
+<br><br><br><br>
+<img src="./depthHistogram.png" alt="Coverage histogram" width="49%" class="center">
+<img src="./qualityHistogram.png" alt="Quality histogram" width="49%" class="center">
+<br><br><br><br>
+<img src="./readLengthHist.png" alt="Read length histogram" width="49%" class="center">
+<img src="./terminiDensity.png" alt="Read termini density" width="49%" class="center">
+
+<br>
+<table>
+<tr>
+    <td># uncovered genomic coordinates (0X) by kit design:</td><td>0 nt 
+		(0%)</td>
+</tr>
+<tr>
+    <td># uncovered genomic coordinates (0X):</td><td>6793 nt (22%)</td>
+</tr>
+<tr>
+    <td># poorly covered genomic coordinates (<10X):</td><td>12997 nt (43%)</td>
+</tr>
+<tr>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>58859 reads (8.62%) </td>
+</tr>
+<tr>
+    <td>Hits to human genome (kraken2):</td><td>5951 reads (0.87%)</td>
+</tr>
+<tr>
+    <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>167 reads (0.02%)</td>
+</tr>
+</table>
+<br>
+<h2>Detected variants (Experimental)</h2>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_deconvolution.png" alt="Abundance of variants by deconvolution" width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_kallisto.png" alt="Abundance of variants by kallisto" width="100%">
+    </div>
+</div>
+<div id="caption">
+    <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=wt">wt</a> 
+	is estimated to constitute 65.18% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.14.	Variants that were detected less than 5% were grouped under "Other"
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=B.1.2">B.1.2</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=wt"	>wt</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_allCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"				width="100%">
+    </div>
+</div>
+<br>
+<p> Under the assumption that the presence of a variant requires the detection
+    of all respective mutations of the variant, the characteric mutations which support the presence of
+    the respective variant are indicated in the respective column of the table. Numbers show the number
+    of mutations detected, if any, and the number of mutations expected to be present based on the
+    variant definitions.
+<table>
+<tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=Beta">Beta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Gamma">Gamma</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a></td><td><a href="https://outbreak.info/situation-reports?pango=Alpha">Alpha</a></td><td><a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(1 of 14)<br>ORF1AB:T265I<br></td><td>(1 of 16)<br>S:P26S<br></td><td>(2 of 13)<br>ORF7A:T120I<br>S:P681R<br></td><td>(1 of 23)<br>ORF8:Q27*<br></td><td>(2 of 13)<br>ORF7A:T120I<br>S:P681R<br></td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+    <td>VUI</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=Zeta">Zeta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=A.23.1+E484K">A.23.1+E484K</a></td><td><a href="https://outbreak.info/situation-reports?pango=Eta">Eta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Theta">Theta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(3 of 17)<br>N:P67S<br>NUC:C16293T<br>S:P681R<br></td><td>(0 of 7)<br></td><td>(1 of 11)<br>S:P681R<br></td><td>(1 of 13)<br>S:P681R<br></td><td>(0 of 16)<br></td><td>(2 of 17)<br>NUC:T23341C<br>S:E1092K<br></td><td>(0 of 19)<br></td>
+</tr>
+</table>
+<br>
+
+<h2>Detected mutations</h2>
+Only genomic coordinates with at least 10X coverage were considered.
+<br>
+<table>
+<tr>
+    <th>Position</th> <th>Ref. base</th> <th>Alt. base</th> <th>Alt. freq</th> <th>p-value</th> <th>Mutation name</th> <th>Compatible lineages</th>
+</tr>
+<tr>
+    <td>337</td> <td>C</td> <td>A</td> <td>0.500</td> <td nowrap>5.16E-04</td><td>NUC:C337A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>339</td> <td>A</td> <td>T</td> <td>0.261</td> <td nowrap>4.42E-03</td><td>ORF1AB:D25V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>340</td> <td>C</td> <td>T</td> <td>0.231</td> <td nowrap>7.71E-03</td><td>NUC:C340T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>342</td> <td>T</td> <td>G</td> <td>0.090</td> <td nowrap>3.85E-03</td><td>ORF1AB:V26G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>347</td> <td>G</td> <td>A</td> <td>0.097</td> <td nowrap>2.10E-04</td><td>ORF1AB:V28I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>348</td> <td>T</td> <td>G</td> <td>0.112</td> <td nowrap>4.83E-05</td><td>ORF1AB:V28G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>350</td> <td>C</td> <td>T</td> <td>0.114</td> <td nowrap>1.23E-05</td><td>ORF1AB:R29C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>354</td> <td>G</td> <td>T</td> <td>0.065</td> <td nowrap>6.23E-04</td><td>ORF1AB:G30V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>355</td> <td>C</td> <td>A</td> <td>0.060</td> <td nowrap>1.06E-03</td><td>NUC:C355A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>357</td> <td>T</td> <td>A</td> <td>0.065</td> <td nowrap>5.29E-04</td><td>ORF1AB:F31Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>358</td> <td>T</td> <td>A</td> <td>0.052</td> <td nowrap>2.48E-03</td><td>ORF1AB:F31L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>360</td> <td>G</td> <td>C</td> <td>0.075</td> <td nowrap>1.07E-04</td><td>ORF1AB:G32A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>367</td> <td>C</td> <td>T</td> <td>0.280</td> <td nowrap>3.41E-22</td><td>NUC:C367T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>372</td> <td>A</td> <td>C</td> <td>0.071</td> <td nowrap>2.80E-06</td><td>ORF1AB:E36A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>377</td> <td>G</td> <td>A</td> <td>0.103</td> <td nowrap>1.34E-10</td><td>ORF1AB:V38I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>378</td> <td>T</td> <td>G</td> <td>0.103</td> <td nowrap>1.95E-10</td><td>ORF1AB:V38G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>379</td> <td>C</td> <td>G</td> <td>0.109</td> <td nowrap>7.34E-12</td><td>NUC:C379G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>384</td> <td>C</td> <td>A</td> <td>0.149</td> <td nowrap>3.40E-18</td><td>ORF1AB:S40*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>389</td> <td>G</td> <td>A</td> <td>0.140</td> <td nowrap>2.47E-18</td><td>ORF1AB:A42T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>391</td> <td>A</td> <td>+G</td> <td>0.115</td> <td nowrap>4.41E-12</td><td>NUC:A391+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>627</td> <td>T</td> <td>C</td> <td>0.229</td> <td nowrap>6.38E-36</td><td>ORF1AB:V121A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>629</td> <td>C</td> <td>G</td> <td>0.140</td> <td nowrap>2.18E-19</td><td>ORF1AB:L122V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>632</td> <td>C</td> <td>A</td> <td>0.116</td> <td nowrap>1.61E-15</td><td>ORF1AB:L123I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>634</td> <td>T</td> <td>C</td> <td>0.057</td> <td nowrap>2.13E-08</td><td>NUC:T634C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>637</td> <td>T</td> <td>C</td> <td>0.108</td> <td nowrap>2.29E-13</td><td>NUC:T637C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>638</td> <td>A</td> <td>G</td> <td>0.070</td> <td nowrap>2.63E-08</td><td>ORF1AB:K125E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>641</td> <td>A</td> <td>C</td> <td>0.088</td> <td nowrap>3.43E-09</td><td>ORF1AB:N126H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>642</td> <td>A</td> <td>C</td> <td>0.086</td> <td nowrap>5.48E-09</td><td>ORF1AB:N126T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>693</td> <td>T</td> <td>C</td> <td>0.081</td> <td nowrap>5.82E-03</td><td>ORF1AB:F143S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>944</td> <td>G</td> <td>T</td> <td>0.116</td> <td nowrap>1.41E-03</td><td>ORF1AB:G227C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>953</td> <td>T</td> <td>A</td> <td>0.097</td> <td nowrap>7.64E-03</td><td>ORF1AB:C230S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>956</td> <td>T</td> <td>A</td> <td>0.113</td> <td nowrap>8.06E-03</td><td>ORF1AB:C231S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>959</td> <td>C</td> <td>T</td> <td>0.115</td> <td nowrap>4.57E-03</td><td>ORF1AB:R232C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>963</td> <td>A</td> <td>C</td> <td>0.075</td> <td nowrap>9.50E-03</td><td>ORF1AB:E233A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>978</td> <td>T</td> <td>G</td> <td>0.057</td> <td nowrap>4.56E-03</td><td>ORF1AB:I238S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>982</td> <td>T</td> <td>C</td> <td>0.051</td> <td nowrap>3.51E-03</td><td>NUC:T982C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>983</td> <td>T</td> <td>A</td> <td>0.051</td> <td nowrap>4.03E-03</td><td>ORF1AB:W240R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>988</td> <td>C</td> <td>T</td> <td>0.069</td> <td nowrap>7.21E-05</td><td>NUC:C988T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>990</td> <td>C</td> <td>A</td> <td>0.064</td> <td nowrap>9.59E-05</td><td>ORF1AB:T242K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>995</td> <td>C</td> <td>G</td> <td>0.054</td> <td nowrap>1.43E-04</td><td>ORF1AB:R244G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1059</td> <td>C</td> <td>T</td> <td>0.940</td> <td nowrap>6.57E-202</td><td>ORF1AB:T265I</td> <td><a href="https://outbreak.info/situation-reports?pango=Beta">Beta</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Iota">Iota</a></td>
+</tr>
+<tr>
+    <td>1207</td> <td>A</td> <td>G</td> <td>0.065</td> <td nowrap>8.40E-09</td><td>NUC:A1207G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1335</td> <td>G</td> <td>C</td> <td>0.097</td> <td nowrap>1.17E-03</td><td>ORF1AB:C357S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1337</td> <td>G</td> <td>T</td> <td>0.113</td> <td nowrap>8.04E-04</td><td>ORF1AB:G358C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1340</td> <td>T</td> <td>C</td> <td>0.241</td> <td nowrap>3.60E-05</td><td>ORF1AB:Y359H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1341</td> <td>A</td> <td>T</td> <td>0.288</td> <td nowrap>5.73E-06</td><td>ORF1AB:Y359F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1343</td> <td>T</td> <td>C</td> <td>0.178</td> <td nowrap>1.67E-03</td><td>NUC:T1343C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1344</td> <td>T</td> <td>G</td> <td>0.256</td> <td nowrap>1.04E-04</td><td>ORF1AB:L360*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1346</td> <td>C</td> <td>G</td> <td>0.333</td> <td nowrap>7.23E-05</td><td>ORF1AB:P361A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1351</td> <td>A</td> <td>C</td> <td>0.375</td> <td nowrap>4.55E-03</td><td>ORF1AB:Q362H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1352</td> <td>A</td> <td>G</td> <td>0.538</td> <td nowrap>2.29E-03</td><td>ORF1AB:N363D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1545</td> <td>C</td> <td>T</td> <td>0.167</td> <td nowrap>8.77E-04</td><td>ORF1AB:A427V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1546</td> <td>T</td> <td>G</td> <td>0.158</td> <td nowrap>4.94E-03</td><td>NUC:T1546G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1549</td> <td>C</td> <td>A</td> <td>0.192</td> <td nowrap>3.32E-04</td><td>ORF1AB:S428R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1551</td> <td>C</td> <td>T</td> <td>0.083</td> <td nowrap>6.42E-03</td><td>ORF1AB:A429V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1552</td> <td>T</td> <td>G</td> <td>0.111</td> <td nowrap>3.80E-03</td><td>NUC:T1552G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1554</td> <td>A</td> <td>G</td> <td>0.096</td> <td nowrap>8.58E-05</td><td>ORF1AB:N430S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1555</td> <td>C</td> <td>G</td> <td>0.095</td> <td nowrap>9.99E-06</td><td>ORF1AB:N430K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1556</td> <td>A</td> <td>G</td> <td>0.065</td> <td nowrap>3.99E-04</td><td>ORF1AB:I431V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1557</td> <td>T</td> <td>G</td> <td>0.094</td> <td nowrap>7.49E-06</td><td>ORF1AB:I431R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1558</td> <td>A</td> <td>G</td> <td>0.056</td> <td nowrap>6.46E-04</td><td>ORF1AB:I431M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1855</td> <td>G</td> <td>C</td> <td>0.097</td> <td nowrap>7.98E-15</td><td>NUC:G1855C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1856</td> <td>A</td> <td>T</td> <td>0.088</td> <td nowrap>1.11E-12</td><td>ORF1AB:S531C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1864</td> <td>T</td> <td>+A</td> <td>0.081</td> <td nowrap>4.50E-08</td><td>NUC:T1864+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1867</td> <td>T</td> <td>C</td> <td>0.095</td> <td nowrap>4.85E-11</td><td>NUC:T1867C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1868</td> <td>G</td> <td>A</td> <td>0.133</td> <td nowrap>4.22E-15</td><td>ORF1AB:A535T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1872</td> <td>T</td> <td>C</td> <td>0.093</td> <td nowrap>6.79E-09</td><td>ORF1AB:F536S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1874</td> <td>G</td> <td>C</td> <td>0.052</td> <td nowrap>3.39E-05</td><td>ORF1AB:A537P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1879</td> <td>A</td> <td>T</td> <td>0.068</td> <td nowrap>3.80E-06</td><td>NUC:A1879T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1882</td> <td>G</td> <td>C</td> <td>0.062</td> <td nowrap>2.32E-05</td><td>ORF1AB:E539D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1925</td> <td>A</td> <td>+C</td> <td>0.085</td> <td nowrap>2.86E-03</td><td>NUC:A1925+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1928</td> <td>G</td> <td>+T</td> <td>0.167</td> <td nowrap>6.19E-04</td><td>NUC:G1928+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1931</td> <td>C</td> <td>+TTAT</td> <td>0.180</td> <td nowrap>7.45E-04</td><td>NUC:C1931+TTAT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1933</td> <td>A</td> <td>C</td> <td>0.190</td> <td nowrap>2.59E-04</td><td>ORF1AB:Q556H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1935</td> <td>A</td> <td>C</td> <td>0.232</td> <td nowrap>4.36E-05</td><td>ORF1AB:N557T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1936</td> <td>T</td> <td>A</td> <td>0.211</td> <td nowrap>1.03E-04</td><td>ORF1AB:N557K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1944</td> <td>G</td> <td>C</td> <td>0.250</td> <td nowrap>2.37E-03</td><td>ORF1AB:R560P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3411</td> <td>C</td> <td>A</td> <td>0.072</td> <td nowrap>9.68E-03</td><td>ORF1AB:A1049D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3413</td> <td>A</td> <td>C</td> <td>0.080</td> <td nowrap>5.18E-03</td><td>ORF1AB:K1050Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3415</td> <td>A</td> <td>G</td> <td>0.090</td> <td nowrap>2.27E-03</td><td>NUC:A3415G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3416</td> <td>A</td> <td>G</td> <td>0.089</td> <td nowrap>2.64E-03</td><td>ORF1AB:K1051E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3417</td> <td>A</td> <td>T</td> <td>0.083</td> <td nowrap>2.14E-03</td><td>ORF1AB:K1051M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3419</td> <td>G</td> <td>A</td> <td>0.061</td> <td nowrap>6.29E-03</td><td>ORF1AB:V1052I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3420</td> <td>T</td> <td>C</td> <td>0.067</td> <td nowrap>2.92E-03</td><td>ORF1AB:V1052A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3422</td> <td>A</td> <td>T</td> <td>0.121</td> <td nowrap>5.33E-06</td><td>ORF1AB:K1053*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3425</td> <td>C</td> <td>G</td> <td>0.113</td> <td nowrap>9.52E-07</td><td>ORF1AB:P1054A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3426</td> <td>C</td> <td>A</td> <td>0.076</td> <td nowrap>6.58E-05</td><td>ORF1AB:P1054Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3427</td> <td>A</td> <td>G</td> <td>0.132</td> <td nowrap>2.62E-08</td><td>NUC:A3427G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3428</td> <td>A</td> <td>G</td> <td>0.052</td> <td nowrap>1.19E-03</td><td>ORF1AB:T1055A</td> <td><a href="https://outbreak.info/situation-reports?pango=Mu">Mu</a></td>
+</tr>
+<tr>
+    <td>3443</td> <td>G</td> <td>A</td> <td>0.076</td> <td nowrap>2.89E-07</td><td>ORF1AB:A1060T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3444</td> <td>C</td> <td>G</td> <td>0.051</td> <td nowrap>3.98E-05</td><td>ORF1AB:A1060G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3486</td> <td>C</td> <td>T</td> <td>0.595</td> <td nowrap>8.38E-109</td><td>ORF1AB:A1074V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3491</td> <td>A</td> <td>G</td> <td>0.349</td> <td nowrap>5.90E-60</td><td>ORF1AB:N1076D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3626</td> <td>A</td> <td>G</td> <td>0.075</td> <td nowrap>1.82E-16</td><td>ORF1AB:N1121D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3634</td> <td>C</td> <td>G</td> <td>0.066</td> <td nowrap>5.46E-15</td><td>ORF1AB:N1123K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3637</td> <td>A</td> <td>G</td> <td>0.080</td> <td nowrap>2.77E-18</td><td>NUC:A3637G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3665</td> <td>G</td> <td>+TCT</td> <td>0.051</td> <td nowrap>9.04E-08</td><td>NUC:G3665+TCT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3671</td> <td>G</td> <td>A</td> <td>0.077</td> <td nowrap>1.45E-16</td><td>ORF1AB:E1136K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3672</td> <td>A</td> <td>C</td> <td>0.078</td> <td nowrap>1.36E-16</td><td>ORF1AB:E1136A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3674</td> <td>A</td> <td>C</td> <td>0.073</td> <td nowrap>2.17E-15</td><td>ORF1AB:N1137H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3677</td> <td>T</td> <td>C</td> <td>0.065</td> <td nowrap>1.34E-13</td><td>ORF1AB:F1138L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3756</td> <td>T</td> <td>C</td> <td>0.055</td> <td nowrap>2.45E-04</td><td>ORF1AB:V1164A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3759</td> <td>G</td> <td>C</td> <td>0.059</td> <td nowrap>1.35E-04</td><td>ORF1AB:C1165S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3761</td> <td>G</td> <td>C</td> <td>0.066</td> <td nowrap>5.56E-05</td><td>ORF1AB:V1166L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3764</td> <td>G</td> <td>T</td> <td>0.115</td> <td nowrap>6.76E-08</td><td>ORF1AB:D1167Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3766</td> <td>T</td> <td>C</td> <td>0.059</td> <td nowrap>3.72E-04</td><td>NUC:T3766C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3767</td> <td>A</td> <td>+C</td> <td>0.150</td> <td nowrap>9.02E-08</td><td>NUC:A3767+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3769</td> <td>T</td> <td>C</td> <td>0.088</td> <td nowrap>3.05E-04</td><td>NUC:T3769C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3770</td> <td>G</td> <td>T</td> <td>0.082</td> <td nowrap>4.05E-04</td><td>ORF1AB:V1169F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3771</td> <td>T</td> <td>G</td> <td>0.097</td> <td nowrap>2.82E-04</td><td>ORF1AB:V1169G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3772</td> <td>T</td> <td>C</td> <td>0.068</td> <td nowrap>5.49E-03</td><td>NUC:T3772C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3773</td> <td>C</td> <td>+TTAT</td> <td>0.093</td> <td nowrap>4.45E-03</td><td>NUC:C3773+TTAT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3774</td> <td>G</td> <td>T</td> <td>0.438</td> <td nowrap>2.19E-20</td><td>ORF1AB:R1170L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3775</td> <td>C</td> <td>T</td> <td>0.261</td> <td nowrap>4.67E-10</td><td>NUC:C3775T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3777</td> <td>C</td> <td>T</td> <td>0.200</td> <td nowrap>8.38E-06</td><td>ORF1AB:T1171I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3779</td> <td>A</td> <td>T</td> <td>0.236</td> <td nowrap>1.62E-07</td><td>ORF1AB:N1172Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3780</td> <td>A</td> <td>C</td> <td>0.250</td> <td nowrap>2.02E-05</td><td>ORF1AB:N1172T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3781</td> <td>T</td> <td>C</td> <td>0.273</td> <td nowrap>1.17E-05</td><td>NUC:T3781C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3782</td> <td>G</td> <td>C</td> <td>0.140</td> <td nowrap>1.48E-03</td><td>ORF1AB:V1173L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3785</td> <td>T</td> <td>+G</td> <td>0.222</td> <td nowrap>1.02E-03</td><td>NUC:T3785+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3786</td> <td>A</td> <td>G</td> <td>0.256</td> <td nowrap>1.27E-04</td><td>ORF1AB:Y1174C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3788</td> <td>T</td> <td>G</td> <td>0.333</td> <td nowrap>1.49E-06</td><td>ORF1AB:L1175V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3789</td> <td>T</td> <td>G</td> <td>0.250</td> <td nowrap>5.31E-04</td><td>ORF1AB:L1175*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3790</td> <td>A</td> <td>T</td> <td>0.389</td> <td nowrap>7.71E-04</td><td>ORF1AB:L1175F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4651</td> <td>T</td> <td>A</td> <td>0.370</td> <td nowrap>1.68E-04</td><td>NUC:T4651A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4653</td> <td>C</td> <td>A</td> <td>0.290</td> <td nowrap>9.94E-04</td><td>ORF1AB:A1463D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4654</td> <td>T</td> <td>C</td> <td>0.212</td> <td nowrap>4.83E-03</td><td>NUC:T4654C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4655</td> <td>C</td> <td>A</td> <td>0.237</td> <td nowrap>6.16E-04</td><td>NUC:C4655A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4679</td> <td>C</td> <td>A</td> <td>0.053</td> <td nowrap>5.35E-04</td><td>ORF1AB:P1472T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4845</td> <td>T</td> <td>G</td> <td>0.084</td> <td nowrap>1.13E-08</td><td>ORF1AB:F1527C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4856</td> <td>G</td> <td>T</td> <td>0.099</td> <td nowrap>2.68E-10</td><td>ORF1AB:G1531C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4859</td> <td>G</td> <td>C</td> <td>0.061</td> <td nowrap>6.66E-06</td><td>ORF1AB:D1532H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4864</td> <td>A</td> <td>G</td> <td>0.067</td> <td nowrap>1.69E-06</td><td>NUC:A4864G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4973</td> <td>G</td> <td>+C</td> <td>0.082</td> <td nowrap>2.74E-04</td><td>NUC:G4973+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4976</td> <td>T</td> <td>+CTC</td> <td>0.089</td> <td nowrap>1.85E-03</td><td>NUC:T4976+CTC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4980</td> <td>C</td> <td>T</td> <td>0.124</td> <td nowrap>7.64E-06</td><td>ORF1AB:T1572I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4981</td> <td>A</td> <td>+C</td> <td>0.085</td> <td nowrap>3.23E-03</td><td>NUC:A4981+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4985</td> <td>G</td> <td>T</td> <td>0.075</td> <td nowrap>2.60E-03</td><td>ORF1AB:V1574L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4986</td> <td>T</td> <td>C</td> <td>0.111</td> <td nowrap>2.57E-04</td><td>ORF1AB:V1574A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4988</td> <td>G</td> <td>T</td> <td>0.093</td> <td nowrap>1.26E-03</td><td>ORF1AB:D1575Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4997</td> <td>A</td> <td>G</td> <td>0.111</td> <td nowrap>7.97E-03</td><td>ORF1AB:N1578D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5002</td> <td>C</td> <td>G</td> <td>0.179</td> <td nowrap>5.06E-03</td><td>NUC:C5002G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5003</td> <td>C</td> <td>T</td> <td>0.269</td> <td nowrap>4.15E-03</td><td>ORF1AB:H1580Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5239</td> <td>C</td> <td>G</td> <td>0.600</td> <td nowrap>2.26E-03</td><td>ORF1AB:Y1658*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5299</td> <td>T</td> <td>G</td> <td>0.083</td> <td nowrap>1.39E-03</td><td>NUC:T5299G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5414</td> <td>T</td> <td>G</td> <td>0.052</td> <td nowrap>1.55E-03</td><td>ORF1AB:Y1717D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5563</td> <td>A</td> <td>C</td> <td>0.073</td> <td nowrap>8.15E-03</td><td>ORF1AB:E1766D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5567</td> <td>G</td> <td>C</td> <td>0.094</td> <td nowrap>9.54E-03</td><td>ORF1AB:V1768L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>9821</td> <td>A</td> <td>G</td> <td>0.176</td> <td nowrap>9.39E-03</td><td>ORF1AB:N3186D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>9870</td> <td>C</td> <td>A</td> <td>0.077</td> <td nowrap>8.81E-03</td><td>ORF1AB:T3202K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>9928</td> <td>G</td> <td>T</td> <td>0.124</td> <td nowrap>1.07E-09</td><td>ORF1AB:M3221I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10114</td> <td>A</td> <td>C</td> <td>0.064</td> <td nowrap>9.99E-04</td><td>NUC:A10114C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10115</td> <td>A</td> <td>T</td> <td>0.062</td> <td nowrap>2.14E-03</td><td>ORF1AB:T3284S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10319</td> <td>C</td> <td>T</td> <td>0.915</td> <td nowrap>8.81E-45</td><td>ORF1AB:L3352F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10328</td> <td>G</td> <td>T</td> <td>0.073</td> <td nowrap>6.83E-03</td><td>ORF1AB:D3355Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10507</td> <td>C</td> <td>G</td> <td>0.063</td> <td nowrap>8.26E-03</td><td>ORF1AB:N3414K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10529</td> <td>T</td> <td>G</td> <td>0.079</td> <td nowrap>2.58E-04</td><td>ORF1AB:F3422V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10533</td> <td>G</td> <td>A</td> <td>0.056</td> <td nowrap>2.70E-03</td><td>ORF1AB:C3423Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10537</td> <td>C</td> <td>G</td> <td>0.053</td> <td nowrap>3.01E-03</td><td>ORF1AB:Y3424*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10623</td> <td>C</td> <td>G</td> <td>0.053</td> <td nowrap>6.42E-06</td><td>ORF1AB:T3453R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10749</td> <td>T</td> <td>C</td> <td>0.066</td> <td nowrap>3.78E-05</td><td>ORF1AB:L3495P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10751</td> <td>G</td> <td>C</td> <td>0.085</td> <td nowrap>9.74E-05</td><td>ORF1AB:V3496L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10754</td> <td>G</td> <td>T</td> <td>0.097</td> <td nowrap>1.48E-05</td><td>ORF1AB:A3497S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10757</td> <td>A</td> <td>C</td> <td>0.106</td> <td nowrap>7.88E-06</td><td>ORF1AB:M3498L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10759</td> <td>G</td> <td>T</td> <td>0.071</td> <td nowrap>3.89E-04</td><td>ORF1AB:M3498I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10761</td> <td>A</td> <td>T</td> <td>0.094</td> <td nowrap>4.10E-05</td><td>ORF1AB:K3499M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10762</td> <td>G</td> <td>A</td> <td>0.080</td> <td nowrap>2.19E-04</td><td>NUC:G10762A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10763</td> <td>T</td> <td>C</td> <td>0.089</td> <td nowrap>7.88E-05</td><td>ORF1AB:Y3500H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10767</td> <td>A</td> <td>T</td> <td>0.082</td> <td nowrap>8.93E-05</td><td>ORF1AB:N3501I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10768</td> <td>T</td> <td>C</td> <td>0.077</td> <td nowrap>1.66E-04</td><td>NUC:T10768C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10770</td> <td>A</td> <td>C</td> <td>0.097</td> <td nowrap>1.24E-05</td><td>ORF1AB:Y3502S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10771</td> <td>T</td> <td>C</td> <td>0.078</td> <td nowrap>1.42E-04</td><td>NUC:T10771C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10774</td> <td>A</td> <td>G</td> <td>0.074</td> <td nowrap>2.19E-04</td><td>NUC:A10774G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10775</td> <td>C</td> <td>T</td> <td>0.068</td> <td nowrap>3.12E-04</td><td>ORF1AB:P3504S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10780</td> <td>A</td> <td>T</td> <td>0.054</td> <td nowrap>3.25E-03</td><td>NUC:A10780T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10782</td> <td>C</td> <td>T</td> <td>0.050</td> <td nowrap>3.66E-03</td><td>ORF1AB:T3506I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10786</td> <td>A</td> <td>T</td> <td>0.070</td> <td nowrap>8.55E-04</td><td>ORF1AB:Q3507H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10904</td> <td>A</td> <td>T</td> <td>0.075</td> <td nowrap>2.31E-03</td><td>ORF1AB:S3547C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10907</td> <td>G</td> <td>T</td> <td>0.064</td> <td nowrap>7.02E-03</td><td>ORF1AB:A3548S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10910</td> <td>T</td> <td>C</td> <td>0.068</td> <td nowrap>7.44E-03</td><td>NUC:T10910C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10918</td> <td>A</td> <td>C</td> <td>0.081</td> <td nowrap>3.05E-03</td><td>ORF1AB:E3551D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10920</td> <td>A</td> <td>C</td> <td>0.072</td> <td nowrap>6.92E-03</td><td>ORF1AB:D3552A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11074</td> <td>C</td> <td>-T</td> <td>0.461</td> <td nowrap>7.46E-15</td><td>DEL:11074:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11089</td> <td>A</td> <td>C</td> <td>0.065</td> <td nowrap>6.37E-03</td><td>ORF1AB:E3608D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11091</td> <td>A</td> <td>C</td> <td>0.074</td> <td nowrap>2.48E-03</td><td>ORF1AB:N3609T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11106</td> <td>T</td> <td>C</td> <td>0.066</td> <td nowrap>2.22E-03</td><td>ORF1AB:F3614S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11107</td> <td>T</td> <td>G</td> <td>0.062</td> <td nowrap>2.21E-03</td><td>ORF1AB:F3614L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11109</td> <td>C</td> <td>A</td> <td>0.063</td> <td nowrap>2.12E-03</td><td>ORF1AB:A3615D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11131</td> <td>T</td> <td>C</td> <td>0.556</td> <td nowrap>4.93E-36</td><td>NUC:T11131C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11186</td> <td>T</td> <td>A</td> <td>0.057</td> <td nowrap>4.52E-04</td><td>ORF1AB:L3641I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11214</td> <td>T</td> <td>A</td> <td>0.054</td> <td nowrap>1.65E-03</td><td>ORF1AB:F3650Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11234</td> <td>G</td> <td>C</td> <td>0.072</td> <td nowrap>2.63E-04</td><td>ORF1AB:A3657P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11247</td> <td>T</td> <td>C</td> <td>0.055</td> <td nowrap>3.23E-03</td><td>ORF1AB:M3661T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11312</td> <td>G</td> <td>C</td> <td>0.067</td> <td nowrap>4.70E-03</td><td>ORF1AB:V3683L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11314</td> <td>T</td> <td>C</td> <td>0.069</td> <td nowrap>4.63E-03</td><td>NUC:T11314C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11315</td> <td>A</td> <td>T</td> <td>0.068</td> <td nowrap>3.36E-03</td><td>ORF1AB:M3684L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11317</td> <td>G</td> <td>A</td> <td>0.067</td> <td nowrap>4.88E-03</td><td>ORF1AB:M3684I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11320</td> <td>T</td> <td>C</td> <td>0.062</td> <td nowrap>9.59E-03</td><td>NUC:T11320C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11321</td> <td>G</td> <td>A</td> <td>0.072</td> <td nowrap>4.69E-03</td><td>ORF1AB:A3686T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11341</td> <td>A</td> <td>T</td> <td>0.067</td> <td nowrap>7.42E-03</td><td>NUC:A11341T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11344</td> <td>C</td> <td>A</td> <td>0.068</td> <td nowrap>8.53E-03</td><td>NUC:C11344A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11346</td> <td>T</td> <td>A</td> <td>0.070</td> <td nowrap>8.99E-03</td><td>ORF1AB:L3694H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11350</td> <td>G</td> <td>C</td> <td>0.070</td> <td nowrap>9.79E-03</td><td>ORF1AB:M3695I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12158</td> <td>G</td> <td>A</td> <td>0.102</td> <td nowrap>6.88E-03</td><td>ORF1AB:E3965K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12316</td> <td>A</td> <td>G</td> <td>0.156</td> <td nowrap>2.34E-04</td><td>NUC:A12316G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12317</td> <td>T</td> <td>G</td> <td>0.159</td> <td nowrap>1.50E-04</td><td>ORF1AB:S4018A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12525</td> <td>C</td> <td>T</td> <td>0.836</td> <td nowrap>4.62E-34</td><td>ORF1AB:T4087I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12656</td> <td>T</td> <td>C</td> <td>0.059</td> <td nowrap>6.53E-03</td><td>NUC:T12656C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12727</td> <td>T</td> <td>G</td> <td>0.057</td> <td nowrap>5.60E-03</td><td>ORF1AB:C4154W</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12729</td> <td>C</td> <td>A</td> <td>0.064</td> <td nowrap>2.89E-03</td><td>ORF1AB:A4155D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12732</td> <td>C</td> <td>A</td> <td>0.053</td> <td nowrap>6.29E-03</td><td>ORF1AB:A4156D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12733</td> <td>C</td> <td>T</td> <td>0.052</td> <td nowrap>6.29E-03</td><td>NUC:C12733T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12738</td> <td>C</td> <td>T</td> <td>0.079</td> <td nowrap>2.47E-04</td><td>ORF1AB:T4158I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12739</td> <td>T</td> <td>A</td> <td>0.081</td> <td nowrap>2.14E-04</td><td>NUC:T12739A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12741</td> <td>C</td> <td>G</td> <td>0.072</td> <td nowrap>5.19E-04</td><td>ORF1AB:T4159R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12743</td> <td>C</td> <td>G</td> <td>0.078</td> <td nowrap>2.54E-04</td><td>ORF1AB:Q4160E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12746</td> <td>A</td> <td>G</td> <td>0.062</td> <td nowrap>1.08E-03</td><td>ORF1AB:T4161A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12864</td> <td>A</td> <td>C</td> <td>0.063</td> <td nowrap>1.70E-03</td><td>ORF1AB:D4200A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12868</td> <td>A</td> <td>C</td> <td>0.070</td> <td nowrap>1.62E-03</td><td>NUC:A12868C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12887</td> <td>G</td> <td>C</td> <td>0.164</td> <td nowrap>5.68E-05</td><td>ORF1AB:E4208Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12889</td> <td>A</td> <td>T</td> <td>0.213</td> <td nowrap>2.95E-05</td><td>ORF1AB:E4208D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12893</td> <td>G</td> <td>A</td> <td>0.146</td> <td nowrap>3.47E-03</td><td>ORF1AB:E4210K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12894</td> <td>A</td> <td>C</td> <td>0.176</td> <td nowrap>9.69E-04</td><td>ORF1AB:E4210A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15529</td> <td>T</td> <td>C</td> <td>0.769</td> <td nowrap>2.02E-05</td><td>ORF1AB:C688R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15533</td> <td>A</td> <td>C</td> <td>0.250</td> <td nowrap>3.22E-03</td><td>ORF1AB:Q689P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15535</td> <td>G</td> <td>T</td> <td>0.286</td> <td nowrap>1.76E-03</td><td>ORF1AB:A690S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15536</td> <td>C</td> <td>G</td> <td>0.394</td> <td nowrap>5.70E-08</td><td>ORF1AB:A690G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15538</td> <td>G</td> <td>+TGTA</td> <td>0.214</td> <td nowrap>2.38E-03</td><td>NUC:G15538+TGTA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15540</td> <td>C</td> <td>G</td> <td>0.130</td> <td nowrap>2.61E-04</td><td>NUC:C15540G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15542</td> <td>C</td> <td>G</td> <td>0.667</td> <td nowrap>1.83E-21</td><td>ORF1AB:T692R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15543</td> <td>G</td> <td>C</td> <td>0.068</td> <td nowrap>2.83E-03</td><td>NUC:G15543C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15545</td> <td>C</td> <td>T</td> <td>0.074</td> <td nowrap>9.05E-05</td><td>ORF1AB:A693V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15548</td> <td>A</td> <td>G</td> <td>0.093</td> <td nowrap>1.06E-06</td><td>ORF1AB:N694S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15549</td> <td>T</td> <td>G</td> <td>0.053</td> <td nowrap>9.04E-05</td><td>ORF1AB:N694K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15551</td> <td>T</td> <td>+GTA</td> <td>0.091</td> <td nowrap>1.22E-06</td><td>NUC:T15551+GTA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15555</td> <td>T</td> <td>G</td> <td>0.138</td> <td nowrap>1.21E-14</td><td>ORF1AB:N696K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15556</td> <td>G</td> <td>A</td> <td>0.144</td> <td nowrap>8.44E-16</td><td>ORF1AB:A697T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15557</td> <td>C</td> <td>G</td> <td>0.097</td> <td nowrap>7.21E-11</td><td>ORF1AB:A697G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15558</td> <td>A</td> <td>+G</td> <td>0.061</td> <td nowrap>1.07E-04</td><td>NUC:A15558+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15559</td> <td>C</td> <td>+A</td> <td>0.059</td> <td nowrap>3.39E-05</td><td>NUC:C15559+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15560</td> <td>T</td> <td>G</td> <td>0.075</td> <td nowrap>1.65E-10</td><td>ORF1AB:L698R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15593</td> <td>A</td> <td>T</td> <td>0.054</td> <td nowrap>1.81E-15</td><td>ORF1AB:K709M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15599</td> <td>T</td> <td>A</td> <td>0.050</td> <td nowrap>8.32E-15</td><td>ORF1AB:V711D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15603</td> <td>C</td> <td>A</td> <td>0.056</td> <td nowrap>6.79E-18</td><td>NUC:C15603A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15605</td> <td>A</td> <td>G</td> <td>0.084</td> <td nowrap>3.48E-29</td><td>ORF1AB:N713S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15607</td> <td>T</td> <td>G</td> <td>0.078</td> <td nowrap>1.85E-29</td><td>ORF1AB:L714V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15610</td> <td>C</td> <td>T</td> <td>0.077</td> <td nowrap>1.27E-29</td><td>ORF1AB:Q715*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15613</td> <td>C</td> <td>G</td> <td>0.116</td> <td nowrap>6.92E-48</td><td>ORF1AB:H716D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15615</td> <td>C</td> <td>G</td> <td>0.061</td> <td nowrap>4.35E-25</td><td>ORF1AB:H716Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15751</td> <td>G</td> <td>A</td> <td>0.052</td> <td nowrap>1.07E-37</td><td>ORF1AB:A762T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15772</td> <td>A</td> <td>G</td> <td>0.052</td> <td nowrap>1.54E-34</td><td>ORF1AB:S769G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15780</td> <td>G</td> <td>C</td> <td>0.054</td> <td nowrap>2.01E-36</td><td>ORF1AB:K771N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15782</td> <td>A</td> <td>T</td> <td>0.052</td> <td nowrap>1.40E-35</td><td>ORF1AB:N772I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15905</td> <td>A</td> <td>C</td> <td>0.066</td> <td nowrap>1.65E-18</td><td>ORF1AB:Q813P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15906</td> <td>G</td> <td>T</td> <td>0.077</td> <td nowrap>5.44E-22</td><td>ORF1AB:Q813H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15907</td> <td>G</td> <td>T</td> <td>0.065</td> <td nowrap>5.55E-17</td><td>ORF1AB:G814C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15908</td> <td>G</td> <td>C</td> <td>0.134</td> <td nowrap>5.81E-35</td><td>ORF1AB:G814A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15910</td> <td>G</td> <td>T</td> <td>0.073</td> <td nowrap>4.64E-18</td><td>ORF1AB:D815Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15912</td> <td>T</td> <td>C</td> <td>0.061</td> <td nowrap>1.37E-14</td><td>NUC:T15912C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15913</td> <td>G</td> <td>A</td> <td>0.062</td> <td nowrap>2.19E-14</td><td>ORF1AB:D816N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15914</td> <td>A</td> <td>C</td> <td>0.084</td> <td nowrap>1.81E-18</td><td>ORF1AB:D816A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15915</td> <td>T</td> <td>C</td> <td>0.078</td> <td nowrap>3.06E-15</td><td>NUC:T15915C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15916</td> <td>T</td> <td>C</td> <td>0.083</td> <td nowrap>2.15E-14</td><td>ORF1AB:Y817H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15917</td> <td>A</td> <td>G</td> <td>0.069</td> <td nowrap>6.99E-12</td><td>ORF1AB:Y817C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15919</td> <td>G</td> <td>C</td> <td>0.136</td> <td nowrap>8.89E-23</td><td>ORF1AB:V818L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15921</td> <td>G</td> <td>C</td> <td>0.062</td> <td nowrap>7.85E-09</td><td>NUC:G15921C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15923</td> <td>A</td> <td>T</td> <td>0.064</td> <td nowrap>5.55E-08</td><td>ORF1AB:Y819F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15924</td> <td>C</td> <td>T</td> <td>0.143</td> <td nowrap>1.63E-14</td><td>NUC:C15924T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15925</td> <td>C</td> <td>A</td> <td>0.064</td> <td nowrap>1.63E-05</td><td>ORF1AB:L820I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15926</td> <td>T</td> <td>C</td> <td>0.064</td> <td nowrap>3.62E-05</td><td>ORF1AB:L820P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15927</td> <td>T</td> <td>G</td> <td>0.122</td> <td nowrap>1.02E-09</td><td>NUC:T15927G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15928</td> <td>C</td> <td>T</td> <td>0.219</td> <td nowrap>8.20E-15</td><td>ORF1AB:P821S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15929</td> <td>C</td> <td>T</td> <td>0.102</td> <td nowrap>2.81E-06</td><td>ORF1AB:P821L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15930</td> <td>T</td> <td>G</td> <td>0.096</td> <td nowrap>4.65E-05</td><td>NUC:T15930G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15931</td> <td>T</td> <td>G</td> <td>0.213</td> <td nowrap>1.74E-08</td><td>ORF1AB:Y822D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15932</td> <td>A</td> <td>G</td> <td>0.065</td> <td nowrap>5.73E-03</td><td>ORF1AB:Y822C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15933</td> <td>C</td> <td>T</td> <td>0.327</td> <td nowrap>7.87E-12</td><td>NUC:C15933T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15936</td> <td>A</td> <td>T</td> <td>0.235</td> <td nowrap>9.98E-05</td><td>NUC:A15936T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15937</td> <td>G</td> <td>T</td> <td>0.190</td> <td nowrap>5.25E-05</td><td>ORF1AB:D824Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15941</td> <td>C</td> <td>T</td> <td>0.250</td> <td nowrap>9.16E-03</td><td>ORF1AB:P825L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15942</td> <td>A</td> <td>T</td> <td>0.182</td> <td nowrap>7.12E-03</td><td>NUC:A15942T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15943</td> <td>T</td> <td>G</td> <td>0.263</td> <td nowrap>4.66E-03</td><td>ORF1AB:S826A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16134</td> <td>C</td> <td>G</td> <td>0.222</td> <td nowrap>8.16E-03</td><td>ORF1AB:H889Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16209</td> <td>T</td> <td>G</td> <td>0.053</td> <td nowrap>1.45E-03</td><td>NUC:T16209G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16283</td> <td>G</td> <td>C</td> <td>0.058</td> <td nowrap>1.37E-04</td><td>ORF1AB:C939S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16285</td> <td>G</td> <td>C</td> <td>0.065</td> <td nowrap>4.74E-05</td><td>ORF1AB:G940R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16291</td> <td>T</td> <td>C</td> <td>0.051</td> <td nowrap>3.20E-04</td><td>ORF1AB:C942R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16295</td> <td>T</td> <td>G</td> <td>0.056</td> <td nowrap>1.43E-04</td><td>ORF1AB:I943R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16297</td> <td>C</td> <td>T</td> <td>0.055</td> <td nowrap>1.47E-04</td><td>ORF1AB:R944C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16304</td> <td>C</td> <td>A</td> <td>0.068</td> <td nowrap>2.20E-05</td><td>ORF1AB:P946Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16305</td> <td>A</td> <td>G</td> <td>0.067</td> <td nowrap>2.51E-05</td><td>NUC:A16305G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16407</td> <td>C</td> <td>T</td> <td>0.261</td> <td nowrap>5.20E-18</td><td>NUC:C16407T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16422</td> <td>A</td> <td>T</td> <td>0.062</td> <td nowrap>7.00E-04</td><td>ORF1AB:Q985H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16428</td> <td>C</td> <td>T</td> <td>0.367</td> <td nowrap>7.26E-21</td><td>NUC:C16428T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16445</td> <td>A</td> <td>C</td> <td>0.058</td> <td nowrap>8.34E-03</td><td>ORF1AB:Y993S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16453</td> <td>A</td> <td>T</td> <td>0.101</td> <td nowrap>1.56E-03</td><td>ORF1AB:K996*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16455</td> <td>A</td> <td>T</td> <td>0.104</td> <td nowrap>1.38E-03</td><td>ORF1AB:K996N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16456</td> <td>T</td> <td>A</td> <td>0.104</td> <td nowrap>1.66E-03</td><td>ORF1AB:S997T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16463</td> <td>A</td> <td>C</td> <td>0.086</td> <td nowrap>7.06E-03</td><td>ORF1AB:K999T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16467</td> <td>A</td> <td>G</td> <td>0.092</td> <td nowrap>9.12E-03</td><td>NUC:A16467G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16859</td> <td>C</td> <td>G</td> <td>0.083</td> <td nowrap>3.16E-03</td><td>ORF1AB:A1131G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16861</td> <td>G</td> <td>C</td> <td>0.098</td> <td nowrap>1.46E-03</td><td>ORF1AB:V1132L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16863</td> <td>T</td> <td>G</td> <td>0.084</td> <td nowrap>3.42E-03</td><td>NUC:T16863G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16944</td> <td>T</td> <td>A</td> <td>0.110</td> <td nowrap>1.08E-03</td><td>ORF1AB:S1159R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16956</td> <td>A</td> <td>C</td> <td>0.075</td> <td nowrap>2.59E-03</td><td>NUC:A16956C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16958</td> <td>T</td> <td>A</td> <td>0.058</td> <td nowrap>7.94E-03</td><td>ORF1AB:V1164E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16960</td> <td>C</td> <td>G</td> <td>0.115</td> <td nowrap>2.86E-05</td><td>ORF1AB:P1165A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16961</td> <td>C</td> <td>T</td> <td>0.162</td> <td nowrap>5.74E-07</td><td>ORF1AB:P1165L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16963</td> <td>C</td> <td>T</td> <td>0.217</td> <td nowrap>4.34E-09</td><td>ORF1AB:Q1166*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16969</td> <td>C</td> <td>A</td> <td>0.198</td> <td nowrap>1.03E-08</td><td>ORF1AB:H1168N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16970</td> <td>A</td> <td>C</td> <td>0.196</td> <td nowrap>1.70E-08</td><td>ORF1AB:H1168P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16971</td> <td>C</td> <td>A</td> <td>0.193</td> <td nowrap>2.25E-08</td><td>ORF1AB:H1168Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16972</td> <td>T</td> <td>G</td> <td>0.209</td> <td nowrap>4.18E-09</td><td>ORF1AB:Y1169D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17086</td> <td>C</td> <td>T</td> <td>0.193</td> <td nowrap>1.93E-04</td><td>ORF1AB:P1207S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17090</td> <td>G</td> <td>A</td> <td>0.234</td> <td nowrap>1.93E-04</td><td>ORF1AB:G1208D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17091</td> <td>T</td> <td>C</td> <td>0.200</td> <td nowrap>1.02E-03</td><td>NUC:T17091C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17092</td> <td>A</td> <td>G</td> <td>0.205</td> <td nowrap>8.87E-04</td><td>ORF1AB:T1209A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17095</td> <td>G</td> <td>+TCT</td> <td>0.250</td> <td nowrap>4.10E-03</td><td>NUC:G17095+TCT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17096</td> <td>G</td> <td>C</td> <td>0.531</td> <td nowrap>7.74E-08</td><td>ORF1AB:G1210A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17097</td> <td>T</td> <td>C</td> <td>0.290</td> <td nowrap>9.94E-04</td><td>NUC:T17097C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17098</td> <td>A</td> <td>T</td> <td>0.300</td> <td nowrap>9.66E-05</td><td>ORF1AB:K1211*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17100</td> <td>G</td> <td>T</td> <td>0.500</td> <td nowrap>2.29E-05</td><td>ORF1AB:K1211N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17102</td> <td>G</td> <td>C</td> <td>0.882</td> <td nowrap>1.31E-07</td><td>ORF1AB:S1212T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17103</td> <td>T</td> <td>A</td> <td>0.588</td> <td nowrap>3.33E-05</td><td>ORF1AB:S1212R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17107</td> <td>T</td> <td>C</td> <td>0.714</td> <td nowrap>5.38E-05</td><td>ORF1AB:F1214L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17109</td> <td>T</td> <td>G</td> <td>0.545</td> <td nowrap>5.42E-03</td><td>ORF1AB:F1214L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17323</td> <td>T</td> <td>G</td> <td>0.438</td> <td nowrap>2.45E-03</td><td>ORF1AB:L1286V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17324</td> <td>T</td> <td>C</td> <td>0.350</td> <td nowrap>9.57E-04</td><td>ORF1AB:L1286S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17326</td> <td>C</td> <td>T</td> <td>0.469</td> <td nowrap>1.87E-07</td><td>ORF1AB:P1287S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17327</td> <td>C</td> <td>G</td> <td>0.278</td> <td nowrap>8.66E-05</td><td>ORF1AB:P1287R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17328</td> <td>T</td> <td>G</td> <td>0.176</td> <td nowrap>2.79E-03</td><td>NUC:T17328G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17329</td> <td>G</td> <td>C</td> <td>0.333</td> <td nowrap>4.34E-07</td><td>ORF1AB:E1288Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17332</td> <td>A</td> <td>-C</td> <td>0.131</td> <td nowrap>2.83E-03</td><td>DEL:17332:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17333</td> <td>C</td> <td>T</td> <td>0.296</td> <td nowrap>9.57E-09</td><td>ORF1AB:T1289M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17334</td> <td>G</td> <td>+TGTATA</td> <td>0.138</td> <td nowrap>1.56E-03</td><td>NUC:G17334+TGTATA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17335</td> <td>A</td> <td>G</td> <td>0.136</td> <td nowrap>1.18E-03</td><td>ORF1AB:T1290A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17336</td> <td>C</td> <td>G</td> <td>0.216</td> <td nowrap>2.53E-07</td><td>ORF1AB:T1290R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17337</td> <td>A</td> <td>G</td> <td>0.074</td> <td nowrap>6.20E-03</td><td>NUC:A17337G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17338</td> <td>G</td> <td>+A</td> <td>0.089</td> <td nowrap>8.21E-04</td><td>NUC:G17338+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17339</td> <td>C</td> <td>A</td> <td>0.054</td> <td nowrap>1.25E-03</td><td>ORF1AB:A1291E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17414</td> <td>C</td> <td>A</td> <td>0.059</td> <td nowrap>9.75E-14</td><td>ORF1AB:A1316D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17483</td> <td>C</td> <td>T</td> <td>0.391</td> <td nowrap>7.68E-152</td><td>ORF1AB:T1339I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17658</td> <td>G</td> <td>C</td> <td>0.051</td> <td nowrap>2.27E-09</td><td>ORF1AB:M1397I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17671</td> <td>G</td> <td>C</td> <td>0.085</td> <td nowrap>5.49E-10</td><td>ORF1AB:V1402L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17685</td> <td>T</td> <td>C</td> <td>0.053</td> <td nowrap>1.38E-03</td><td>NUC:T17685C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17687</td> <td>T</td> <td>C</td> <td>0.056</td> <td nowrap>2.67E-03</td><td>ORF1AB:V1407A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17691</td> <td>A</td> <td>T</td> <td>0.056</td> <td nowrap>5.53E-03</td><td>NUC:A17691T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17693</td> <td>C</td> <td>A</td> <td>0.061</td> <td nowrap>7.11E-03</td><td>ORF1AB:S1409Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17695</td> <td>G</td> <td>+T</td> <td>0.095</td> <td nowrap>5.74E-03</td><td>NUC:G17695+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17697</td> <td>A</td> <td>T</td> <td>0.121</td> <td nowrap>2.54E-03</td><td>NUC:A17697T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17698</td> <td>A</td> <td>C</td> <td>0.138</td> <td nowrap>1.45E-03</td><td>ORF1AB:I1411L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17704</td> <td>A</td> <td>C</td> <td>0.500</td> <td nowrap>1.93E-03</td><td>NUC:A17704C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17705</td> <td>G</td> <td>T</td> <td>0.643</td> <td nowrap>7.04E-05</td><td>ORF1AB:R1413M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18252</td> <td>C</td> <td>G</td> <td>0.212</td> <td nowrap>1.64E-05</td><td>ORF1AB:N1595K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18257</td> <td>T</td> <td>G</td> <td>0.183</td> <td nowrap>5.73E-06</td><td>ORF1AB:F1597C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18261</td> <td>C</td> <td>A</td> <td>0.151</td> <td nowrap>2.38E-05</td><td>NUC:C18261A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18262</td> <td>A</td> <td>G</td> <td>0.095</td> <td nowrap>1.04E-03</td><td>ORF1AB:T1599A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18263</td> <td>C</td> <td>G</td> <td>0.209</td> <td nowrap>6.61E-08</td><td>ORF1AB:T1599S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18264</td> <td>C</td> <td>A</td> <td>0.065</td> <td nowrap>7.45E-03</td><td>NUC:C18264A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18265</td> <td>C</td> <td>T</td> <td>0.052</td> <td nowrap>8.37E-03</td><td>ORF1AB:R1600C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18267</td> <td>C</td> <td>T</td> <td>0.051</td> <td nowrap>7.37E-03</td><td>NUC:C18267T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18268</td> <td>G</td> <td>-A</td> <td>0.068</td> <td nowrap>7.55E-03</td><td>DEL:18268:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18269</td> <td>A</td> <td>T</td> <td>0.055</td> <td nowrap>4.76E-03</td><td>ORF1AB:E1601V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18271</td> <td>G</td> <td>C</td> <td>0.094</td> <td nowrap>8.84E-05</td><td>ORF1AB:E1602Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18273</td> <td>A</td> <td>T</td> <td>0.142</td> <td nowrap>9.13E-08</td><td>ORF1AB:E1602D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18274</td> <td>G</td> <td>+T</td> <td>0.105</td> <td nowrap>3.99E-05</td><td>NUC:G18274+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18275</td> <td>C</td> <td>G</td> <td>0.095</td> <td nowrap>1.10E-06</td><td>ORF1AB:A1603G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18394</td> <td>G</td> <td>+C</td> <td>0.088</td> <td nowrap>9.78E-08</td><td>NUC:G18394+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18399</td> <td>A</td> <td>C</td> <td>0.073</td> <td nowrap>4.96E-07</td><td>NUC:A18399C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18400</td> <td>C</td> <td>T</td> <td>0.130</td> <td nowrap>2.74E-12</td><td>ORF1AB:P1645S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18403</td> <td>A</td> <td>C</td> <td>0.076</td> <td nowrap>2.16E-07</td><td>ORF1AB:T1646P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18406</td> <td>G</td> <td>T</td> <td>0.057</td> <td nowrap>4.28E-06</td><td>ORF1AB:G1647C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18407</td> <td>G</td> <td>C</td> <td>0.094</td> <td nowrap>2.84E-09</td><td>ORF1AB:G1647A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18408</td> <td>T</td> <td>C</td> <td>0.110</td> <td nowrap>2.26E-10</td><td>NUC:T18408C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18409</td> <td>T</td> <td>C</td> <td>0.079</td> <td nowrap>3.83E-07</td><td>ORF1AB:Y1648H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18410</td> <td>A</td> <td>G</td> <td>0.054</td> <td nowrap>7.04E-05</td><td>ORF1AB:Y1648C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18415</td> <td>G</td> <td>T</td> <td>0.070</td> <td nowrap>4.94E-06</td><td>ORF1AB:D1650Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18417</td> <td>T</td> <td>G</td> <td>0.061</td> <td nowrap>3.35E-05</td><td>ORF1AB:D1650E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18424</td> <td>A</td> <td>G</td> <td>0.940</td> <td nowrap>1.02E-115</td><td>ORF1AB:N1653D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18492</td> <td>A</td> <td>G</td> <td>0.052</td> <td nowrap>1.49E-05</td><td>NUC:A18492G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20369</td> <td>T</td> <td>G</td> <td>0.700</td> <td nowrap>1.03E-03</td><td>ORF1AB:L2301R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20370</td> <td>A</td> <td>T</td> <td>0.700</td> <td nowrap>1.03E-03</td><td>NUC:A20370T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20372</td> <td>T</td> <td>A</td> <td>0.636</td> <td nowrap>1.35E-03</td><td>ORF1AB:L2302Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20380</td> <td>C</td> <td>T</td> <td>0.500</td> <td nowrap>9.57E-03</td><td>NUC:C20380T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20381</td> <td>T</td> <td>A</td> <td>0.545</td> <td nowrap>1.55E-03</td><td>ORF1AB:L2305Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20566</td> <td>A</td> <td>G</td> <td>0.064</td> <td nowrap>7.85E-06</td><td>ORF1AB:K2367E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20575</td> <td>A</td> <td>T</td> <td>0.063</td> <td nowrap>2.54E-05</td><td>ORF1AB:K2370*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20579</td> <td>T</td> <td>A</td> <td>0.069</td> <td nowrap>1.14E-05</td><td>ORF1AB:V2371E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20705</td> <td>A</td> <td>C</td> <td>0.071</td> <td nowrap>2.68E-03</td><td>ORF1AB:K2413T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20707</td> <td>A</td> <td>C</td> <td>0.064</td> <td nowrap>6.13E-03</td><td>ORF1AB:M2414L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20711</td> <td>A</td> <td>C</td> <td>0.065</td> <td nowrap>5.56E-03</td><td>ORF1AB:Q2415P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20779</td> <td>A</td> <td>C</td> <td>0.350</td> <td nowrap>2.87E-03</td><td>ORF1AB:M2438L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21534</td> <td>T</td> <td>A</td> <td>0.333</td> <td nowrap>7.62E-03</td><td>ORF1AB:S2689R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21540</td> <td>T</td> <td>G</td> <td>0.179</td> <td nowrap>7.32E-03</td><td>NUC:T21540G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21542</td> <td>T</td> <td>G</td> <td>0.175</td> <td nowrap>3.82E-03</td><td>ORF1AB:L2692R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21545</td> <td>T</td> <td>G</td> <td>0.098</td> <td nowrap>8.45E-03</td><td>ORF1AB:V2693G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21546</td> <td>T</td> <td>A</td> <td>0.109</td> <td nowrap>4.57E-03</td><td>NUC:T21546A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21548</td> <td>A</td> <td>G</td> <td>0.106</td> <td nowrap>5.63E-03</td><td>ORF1AB:N2694S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21550</td> <td>A</td> <td>G</td> <td>0.067</td> <td nowrap>6.36E-03</td><td>ORF1AB:N2695D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21557</td> <td>C</td> <td>A</td> <td>0.061</td> <td nowrap>2.48E-03</td><td>NUC:C21557A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21584</td> <td>T</td> <td>G</td> <td>0.072</td> <td nowrap>7.39E-06</td><td>S:L8V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21587</td> <td>C</td> <td>A</td> <td>0.107</td> <td nowrap>8.75E-10</td><td>S:P9T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21588</td> <td>C</td> <td>G</td> <td>0.076</td> <td nowrap>3.65E-07</td><td>S:P9R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21633</td> <td>T</td> <td>A</td> <td>0.057</td> <td nowrap>7.48E-16</td><td>S:L24*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21637</td> <td>C</td> <td>A</td> <td>0.057</td> <td nowrap>2.17E-17</td><td>NUC:C21637A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21642</td> <td>C</td> <td>T</td> <td>0.051</td> <td nowrap>5.52E-16</td><td>S:A27V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21776</td> <td>G</td> <td>T</td> <td>0.057</td> <td nowrap>1.93E-21</td><td>S:G72W</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21777</td> <td>G</td> <td>A</td> <td>0.123</td> <td nowrap>4.95E-47</td><td>S:G72E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21781</td> <td>C</td> <td>A</td> <td>0.056</td> <td nowrap>1.38E-20</td><td>NUC:C21781A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21798</td> <td>T</td> <td>G</td> <td>0.060</td> <td nowrap>4.46E-21</td><td>S:F79C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21812</td> <td>C</td> <td>T</td> <td>0.892</td> <td nowrap>0.00E+00</td><td>NUC:C21812T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21826</td> <td>T</td> <td>-G</td> <td>0.067</td> <td nowrap>3.13E-16</td><td>DEL:21826:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21898</td> <td>G</td> <td>T</td> <td>0.078</td> <td nowrap>4.62E-21</td><td>NUC:G21898T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21899</td> <td>A</td> <td>T</td> <td>0.059</td> <td nowrap>2.91E-16</td><td>S:K113*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21904</td> <td>C</td> <td>A</td> <td>0.089</td> <td nowrap>3.44E-23</td><td>NUC:C21904A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21912</td> <td>T</td> <td>G</td> <td>0.057</td> <td nowrap>9.31E-17</td><td>S:L117R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21915</td> <td>T</td> <td>A</td> <td>0.061</td> <td nowrap>4.83E-19</td><td>S:L118H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21916</td> <td>T</td> <td>G</td> <td>0.052</td> <td nowrap>3.31E-15</td><td>NUC:T21916G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21918</td> <td>T</td> <td>+G</td> <td>0.064</td> <td nowrap>2.65E-13</td><td>NUC:T21918+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21920</td> <td>G</td> <td>C</td> <td>0.055</td> <td nowrap>1.83E-16</td><td>S:V120L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21921</td> <td>T</td> <td>+A</td> <td>0.066</td> <td nowrap>3.04E-13</td><td>NUC:T21921+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21923</td> <td>A</td> <td>T</td> <td>0.052</td> <td nowrap>9.84E-16</td><td>S:N121Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21924</td> <td>A</td> <td>C</td> <td>0.052</td> <td nowrap>9.34E-16</td><td>S:N121T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21925</td> <td>T</td> <td>G</td> <td>0.082</td> <td nowrap>8.48E-25</td><td>S:N121K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21928</td> <td>C</td> <td>A</td> <td>0.052</td> <td nowrap>1.34E-14</td><td>S:N122K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22046</td> <td>A</td> <td>T</td> <td>0.063</td> <td nowrap>1.92E-23</td><td>S:S162C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22050</td> <td>C</td> <td>T</td> <td>0.065</td> <td nowrap>5.30E-21</td><td>S:A163V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22052</td> <td>A</td> <td>T</td> <td>0.119</td> <td nowrap>3.65E-39</td><td>S:N164Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22057</td> <td>T</td> <td>G</td> <td>0.053</td> <td nowrap>8.18E-17</td><td>S:N165K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22059</td> <td>G</td> <td>A</td> <td>0.063</td> <td nowrap>9.17E-21</td><td>S:C166Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22201</td> <td>G</td> <td>T</td> <td>0.054</td> <td nowrap>4.94E-14</td><td>NUC:G22201T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22202</td> <td>C</td> <td>T</td> <td>0.052</td> <td nowrap>2.21E-12</td><td>S:R214C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22203</td> <td>G</td> <td>T</td> <td>0.061</td> <td nowrap>4.30E-14</td><td>S:R214L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22205</td> <td>G</td> <td>C</td> <td>0.107</td> <td nowrap>3.01E-23</td><td>S:D215H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22265</td> <td>A</td> <td>C</td> <td>0.071</td> <td nowrap>7.42E-04</td><td>S:I235L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22267</td> <td>C</td> <td>G</td> <td>0.269</td> <td nowrap>2.17E-05</td><td>S:I235M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22268</td> <td>A</td> <td>T</td> <td>0.725</td> <td nowrap>6.75E-19</td><td>S:T236S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22270</td> <td>T</td> <td>G</td> <td>0.143</td> <td nowrap>6.69E-03</td><td>NUC:T22270G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22271</td> <td>A</td> <td>C</td> <td>0.400</td> <td nowrap>2.72E-07</td><td>NUC:A22271C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22272</td> <td>G</td> <td>T</td> <td>0.378</td> <td nowrap>2.99E-11</td><td>S:R237M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22273</td> <td>G</td> <td>T</td> <td>0.375</td> <td nowrap>1.22E-08</td><td>S:R237S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22274</td> <td>T</td> <td>A</td> <td>0.385</td> <td nowrap>4.11E-06</td><td>S:F238I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22275</td> <td>T</td> <td>C</td> <td>0.368</td> <td nowrap>1.72E-05</td><td>S:F238S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22276</td> <td>T</td> <td>A</td> <td>0.400</td> <td nowrap>6.64E-06</td><td>S:F238L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22279</td> <td>A</td> <td>C</td> <td>0.593</td> <td nowrap>1.03E-07</td><td>S:Q239H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22281</td> <td>C</td> <td>T</td> <td>0.440</td> <td nowrap>8.57E-05</td><td>S:T240I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22282</td> <td>T</td> <td>C</td> <td>0.600</td> <td nowrap>1.86E-05</td><td>NUC:T22282C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22284</td> <td>T</td> <td>G</td> <td>0.600</td> <td nowrap>1.86E-05</td><td>S:L241*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22947</td> <td>A</td> <td>G</td> <td>0.812</td> <td nowrap>2.72E-06</td><td>S:K462R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22949</td> <td>C</td> <td>T</td> <td>0.625</td> <td nowrap>5.00E-05</td><td>S:P463S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22950</td> <td>C</td> <td>G</td> <td>0.706</td> <td nowrap>3.22E-06</td><td>S:P463R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22952</td> <td>T</td> <td>G</td> <td>0.214</td> <td nowrap>8.70E-03</td><td>S:F464V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22953</td> <td>T</td> <td>G</td> <td>0.167</td> <td nowrap>3.19E-03</td><td>S:F464C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22954</td> <td>T</td> <td>A</td> <td>0.333</td> <td nowrap>3.77E-05</td><td>S:F464L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22956</td> <td>A</td> <td>G</td> <td>0.152</td> <td nowrap>5.56E-03</td><td>S:E465G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22957</td> <td>G</td> <td>C</td> <td>0.158</td> <td nowrap>1.16E-03</td><td>S:E465D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22959</td> <td>G</td> <td>C</td> <td>0.119</td> <td nowrap>2.46E-03</td><td>S:R466T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22962</td> <td>A</td> <td>+G</td> <td>0.074</td> <td nowrap>6.68E-03</td><td>NUC:A22962+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22964</td> <td>A</td> <td>G</td> <td>0.216</td> <td nowrap>4.78E-08</td><td>S:I468V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22965</td> <td>T</td> <td>+G</td> <td>0.100</td> <td nowrap>3.39E-03</td><td>NUC:T22965+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22966</td> <td>T</td> <td>G</td> <td>0.084</td> <td nowrap>8.63E-04</td><td>S:I468M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22967</td> <td>T</td> <td>A</td> <td>0.134</td> <td nowrap>1.12E-05</td><td>S:S469T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22968</td> <td>C</td> <td>T</td> <td>0.116</td> <td nowrap>3.00E-05</td><td>S:S469L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22969</td> <td>A</td> <td>G</td> <td>0.091</td> <td nowrap>3.35E-04</td><td>NUC:A22969G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22970</td> <td>A</td> <td>G</td> <td>0.065</td> <td nowrap>2.23E-03</td><td>S:T470A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22971</td> <td>C</td> <td>G</td> <td>0.116</td> <td nowrap>1.37E-05</td><td>S:T470S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22972</td> <td>T</td> <td>G</td> <td>0.055</td> <td nowrap>2.63E-03</td><td>NUC:T22972G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22975</td> <td>A</td> <td>T</td> <td>0.050</td> <td nowrap>3.22E-03</td><td>S:E471D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22976</td> <td>A</td> <td>G</td> <td>0.064</td> <td nowrap>1.41E-03</td><td>S:I472V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22977</td> <td>T</td> <td>G</td> <td>0.087</td> <td nowrap>1.28E-04</td><td>S:I472S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22978</td> <td>C</td> <td>G</td> <td>0.072</td> <td nowrap>2.67E-04</td><td>S:I472M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22981</td> <td>T</td> <td>A</td> <td>0.069</td> <td nowrap>3.21E-04</td><td>S:Y473*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22982</td> <td>C</td> <td>G</td> <td>0.088</td> <td nowrap>2.61E-05</td><td>S:Q474E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22985</td> <td>G</td> <td>A</td> <td>0.100</td> <td nowrap>3.34E-06</td><td>S:A475T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22987</td> <td>C</td> <td>A</td> <td>0.071</td> <td nowrap>5.79E-05</td><td>NUC:C22987A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23071</td> <td>T</td> <td>A</td> <td>0.060</td> <td nowrap>2.10E-10</td><td>NUC:T23071A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23074</td> <td>T</td> <td>A</td> <td>0.062</td> <td nowrap>1.85E-11</td><td>NUC:T23074A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23075</td> <td>T</td> <td>G</td> <td>0.063</td> <td nowrap>1.40E-11</td><td>S:Y505D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23078</td> <td>C</td> <td>A</td> <td>0.050</td> <td nowrap>4.05E-10</td><td>S:Q506K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23082</td> <td>C</td> <td>G</td> <td>0.052</td> <td nowrap>1.98E-12</td><td>S:P507R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23084</td> <td>T</td> <td>G</td> <td>0.055</td> <td nowrap>7.50E-14</td><td>S:Y508D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23101</td> <td>T</td> <td>C</td> <td>0.056</td> <td nowrap>1.27E-16</td><td>NUC:T23101C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23106</td> <td>T</td> <td>A</td> <td>0.057</td> <td nowrap>5.28E-17</td><td>S:F515Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23108</td> <td>G</td> <td>A</td> <td>0.063</td> <td nowrap>5.85E-19</td><td>S:E516K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23109</td> <td>A</td> <td>C</td> <td>0.064</td> <td nowrap>2.66E-19</td><td>S:E516A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23112</td> <td>T</td> <td>A</td> <td>0.051</td> <td nowrap>8.39E-15</td><td>S:L517H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23114</td> <td>C</td> <td>T</td> <td>0.248</td> <td nowrap>3.19E-84</td><td>NUC:C23114T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23223</td> <td>A</td> <td>T</td> <td>0.094</td> <td nowrap>9.88E-28</td><td>S:E554V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23228</td> <td>A</td> <td>T</td> <td>0.054</td> <td nowrap>3.18E-15</td><td>S:N556Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23230</td> <td>C</td> <td>T</td> <td>0.055</td> <td nowrap>5.50E-16</td><td>NUC:C23230T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23234</td> <td>A</td> <td>C</td> <td>0.050</td> <td nowrap>1.16E-13</td><td>S:K558Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23271</td> <td>C</td> <td>G</td> <td>0.053</td> <td nowrap>1.77E-15</td><td>S:A570G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23272</td> <td>T</td> <td>A</td> <td>0.072</td> <td nowrap>2.85E-21</td><td>NUC:T23272A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23276</td> <td>A</td> <td>+G</td> <td>0.064</td> <td nowrap>2.49E-13</td><td>NUC:A23276+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23295</td> <td>A</td> <td>+T</td> <td>0.253</td> <td nowrap>1.08E-72</td><td>NUC:A23295+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23395</td> <td>T</td> <td>G</td> <td>0.059</td> <td nowrap>2.30E-63</td><td>NUC:T23395G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23403</td> <td>A</td> <td>G</td> <td>0.890</td> <td nowrap>0.00E+00</td><td>S:D614G</td> <td><a href="https://outbreak.info/situation-reports?pango=Omicron">Omicron</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Lambda">Lambda</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Iota">Iota</a>, <a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=Mu">Mu</a></td>
+</tr>
+<tr>
+    <td>23412</td> <td>G</td> <td>A</td> <td>0.051</td> <td nowrap>5.31E-18</td><td>S:C617Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23517</td> <td>G</td> <td>C</td> <td>0.061</td> <td nowrap>2.76E-18</td><td>S:G652A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23518</td> <td>G</td> <td>T</td> <td>0.057</td> <td nowrap>5.45E-17</td><td>NUC:G23518T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23579</td> <td>A</td> <td>T</td> <td>0.052</td> <td nowrap>2.23E-07</td><td>S:S673C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23580</td> <td>G</td> <td>C</td> <td>0.080</td> <td nowrap>7.35E-11</td><td>S:S673T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23623</td> <td>A</td> <td>C</td> <td>0.061</td> <td nowrap>2.88E-03</td><td>NUC:A23623C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23624</td> <td>G</td> <td>T</td> <td>0.109</td> <td nowrap>3.96E-05</td><td>S:A688S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23626</td> <td>T</td> <td>C</td> <td>0.224</td> <td nowrap>6.93E-07</td><td>NUC:T23626C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23627</td> <td>A</td> <td>T</td> <td>0.328</td> <td nowrap>1.47E-09</td><td>S:S689C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23628</td> <td>G</td> <td>T</td> <td>0.155</td> <td nowrap>2.03E-04</td><td>S:S689I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23629</td> <td>T</td> <td>A</td> <td>0.143</td> <td nowrap>1.32E-03</td><td>S:S689R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23630</td> <td>C</td> <td>+TCT</td> <td>0.500</td> <td nowrap>6.85E-09</td><td>NUC:C23630+TCT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23631</td> <td>A</td> <td>T</td> <td>0.776</td> <td nowrap>9.46E-21</td><td>S:Q690L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23633</td> <td>T</td> <td>C</td> <td>0.123</td> <td nowrap>6.01E-03</td><td>S:S691P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23634</td> <td>C</td> <td>A</td> <td>0.768</td> <td nowrap>6.09E-20</td><td>S:S691Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23636</td> <td>A</td> <td>-T</td> <td>0.500</td> <td nowrap>2.66E-07</td><td>DEL:23636:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23637</td> <td>T</td> <td>C</td> <td>0.222</td> <td nowrap>2.53E-03</td><td>S:I692T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23639</td> <td>A</td> <td>T</td> <td>0.175</td> <td nowrap>2.07E-03</td><td>S:I693F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23640</td> <td>T</td> <td>C</td> <td>0.194</td> <td nowrap>2.81E-03</td><td>S:I693T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23641</td> <td>T</td> <td>C</td> <td>0.194</td> <td nowrap>2.81E-03</td><td>NUC:T23641C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23642</td> <td>G</td> <td>T</td> <td>0.194</td> <td nowrap>4.13E-03</td><td>S:A694S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23645</td> <td>T</td> <td>G</td> <td>0.769</td> <td nowrap>1.06E-10</td><td>S:Y695D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23851</td> <td>A</td> <td>G</td> <td>0.125</td> <td nowrap>2.46E-03</td><td>NUC:A23851G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23852</td> <td>A</td> <td>C</td> <td>0.372</td> <td nowrap>2.24E-06</td><td>S:N764H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23853</td> <td>A</td> <td>G</td> <td>0.484</td> <td nowrap>6.56E-12</td><td>S:N764S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23854</td> <td>C</td> <td>T</td> <td>0.187</td> <td nowrap>7.24E-12</td><td>NUC:C23854T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23855</td> <td>C</td> <td>T</td> <td>0.272</td> <td nowrap>1.32E-14</td><td>S:R765C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23856</td> <td>G</td> <td>C</td> <td>0.079</td> <td nowrap>1.51E-04</td><td>S:R765P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23857</td> <td>T</td> <td>G</td> <td>0.130</td> <td nowrap>1.48E-09</td><td>NUC:T23857G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23858</td> <td>G</td> <td>C</td> <td>0.144</td> <td nowrap>8.08E-10</td><td>S:A766P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23859</td> <td>C</td> <td>T</td> <td>0.193</td> <td nowrap>2.36E-18</td><td>S:A766V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23860</td> <td>T</td> <td>G</td> <td>0.255</td> <td nowrap>8.99E-23</td><td>NUC:T23860G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23861</td> <td>T</td> <td>G</td> <td>0.281</td> <td nowrap>9.97E-26</td><td>S:L767V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23862</td> <td>T</td> <td>G</td> <td>0.132</td> <td nowrap>8.31E-15</td><td>S:L767*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23863</td> <td>A</td> <td>G</td> <td>0.083</td> <td nowrap>2.53E-09</td><td>NUC:A23863G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23864</td> <td>A</td> <td>T</td> <td>0.120</td> <td nowrap>2.78E-16</td><td>S:T768S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23865</td> <td>C</td> <td>G</td> <td>0.126</td> <td nowrap>1.02E-20</td><td>S:T768S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23866</td> <td>T</td> <td>G</td> <td>0.055</td> <td nowrap>3.23E-10</td><td>NUC:T23866G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23867</td> <td>G</td> <td>+TGTATAA</td> <td>0.076</td> <td nowrap>3.42E-09</td><td>NUC:G23867+TGTATAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23869</td> <td>A</td> <td>G</td> <td>0.102</td> <td nowrap>5.49E-26</td><td>NUC:A23869G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23871</td> <td>T</td> <td>G</td> <td>0.051</td> <td nowrap>6.33E-15</td><td>S:I770R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23874</td> <td>C</td> <td>A</td> <td>0.070</td> <td nowrap>1.22E-24</td><td>S:A771D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23878</td> <td>T</td> <td>A</td> <td>0.079</td> <td nowrap>6.65E-30</td><td>NUC:T23878A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23880</td> <td>A</td> <td>+G</td> <td>0.055</td> <td nowrap>4.30E-13</td><td>NUC:A23880+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24066</td> <td>A</td> <td>G</td> <td>0.052</td> <td nowrap>1.95E-64</td><td>S:K835R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24193</td> <td>G</td> <td>T</td> <td>0.059</td> <td nowrap>8.28E-42</td><td>NUC:G24193T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24199</td> <td>G</td> <td>T</td> <td>0.054</td> <td nowrap>2.38E-33</td><td>NUC:G24199T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24200</td> <td>G</td> <td>T</td> <td>0.059</td> <td nowrap>1.05E-35</td><td>S:G880C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24201</td> <td>G</td> <td>A</td> <td>0.056</td> <td nowrap>1.18E-31</td><td>S:G880D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24209</td> <td>A</td> <td>T</td> <td>0.050</td> <td nowrap>9.34E-24</td><td>S:T883S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24217</td> <td>T</td> <td>C</td> <td>0.050</td> <td nowrap>1.69E-18</td><td>NUC:T24217C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24219</td> <td>G</td> <td>C</td> <td>0.050</td> <td nowrap>3.17E-17</td><td>S:W886S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24220</td> <td>G</td> <td>T</td> <td>0.065</td> <td nowrap>2.02E-22</td><td>S:W886C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24223</td> <td>C</td> <td>A</td> <td>0.052</td> <td nowrap>1.16E-15</td><td>NUC:C24223A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24225</td> <td>T</td> <td>C</td> <td>0.106</td> <td nowrap>6.60E-33</td><td>S:F888S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24227</td> <td>G</td> <td>T</td> <td>0.050</td> <td nowrap>7.07E-15</td><td>S:G889C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24228</td> <td>G</td> <td>A</td> <td>0.065</td> <td nowrap>5.10E-19</td><td>S:G889D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24230</td> <td>G</td> <td>A</td> <td>0.061</td> <td nowrap>9.12E-17</td><td>S:A890T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24243</td> <td>T</td> <td>C</td> <td>0.062</td> <td nowrap>1.04E-09</td><td>S:L894S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24244</td> <td>A</td> <td>T</td> <td>0.054</td> <td nowrap>2.15E-08</td><td>S:L894F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24246</td> <td>A</td> <td>T</td> <td>0.053</td> <td nowrap>1.08E-07</td><td>S:Q895L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24247</td> <td>A</td> <td>T</td> <td>0.063</td> <td nowrap>4.01E-09</td><td>S:Q895H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24248</td> <td>A</td> <td>C</td> <td>0.124</td> <td nowrap>2.46E-09</td><td>S:I896L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24250</td> <td>A</td> <td>G</td> <td>0.083</td> <td nowrap>1.16E-05</td><td>S:I896M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24251</td> <td>C</td> <td>T</td> <td>0.082</td> <td nowrap>2.88E-05</td><td>S:P897S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24253</td> <td>A</td> <td>G</td> <td>0.068</td> <td nowrap>1.72E-03</td><td>NUC:A24253G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24255</td> <td>T</td> <td>C</td> <td>0.673</td> <td nowrap>1.94E-32</td><td>S:F898S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24256</td> <td>T</td> <td>C</td> <td>0.065</td> <td nowrap>5.44E-03</td><td>NUC:T24256C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24257</td> <td>G</td> <td>C</td> <td>0.151</td> <td nowrap>4.05E-06</td><td>S:A899P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24258</td> <td>C</td> <td>T</td> <td>0.117</td> <td nowrap>1.15E-04</td><td>S:A899V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24259</td> <td>T</td> <td>G</td> <td>0.419</td> <td nowrap>3.91E-17</td><td>NUC:T24259G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24260</td> <td>A</td> <td>C</td> <td>0.427</td> <td nowrap>1.76E-14</td><td>S:M900L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24262</td> <td>G</td> <td>A</td> <td>0.136</td> <td nowrap>6.95E-04</td><td>S:M900I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24264</td> <td>A</td> <td>C</td> <td>0.357</td> <td nowrap>2.98E-08</td><td>S:Q901P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24265</td> <td>A</td> <td>G</td> <td>0.255</td> <td nowrap>2.02E-05</td><td>NUC:A24265G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24415</td> <td>G</td> <td>C</td> <td>0.102</td> <td nowrap>5.54E-03</td><td>NUC:G24415C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24417</td> <td>T</td> <td>G</td> <td>0.169</td> <td nowrap>1.55E-04</td><td>S:V952G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24420</td> <td>A</td> <td>G</td> <td>0.235</td> <td nowrap>5.93E-07</td><td>S:N953S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24422</td> <td>C</td> <td>T</td> <td>0.116</td> <td nowrap>1.15E-03</td><td>S:Q954*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24424</td> <td>A</td> <td>T</td> <td>0.122</td> <td nowrap>4.75E-04</td><td>S:Q954H</td> <td><a href="https://outbreak.info/situation-reports?pango=Omicron">Omicron</a></td>
+</tr>
+<tr>
+    <td>24425</td> <td>A</td> <td>T</td> <td>0.079</td> <td nowrap>4.65E-03</td><td>S:N955Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24426</td> <td>A</td> <td>G</td> <td>0.152</td> <td nowrap>6.63E-05</td><td>S:N955S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24427</td> <td>T</td> <td>G</td> <td>0.125</td> <td nowrap>3.20E-04</td><td>S:N955K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24428</td> <td>G</td> <td>A</td> <td>0.094</td> <td nowrap>1.97E-03</td><td>S:A956T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24429</td> <td>C</td> <td>T</td> <td>0.183</td> <td nowrap>4.49E-07</td><td>S:A956V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24431</td> <td>C</td> <td>T</td> <td>0.172</td> <td nowrap>2.56E-06</td><td>S:Q957*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24432</td> <td>A</td> <td>C</td> <td>0.093</td> <td nowrap>1.60E-03</td><td>S:Q957P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24433</td> <td>A</td> <td>G</td> <td>0.289</td> <td nowrap>1.89E-10</td><td>NUC:A24433G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24437</td> <td>T</td> <td>A</td> <td>0.065</td> <td nowrap>5.08E-05</td><td>S:L959I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24442</td> <td>C</td> <td>G</td> <td>0.061</td> <td nowrap>3.04E-05</td><td>S:N960K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24719</td> <td>C</td> <td>T</td> <td>0.068</td> <td nowrap>8.43E-21</td><td>S:P1053S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24725</td> <td>T</td> <td>A</td> <td>0.059</td> <td nowrap>6.34E-17</td><td>S:S1055T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24751</td> <td>G</td> <td>A</td> <td>0.053</td> <td nowrap>2.18E-11</td><td>NUC:G24751A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24757</td> <td>G</td> <td>C</td> <td>0.055</td> <td nowrap>5.52E-10</td><td>NUC:G24757C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24758</td> <td>A</td> <td>T</td> <td>0.056</td> <td nowrap>3.15E-10</td><td>S:T1066S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24771</td> <td>C</td> <td>T</td> <td>0.054</td> <td nowrap>9.44E-08</td><td>S:A1070V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24772</td> <td>A</td> <td>C</td> <td>0.071</td> <td nowrap>4.28E-10</td><td>NUC:A24772C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24775</td> <td>A</td> <td>T</td> <td>0.052</td> <td nowrap>2.56E-07</td><td>S:Q1071H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24791</td> <td>A</td> <td>T</td> <td>0.053</td> <td nowrap>3.89E-06</td><td>S:T1077S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24798</td> <td>C</td> <td>T</td> <td>0.052</td> <td nowrap>4.47E-05</td><td>S:P1079L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24827</td> <td>T</td> <td>C</td> <td>0.144</td> <td nowrap>1.97E-06</td><td>S:F1089L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24828</td> <td>T</td> <td>G</td> <td>0.064</td> <td nowrap>3.89E-03</td><td>S:F1089C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24829</td> <td>T</td> <td>G</td> <td>0.154</td> <td nowrap>1.24E-06</td><td>S:F1089L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24830</td> <td>C</td> <td>T</td> <td>0.160</td> <td nowrap>8.29E-07</td><td>S:P1090S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24832</td> <td>T</td> <td>A</td> <td>0.094</td> <td nowrap>6.67E-04</td><td>NUC:T24832A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24834</td> <td>G</td> <td>T</td> <td>0.117</td> <td nowrap>4.16E-05</td><td>S:R1091L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24836</td> <td>G</td> <td>A</td> <td>0.144</td> <td nowrap>1.82E-05</td><td>S:E1092K</td> <td><a href="https://outbreak.info/situation-reports?pango=Theta">Theta</a></td>
+</tr>
+<tr>
+    <td>24837</td> <td>A</td> <td>T</td> <td>0.114</td> <td nowrap>2.15E-04</td><td>S:E1092V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24838</td> <td>A</td> <td>C</td> <td>0.135</td> <td nowrap>5.66E-05</td><td>S:E1092D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24839</td> <td>G</td> <td>C</td> <td>0.114</td> <td nowrap>2.57E-04</td><td>S:G1093R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24840</td> <td>G</td> <td>C</td> <td>0.081</td> <td nowrap>1.70E-03</td><td>S:G1093A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24841</td> <td>T</td> <td>C</td> <td>0.102</td> <td nowrap>5.51E-04</td><td>NUC:T24841C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24842</td> <td>G</td> <td>A</td> <td>0.103</td> <td nowrap>4.14E-04</td><td>S:V1094I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24846</td> <td>T</td> <td>G</td> <td>0.093</td> <td nowrap>2.05E-03</td><td>S:F1095C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>26115</td> <td>A</td> <td>C</td> <td>0.931</td> <td nowrap>3.63E-17</td><td>ORF3A:E241D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>26412</td> <td>T</td> <td>A</td> <td>0.176</td> <td nowrap>7.26E-03</td><td>E:F56L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27752</td> <td>C</td> <td>T</td> <td>0.114</td> <td nowrap>1.09E-03</td><td>ORF7A:T120I</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td>
+</tr>
+<tr>
+    <td>27843</td> <td>T</td> <td>G</td> <td>0.053</td> <td nowrap>5.93E-04</td><td>NUC:T27843G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27845</td> <td>C</td> <td>A</td> <td>0.065</td> <td nowrap>1.53E-04</td><td>NUC:C27845A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27932</td> <td>A</td> <td>C</td> <td>0.058</td> <td nowrap>5.93E-04</td><td>NUC:A27932C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27964</td> <td>C</td> <td>T</td> <td>0.848</td> <td nowrap>1.99E-60</td><td>ORF8:S24L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27972</td> <td>C</td> <td>T</td> <td>0.052</td> <td nowrap>5.82E-03</td><td>ORF8:Q27*</td> <td><a href="https://outbreak.info/situation-reports?pango=Alpha">Alpha</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.7+E484K">B.1.1.7+E484K</a></td>
+</tr>
+<tr>
+    <td>27980</td> <td>A</td> <td>C</td> <td>0.057</td> <td nowrap>5.19E-03</td><td>ORF8:Q29H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27998</td> <td>C</td> <td>T</td> <td>0.065</td> <td nowrap>8.20E-03</td><td>NUC:C27998T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28000</td> <td>C</td> <td>T</td> <td>0.079</td> <td nowrap>3.00E-03</td><td>ORF8:P36L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28003</td> <td>G</td> <td>A</td> <td>0.112</td> <td nowrap>3.05E-04</td><td>ORF8:C37Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28006</td> <td>C</td> <td>A</td> <td>0.198</td> <td nowrap>3.89E-08</td><td>ORF8:P38H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28007</td> <td>T</td> <td>G</td> <td>0.206</td> <td nowrap>2.49E-08</td><td>NUC:T28007G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28009</td> <td>T</td> <td>G</td> <td>0.078</td> <td nowrap>4.50E-04</td><td>ORF8:I39S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28010</td> <td>T</td> <td>A</td> <td>0.075</td> <td nowrap>4.99E-04</td><td>NUC:T28010A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28012</td> <td>A</td> <td>+G</td> <td>0.057</td> <td nowrap>7.80E-03</td><td>NUC:A28012+G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28013</td> <td>C</td> <td>G</td> <td>0.065</td> <td nowrap>1.17E-04</td><td>ORF8:H40Q</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28014</td> <td>T</td> <td>G</td> <td>0.069</td> <td nowrap>3.70E-05</td><td>ORF8:F41V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28016</td> <td>C</td> <td>G</td> <td>0.067</td> <td nowrap>5.14E-05</td><td>ORF8:F41L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28021</td> <td>C</td> <td>A</td> <td>0.060</td> <td nowrap>2.96E-05</td><td>ORF8:S43Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28026</td> <td>T</td> <td>A</td> <td>0.058</td> <td nowrap>1.56E-05</td><td>ORF8:W45R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28195</td> <td>G</td> <td>T</td> <td>0.051</td> <td nowrap>8.78E-07</td><td>ORF8:R101L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28395</td> <td>G</td> <td>T</td> <td>0.056</td> <td nowrap>1.29E-06</td><td>N:R41L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28410</td> <td>C</td> <td>G</td> <td>0.074</td> <td nowrap>7.62E-09</td><td>N:P46R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28429</td> <td>G</td> <td>A</td> <td>0.050</td> <td nowrap>4.59E-06</td><td>N:W52*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28431</td> <td>T</td> <td>A</td> <td>0.051</td> <td nowrap>3.88E-06</td><td>N:F53Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28472</td> <td>C</td> <td>T</td> <td>0.979</td> <td nowrap>1.78E-174</td><td>N:P67S</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td>
+</tr>
+<tr>
+    <td>28519</td> <td>C</td> <td>G</td> <td>0.054</td> <td nowrap>1.28E-05</td><td>N:D82E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28532</td> <td>T</td> <td>G</td> <td>0.051</td> <td nowrap>1.43E-05</td><td>N:Y87D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28544</td> <td>A</td> <td>G</td> <td>0.053</td> <td nowrap>1.93E-05</td><td>N:T91A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28545</td> <td>C</td> <td>T</td> <td>0.116</td> <td nowrap>6.78E-11</td><td>N:T91I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28547</td> <td>A</td> <td>T</td> <td>0.110</td> <td nowrap>5.35E-10</td><td>N:R92*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28548</td> <td>G</td> <td>T</td> <td>0.081</td> <td nowrap>1.55E-07</td><td>N:R92I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28549</td> <td>A</td> <td>T</td> <td>0.051</td> <td nowrap>6.42E-05</td><td>N:R92S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28585</td> <td>C</td> <td>G</td> <td>0.051</td> <td nowrap>1.96E-04</td><td>NUC:C28585G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28586</td> <td>A</td> <td>T</td> <td>0.051</td> <td nowrap>1.92E-04</td><td>N:S105C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28589</td> <td>C</td> <td>A</td> <td>0.066</td> <td nowrap>9.31E-06</td><td>N:P106T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28590</td> <td>C</td> <td>T</td> <td>0.067</td> <td nowrap>8.23E-06</td><td>N:P106L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28854</td> <td>C</td> <td>T</td> <td>0.051</td> <td nowrap>3.57E-09</td><td>N:S194L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28869</td> <td>C</td> <td>T</td> <td>0.902</td> <td nowrap>1.38E-260</td><td>N:P199L</td> <td><a href="https://outbreak.info/situation-reports?pango=Iota">Iota</a></td>
+</tr>
+<tr>
+    <td>29093</td> <td>T</td> <td>-TC</td> <td>0.159</td> <td nowrap>8.00E-30</td><td>DEL:29093:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29104</td> <td>T</td> <td>-G</td> <td>0.133</td> <td nowrap>4.17E-23</td><td>DEL:29104:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29510</td> <td>A</td> <td>T</td> <td>0.080</td> <td nowrap>3.63E-13</td><td>N:S413C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29513</td> <td>G</td> <td>T</td> <td>0.066</td> <td nowrap>2.25E-10</td><td>N:A414S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29516</td> <td>G</td> <td>T</td> <td>0.063</td> <td nowrap>3.29E-08</td><td>N:D415Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29519</td> <td>T</td> <td>A</td> <td>0.093</td> <td nowrap>1.76E-11</td><td>N:S416T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29521</td> <td>A</td> <td>T</td> <td>0.104</td> <td nowrap>1.48E-06</td><td>NUC:A29521T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29522</td> <td>A</td> <td>T</td> <td>0.406</td> <td nowrap>1.47E-27</td><td>N:T417S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29523</td> <td>C</td> <td>A</td> <td>0.054</td> <td nowrap>1.39E-03</td><td>N:T417N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29526</td> <td>A</td> <td>T</td> <td>0.144</td> <td nowrap>1.64E-06</td><td>N:Q418L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29527</td> <td>G</td> <td>T</td> <td>0.450</td> <td nowrap>8.90E-21</td><td>N:Q418H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29528</td> <td>G</td> <td>T</td> <td>0.118</td> <td nowrap>2.12E-04</td><td>N:A419S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29530</td> <td>C</td> <td>T</td> <td>0.261</td> <td nowrap>9.29E-07</td><td>NUC:C29530T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29531</td> <td>T</td> <td>G</td> <td>0.278</td> <td nowrap>3.30E-06</td><td>N:*420E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29533</td> <td>A</td> <td>T</td> <td>0.415</td> <td nowrap>1.37E-07</td><td>N:*420Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29536</td> <td>T</td> <td>A</td> <td>0.548</td> <td nowrap>2.62E-07</td><td>NUC:T29536A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29542</td> <td>A</td> <td>C</td> <td>0.308</td> <td nowrap>8.30E-04</td><td>NUC:A29542C</td> <td>None found</td>
+</tr>
+</table>
+<br>
+
+</body>
+</html>

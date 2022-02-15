@@ -12,6 +12,7 @@ outputDirectory = sys.argv[2]
 GENOME_SIZE = 29903
 quality = np.zeros(GENOME_SIZE)
 readDepth = np.zeros(GENOME_SIZE)
+numTermini = np.zeros(GENOME_SIZE)
 
 # Import the pile-up file and record the coverage and average quality per position
 with open(pileupFilename) as infile:
@@ -32,6 +33,10 @@ with open(pileupFilename) as infile:
             # PHRED to INT conversion rule:
             # def phred2int(x): return ord(x)-33
             quality[pos] = np.mean([ord(letter) for letter in row[5]]) - 33
+        
+        # Count the number of read termini at this location
+        # This happens by checking for ^ and $ signs in the pileup file.
+        numTermini[pos] = row[4].count('^') + row[4].count('$')
 
 
 # Calculate moving averages to smooth out patterns
@@ -44,6 +49,9 @@ qualityMA[-window:] = np.nan
 readDepthMA = np.convolve(readDepth, np.ones(window)/window, 'same')
 readDepthMA[0:window] = np.nan
 readDepthMA[-window:] = np.nan
+
+
+numTerminiMA = np.convolve(numTermini, np.ones(window)/window, 'same')
 
 
 # Import the list of uncovered genome regions due to kit design
@@ -195,6 +203,32 @@ plt.ylabel('Frequency')
 plt.yticks([])
 plt.savefig(outputDirectory + '/depthHistogram.png', dpi=200)
 plt.close()
+
+
+
+#################################################################
+# Generate a plot for the number of 5'/3' termini vs pos and save in a file
+plt.plot(posIdx, numTermini, '.', color=FDAblue)
+plt.plot(posIdx, numTerminiMA, '-', color='m')
+
+
+# If coverage is too high, scale the axes for a better view
+locs, labels = plt.yticks()
+if locs[-1] > 2000:
+    plt.ylabel('#5\'/3\' termini per kb (1000)')
+    plt.yticks(locs, (locs/1000).astype('int') )
+else:
+    plt.ylabel('#5\'/3\' termini per kb')
+
+
+plt.xlabel('Genome position (kb)')
+plt.xlim([0, GENOME_SIZE+1])
+plt.xticks(np.arange(0, GENOME_SIZE, 5000), ["%d" % (
+    x/1000) for x in np.arange(0, GENOME_SIZE, 5000)])
+
+plt.savefig(outputDirectory + '/terminiDensity.png', dpi=200)
+plt.close()
+
 
 
 #################################################################

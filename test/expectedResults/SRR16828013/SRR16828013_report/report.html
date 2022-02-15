@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table {
+	width: 100%;
+	font-family: sans-serif;
+}
+
+td, th {
+	border: 0.1em solid #DDDDDD;
+	padding: 0.3em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #CCE4F1;
+}
+
+tr:nth-child(even) {
+	background-color: #FFFFFF;
+}
+
+
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 50%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+
+
+@media print {
+	body {
+		margin-top: 0;
+		margin-left: 20mm;
+		margin-right: 20mm;
+		
+		font-family:sans-serif;
+		background-color: #FFFFFF;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 30%;
+		background-position: 5em 0em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 49%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+</style>
+
+<title>Wastewater report</title>
+<link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
+</head>
+
+<body>
+
+<br><br>
+<h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
+<h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
+<table>
+<tr>
+    <td>Sample name:</td><td>SRR16828013</td>
+</tr>
+<tr>
+    <td>Date generated:</td><td>2022-02-15, 15:52:33 EST</td>
+</tr>
+<tr>
+    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-02-15, 15:52:33 EST\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
+</tr>
+</table>
+
+<br>
+<h2>Sequencing summary</h2>
+<table>
+<tr>
+    <td>Sequencing chemistry:</td><td>AMPLICON with NextSeq 500</td>
+</tr>
+<tr>
+    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3/?/?">Missing		(?,?)</a></td>
+</tr>
+<tr>
+    <td>Sampling date:</td><td>Missing</a></td>
+</tr>
+<tr>
+    <td>Collected by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Sequenced by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Total number of reads:</td><td>906676</td>
+</tr>
+<tr>
+    <td>Reads aligned:</td><td>3476 (0%)</td>
+</tr>
+<tr>
+    <td>Average read quality:</td><td>34.6</td>
+</tr>
+<tr>
+    <td>Average read length:</td><td>141</td>
+</tr>
+<tr>
+    <td>Reads passing filter:</td><td>3399 (0%)</td>
+</tr>
+<tr>
+    <td>Average read quality passing filter:</td><td>34.7</td>
+</tr>
+<tr>
+    <td>Average read length passing filter:</td><td>141</td>
+</tr>
+<tr>
+    <td>Average coverage passing filter:</td><td>16X</td>
+</tr>
+</table>
+<br>
+A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum 		read quality &#8805; 20 within a sliding window of width 4.
+
+<br><br>
+<h2>Overall sequence characteristics</h2>
+<img src="./coverage.png" alt="Coverage vs. genome coordinate plot" width="49%" class="center">
+<img src="./quality.png" alt="Quality vs. genome coordinate plot" width="49%" class="center">
+<p> NOTE: The red shaded areas marked with a (<font color=red>*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses. <font color=magenta>Magenta</font> curves represent moving average with a window width of 1kb.
+<br><br><br><br>
+<img src="./depthHistogram.png" alt="Coverage histogram" width="49%" class="center">
+<img src="./qualityHistogram.png" alt="Quality histogram" width="49%" class="center">
+<br><br><br><br>
+<img src="./readLengthHist.png" alt="Read length histogram" width="49%" class="center">
+<img src="./terminiDensity.png" alt="Read termini density" width="49%" class="center">
+
+<br>
+<table>
+<tr>
+    <td># uncovered genomic coordinates (0X) by kit design:</td><td>0 nt 
+		(0%)</td>
+</tr>
+<tr>
+    <td># uncovered genomic coordinates (0X):</td><td>18832 nt (62%)</td>
+</tr>
+<tr>
+    <td># poorly covered genomic coordinates (<10X):</td><td>28129 nt (94%)</td>
+</tr>
+<tr>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>3577 reads (0.79%) </td>
+</tr>
+<tr>
+    <td>Hits to human genome (kraken2):</td><td>1968 reads (0.43%)</td>
+</tr>
+<tr>
+    <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>113 reads (0.02%)</td>
+</tr>
+</table>
+<br>
+<h2>Detected variants (Experimental)</h2>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_deconvolution.png" alt="Abundance of variants by deconvolution" width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_kallisto.png" alt="Abundance of variants by kallisto" width="100%">
+    </div>
+</div>
+<div id="caption">
+    <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=wt">wt</a> 
+	is estimated to constitute 74.98% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.20.	Variants that were detected less than 5% were grouped under "Other"
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=Alpha Beta Delta Eta Iota Kappa Mu Epsilon Epsilon Omicron">Alpha Beta Delta Eta Iota Kappa Mu Epsilon Epsilon Omicron</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=wt"	>wt</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_allCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"				width="100%">
+    </div>
+</div>
+<br>
+<p> Under the assumption that the presence of a variant requires the detection
+    of all respective mutations of the variant, the characteric mutations which support the presence of
+    the respective variant are indicated in the respective column of the table. Numbers show the number
+    of mutations detected, if any, and the number of mutations expected to be present based on the
+    variant definitions.
+<table>
+<tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=Beta">Beta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Gamma">Gamma</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a></td><td><a href="https://outbreak.info/situation-reports?pango=Alpha">Alpha</a></td><td><a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(0 of 14)<br></td><td>(0 of 16)<br></td><td>(0 of 13)<br></td><td>(0 of 23)<br></td><td>(0 of 13)<br></td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+    <td>VUI</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=Zeta">Zeta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=A.23.1+E484K">A.23.1+E484K</a></td><td><a href="https://outbreak.info/situation-reports?pango=Eta">Eta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Theta">Theta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(0 of 17)<br></td><td>(0 of 7)<br></td><td>(0 of 11)<br></td><td>(0 of 13)<br></td><td>(0 of 16)<br></td><td>(0 of 17)<br></td><td>(0 of 19)<br></td>
+</tr>
+</table>
+<br>
+
+<h2>Detected mutations</h2>
+Only genomic coordinates with at least 10X coverage were considered.
+<br>
+<table>
+<tr>
+    <th>Position</th> <th>Ref. base</th> <th>Alt. base</th> <th>Alt. freq</th> <th>p-value</th> <th>Mutation name</th> <th>Compatible lineages</th>
+</tr>
+<tr>
+    <td>23403</td> <td>A</td> <td>G</td> <td>0.778</td> <td nowrap>2.03E-07</td><td>S:D614G</td> <td><a href="https://outbreak.info/situation-reports?pango=Omicron">Omicron</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Lambda">Lambda</a>, <a href="https://outbreak.info/situation-reports?pango=Epsilon">Epsilon</a>, <a href="https://outbreak.info/situation-reports?pango=Iota">Iota</a>, <a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=Mu">Mu</a></td>
+</tr>
+<tr>
+    <td>24076</td> <td>T</td> <td>C</td> <td>0.278</td> <td nowrap>7.89E-03</td><td>NUC:T24076C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29133</td> <td>G</td> <td>T</td> <td>0.320</td> <td nowrap>1.63E-03</td><td>N:G287V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29135</td> <td>G</td> <td>T</td> <td>0.342</td> <td nowrap>2.67E-06</td><td>N:D288Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29136</td> <td>A</td> <td>G</td> <td>0.225</td> <td nowrap>7.92E-04</td><td>N:D288G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29137</td> <td>C</td> <td>T</td> <td>0.436</td> <td nowrap>1.48E-08</td><td>NUC:C29137T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29138</td> <td>C</td> <td>T</td> <td>0.100</td> <td nowrap>7.24E-03</td><td>N:Q289*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29140</td> <td>G</td> <td>+A</td> <td>0.203</td> <td nowrap>1.03E-04</td><td>NUC:G29140+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29141</td> <td>G</td> <td>T</td> <td>0.072</td> <td nowrap>9.38E-03</td><td>N:E290*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29142</td> <td>A</td> <td>T</td> <td>0.093</td> <td nowrap>2.13E-03</td><td>N:E290V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29143</td> <td>A</td> <td>T</td> <td>0.246</td> <td nowrap>1.15E-09</td><td>N:E290D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29144</td> <td>C</td> <td>T</td> <td>0.062</td> <td nowrap>3.07E-03</td><td>NUC:C29144T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29145</td> <td>T</td> <td>G</td> <td>0.267</td> <td nowrap>7.94E-10</td><td>N:L291R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29146</td> <td>A</td> <td>T</td> <td>0.172</td> <td nowrap>7.98E-09</td><td>NUC:A29146T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29147</td> <td>A</td> <td>G</td> <td>0.131</td> <td nowrap>2.10E-06</td><td>N:I292V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29148</td> <td>T</td> <td>A</td> <td>0.143</td> <td nowrap>3.37E-07</td><td>N:I292N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29149</td> <td>C</td> <td>G</td> <td>0.139</td> <td nowrap>6.28E-08</td><td>N:I292M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29150</td> <td>A</td> <td>T</td> <td>0.113</td> <td nowrap>3.06E-06</td><td>N:R293*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29151</td> <td>G</td> <td>+T</td> <td>0.070</td> <td nowrap>7.52E-04</td><td>NUC:G29151+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29153</td> <td>C</td> <td>T</td> <td>0.120</td> <td nowrap>5.08E-10</td><td>N:Q294*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29156</td> <td>G</td> <td>+A</td> <td>0.052</td> <td nowrap>3.45E-03</td><td>NUC:G29156+A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29157</td> <td>G</td> <td>A</td> <td>0.053</td> <td nowrap>2.10E-05</td><td>N:G295E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29158</td> <td>A</td> <td>G</td> <td>0.050</td> <td nowrap>3.28E-05</td><td>NUC:A29158G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29161</td> <td>T</td> <td>G</td> <td>0.056</td> <td nowrap>4.36E-06</td><td>NUC:T29161G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29276</td> <td>G</td> <td>T</td> <td>0.052</td> <td nowrap>2.80E-18</td><td>N:G335C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29384</td> <td>G</td> <td>T</td> <td>0.543</td> <td nowrap>0.00E+00</td><td>N:D371Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29508</td> <td>G</td> <td>+C</td> <td>0.055</td> <td nowrap>1.61E-07</td><td>NUC:G29508+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29510</td> <td>A</td> <td>T</td> <td>0.087</td> <td nowrap>4.77E-16</td><td>N:S413C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29512</td> <td>T</td> <td>+C</td> <td>0.051</td> <td nowrap>1.49E-05</td><td>NUC:T29512+C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29513</td> <td>G</td> <td>T</td> <td>0.072</td> <td nowrap>1.31E-12</td><td>N:A414S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29516</td> <td>G</td> <td>T</td> <td>0.078</td> <td nowrap>4.81E-11</td><td>N:D415Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29519</td> <td>T</td> <td>A</td> <td>0.096</td> <td nowrap>4.65E-13</td><td>N:S416T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29520</td> <td>C</td> <td>+TGT</td> <td>0.057</td> <td nowrap>3.30E-03</td><td>NUC:C29520+TGT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29521</td> <td>A</td> <td>T</td> <td>0.132</td> <td nowrap>2.92E-08</td><td>NUC:A29521T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29522</td> <td>A</td> <td>T</td> <td>0.487</td> <td nowrap>1.55E-34</td><td>N:T417S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29525</td> <td>C</td> <td>T</td> <td>0.111</td> <td nowrap>3.10E-07</td><td>N:Q418*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29526</td> <td>A</td> <td>T</td> <td>0.200</td> <td nowrap>1.40E-07</td><td>N:Q418L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29527</td> <td>G</td> <td>T</td> <td>0.494</td> <td nowrap>4.83E-23</td><td>N:Q418H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29528</td> <td>G</td> <td>T</td> <td>0.139</td> <td nowrap>1.23E-04</td><td>N:A419S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29530</td> <td>C</td> <td>T</td> <td>0.404</td> <td nowrap>1.45E-07</td><td>NUC:C29530T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29531</td> <td>T</td> <td>G</td> <td>0.303</td> <td nowrap>1.46E-04</td><td>N:*420E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29533</td> <td>A</td> <td>T</td> <td>0.667</td> <td nowrap>4.88E-08</td><td>N:*420Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29536</td> <td>T</td> <td>A</td> <td>1.000</td> <td nowrap>9.61E-08</td><td>NUC:T29536A</td> <td>None found</td>
+</tr>
+</table>
+<br>
+
+</body>
+</html>

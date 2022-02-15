@@ -143,12 +143,14 @@ echo "<h2>Overall sequence characteristics</h2>" >> $reportFile
 
 echo "<img src=\"./coverage.png\" alt=\"Coverage vs. genome coordinate plot\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<img src=\"./quality.png\" alt=\"Quality vs. genome coordinate plot\" width=\"49%\" class=\"center\">" >> $reportFile
-echo "<p> NOTE: The red shaded areas marked with a (<font color="red">*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses." >> $reportFile
+echo "<p> NOTE: The red shaded areas marked with a (<font color="red">*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses. <font color="magenta">Magenta</font> curves represent moving average with a window width of 1kb." >> $reportFile
 echo "<br><br><br><br>" >> $reportFile
 echo "<img src=\"./depthHistogram.png\" alt=\"Coverage histogram\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<img src=\"./qualityHistogram.png\" alt=\"Quality histogram\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<br><br><br><br>" >> $reportFile
 echo "<img src=\"./readLengthHist.png\" alt=\"Read length histogram\" width=\"49%\" class=\"center\">" >> $reportFile
+echo "<img src=\"./terminiDensity.png\" alt=\"Read termini density\" width=\"49%\" class=\"center\">" >> $reportFile
+
 echo >> $reportFile
 echo "<br>" >> $reportFile
 

@@ -2,6 +2,4 @@ Check if peptide to genomic coordinates can be handled by this: https://github.c
 
 For kallisto interpretation, try different approaches such as maximum, sum, mean, median of subvariants.
 
-Optimise kraken2 libraries and k-mer length
-
 Check if it is possible to trim multiplexed PCR primers if the protocol involves fragmentation.

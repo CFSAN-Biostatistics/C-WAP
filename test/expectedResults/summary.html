@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table {
+	width: 100%;
+	font-family: sans-serif;
+}
+
+td, th {
+	border: 0.1em solid #DDDDDD;
+	padding: 0.3em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #CCE4F1;
+}
+
+tr:nth-child(even) {
+	background-color: #FFFFFF;
+}
+
+
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 50%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+
+
+@media print {
+	body {
+		margin-top: 0;
+		margin-left: 20mm;
+		margin-right: 20mm;
+		
+		font-family:sans-serif;
+		background-color: #FFFFFF;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 30%;
+		background-position: 5em 0em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 49%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+</style>
+
+<title>Wastewater report</title>
+<link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
+</head>
+
+<body>
+
+<br><br>
+<h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
+<h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
+<h2>SUMMARY</h2>
+<table>
+<tr>
+<th>Sample#</th><th>Sample name</th><th>Total #reads</th><th>% covid hits</th><th>Genomic coordinates 0X</th><th>Genomic coordinates <10X</th>
+</tr>
+<tr>
+<td>1</td><td><a href="./SRR16828013/SRR16828013_report/report.html">SRR16828013</a></td>
+<td>906676</td><td>0.79</td><td>18832</td><td>28129</td>
+</tr>
+<tr>
+<td>2</td><td><a href="./SRR16828014/SRR16828014_report/report.html">SRR16828014</a></td>
+<td>4096</td><td>13.77</td><td>22376</td><td>29615</td>
+</tr>
+<tr>
+<td>3</td><td><a href="./SRR16828015/SRR16828015_report/report.html">SRR16828015</a></td>
+<td>1366018</td><td>8.62</td><td>6793</td><td>12997</td>
+</tr>
+<tr>
+<td>4</td><td><a href="./SRR16828016/SRR16828016_report/report.html">SRR16828016</a></td>
+<td>1114642</td><td>1.68</td><td>15002</td><td>24582</td>
+</tr>
+</table>
+<br><br><br>
+<span style="float:left;"><a href="./SRR16828013/SRR16828013_report/report.html">SRR16828013</a></span>
+<span style="float:right;"><a href="./SRR16828014/SRR16828014_report/report.html">
+SRR16828014</a></span><br>
+<img src="./SRR16828013/SRR16828013_report/quality.png" width="49%" class="center">
+<img src="./SRR16828014/SRR16828014_report/quality.png" width="49%" class="center">
+<br><br><br>
+<span style="float:left;"><a href="./SRR16828015/SRR16828015_report/report.html">SRR16828015</a></span>
+<span style="float:right;"><a href="./SRR16828016/SRR16828016_report/report.html">
+SRR16828016</a></span><br>
+<img src="./SRR16828015/SRR16828015_report/quality.png" width="49%" class="center">
+<img src="./SRR16828016/SRR16828016_report/quality.png" width="49%" class="center">
+<br><br><br>
+
+<h2>Software configuration</h2>
+Minimap2: 2.22-r1101
+samtools 1.13 Using htslib 1.13, 
+iVar version 1.3.1, 
+Kraken version 2.1.2, 
+kallisto, version 0.48.0.
+Lineage definitions were compiled on 2022-02-09 from <a href="https://github.com/cov-lineages/constellations/tree/main/constellations/definitions">constellations</a>.
+Lineage signature file was compiled on 2022-02-09 and includes lineages: A.23.1, A.23.1+E484K, AV1, AY.4, AY.4.2, Alpha, B.1.1.318, B.1.1.7+E484K, B.1.617.1, B.1.617.2+K417N, B.1.617.3, Beta, Delta, Epsilon, Eta, Gamma, Iota, Lambda, Mu, Omicron, Theta, Zeta, wt.
+Lineage assignment to the consensus sequence was performed by pangolin 3.1.20 using the classification tree of pangoLEARN 2022-02-02.
+</body>
+</html>

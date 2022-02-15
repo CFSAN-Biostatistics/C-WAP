@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table {
+	width: 100%;
+	font-family: sans-serif;
+}
+
+td, th {
+	border: 0.1em solid #DDDDDD;
+	padding: 0.3em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #CCE4F1;
+}
+
+tr:nth-child(even) {
+	background-color: #FFFFFF;
+}
+
+
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 50%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+
+
+@media print {
+	body {
+		margin-top: 0;
+		margin-left: 20mm;
+		margin-right: 20mm;
+		
+		font-family:sans-serif;
+		background-color: #FFFFFF;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 30%;
+		background-position: 5em 0em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 49%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+</style>
+
+<title>Wastewater report</title>
+<link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
+</head>
+
+<body>
+
+<br><br>
+<h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
+<h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
+<table>
+<tr>
+    <td>Sample name:</td><td>SRR16828014</td>
+</tr>
+<tr>
+    <td>Date generated:</td><td>2022-02-15, 15:53:00 EST</td>
+</tr>
+<tr>
+    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-02-15, 15:53:00 EST\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
+</tr>
+</table>
+
+<br>
+<h2>Sequencing summary</h2>
+<table>
+<tr>
+    <td>Sequencing chemistry:</td><td>AMPLICON with NextSeq 500</td>
+</tr>
+<tr>
+    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3/?/?">USA: Washington		(?,?)</a></td>
+</tr>
+<tr>
+    <td>Sampling date:</td><td>2021-01-04</a></td>
+</tr>
+<tr>
+    <td>Collected by:</td><td>Aquavitas</td>
+</tr>
+<tr>
+    <td>Sequenced by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Total number of reads:</td><td>4096</td>
+</tr>
+<tr>
+    <td>Reads aligned:</td><td>157 (3%)</td>
+</tr>
+<tr>
+    <td>Average read quality:</td><td>34.4</td>
+</tr>
+<tr>
+    <td>Average read length:</td><td>141</td>
+</tr>
+<tr>
+    <td>Reads passing filter:</td><td>154 (3%)</td>
+</tr>
+<tr>
+    <td>Average read quality passing filter:</td><td>34.5</td>
+</tr>
+<tr>
+    <td>Average read length passing filter:</td><td>141</td>
+</tr>
+<tr>
+    <td>Average coverage passing filter:</td><td>0X</td>
+</tr>
+</table>
+<br>
+A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum 		read quality &#8805; 20 within a sliding window of width 4.
+
+<br><br>
+<h2>Overall sequence characteristics</h2>
+<img src="./coverage.png" alt="Coverage vs. genome coordinate plot" width="49%" class="center">
+<img src="./quality.png" alt="Quality vs. genome coordinate plot" width="49%" class="center">
+<p> NOTE: The red shaded areas marked with a (<font color=red>*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses. <font color=magenta>Magenta</font> curves represent moving average with a window width of 1kb.
+<br><br><br><br>
+<img src="./depthHistogram.png" alt="Coverage histogram" width="49%" class="center">
+<img src="./qualityHistogram.png" alt="Quality histogram" width="49%" class="center">
+<br><br><br><br>
+<img src="./readLengthHist.png" alt="Read length histogram" width="49%" class="center">
+<img src="./terminiDensity.png" alt="Read termini density" width="49%" class="center">
+
+<br>
+<p> <font color="red"> WARNING: The sequence coverage is very low (0X) </font>
+<table>
+<tr>
+    <td># uncovered genomic coordinates (0X) by kit design:</td><td>0 nt 
+		(0%)</td>
+</tr>
+<tr>
+    <td># uncovered genomic coordinates (0X):</td><td>22376 nt (74%)</td>
+</tr>
+<tr>
+    <td># poorly covered genomic coordinates (<10X):</td><td>29615 nt (99%)</td>
+</tr>
+<tr>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>282 reads (13.77%) </td>
+</tr>
+<tr>
+    <td>Hits to human genome (kraken2):</td><td>302 reads (14.75%)</td>
+</tr>
+<tr>
+    <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>0 reads (0.00%)</td>
+</tr>
+</table>
+<br>
+<h2>Detected variants (Experimental)</h2>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_deconvolution.png" alt="Abundance of variants by deconvolution" width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_kallisto.png" alt="Abundance of variants by kallisto" width="100%">
+    </div>
+</div>
+<div id="caption">
+    <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=wt">wt</a> 
+	is estimated to constitute 100.00% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 1.00.	Variants that were detected less than 5% were grouped under "Other"
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=Alpha Beta Delta Eta Iota Kappa Mu Epsilon Epsilon Omicron">Alpha Beta Delta Eta Iota Kappa Mu Epsilon Epsilon Omicron</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=wt"	>wt</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_allCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"				width="100%">
+    </div>
+</div>
+<br>
+<p> Under the assumption that the presence of a variant requires the detection
+    of all respective mutations of the variant, the characteric mutations which support the presence of
+    the respective variant are indicated in the respective column of the table. Numbers show the number
+    of mutations detected, if any, and the number of mutations expected to be present based on the
+    variant definitions.
+<table>
+<tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=Beta">Beta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Gamma">Gamma</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a></td><td><a href="https://outbreak.info/situation-reports?pango=Alpha">Alpha</a></td><td><a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(0 of 14)<br></td><td>(0 of 16)<br></td><td>(0 of 13)<br></td><td>(0 of 23)<br></td><td>(0 of 13)<br></td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+    <td>VUI</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=Zeta">Zeta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=A.23.1+E484K">A.23.1+E484K</a></td><td><a href="https://outbreak.info/situation-reports?pango=Eta">Eta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Theta">Theta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(0 of 17)<br></td><td>(0 of 7)<br></td><td>(0 of 11)<br></td><td>(0 of 13)<br></td><td>(0 of 16)<br></td><td>(0 of 17)<br></td><td>(0 of 19)<br></td>
+</tr>
+</table>
+<br>
+
+<h2>Detected mutations</h2>
+Only genomic coordinates with at least 10X coverage were considered.
+<br>
+<table>
+<tr>
+    <th>Position</th> <th>Ref. base</th> <th>Alt. base</th> <th>Alt. freq</th> <th>p-value</th> <th>Mutation name</th> <th>Compatible lineages</th>
+</tr>
+<tr>
+    <td>18268</td> <td>G</td> <td>T</td> <td>0.364</td> <td nowrap>5.49E-04</td><td>ORF1AB:E1601*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18270</td> <td>A</td> <td>C</td> <td>0.500</td> <td nowrap>1.55E-03</td><td>ORF1AB:E1601D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18271</td> <td>G</td> <td>T</td> <td>0.385</td> <td nowrap>1.62E-04</td><td>ORF1AB:E1602*</td> <td>None found</td>
+</tr>
+</table>
+<br>
+
+</body>
+</html>
