@@ -50,8 +50,9 @@ readDepthMA = np.convolve(readDepth, np.ones(window)/window, 'same')
 readDepthMA[0:window] = np.nan
 readDepthMA[-window:] = np.nan
 
-
-numTerminiMA = np.convolve(numTermini, np.ones(window)/window, 'same')
+stepKernel = np.ones(501)
+stepKernel[0:250] = -1
+qualityjumpSignal = np.absolute(np.convolve(quality, stepKernel, 'same'))
 
 
 # Import the list of uncovered genome regions due to kit design
@@ -207,18 +208,16 @@ plt.close()
 
 
 #################################################################
-# Generate a plot for the number of 5'/3' termini vs pos and save in a file
-plt.plot(posIdx, numTermini, '.', color=FDAblue)
-plt.plot(posIdx, numTerminiMA, '-', color='m')
-
+# Generate a plot for the quality jump signal vs pos and save in a file
+plt.plot(posIdx, qualityjumpSignal, '-', color='m')
 
 # If coverage is too high, scale the axes for a better view
 locs, labels = plt.yticks()
 if locs[-1] > 2000:
-    plt.ylabel('#5\'/3\' termini per kb (1000)')
+    plt.ylabel('Discontinuity signal (1000 AU)')
     plt.yticks(locs, (locs/1000).astype('int') )
 else:
-    plt.ylabel('#5\'/3\' termini per kb')
+    plt.ylabel('Discontinuity signal (AU)')
 
 
 plt.xlabel('Genome position (kb)')
@@ -226,6 +225,7 @@ plt.xlim([0, GENOME_SIZE+1])
 plt.xticks(np.arange(0, GENOME_SIZE, 5000), ["%d" % (
     x/1000) for x in np.arange(0, GENOME_SIZE, 5000)])
 
+plt.tight_layout()
 plt.savefig(outputDirectory + '/terminiDensity.png', dpi=200)
 plt.close()
 
@@ -239,3 +239,4 @@ with open(outfilename, 'w') as outfile:
     for i in range(0, GENOME_SIZE):
         writer.writerow(["%d" % posIdx[i], "%d" %
                         readDepth[i], '%.2f' % quality[i]])
+

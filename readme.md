@@ -23,11 +23,11 @@ The process includes the following:
 
 ### Dependencies
 
-* [NextFlow v21.0+] (https://www.nextflow.io/docs/latest/index.html)
+* [NextFlow v21.0+](https://www.nextflow.io/docs/latest/index.html)
 * [kraken2 v2.1.2 ](https://github.com/DerrickWood/kraken2)
 * [bracken](https://github.com/jenniferlu717/Bracken)
 * [samtools v1.13 ](https://github.com/samtools/)
-* [bcftools] (https://github.com/samtools/bcftools)
+* [bcftools](https://github.com/samtools/bcftools)
 * [ivar](https://github.com/andersen-lab/ivar)
 * [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml)
 * [minimap2 v2.22](https://github.com/lh3/minimap2)
@@ -36,6 +36,7 @@ The process includes the following:
 * [Freyja](https://github.com/andersen-lab/Freyja)
 * [kallisto](https://github.com/pachterlab/kallisto)
 * [wkhtmltopdf](https://github.com/wkhtmltopdf)
+* [ghostscript](https://www.ghostscript.com)
 
 The configuration file `prepareEnvironment.sh` enumerates the 
 dependencies the other scripts assume that all referred
@@ -47,8 +48,9 @@ Download and save
 
 ### Usage 
 
-The driver script is `startWorkflow.sh` and a standard execution with paired end illumina reads would be:  
-`startWorkflow.sh -f sample1_R1.txt -r sample2_R2.fastq -o outputDir`
+The driver script is `startWorkflow.nf` and a standard execution with paired end illumina reads would be:  
+`startWorkflow.nf --platform i --primers path/to/bed --in path/to/fastq/ --out path/to/outputDir`
+
 
 ### Output
 

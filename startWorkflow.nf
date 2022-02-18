@@ -40,7 +40,7 @@ switch(params.platform) {
 
 
 // Convert relative path to absolute path
-if (params.primerBedFile[0]=='/')
+if (params.primerBedFile[0]=='/' || params.primerBedFile[0]=='~')
 	primerBedFile=params.primerBedFile
 else
 	primerBedFile="$launchDir/$params.primerBedFile"
@@ -130,6 +130,7 @@ process referenceAlignment {
 	
 	# Generation of a sorted bam file from the alignment output
 	samtools sort aligned.sam -o sorted.bam -@ \$numThreads
+	rm aligned.sam
 	
 	# Nanopore has a much lower read quality, so the quality trimming should be much more lax.
 	if [[ $platform == ONT ]]; then
@@ -253,6 +254,7 @@ process readLengthHist {
 			gzip -dc R2.fastq.gz >> allreads.fastq
 		fi
 		cat allreads.fastq | awk 'NR%4==2' | awk "{ print length}" | $projectDir/plotLengthHist.py
+		rm allreads.fastq
 	"""
 }
 
@@ -433,30 +435,40 @@ process freyjaVariantCaller {
 */
 
 
-
 // A metadata fetch attemp from NCBI via Entrez-Direct
 // Only works if file names explicitly carries an SRR number.
 process getNCBImetadata {
+	// Allow access to this section only 1 thread at a time to avoid network congestion.
+	executor = 'local'
+	queueSize = 1
+	submitRateLimit = '10/1min'
+	
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
-	errorStrategy { sleep(100 * Math.random() as long); return 'retry' }
-	maxRetries = 10
+	errorStrategy { sleep(1000 * Math.random() as long); return 'retry' }
+	maxRetries = 55
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_c
 		
 	output:
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation) into metadata
-		
+	
+	shell:
 	"""
 	srrNumber=$sampleName
-	if [[ $task.attempt -lt 5 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
+	if [[ $task.attempt -lt 50 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
 		# The tool returns error: too many requests, bypassing by redirection of error
+		# Wait some random time so that threads go out of sync.
+		sleep \${srrNumber:6:1}
+		
 		sraQueryResult=\$(esearch -db sra -query \$srrNumber 2>/dev/null)
+		sleep 1
 		
 		if echo \$sraQueryResult | grep -q "<Count>1</Count>"; then
 			# Get runinfo from SRA
 			echo Downloading metadata for \$srrNumber...	
 			echo "\$sraQueryResult" | efetch --format runinfo
+			sleep 1
 			SRRmetadata=`echo "\$sraQueryResult" | efetch --format runinfo 2>/dev/null | grep \$srrNumber`
 			
 			echo Parsing...
