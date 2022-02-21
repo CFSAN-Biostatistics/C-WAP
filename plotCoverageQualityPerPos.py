@@ -70,12 +70,11 @@ gapfile.close()
 
 posIdx = np.arange(1, GENOME_SIZE+1, 1)
 FDAblue = (0, 124/255, 186/255)  # RGB color representation of the logo
+plt.rcParams.update({'font.size': 14})
 
 
 #################################################################
 # Generate a plot for quality vs pos and save in a file
-plt.rcParams.update({'font.size': 14})
-
 plt.plot(posIdx, quality, '.', color=FDAblue)
 plt.plot(posIdx[quality < 30], quality[quality < 30], '.', color='k')
 plt.plot(posIdx, qualityMA, '-', color='m')

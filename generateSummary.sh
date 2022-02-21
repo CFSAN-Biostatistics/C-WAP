@@ -8,13 +8,13 @@ summaryfile=./summary.html
 cp $headerFile $summaryfile
 
 
-
 # This-preprocessing step is necessary to ensure that the results will be reported alphanumerically sorted
 # whereas Nextflow reports them in the order of job completion by default.
 echo Renaming the output files nicely...
 for subdir in `ls */ -d | tr -d '/'`; do
 	reportFileName=$subdir/report/report.html
 	sampleName=`cat $reportFileName | grep "Sample name:" | awk -F'>' '{ print $4 }' | awk -F'<' '{print $1}'`
+	echo $sampleName
 
 	# Rename the files/folders such that sample name is a prefix
 	for file in `ls $subdir`; do
@@ -28,17 +28,17 @@ done
 # Generate a table summarising amplification specificity and the completeness of the genomic coverage.
 echo Gathering and tabulating summary statistics...
 
-echo "<h2>SUMMARY</h2>" >> $summaryfile
+echo "<h2>Summary</h2>" >> $summaryfile
 echo '<table>' >> $summaryfile
 echo "<tr>" >> $summaryfile
 echo "<th>Sample#</th><th>Sample name</th><th>Total #reads</th><th>% covid hits</th><th>Genomic coordinates 0X</th><th>Genomic coordinates <10X</th>" >> $summaryfile
 echo "</tr>" >> $summaryfile
 
-counter=0
+
 sampleNames=()
+plottingData=()
 for sampleName in `ls */ -d | tr -d '/'`; do
-	sampleNames[$counter]=$sampleName
-	counter=$((counter+1))
+	sampleNames+=($sampleName)
 	
 	# Extract some of the statistics from individual report files
 	reportFileName=$sampleName/${sampleName}_report/report.html
@@ -46,15 +46,22 @@ for sampleName in `ls */ -d | tr -d '/'`; do
 	pctCovid=`cat $reportFileName | grep "Hits to SARS-Cov2 genome" | awk -F'(' '{ print $3 }' | awk -F'%' '{ print $1 }'`
 	numUncovered=`cat $reportFileName | grep "ncovered genomic coordinates (0X):" | awk -F'>' '{ print $4 }' | awk '{ print $1 }'`
 	numPoorlyCovered=`cat $reportFileName | grep "poorly covered genomic coordinates (<10X):" | awk -F'>' '{ print $4 }' | awk '{ print $1 }'`
+	plottingData+=($numReads $pctCovid)
 
 	# Record as a row in the data table
 	echo "<tr>" >> $summaryfile
-	echo "<td>$counter</td><td><a href=\"./$sampleName/${sampleName}_report/report.html\">$sampleName</a></td>" >> $summaryfile 
+	echo "<td>${#sampleNames[@]}</td><td><a href=\"./$sampleName/${sampleName}_report/report.html\">$sampleName</a></td>" >> $summaryfile 
 	echo "<td>$numReads</td><td>$pctCovid</td><td>$numUncovered</td><td>$numPoorlyCovered</td>" >> $summaryfile
 	echo "</tr>" >> $summaryfile
 done
 
 echo '</table>' >> $summaryfile
+echo "<br><br><br>" >> $summaryfile
+
+
+# Insert a bar plot comparing covid reads in all samples of this run.
+$rootDir/plotCovidComparison.py ${plottingData[@]}
+echo "<img src=\"./covidReadsSummary.png\" alt=\"Num. SC2 reads\" width=\"49%\" class=\"center\">" >> $summaryfile
 echo "<br><br><br>" >> $summaryfile
 
 
