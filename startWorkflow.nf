@@ -154,7 +154,7 @@ process trimmedBam2Fastq {
 		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_a
 	
 	output:
-		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') into resorted_fastq_gz_a, resorted_fastq_gz_b
+		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') into resorted_fastq_gz_a, resorted_fastq_gz_b, resorted_fastq_gz_c
 		
 	shell:
 	"""
@@ -336,7 +336,6 @@ process pangolinVariantCaller {
 }
 
 
-
 process linearDeconVariantCaller {
 	cpus 4
 	
@@ -383,6 +382,44 @@ process kallistoVariantCaller {
 }
 
 
+process LCSvariantCaller {	
+	input:
+		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') from resorted_fastq_gz_c 
+	
+	output:
+		tuple val(sampleName), file ('outputs/decompose/lcs.out') into lcs_out
+	
+	shell:
+	"""
+		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then		
+			echo Fetching the LCS repository...
+			git clone https://github.com/rvalieris/LCS.git
+			mv LCS/* ./
+			
+			echo Preparing the DB...
+			mkdir -p outputs/variants_table
+			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.124.tsv.gz > outputs/variants_table/pango-markers-table.tsv
+			rm data/artic_v3_primers.fa
+			
+			echo Preparing the sample dataset...
+			mkdir data/fastq
+			gzip -dc resorted.fastq.gz | head -n 400000 > data/fastq/resorted.fastq
+			gzip data/fastq/resorted.fastq
+			echo "resorted" > data/tags_pool_lcs
+			
+			echo Executing LCS...
+			snakemake --config markers=pango dataset=lcs --cores 2
+		else
+			echo Not enough covid reads for LCS, skipped.
+			mkdir -p outputs/decompose
+			echo sample\$'\t'variant_group\$'\t'proportion\$'\t'mean\$'\t'std_error > outputs/decompose/lcs.out
+			echo ERROR\$'\t'Other\$'\t'1\$'\t'1\$'\t'1 >> outputs/decompose/lcs.out
+		fi
+	"""
+}
+
+
+
 process freyjaVariantCaller {
 	input:
 		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_d
@@ -395,7 +432,7 @@ process freyjaVariantCaller {
 	
 	shell:
 	"""
-		if [[ \$numReads -gt 0 ]]; then
+		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
 			echo Pileup generation for Freyja
 			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths --ref $params.referenceSequence
 			
@@ -408,31 +445,6 @@ process freyjaVariantCaller {
 	"""
 }
 
-
-/*
-process freyjaVariantCaller {
-	input:
-		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_d
-		
-	output:
-		tuple val(sampleName), file('freyja.demix') into freyja_out
-		
-	// Due to a potential bug, some big fastqs result in a pandas error.
-	// Start by generating an empty file to circumvent such failure cases
-	
-	shell:
-	"""
-		echo FATAL ERROR > freyja.demix
-		echo summarized\$'\t'"[('Other', 1.00)]" >> freyja.demix
-		
-		echo Pileup generation for Freyja
-		freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths --ref $params.referenceSequence || true
-		
-		echo Demixing variants by Freyja
-		freyja demix freyja.variants.tsv freyja.depths --output freyja.demix || true
-	"""
-}
-*/
 
 
 // A metadata fetch attemp from NCBI via Entrez-Direct
@@ -541,7 +553,7 @@ process getNCBImetadata {
 // We will group based on the sample name and pass everything to the report
 // generation steps.
 reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).join(readLengthHist_png).join(linearDeconvolution_out)
-						.join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out)
+						.join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out).join(lcs_out)
 
 
 ///////////////////////////////////////////////
@@ -561,15 +573,17 @@ process generateReport {
 		file('k2-allCovid_bracken.out'), file('k2-majorCovid_bracken.out'), file('k2-allCovid.out'), file('k2-majorCovid.out'),
 		env(consensusLineage), file('lineage_report.csv'),
 		file('kallisto_abundance.tsv'),
-		file('freyja.demix') from reportInputCh
+		file('freyja.demix'),
+		file('lcs.out') from reportInputCh
 	
 	output:
 		file "outfolder" into reportCh
 	
 	shell:
 	"""
+		export PYTHONHASHSEED=0
 		$projectDir/plotPieChartsforAbundance.py ./ $params.variantDBfile linearDeconvolution_abundance.csv \
-				kallisto_abundance.tsv k2-allCovid_bracken.out k2-majorCovid_bracken.out freyja.demix
+				kallisto_abundance.tsv k2-allCovid_bracken.out k2-majorCovid_bracken.out freyja.demix lcs.out
 		
 		export kallistoTopName=`cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }'`
 		

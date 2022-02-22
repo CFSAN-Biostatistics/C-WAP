@@ -8,7 +8,7 @@ import numpy as np
 import pickle
 
 
-if len(sys.argv) != 8:
+if len(sys.argv) != 9:
     raise Exception('Incorrect call to the script.')
 
 
@@ -22,6 +22,7 @@ kallistoFilename = sys.argv[4]
 k2_allCovidFilename = sys.argv[5]
 k2_majorCovidFilename = sys.argv[6]
 freyjaOutputFile = sys.argv[7]
+lcsFile = sys.argv[8]
 
 
 # Import the pre-processed variant definitions from file
@@ -46,7 +47,7 @@ pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427'
 
 # Convert each variant to a WHO-compatible name, if one exists
 def getDisplayName(pangolinName):
-    if pangolinName in pangolin2WHO:
+    if pangolinName in pangolin2WHO.keys():
         # Exact correspondance to a published name
         return pangolin2WHO[pangolinName]
     elif pangolinName in pangolin2WHO.values():
@@ -66,9 +67,12 @@ def getDisplayName(pangolinName):
 # Assign a pre-determined color to each display name
 rgbColors = plt.get_cmap('tab20').colors + plt.get_cmap('Accent').colors
 colorCycle = [to_hex(color) for color in rgbColors]
-assignedHexColor = {getDisplayName(uniqueVarNames[i]): colorCycle[ord(uniqueVarNames[i][0]) % len(colorCycle)]
-                    for i in range(0, len(uniqueVarNames))}
-assignedHexColor['Other'] = '#BBBBBB'
+def getColor (var_name):
+    if var_name.lower() == 'other':
+        return '#BBBBBB'
+    else:
+        color_idx = hash(var_name)%len(colorCycle)
+        return colorCycle[color_idx]
 
 
 ########################################################################
@@ -92,7 +96,7 @@ def drawPieChart(names2percentages, outfilename, title=''):
     names2plot.append('Other')
     percentages2plot = np.append(
         percentages2plot, 100-np.sum(percentages2plot))
-    colors2plot = [assignedHexColor[name] for name in names2plot]
+    colors2plot = [getColor(name) for name in names2plot]
 
     explosionArray = np.full(len(percentages2plot), 0.07)
     plt.rcParams.update({'font.size': 12})
@@ -216,3 +220,30 @@ for i in range(0, len(varname_pct), 2):
 
 drawPieChart(freyjaHits, outputDirectory+'/pieChart_freyja.png',
              title='Abundance of variants by Freyja')
+
+
+
+########################################################
+# Process the abundance estimates by LCS
+with open(lcsFile, 'r') as infile:
+    reader = csv.reader(infile, delimiter="\t")
+    next(reader)  # Skip the header line of lcs.out  
+    lcsHits = {}
+    for row in reader:
+        pangoName = row[1].split('_')[-1]
+        dname = getDisplayName(pangoName)
+        proportion = float(row[2])*100
+        if dname in lcsHits:
+            lcsHits[dname].append(proportion)
+        else:
+            lcsHits[dname] = [proportion]
+
+# Loop through the imported kallisto data.
+# For duplicates, get an average
+for varWHOname in lcsHits:
+    lcsHits[varWHOname] = np.sum(lcsHits[varWHOname])
+
+drawPieChart(lcsHits, outputDirectory+'/pieChart_lcs.png',
+             title='Abundance of variants by LCS')
+
+

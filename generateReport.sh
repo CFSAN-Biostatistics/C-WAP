@@ -272,6 +272,10 @@ echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./pieChart_freyja.png\" alt=\"Abundance of variants by Freyja\"\
 				width=\"100%\">" >> $reportFile
 echo "    </div>" >> $reportFile
+echo "    <div id=\"figdiv\">" >> $reportFile
+echo "        <img src=\"./pieChart_lcs.png\" alt=\"Abundance of variants by LCS\"\
+				width=\"100%\">" >> $reportFile
+echo "    </div>" >> $reportFile
 echo "</div>" >> $reportFile
 echo "<br>" >> $reportFile
 
