@@ -84,7 +84,7 @@ else {
 
 FQs
 	.view()
-	.into{ input_fq_a; input_fq_b; input_fq_c; input_fq_d }
+	.into{ input_fq_a; input_fq_b; input_fq_c; input_fq_d; input_fq_e }
 
 
 
@@ -382,13 +382,63 @@ process kallistoVariantCaller {
 }
 
 
+
+process LCSvariantCaller {
+	time = '1h'
+	
+	input:
+		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_e
+	
+	output:
+		tuple val(sampleName), file ('outputs/decompose/lcs.out') into lcs_out
+	
+	shell:
+	"""		
+		if [[ $task.attempt -lt 2 ]]; then		
+			echo Fetching the LCS repository...
+			git clone https://github.com/rvalieris/LCS.git
+			mv LCS/* ./
+			
+			echo Preparing the DB...
+			mkdir -p outputs/variants_table
+			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.124.tsv.gz > outputs/variants_table/pango-markers-table.tsv
+			rm data/artic_v3_primers.fa
+			
+			echo Preparing the sample dataset...
+			echo "input" > data/tags_pool_lcs
+			mkdir data/fastq
+			if $isPairedEnd; then
+				# Merge the read pairs
+				bbmerge.sh in=R1.fastq.gz in2=R2.fastq.gz out=temp.fastq
+				
+				# Number of reads is capped at 100 000 to limit computation time.
+				cat temp.fastq | head -n 400000 > data/fastq/input.fastq
+			else
+				gzip -dc R1.fastq.gz | head -n 400000 > data/fastq/input.fastq
+			fi
+			gzip data/fastq/input.fastq
+			
+			echo Executing LCS...
+			snakemake --config markers=pango dataset=lcs --cores 2
+		else
+			echo Not enough covid reads for LCS, skipped.
+			mkdir -p outputs/decompose
+			echo sample\$'\t'variant_group\$'\t'proportion\$'\t'mean\$'\t'std_error > outputs/decompose/lcs.out
+			echo ERROR\$'\t'Other\$'\t'1\$'\t'1\$'\t'1 >> outputs/decompose/lcs.out
+		fi
+	"""
+}
+
+
+
+/*
 process LCSvariantCaller {	
 	input:
 		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') from resorted_fastq_gz_c 
 	
 	output:
 		tuple val(sampleName), file ('outputs/decompose/lcs.out') into lcs_out
-	
+
 	shell:
 	"""
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then		
@@ -417,7 +467,7 @@ process LCSvariantCaller {
 		fi
 	"""
 }
-
+*/
 
 
 process freyjaVariantCaller {
