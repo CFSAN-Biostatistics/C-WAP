@@ -14,6 +14,7 @@ pctCovidReads = dataIn[1::2]
 numSamples = len(numTotalReads)
 covidReads = numTotalReads*pctCovidReads/100
 
+
 FDAblue = (0, 124/255, 186/255)  # RGB color representation of the logo
 plt.rcParams.update({'font.size': 14})
 

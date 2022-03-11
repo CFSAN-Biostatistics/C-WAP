@@ -26,7 +26,7 @@ switch(params.platform) {
 	case "pacbio":
 	case "PacBio":
 		print("PacBio mode")
-		platform = "PB"
+		platform = "PacBio"
 		isPairedEnd = false
 		break;
 	case "h":
@@ -63,9 +63,28 @@ def printUsage () {
 
 
 // Given a file name, extracts a human readable sample name to be used in the output.
-// Ex: /path/to/dir/something_S1_L2_R1.fastq -> something
+allSampleNames = []
 def getSampleName(filename) {
-	return filename.name.split("/")[-1].split("\\.")[0].split("_")[0]
+	// Typical for most users using Illumina output as is
+	// Ex: /path/to/dir/something_S1_L2_R1.fastq -> something
+	sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_")[0]
+	
+	// For complicated file names involving underscores that cannot be eliminated
+	// Ex: /path/to/dir/some_thing_R1.fastq -> some-thing	
+	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
+	
+	// If there are special fixed substrings available within all file names.
+	// Ex: /path/to/dir/some_thing_1art_out_R1.fastq -> some-thing-1
+	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("art_out")[0].replace('_','-')
+	
+	// Check if there is name collision and immediately abort the execution if this is the case.
+	if (allSampleNames.contains(sampleName)) {
+		throw new IllegalArgumentException ('The sample name is not unique, please adjust the getSampleName function.')
+	}
+	else {
+		allSampleNames += sampleName
+		return sampleName
+	}
 }
 
 
@@ -94,7 +113,7 @@ FQs
 
 // Align the reads to the reference sequence to obtain a sorted bam file
 process referenceAlignment {
-	cpus 20
+	cpus 10
 	memory '16 GB'
 	time = '1 h'
 
@@ -102,13 +121,13 @@ process referenceAlignment {
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_a
 	
 	output:
-		tuple val(sampleName), env(numReads), file('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
-		tuple val(sampleName), file('sorted.stats'), file('resorted.stats') into samtools_stats
+		tuple val(sampleName), env(numReads), path('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
+		tuple val(sampleName), path('sorted.stats'), path('resorted.stats') into samtools_stats
 	
 	shell:
 	refSeqBasename = params.referenceSequence.replaceAll('.fa$', '')
 	"""
-	numThreads=`nproc`
+	numThreads=\$(nproc)
 	case $platform in
 		Illumina)
 			if $isPairedEnd; then
@@ -122,7 +141,7 @@ process referenceAlignment {
 			minimap2 -a --sam-hit-only -2 -x map-ont ${refSeqBasename}.mmi R1.fastq.gz \
 					-t \$numThreads -o aligned.sam
 			;;
-		Pacbio)
+		PacBio)
 			minimap2 -a --sam-hit-only -2 -x map-hifi ${refSeqBasename}.mmi R1.fastq.gz \
 					-t \$numThreads -o aligned.sam
 			;;
@@ -144,37 +163,35 @@ process referenceAlignment {
 	# Evaluate read statistics
 	samtools stats sorted.bam | grep ^SN | cut -f 2- > sorted.stats
 	samtools stats resorted.bam | grep ^SN | cut -f 2- > resorted.stats
-	numReads=`cat resorted.stats | grep "raw total sequences" | awk '{ print \$4 }'`
+	numReads=\$(cat resorted.stats | grep "raw total sequences" | awk '{ print \$4 }')
 	"""
 }
 
 
 process trimmedBam2Fastq {
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_a
+		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_a
 	
 	output:
-		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') into resorted_fastq_gz_a, resorted_fastq_gz_b, resorted_fastq_gz_c
+		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') into resorted_fastq_gz_a, resorted_fastq_gz_b, resorted_fastq_gz_c
 		
 	shell:
 	"""
-		if [[ \$numReads -gt 0 ]]; then
-			samtools bam2fq resorted.bam > resorted.fastq
-		else
-			touch resorted.fastq
-		fi
+		# include -h for header
+		samtools view --threads 2 resorted.bam -o resorted.sam
+		$projectDir/sam2fastq.py resorted.sam resorted.fastq
 		gzip resorted.fastq
+		rm resorted.sam
 	"""
 }
 
 
-
 process generatePileup {
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_b
+		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_b
 	
 	output:
-		tuple val(sampleName), file('pile.up') into pile_up_a, pile_up_b
+		tuple val(sampleName), path('pile.up') into pile_up_a, pile_up_b
 	
 	shell:
 	"""
@@ -186,10 +203,10 @@ process generatePileup {
 
 process variantCalling {
 	input:
-		tuple val(sampleName), file('pile.up') from pile_up_a
+		tuple val(sampleName), path('pile.up') from pile_up_a
 	
 	output:
-		tuple val(sampleName), file('rawVarCalls.tsv') into ivar_out
+		tuple val(sampleName), path('rawVarCalls.tsv') into ivar_out
 		
 	shell:
 	"""
@@ -207,11 +224,11 @@ process kraken2stdDB {
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b
 	
 	output:
-		tuple val(sampleName), file('k2-std.out') into k2_std_out
+		tuple val(sampleName), path('k2-std.out') into k2_std_out
 		
 	shell:
 	"""
-		numThreads=`nproc`
+		numThreads=\$(nproc)
 		if $isPairedEnd; then
 			kraken2 --paired R1.fastq.gz R2.fastq.gz --threads \$numThreads --report k2-std.out > /dev/null
 		else
@@ -225,10 +242,10 @@ process kraken2stdDB {
 // The result is stored as png files that are added to the html report
 process plotCoverageQC {
 	input:
-		tuple val(sampleName), file('pile.up') from pile_up_b
+		tuple val(sampleName), path('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png'), file('terminiDensity.png') into QChists
+		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('terminiDensity.png') into QChists
 		
 	shell:
 	"""
@@ -245,7 +262,7 @@ process readLengthHist {
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_d
 	
 	output:
-		tuple val(sampleName), file('readLengthHist.png') into readLengthHist_png
+		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
 		
 	shell:
 	"""
@@ -268,19 +285,19 @@ process krakenVariantCaller {
 	cpus 10
 	
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') from resorted_fastq_gz_a
+		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_a
 	
 	output:
-		tuple val(sampleName), file('k2-allCovid_bracken.out'), file('k2-majorCovid_bracken.out'), file('k2-allCovid.out'), file('k2-majorCovid.out') into k2_covid_out
+		tuple val(sampleName), path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
 	
 	shell:
 	"""
-		numThreads=`nproc`
+		numThreads=\$(nproc)
 		
 		# Check the number of reads. Ignore if there are too few reads
-		if [[ \$numReads -gt 0 ]]; then
+		if [[ \$numReads -gt 10 ]]; then
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
-			if [[ `cat k2-allCovid.out | wc -l` -eq 1 ]]; then
+			if [[ \$(cat k2-allCovid.out | wc -l) -eq 1 ]]; then
 				# There is a bug in our bracken that fails if no hits.
 				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
 			else
@@ -288,7 +305,7 @@ process krakenVariantCaller {
 			fi
 
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
-			if [[ `cat k2-allCovid.out | wc -l` -eq 1 ]]; then
+			if [[ \$(cat k2-allCovid.out | wc -l) -eq 1 ]]; then
 				# There is a bug in our bracken that fails if no hits.
 				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
 			else
@@ -309,14 +326,14 @@ process pangolinVariantCaller {
 	cpus 4
 	
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_c
+		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_c
 	
 	output:
-		tuple val(sampleName), env(consensusLineage), file('lineage_report.csv') into pangolin_out
+		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv') into pangolin_out
 	
 	shell:
 	"""
-		numThreads=`nproc`
+		numThreads=\$(nproc)
 		
 		bcftools mpileup -d 10000 -Ou -f $params.referenceSequence resorted.bam | bcftools call --ploidy 1 -mv -Oz -o calls.vcf.gz
 		bcftools index calls.vcf.gz
@@ -327,8 +344,8 @@ process pangolinVariantCaller {
 		# Characterisation of the consensus sequence based on Pangolin output
 		# Calculation of the consensus sequence is used to determine the predominant lineage.
 		# If available, use the WHO label.
-		consensusLineage=`tail -n 1 lineage_report.csv | awk -F "," '{ print \$2 }'`
-		WHOlabel=`cat $projectDir/pangolin2WHOlabel.txt | grep \$consensusLineage | awk -F " " '{ print \$2 }'`
+		consensusLineage=\$(tail -n 1 lineage_report.csv | awk -F "," '{ print \$2 }')
+		WHOlabel=\$(cat $projectDir/pangolin2WHOlabel.txt | grep \$consensusLineage | awk -F " " '{ print \$2 }')
 		if  [[ -n \$WHOlabel ]]; then
 			consensusLineage=\$WHOlabel
 		fi
@@ -340,18 +357,18 @@ process linearDeconVariantCaller {
 	cpus 4
 	
 	input:
-		tuple val(sampleName), file('rawVarCalls.tsv') from ivar_out
+		tuple val(sampleName), path('rawVarCalls.tsv') from ivar_out
 	
 	output:
-		tuple val(sampleName), file('linearDeconvolution_abundance.csv'), file('mutationTable.html'), file('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2) into linearDeconvolution_out
+		tuple val(sampleName), path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2) into linearDeconvolution_out
 		
 	shell:
 	"""
-		deconvolutionOutput=`$projectDir/deconvolveVariants.py rawVarCalls.tsv ./ $params.variantDBfile`
+		deconvolutionOutput=\$($projectDir/deconvolveVariants.py rawVarCalls.tsv ./ $params.variantDBfile)
 		
-		mostAbundantVariantPct=`echo \$deconvolutionOutput | awk '{ print \$1 }'`
-		mostAbundantVariantName=`echo \$deconvolutionOutput |awk '{ print \$2 }'`
-		linRegressionR2=`echo \$deconvolutionOutput | awk '{ print \$3 }'`
+		mostAbundantVariantPct=\$(echo \$deconvolutionOutput | awk '{ print \$1 }')
+		mostAbundantVariantName=\$(echo \$deconvolutionOutput |awk '{ print \$2 }')
+		linRegressionR2=\$(echo \$deconvolutionOutput | awk '{ print \$3 }')
 	"""
 }
 
@@ -360,19 +377,18 @@ process kallistoVariantCaller {
 	cpus 10
 	
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') from resorted_fastq_gz_b
+		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_b
 
 	output:
-		tuple val(sampleName), file('kallisto_abundance.tsv') into kallisto_out
+		tuple val(sampleName), path('kallisto_abundance.tsv') into kallisto_out
 		
 	shell:
 	"""
-		numThreads=`nproc`
-
 		# Check the number of reads. Ignore if there are too few reads
-		if [[ \$numReads -gt 10 ]]; then
+		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 10 ]]; then
+			numThreads=\$(nproc)
 			kallisto quant --index $projectDir/customDBs/variants.kalIdx --output-dir ./ \
-					--plaintext -t \$numThreads --single -l 500 -s 50 resorted.fastq.gz
+					--plaintext -t \$numThreads --single -l 300 -s 50 resorted.fastq.gz || true
 		else
 			echo target_id\$'\t'length\$'\t'eff_length\$'\t'est_counts tpm > abundance.tsv
 			echo other\$'\t'29903\$'\t'29903\$'\t'0\$'\t'NaN >> abundance.tsv
@@ -382,78 +398,30 @@ process kallistoVariantCaller {
 }
 
 
-
-process LCSvariantCaller {
-	time = '1h'
-	
-	input:
-		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_e
-	
-	output:
-		tuple val(sampleName), file ('outputs/decompose/lcs.out') into lcs_out
-	
-	shell:
-	"""		
-		if [[ $task.attempt -lt 2 ]]; then		
-			echo Fetching the LCS repository...
-			git clone https://github.com/rvalieris/LCS.git
-			mv LCS/* ./
-			
-			echo Preparing the DB...
-			mkdir -p outputs/variants_table
-			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.124.tsv.gz > outputs/variants_table/pango-markers-table.tsv
-			rm data/artic_v3_primers.fa
-			
-			echo Preparing the sample dataset...
-			echo "input" > data/tags_pool_lcs
-			mkdir data/fastq
-			if $isPairedEnd; then
-				# Merge the read pairs
-				bbmerge.sh in=R1.fastq.gz in2=R2.fastq.gz out=temp.fastq
-				
-				# Number of reads is capped at 100 000 to limit computation time.
-				cat temp.fastq | head -n 400000 > data/fastq/input.fastq
-			else
-				gzip -dc R1.fastq.gz | head -n 400000 > data/fastq/input.fastq
-			fi
-			gzip data/fastq/input.fastq
-			
-			echo Executing LCS...
-			snakemake --config markers=pango dataset=lcs --cores 2
-		else
-			echo Not enough covid reads for LCS, skipped.
-			mkdir -p outputs/decompose
-			echo sample\$'\t'variant_group\$'\t'proportion\$'\t'mean\$'\t'std_error > outputs/decompose/lcs.out
-			echo ERROR\$'\t'Other\$'\t'1\$'\t'1\$'\t'1 >> outputs/decompose/lcs.out
-		fi
-	"""
-}
-
-
-
-/*
+// https://github.com/rvalieris/LCS
 process LCSvariantCaller {	
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.fastq.gz') from resorted_fastq_gz_c 
+		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_c 
 	
 	output:
-		tuple val(sampleName), file ('outputs/decompose/lcs.out') into lcs_out
+		tuple val(sampleName), path('LCS/outputs/decompose/lcs.out') into lcs_out
 
 	shell:
 	"""
-		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then		
+		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 10 ]]; then
 			echo Fetching the LCS repository...
 			git clone https://github.com/rvalieris/LCS.git
-			mv LCS/* ./
+			cd LCS
+			rm .git -rf
 			
 			echo Preparing the DB...
 			mkdir -p outputs/variants_table
 			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.124.tsv.gz > outputs/variants_table/pango-markers-table.tsv
-			rm data/artic_v3_primers.fa
 			
+			# A maximum of 100 000 reads are fed into the algorithm to keep the computation time reasonable.
 			echo Preparing the sample dataset...
 			mkdir data/fastq
-			gzip -dc resorted.fastq.gz | head -n 400000 > data/fastq/resorted.fastq
+			gzip -dc ../resorted.fastq.gz | head -n 400000 > data/fastq/resorted.fastq
 			gzip data/fastq/resorted.fastq
 			echo "resorted" > data/tags_pool_lcs
 			
@@ -461,25 +429,23 @@ process LCSvariantCaller {
 			snakemake --config markers=pango dataset=lcs --cores 2
 		else
 			echo Not enough covid reads for LCS, skipped.
-			mkdir -p outputs/decompose
-			echo sample\$'\t'variant_group\$'\t'proportion\$'\t'mean\$'\t'std_error > outputs/decompose/lcs.out
-			echo ERROR\$'\t'Other\$'\t'1\$'\t'1\$'\t'1 >> outputs/decompose/lcs.out
+			mkdir -p LCS/outputs/decompose
+			echo sample\$'\t'variant_group\$'\t'proportion\$'\t'mean\$'\t'std_error > LCS/outputs/decompose/lcs.out
+			echo ERROR\$'\t'Other\$'\t'1\$'\t'1\$'\t'1 >> LCS/outputs/decompose/lcs.out
 		fi
 	"""
 }
-*/
 
 
 process freyjaVariantCaller {
 	input:
-		tuple val(sampleName), env(numReads), file('resorted.bam') from resorted_bam_d
+		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_d
 		
 	output:
-		tuple val(sampleName), file('freyja.demix') into freyja_out
+		tuple val(sampleName), path('freyja.demix') into freyja_out
 		
 	// Due to a potential bug, some big fastqs result in a pandas error.
 	// Start by generating an empty file to circumvent such failure cases
-	
 	shell:
 	"""
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
@@ -503,9 +469,10 @@ process getNCBImetadata {
 	// Allow access to this section only 1 thread at a time to avoid network congestion.
 	executor = 'local'
 	queueSize = 1
-	submitRateLimit = '10/1min'
+	submitRateLimit = '3/1min'
 	
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
+	// Wait some random time so that threads go out of sync.
 	errorStrategy { sleep(1000 * Math.random() as long); return 'retry' }
 	maxRetries = 55
 	
@@ -519,10 +486,7 @@ process getNCBImetadata {
 	"""
 	srrNumber=$sampleName
 	if [[ $task.attempt -lt 50 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
-		# The tool returns error: too many requests, bypassing by redirection of error
-		# Wait some random time so that threads go out of sync.
-		sleep \${srrNumber:6:1}
-		
+		# The tool returns error: too many requests, bypassing by redirection of error		
 		sraQueryResult=\$(esearch -db sra -query \$srrNumber 2>/dev/null)
 		sleep 1
 		
@@ -531,27 +495,27 @@ process getNCBImetadata {
 			echo Downloading metadata for \$srrNumber...	
 			echo "\$sraQueryResult" | efetch --format runinfo
 			sleep 1
-			SRRmetadata=`echo "\$sraQueryResult" | efetch --format runinfo 2>/dev/null | grep \$srrNumber`
+			SRRmetadata=\$(echo "\$sraQueryResult" | efetch --format runinfo 2>/dev/null | grep \$srrNumber)
 			
 			echo Parsing...
-			libraryProtocol=`echo \$SRRmetadata | awk -F ',' '{print \$13}'`
-			seqInstrument=`echo \$SRRmetadata | awk -F ',' '{print \$20}'`
-			isolate=`echo \$SRRmetadata  | awk -F ',' '{print \$30}'`	
+			libraryProtocol=\$(echo \$SRRmetadata | awk -F ',' '{print \$13}')
+			seqInstrument=\$(echo \$SRRmetadata | awk -F ',' '{print \$20}')
+			isolate=\$(echo \$SRRmetadata  | awk -F ',' '{print \$30}')	
 			
 			# Get metadata out of biosample db
 			echo Fetching biosample data...
-			SAMN=`echo \$SRRmetadata | awk -F ',' '{print \$26}'`
-			SAMNmetadata=`efetch -db biosample -id \$SAMN 2>/dev/null`
+			SAMN=\$(echo \$SRRmetadata | awk -F ',' '{print \$26}')
+			SAMNmetadata=\$(efetch -db biosample -id \$SAMN 2>/dev/null)
 			
 			echo Parsing...
-			collectionDate=`echo "\$SAMNmetadata" | grep "collection date" | awk -F '"' '{print \$2}'`
-			collectedBy=`echo "\$SAMNmetadata" | grep "collected by" | awk -F '"' '{print \$2}'`
-			sequencedBy=`echo "\$SAMNmetadata" | grep SEQUENCED_BY | awk '{ \$1=""; print \$0 }'`
-			sampleLatitude=`echo "\$SAMNmetadata" | grep "latitude and longitude" | awk -F '"' '{print \$2}'\
-								| awk '{ print \$1\$2 }'`
-			sampleLongitude=`echo "\$SAMNmetadata" | grep "latitude and longitude" | awk -F '"' '{print \$2}'\
-								| awk '{ print \$3\$4 }'`
-			sampleLocation=`echo "\$SAMNmetadata" | grep "geographic location" | awk -F '"' '{print \$2}'`
+			collectionDate=\$(echo "\$SAMNmetadata" | grep "collection date" | awk -F '"' '{print \$2}')
+			collectedBy=\$(echo "\$SAMNmetadata" | grep "collected by" | awk -F '"' '{print \$2}')
+			sequencedBy=\$(echo "\$SAMNmetadata" | grep SEQUENCED_BY | awk '{ \$1=""; print \$0 }')
+			sampleLatitude=\$(echo "\$SAMNmetadata" | grep "latitude and longitude" | awk -F '"' '{print \$2}'\
+								| awk '{ print \$1\$2 }')
+			sampleLongitude=\$(echo "\$SAMNmetadata" | grep "latitude and longitude" | awk -F '"' '{print \$2}'\
+								| awk '{ print \$3\$4 }')
+			sampleLocation=\$(echo "\$SAMNmetadata" | grep "geographic location" | awk -F '"' '{print \$2}')
 		fi
 	fi
 	
@@ -615,16 +579,16 @@ reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).joi
 process generateReport {
 	input:
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
-		file('sorted.stats'), file('resorted.stats'),
-		file('k2-std.out'),
-		file('pos-coverage-quality.tsv'), file('coverage.png'), file('depthHistogram.png'), file('quality.png'), file('qualityHistogram.png'), file('terminiDensity.png'),
-		file('readLengthHist.png'),
-		file('linearDeconvolution_abundance.csv'), file('mutationTable.html'), file('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
-		file('k2-allCovid_bracken.out'), file('k2-majorCovid_bracken.out'), file('k2-allCovid.out'), file('k2-majorCovid.out'),
-		env(consensusLineage), file('lineage_report.csv'),
-		file('kallisto_abundance.tsv'),
-		file('freyja.demix'),
-		file('lcs.out') from reportInputCh
+		path('sorted.stats'), path('resorted.stats'),
+		path('k2-std.out'),
+		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('terminiDensity.png'),
+		path('readLengthHist.png'),
+		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
+		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
+		env(consensusLineage), path('lineage_report.csv'),
+		path('kallisto_abundance.tsv'),
+		path('freyja.demix'),
+		path('lcs.out') from reportInputCh
 	
 	output:
 		file "outfolder" into reportCh
@@ -635,9 +599,9 @@ process generateReport {
 		$projectDir/plotPieChartsforAbundance.py ./ $params.variantDBfile linearDeconvolution_abundance.csv \
 				kallisto_abundance.tsv k2-allCovid_bracken.out k2-majorCovid_bracken.out freyja.demix lcs.out
 		
-		export kallistoTopName=`cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }'`
+		export kallistoTopName=\$(cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }')
 		
-		$projectDir/generateReport.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd
+		$projectDir/generateReport.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd $params.primerBedFile $projectDir
 	"""
 }
 
