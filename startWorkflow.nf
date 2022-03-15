@@ -127,7 +127,12 @@ process referenceAlignment {
 	shell:
 	refSeqBasename = params.referenceSequence.replaceAll('.fa$', '')
 	"""
-	numThreads=\$(nproc)
+	if [[ -n \$SLURM_CPUS_ON_NODE ]]; then
+		numThreads=\$SLURM_CPUS_ON_NODE
+	else
+		numThreads=\$(nproc)
+	fi
+	
 	case $platform in
 		Illumina)
 			if $isPairedEnd; then
@@ -218,7 +223,6 @@ process variantCalling {
 
 process kraken2stdDB {
 	memory '70 GB'
-	cpus 10
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b
@@ -228,11 +232,10 @@ process kraken2stdDB {
 		
 	shell:
 	"""
-		numThreads=\$(nproc)
 		if $isPairedEnd; then
-			kraken2 --paired R1.fastq.gz R2.fastq.gz --threads \$numThreads --report k2-std.out > /dev/null
+			kraken2 --paired R1.fastq.gz R2.fastq.gz --threads 2 --report k2-std.out > /dev/null
 		else
-			kraken2 R1.fastq.gz --threads \$numThreads --report k2-std.out > /dev/null		
+			kraken2 R1.fastq.gz --threads 2 --report k2-std.out > /dev/null		
 		fi	
 	"""
 }
@@ -282,8 +285,6 @@ process readLengthHist {
 // ////////////////////////////////////////////
 
 process krakenVariantCaller {
-	cpus 10
-	
 	input:
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_a
 	
@@ -292,8 +293,7 @@ process krakenVariantCaller {
 	
 	shell:
 	"""
-		numThreads=\$(nproc)
-		
+		numThreads=\$SLURM_CPUS_ON_NODE
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ \$numReads -gt 10 ]]; then
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
@@ -313,6 +313,7 @@ process krakenVariantCaller {
 			fi
 		else
 			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
+			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'Error >> k2-allCovid_bracken.out
 			cp k2-allCovid_bracken.out k2-majorCovid_bracken.out
 			cp k2-allCovid_bracken.out k2-allCovid.out
 			cp k2-allCovid_bracken.out k2-majorCovid.out
@@ -321,10 +322,9 @@ process krakenVariantCaller {
 }
 
 
-
+// Characterisation of the consensus sequence based on Pangolin output
+// Calculation of the consensus sequence is used to determine the predominant lineage.
 process pangolinVariantCaller {
-	cpus 4
-	
 	input:
 		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_c
 	
@@ -332,30 +332,25 @@ process pangolinVariantCaller {
 		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv') into pangolin_out
 	
 	shell:
-	"""
-		numThreads=\$(nproc)
-		
+	"""		
+		# Compute the consensus sequence
 		bcftools mpileup -d 10000 -Ou -f $params.referenceSequence resorted.bam | bcftools call --ploidy 1 -mv -Oz -o calls.vcf.gz
 		bcftools index calls.vcf.gz
 		cat $params.referenceSequence | bcftools consensus calls.vcf.gz > consensus.fa
 		
-		pangolin --alignment consensus.fa --threads \$numThreads --outdir ./
+		pangolin --alignment consensus.fa --threads 2 --outdir ./
 		
-		# Characterisation of the consensus sequence based on Pangolin output
-		# Calculation of the consensus sequence is used to determine the predominant lineage.
-		# If available, use the WHO label.
+		# Check the pangolin result to ensure the failure cases are handled properly
+		# In non-convergence case, it either throws multiple options or throws "None"
 		consensusLineage=\$(tail -n 1 lineage_report.csv | awk -F "," '{ print \$2 }')
-		WHOlabel=\$(cat $projectDir/pangolin2WHOlabel.txt | grep \$consensusLineage | awk -F " " '{ print \$2 }')
-		if  [[ -n \$WHOlabel ]]; then
-			consensusLineage=\$WHOlabel
+		if [[ \$(echo \$consensusLineage | wc -w) -lt 1 || \$consensusLineage == "None" ]]; then
+			consensusLineage=Unknown
 		fi
 	"""
 }
 
 
 process linearDeconVariantCaller {
-	cpus 4
-	
 	input:
 		tuple val(sampleName), path('rawVarCalls.tsv') from ivar_out
 	
@@ -374,8 +369,6 @@ process linearDeconVariantCaller {
 
 
 process kallistoVariantCaller {
-	cpus 10
-	
 	input:
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_b
 
@@ -386,12 +379,11 @@ process kallistoVariantCaller {
 	"""
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 10 ]]; then
-			numThreads=\$(nproc)
 			kallisto quant --index $projectDir/customDBs/variants.kalIdx --output-dir ./ \
-					--plaintext -t \$numThreads --single -l 300 -s 50 resorted.fastq.gz || true
+					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz || true
 		else
 			echo target_id\$'\t'length\$'\t'eff_length\$'\t'est_counts tpm > abundance.tsv
-			echo other\$'\t'29903\$'\t'29903\$'\t'0\$'\t'NaN >> abundance.tsv
+			echo Error\$'\t'29903\$'\t'29903\$'\t'0\$'\t'NaN >> abundance.tsv
 		fi
 		mv abundance.tsv kallisto_abundance.tsv
 	"""
@@ -431,7 +423,7 @@ process LCSvariantCaller {
 			echo Not enough covid reads for LCS, skipped.
 			mkdir -p LCS/outputs/decompose
 			echo sample\$'\t'variant_group\$'\t'proportion\$'\t'mean\$'\t'std_error > LCS/outputs/decompose/lcs.out
-			echo ERROR\$'\t'Other\$'\t'1\$'\t'1\$'\t'1 >> LCS/outputs/decompose/lcs.out
+			echo ERROR\$'\t'Error\$'\t'1\$'\t'1\$'\t'1 >> LCS/outputs/decompose/lcs.out
 		fi
 	"""
 }
@@ -456,7 +448,7 @@ process freyjaVariantCaller {
 			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix
 		else
 			echo FATAL ERROR > freyja.demix
-			echo summarized\$'\t'"[('Other', 1.00)]" >> freyja.demix
+			echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
 		fi
 	"""
 }

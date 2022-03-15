@@ -42,7 +42,7 @@ pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427'
                 'B.1.525': 'Eta', 'B.1.526': 'Iota', 'B.1.617.1': 'Kappa', 'B.1.621': 'Mu', 'B.1.621.1': 'Mu',
                 'P.2': 'Zeta', 'B.1.617.3': 'B.1.617.3', 'B.1.617.2': 'Delta', 'AY': 'Delta',
                 'B.1.1.529': 'Omicron', 'BA.1': 'BA.1', 'BA.2': 'BA.2', 'BA.3': 'BA.3', 'wt': 'wt', 'wt-wuhan': 'wt',
-                'A.21': 'Bat', 'other': 'Other', 'A': 'wt'}
+                'A.21': 'Bat', 'other': 'Other', 'A': 'wt', 'Error':'Error'}
 
 
 # Convert each variant to a WHO-compatible name, if one exists
@@ -93,11 +93,12 @@ def drawPieChart(names2percentages, outfilename, title=''):
             percentages2plot.append(freq)
 
     # Cumulate all other infrequent variants under "other" category
-    names2plot.append('Other')
-    percentages2plot = np.append(
-        percentages2plot, 100-np.sum(percentages2plot))
+    other_pct = 100-np.sum(percentages2plot)
+    if other_pct > 0.1:
+        names2plot.append('Other')
+        percentages2plot = np.append(percentages2plot, other_pct)
+        
     colors2plot = [getColor(name) for name in names2plot]
-
     explosionArray = np.full(len(percentages2plot), 0.07)
     plt.rcParams.update({'font.size': 12})
     plt.pie(percentages2plot, labels=names2plot, autopct='%1.1f%%', shadow=False,

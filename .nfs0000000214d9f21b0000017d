@@ -1,0 +1,205 @@
+Mar-13 10:34:48.139 [main] DEBUG nextflow.cli.Launcher - $> nextflow ./startWorkflow.nf --in /projects/covidtrakr/surveillance/WG1/2022-03-01/220309_M04120_0008_000000000-K38RW/fastq/ --out /home/Tunc.Kayikcioglu/ --platform i
+Mar-13 10:34:48.305 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 21.12.1-edge
+Mar-13 10:34:48.339 [main] INFO  nextflow.cli.CmdRun - Launching `./startWorkflow.nf` [mighty_hugle] - revision: 128ac034e1
+Mar-13 10:34:48.358 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /nfs/home/Tunc.Kayikcioglu/c-wap/nextflow.config
+Mar-13 10:34:48.359 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /nfs/home/Tunc.Kayikcioglu/c-wap/nextflow.config
+Mar-13 10:34:48.392 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-13 10:34:49.618 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/home/Tunc.Kayikcioglu/.nextflow/plugins
+Mar-13 10:34:49.621 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Mar-13 10:34:49.643 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Mar-13 10:34:49.644 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Mar-13 10:34:49.650 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Mar-13 10:34:49.665 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Mar-13 10:34:49.735 [main] DEBUG nextflow.Session - Session uuid: 7006bcdc-a4ed-40db-a80e-06ba847ca9ec
+Mar-13 10:34:49.735 [main] DEBUG nextflow.Session - Run name: mighty_hugle
+Mar-13 10:34:49.736 [main] DEBUG nextflow.Session - Executor pool size: 40
+Mar-13 10:34:49.752 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 21.12.1-edge build 5654
+  Created: 22-12-2021 08:12 UTC (03:12 EDT)
+  System: Linux 3.10.0-327.el7.x86_64
+  Runtime: Groovy 3.0.9 on OpenJDK 64-Bit Server VM 1.8.0_232-b09
+  Encoding: UTF-8 (UTF-8)
+  Process: 2202@login1-slurm.fda.gov [10.12.151.23]
+  CPUs: 40 - Mem: 125.6 GB (668.8 MB) - Swap: 32 GB (31.7 GB)
+Mar-13 10:34:49.792 [main] DEBUG nextflow.Session - Work-dir: /nfs/home/Tunc.Kayikcioglu/c-wap/work [nfs]
+Mar-13 10:34:49.793 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /nfs/home/Tunc.Kayikcioglu/c-wap/bin
+Mar-13 10:34:49.881 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[GoogleLifeSciencesExecutor, AwsBatchExecutor, IgExecutor]
+Mar-13 10:34:49.897 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Mar-13 10:34:49.900 [main] DEBUG nextflow.Session - Observer factory: TowerFactory
+Mar-13 10:34:49.949 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 41; maxThreads: 1000
+Mar-13 10:34:50.076 [main] DEBUG nextflow.Session - Session start invoked
+Mar-13 10:34:51.215 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Mar-13 10:34:51.225 [main] INFO  nextflow.script.BaseScript - Paired end Illumina mode
+Mar-13 10:34:51.254 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 41; maxThreads: 1000
+Mar-13 10:34:51.263 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /projects/covidtrakr/surveillance/WG1/2022-03-01/220309_M04120_0008_000000000-K38RW/fastq/; pattern: *_R{1,2}*.fastq*; options: [checkIfExists:true]
+Mar-13 10:34:51.421 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.421 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.429 [main] DEBUG nextflow.executor.Executor - [warm up] executor > slurm
+Mar-13 10:34:51.434 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'slurm' > capacity: 400; pollInterval: 5s; dumpInterval: 5m 
+Mar-13 10:34:51.439 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' > queue-stat-interval: 30s
+Mar-13 10:34:51.516 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.517 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.526 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.526 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.533 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.533 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.542 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.542 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.553 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.553 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.566 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.567 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.584 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.584 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.613 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.613 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.625 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.626 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.635 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.635 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.738 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.739 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.750 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.750 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.760 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: local
+Mar-13 10:34:51.760 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-13 10:34:51.765 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Mar-13 10:34:51.776 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=40; memory=125.6 GB; capacity=400; pollInterval=100ms; dumpInterval=5m
+Mar-13 10:34:51.831 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Mar-13 10:34:51.831 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Mar-13 10:34:51.846 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: local
+Mar-13 10:34:51.846 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Mar-13 10:34:51.852 [main] DEBUG nextflow.Session - Workflow process names [dsl1]: getNCBImetadata, variantCalling, readLengthHist, freyjaVariantCaller, generateReport, referenceAlignment, pangolinVariantCaller, kraken2stdDB, plotCoverageQC, summaryPage, trimmedBam2Fastq, kallistoVariantCaller, generatePileup, LCSvariantCaller, krakenVariantCaller, linearDeconVariantCaller
+Mar-13 10:34:51.853 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+Mar-13 10:34:51.853 [main] DEBUG nextflow.Session - Session await
+Mar-13 10:34:52.082 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.090 [Task submitter] INFO  nextflow.Session - [91/e6cdd2] Submitted process > getNCBImetadata (7)
+Mar-13 10:34:52.105 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.106 [Task submitter] INFO  nextflow.Session - [dc/fa4427] Submitted process > getNCBImetadata (2)
+Mar-13 10:34:52.110 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (6) > jobId: 9109910; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/14/97c0ea7a054aae8e15aa2e14aa6259
+Mar-13 10:34:52.120 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.120 [Task submitter] INFO  nextflow.Session - [2a/1ce44b] Submitted process > getNCBImetadata (6)
+Mar-13 10:34:52.121 [Task submitter] INFO  nextflow.Session - [14/97c0ea] Submitted process > referenceAlignment (6)
+Mar-13 10:34:52.137 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.137 [Task submitter] INFO  nextflow.Session - [af/7e0d32] Submitted process > getNCBImetadata (3)
+Mar-13 10:34:52.152 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.152 [Task submitter] INFO  nextflow.Session - [ff/ea4906] Submitted process > getNCBImetadata (5)
+Mar-13 10:34:52.157 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (7) > jobId: 9109911; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/c8/afa81e1df455120071b6f30c86f5fd
+Mar-13 10:34:52.157 [Task submitter] INFO  nextflow.Session - [c8/afa81e] Submitted process > referenceAlignment (7)
+Mar-13 10:34:52.170 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.170 [Task submitter] INFO  nextflow.Session - [09/ecd707] Submitted process > getNCBImetadata (4)
+Mar-13 10:34:52.175 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 28; name: getNCBImetadata (7); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/91/e6cdd29f473f69139fd16291af4b95]
+Mar-13 10:34:52.186 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Mar-13 10:34:52.186 [Task submitter] INFO  nextflow.Session - [6e/19ce2f] Submitted process > getNCBImetadata (1)
+Mar-13 10:34:52.195 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (4) > jobId: 9109912; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/ed/0b308e087c202acfdfe83e5e9040eb
+Mar-13 10:34:52.195 [Task submitter] INFO  nextflow.Session - [ed/0b308e] Submitted process > readLengthHist (4)
+Mar-13 10:34:52.203 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 23; name: getNCBImetadata (2); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/dc/fa4427b5894682f8da9756699747df]
+Mar-13 10:34:52.209 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 27; name: getNCBImetadata (6); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/2a/1ce44b829251327db46c99f4ba4b12]
+Mar-13 10:34:52.217 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 24; name: getNCBImetadata (3); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/af/7e0d3274b411f7a895bed1bef1d57b]
+Mar-13 10:34:52.226 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 26; name: getNCBImetadata (5); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/ff/ea49068012f5db3e80aea1152848b9]
+Mar-13 10:34:52.235 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (7) > jobId: 9109913; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/c8/7320c95d2cda2067070b68d997d36e
+Mar-13 10:34:52.235 [Task submitter] INFO  nextflow.Session - [c8/7320c9] Submitted process > readLengthHist (7)
+Mar-13 10:34:52.240 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 25; name: getNCBImetadata (4); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/09/ecd707163c403de60de6ce7443901b]
+Mar-13 10:34:52.250 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 22; name: getNCBImetadata (1); status: COMPLETED; exit: 0; error: -; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/6e/19ce2f61be8420844e9bca791a226b]
+Mar-13 10:34:52.267 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (4) > jobId: 9109914; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/0e/acec7a5c9a4840960cea3a6bcaac47
+Mar-13 10:34:52.267 [Task submitter] INFO  nextflow.Session - [0e/acec7a] Submitted process > kraken2stdDB (4)
+Mar-13 10:34:52.295 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (5) > jobId: 9109915; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/19/40c87f3e68b5e2b64610d4d26675a9
+Mar-13 10:34:52.296 [Task submitter] INFO  nextflow.Session - [19/40c87f] Submitted process > kraken2stdDB (5)
+Mar-13 10:34:52.328 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (1) > jobId: 9109916; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/95/b5e3ba4c42716c34071935af7e07a8
+Mar-13 10:34:52.328 [Task submitter] INFO  nextflow.Session - [95/b5e3ba] Submitted process > readLengthHist (1)
+Mar-13 10:34:52.362 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (1) > jobId: 9109917; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/4d/c180c19c8fb7073b6853f942da233f
+Mar-13 10:34:52.363 [Task submitter] INFO  nextflow.Session - [4d/c180c1] Submitted process > kraken2stdDB (1)
+Mar-13 10:34:52.398 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (5) > jobId: 9109918; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/f7/41d2c948e1f43c3dd0da08bdb9ad09
+Mar-13 10:34:52.398 [Task submitter] INFO  nextflow.Session - [f7/41d2c9] Submitted process > readLengthHist (5)
+Mar-13 10:34:52.436 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (2) > jobId: 9109919; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/8b/89cdb391de8e5c4ef38909c79ba0ec
+Mar-13 10:34:52.437 [Task submitter] INFO  nextflow.Session - [8b/89cdb3] Submitted process > readLengthHist (2)
+Mar-13 10:34:52.469 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (4) > jobId: 9109920; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/fc/95b93ded9c277fe798f03e2529e79b
+Mar-13 10:34:52.469 [Task submitter] INFO  nextflow.Session - [fc/95b93d] Submitted process > referenceAlignment (4)
+Mar-13 10:34:52.501 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (3) > jobId: 9109921; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/35/e75d0f4771cc5d1fde0742c5fc75cd
+Mar-13 10:34:52.501 [Task submitter] INFO  nextflow.Session - [35/e75d0f] Submitted process > kraken2stdDB (3)
+Mar-13 10:34:52.532 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (6) > jobId: 9109922; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/a0/8c9ee45542f6e6b711267f4cb0ea0c
+Mar-13 10:34:52.532 [Task submitter] INFO  nextflow.Session - [a0/8c9ee4] Submitted process > kraken2stdDB (6)
+Mar-13 10:34:52.561 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (1) > jobId: 9109923; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/fd/2e416c8422ee7687b240dd22474635
+Mar-13 10:34:52.561 [Task submitter] INFO  nextflow.Session - [fd/2e416c] Submitted process > referenceAlignment (1)
+Mar-13 10:34:52.593 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (5) > jobId: 9109924; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/68/a5d62133a8ed0a7be898d7db28a561
+Mar-13 10:34:52.593 [Task submitter] INFO  nextflow.Session - [68/a5d621] Submitted process > referenceAlignment (5)
+Mar-13 10:34:52.629 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (3) > jobId: 9109925; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/ce/868f3b75541773b4f1ef292526d7e4
+Mar-13 10:34:52.629 [Task submitter] INFO  nextflow.Session - [ce/868f3b] Submitted process > referenceAlignment (3)
+Mar-13 10:34:52.661 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (7) > jobId: 9109926; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/26/599236fb263913be06c999b41229ce
+Mar-13 10:34:52.661 [Task submitter] INFO  nextflow.Session - [26/599236] Submitted process > kraken2stdDB (7)
+Mar-13 10:34:52.690 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (6) > jobId: 9109927; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/08/4c07e6db2b883905758a7bb54d6868
+Mar-13 10:34:52.690 [Task submitter] INFO  nextflow.Session - [08/4c07e6] Submitted process > readLengthHist (6)
+Mar-13 10:34:52.721 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process readLengthHist (3) > jobId: 9109928; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/72/78214865e713424996d07cc1b41945
+Mar-13 10:34:52.721 [Task submitter] INFO  nextflow.Session - [72/782148] Submitted process > readLengthHist (3)
+Mar-13 10:34:52.754 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process kraken2stdDB (2) > jobId: 9109929; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/07/306867b62d27bf14016cc6a360f8c8
+Mar-13 10:34:52.754 [Task submitter] INFO  nextflow.Session - [07/306867] Submitted process > kraken2stdDB (2)
+Mar-13 10:34:52.789 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process referenceAlignment (2) > jobId: 9109930; workDir: /nfs/home/Tunc.Kayikcioglu/c-wap/work/5e/3b326cb8c7e562492e0ccd5515ef8b
+Mar-13 10:34:52.789 [Task submitter] INFO  nextflow.Session - [5e/3b326c] Submitted process > referenceAlignment (2)
+Mar-13 10:35:07.481 [SIGINT handler] DEBUG nextflow.Session - Session aborted -- Cause: SIGINT
+Mar-13 10:35:07.507 [SIGINT handler] DEBUG nextflow.Session - The following nodes are still active:
+[process] trimmedBam2Fastq
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] generatePileup
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] variantCalling
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] plotCoverageQC
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] krakenVariantCaller
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] pangolinVariantCaller
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] linearDeconVariantCaller
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] kallistoVariantCaller
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] LCSvariantCaller
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] freyjaVariantCaller
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] generateReport
+  status=ACTIVE
+  port 0: (queue) OPEN  ; channel: -
+  port 1: (cntrl) -     ; channel: $
+
+[process] summaryPage
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: report
+  port 1: (cntrl) -     ; channel: $
+
+Mar-13 10:35:07.510 [main] DEBUG nextflow.Session - Session await > all process finished
+Mar-13 10:35:07.511 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Mar-13 10:35:07.528 [main] WARN  n.processor.TaskPollingMonitor - Killing running tasks (21)
+Mar-13 10:35:07.617 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=7; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=21; succeedDuration=48ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=21; peakCpus=154; peakMemory=658 GB; ]
+Mar-13 10:35:07.671 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Mar-13 10:35:07.699 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

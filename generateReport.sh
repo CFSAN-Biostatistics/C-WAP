@@ -241,7 +241,7 @@ echo "    <td>Diverse SNPs:</td><td>${#diverseSNPuncov[@]}nt ($(expr 100 \* ${#d
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile	
-echo "    <td># Rare SNPs:</td><td>${#rareSNPuncov[@]}nt ($(expr 100 \* ${#rareSNPuncov[@]} / $numRareSNP)%)</td>" \
+echo "    <td>Rare SNPs:</td><td>${#rareSNPuncov[@]}nt ($(expr 100 \* ${#rareSNPuncov[@]} / $numRareSNP)%)</td>" \
 				"<td>${#rareSNPpoorlycov[@]}nt ($(expr 100 \* ${#rareSNPpoorlycov[@]} / $numRareSNP)%)</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 echo '</table>' >> $reportFile

@@ -1,0 +1,5 @@
+Sample#,Sample name,Total #reads,Reads aligned PF,Genomic coordinates 0X,Genomic coordinates <10X
+1,SRR16828013,906676,3399 (0%),18832nt (62%),28129nt (94%)
+2,SRR16828014,4096,154 (3%),22376nt (74%),29615nt (99%)
+3,SRR16828015,1366018,54184 (3%),6793nt (22%),12997nt (43%)
+4,SRR16828016,1114642,7861 (0%),15002nt (50%),24582nt (82%)

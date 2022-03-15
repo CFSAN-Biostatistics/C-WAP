@@ -1,2 +1,2 @@
 taxon,lineage,conflict,ambiguity_score,scorpio_call,scorpio_support,scorpio_conflict,version,pangolin_version,pangoLEARN_version,pango_version,status,note
-NC_045512.2_Severe_acute_respiratory_syndrome_coronavirus_2_isolate_Wuhan-Hu-1__complete_genome,B.1,0.0,1.0,,,,PLEARN-v1.2.124,3.1.20,2022-02-02,v1.2.124,passed_qc,
+NC_045512.2_Severe_acute_respiratory_syndrome_coronavirus_2_isolate_Wuhan-Hu-1__complete_genome,B.1,0.0,1.0,,,,PLEARN-v1.2.127,3.1.20,2022-02-28,v1.2.127,passed_qc,

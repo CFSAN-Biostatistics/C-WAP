@@ -46,6 +46,8 @@ tr:nth-child(even) {
 		display: flex;
 		align-items: center;
 		justify-content:center;
+		vertical-align: middle;
+		text-align: justify;
 	}
 	#figdiv {
 		display:inline-block;
@@ -84,6 +86,8 @@ tr:nth-child(even) {
 		display: flex;
 		align-items: center;
 		justify-content:center;
+		vertical-align: middle;
+		text-align: justify;
 	}
 	#figdiv {
 		display:inline-block;
@@ -103,6 +107,7 @@ tr:nth-child(even) {
 
 </style>
 
+
 <title>Wastewater report</title>
 <link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
 </head>
@@ -117,10 +122,13 @@ tr:nth-child(even) {
     <td>Sample name:</td><td>SRR16828014</td>
 </tr>
 <tr>
-    <td>Date generated:</td><td>2022-02-15, 15:53:00 EST</td>
+    <td>Date generated:</td><td>2022-03-15, 14:20:14 EDT</td>
 </tr>
 <tr>
-    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-02-15, 15:53:00 EST\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
+    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-03-15, 14:20:14 EDT\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
+</tr>
+<tr>
+    <td>Executed on:</td><td>172.20.44.145 (aka n145.raven.cfsan)</td>
 </tr>
 </table>
 
@@ -186,15 +194,26 @@ A read passes filter if the read length after adaptor trimming &#8805; 30 and mi
 <p> <font color="red"> WARNING: The sequence coverage is very low (0X) </font>
 <table>
 <tr>
-    <td># uncovered genomic coordinates (0X) by kit design:</td><td>0 nt 
-		(0%)</td>
+    <th></th><th>Uncovered coordinates (0X)</th><th>Poorly covered coordinates (<10X)</th>
 </tr>
 <tr>
-    <td># uncovered genomic coordinates (0X):</td><td>22376 nt (74%)</td>
+    <td># Inaccessible genomic coordinates by kit design:</td><td>-1nt (0%)</td><td>-1nt (0%)</td>
 </tr>
 <tr>
-    <td># poorly covered genomic coordinates (<10X):</td><td>29615 nt (99%)</td>
+    <td>All genomic coordinates:</td><td>22376nt (74%)</td><td>29615nt (99%)</td>
 </tr>
+<tr>
+    <td>Common SNPs:</td><td>16nt (50%)</td> <td>31nt (96%)</td>
+</tr>
+<tr>
+    <td>Diverse SNPs:</td><td>491nt (97%)</td> <td>505nt (100%)</td>
+</tr>
+<tr>
+    <td>Rare SNPs:</td><td>2315nt (92%)</td> <td>2500nt (100%)</td>
+</tr>
+</table>
+SNPs refer to the polymorphic sites currently in circulation that were detected out of recent GISAID entries. The sites that differ from the SC2 reference sequence are denoted as "common" if [90%, 100%] of the submissions carry this mutation, whereas those that are prevalent in [0%,10%] of the submissions are grouped under the "rare" category. The population is still diverse at the mutation sites that are observed in (10%,90%) of the entries and these coordinates are grouped under the "diverse" category.
+<table>
 <tr>
     <td>Hits to SARS-Cov2 genome (kraken2):</td><td>282 reads (13.77%) </td>
 </tr>
@@ -218,8 +237,8 @@ A read passes filter if the read length after adaptor trimming &#8805; 30 and mi
 <div id="caption">
     <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=wt">wt</a> 
 	is estimated to constitute 100.00% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 1.00.	Variants that were detected less than 5% were grouped under "Other"
-    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=Alpha Beta Delta Eta Iota Kappa Mu Epsilon Epsilon Omicron">Alpha Beta Delta Eta Iota Kappa Mu Epsilon Epsilon Omicron</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
-    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=wt"	>wt</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=Unknown">Unknown</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=Beta"	>Beta</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
 </div>
 <br>
 <br>
@@ -237,6 +256,9 @@ A read passes filter if the read length after adaptor trimming &#8805; 30 and mi
     <div id="figdiv">
         <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"				width="100%">
     </div>
+    <div id="figdiv">
+        <img src="./pieChart_lcs.png" alt="Abundance of variants by LCS"				width="100%">
+    </div>
 </div>
 <br>
 <p> Under the assumption that the presence of a variant requires the detection
@@ -246,17 +268,9 @@ A read passes filter if the read length after adaptor trimming &#8805; 30 and mi
     variant definitions.
 <table>
 <tr>
-    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=Beta">Beta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Gamma">Gamma</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a></td><td><a href="https://outbreak.info/situation-reports?pango=Alpha">Alpha</a></td><td><a href="https://outbreak.info/situation-reports?pango=Delta">Delta</a></td></tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a></td><td><a href="https://outbreak.info/situation-reports?pango=AY.4.2">AY.4.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td></tr>
 <tr>
-    <td>Characteristic mutations <br> detected</td><td>(0 of 14)<br></td><td>(0 of 16)<br></td><td>(0 of 13)<br></td><td>(0 of 23)<br></td><td>(0 of 13)<br></td>
-</tr>
-</table>
-<br>
-<table>
-<tr>
-    <td>VUI</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=Zeta">Zeta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=A.23.1+E484K">A.23.1+E484K</a></td><td><a href="https://outbreak.info/situation-reports?pango=Eta">Eta</a></td><td><a href="https://outbreak.info/situation-reports?pango=Theta">Theta</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a></td></tr>
-<tr>
-    <td>Characteristic mutations <br> detected</td><td>(0 of 17)<br></td><td>(0 of 7)<br></td><td>(0 of 11)<br></td><td>(0 of 13)<br></td><td>(0 of 16)<br></td><td>(0 of 17)<br></td><td>(0 of 19)<br></td>
+    <td>Characteristic mutations <br> detected</td><td>(0 of 19)<br></td><td>(0 of 3)<br></td><td>(0 of 13)<br></td><td>(0 of 23)<br></td><td>(0 of 28)<br></td><td>(0 of 19)<br></td>
 </tr>
 </table>
 <br>

@@ -12,7 +12,9 @@ import os
 # Pre-process the genomic features of covid genome.
 # Generate a mapping between ORF/gene names and genomic coordinates.
 # Each entry in the dict is name->(startPos, endPos)
-constellationsDir = "/projects/covidtrakr/software/constellations/constellations"
+# constellationsDir = "/projects/covidtrakr/software/constellations/constellations"
+constellationsDir = "/projects/covidtrakr/software/miniconda3/envs/pangolin/lib/python3.8/site-packages/constellations"
+
 file = open(constellationsDir + "/data/SARS-CoV-2.json", 'r')
 fileContents = json.load(file)
 file.close()
@@ -74,12 +76,13 @@ for filename in glob.iglob(constellationsDir + "/definitions/*.json"):
     fileContents = json.load(file)
     file.close()
 
-    if "WHO_label" in fileContents['variant']:
-        variantName = fileContents['variant']['WHO_label']
-    else:
-        # WHO label not available
-        pathEndPos = filename.rindex("/")
-        variantName = filename[pathEndPos+2:-5]
+    # Disabled WHO name substitution to make omicron subvariants visible. TK March 2022.
+    #if "WHO_label" in fileContents['variant']:
+    #    variantName = fileContents['variant']['WHO_label']
+    #else:
+    # WHO label not available
+    pathEndPos = filename.rindex("/")
+    variantName = filename[pathEndPos+2:-5]
 
     varMutList = []
     for mutation in fileContents['sites']:
@@ -135,18 +138,21 @@ for filename in glob.iglob(constellationsDir + "/definitions/*.json"):
 
     # If this variant has been designated as a VOC etc., record this label.
     # Note that a variant can be classified in multiple categories, but the highest one will be used
-    for tag in fileContents['tags']:
-        if "VOC" in tag:
-            importantVars["VOC"].append(variantName)
-            break
-        if "VOI" in tag:
-            importantVars["VOI"].append(variantName)
-            break
-        if "VUI" in tag:
-            importantVars["VUI"].append(variantName)
-            break
-
-
+    #for tag in fileContents['tags']:
+    #    if "VOC" in tag:
+    #        importantVars["VOC"].append(variantName)
+    #        break
+    #    if "VOI" in tag:
+    #        importantVars["VOI"].append(variantName)
+    #        break
+    #    if "VUI" in tag:
+    #        importantVars["VUI"].append(variantName)
+    #        break
+    
+    # Alternatively, manual decision based on common variants in press.
+    if variantName.upper() in ['B.1.617.2', 'AY.4', 'AY.4.2', 'BA.1', 'BA.2', 'BA.3']:
+        importantVars["VOC"].append(variantName)
+    
 # Include the wt sequence in the list, which has no mutations at all (mostly for normalisation purposes)
 # wt is not a member of VOC, VOI or VUI
 var2mut['wt'] = []
@@ -170,6 +176,9 @@ for mutID in range(NUM_MUTATIONS):
 sigMutationMatrix[-1, :] = 1000
 
 # Save the calculated mappings in a binary for future use.
+for key in importantVars.keys():
+    importantVars[key].sort()
+
 with open('./covidRefSequences/varDefinitions.pkl', 'wb') as file:
     pickle.dump(uniqueVarNames, file)
     pickle.dump(uniqueMutationLabels, file)

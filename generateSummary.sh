@@ -38,7 +38,6 @@ echo "<tr>" >> $summaryfile
 echo "<th>Sample#</th><th>Sample name</th><th>Total #reads</th><th>Reads aligned PF*</th><th>Genomic coordinates 0X</th><th>Genomic coordinates <10X</th>" >> $summaryfile
 echo "</tr>" >> $summaryfile
 
-
 # Also generate a separate csv file containing the summary table 
 csvFile=./summaryTable.csv
 echo "Sample#,Sample name,Total #reads,Reads aligned PF,Genomic coordinates 0X,Genomic coordinates <10X" >> $csvFile
@@ -55,7 +54,7 @@ for sampleName in $(ls */ -d | tr -d '/'); do
 	pctMapped=$(echo $readsMapped | awk '{print $2}' | tr -d '()%')
 	numUncovered=$(cat $reportFileName | grep "All genomic coordinates:" | awk -F '>' '{ print $4 }' | awk -F '<' '{ print $1 }')
 	numPoorlyCovered=$(cat $reportFileName | grep "All genomic coordinates:" | awk -F '>' '{ print $6 }' | awk -F '<' '{ print $1 }')
-	plottingData+=($numReads $pctMapped)
+	plottingData+=($sampleName $(echo $readsMapped | awk '{print $1}' | tr -d 'nt'))
 
 	# Record as a row in the data table	
 	echo "<tr>" >> $summaryfile
@@ -69,17 +68,24 @@ done
 echo '</table>' >> $summaryfile
 echo "<br><br><br>" >> $summaryfile
 
-echo "*Quantity of raw reads that align to the reference sequence and pass filter, i.e. the read length after adaptor trimming ≥ 30 and minimum read quality ≥ 20 within a sliding window of width 4."
-
 
 # Insert a bar plot comparing covid reads in all samples of this run.
-$rootDir/plotCovidComparison.py ${plottingData[@]}
-echo "<img src=\"./covidReadsSummary.png\" alt=\"Num. SC2 reads\" width=\"49%\" class=\"center\">" >> $summaryfile
+echo Generating sample load comparison plots...
+$rootDir/plotSampleYieldComparison.py ${plottingData[@]}
+
+echo "<div>" >> $summaryfile
+echo "   <div id=\"figdiv\">" >> $summaryfile
+echo "      <img src=\"./covidReadsSummary.png\" alt=\"Num. SC2 reads\" width=\"100%\" class=\"center\">" >> $summaryfile
+echo "   </div>" >> $summaryfile
+echo "   <div id=\"figdiv\" style=\"padding-left: 5%; width: 45%;\">" >> $summaryfile
+echo "       *Quantity of raw reads that align to the reference sequence and pass filter, i.e. the read length after adaptor trimming &#8805;30 and minimum read quality &#8805;20 within a sliding window of width 4. SNR refers to the ratio of SC2-mapping reads aligned that pass filter in the sample vs. that in the auto-detected negative control samples (if any). The dashed line represents the baseline level of covid reads detected from the negative control or their average if multiple negative controls we included." >> $summaryfile
+echo "   </div>" >> $summaryfile
+echo "</div>" >> $summaryfile
 echo "<br><br><br>" >> $summaryfile
 
 
 # Place the quality plots, one figure per sample on a nx2 grid.
-echo Adding figures
+echo Adding figures...
 for ((i = 0; i < ${#sampleNames[@]}; i+=2)); do
 	echo "<span style=\"float:left;\"><a href=\"./${sampleNames[$i]}/${sampleNames[$i]}_report/report.html\">${sampleNames[$i]}</a></span>" >> $summaryfile
 	echo "<span style=\"float:right;\"><a href=\"./${sampleNames[$(expr $i + 1)]}/${sampleNames[$(expr $i + 1)]}_report/report.html\">" >> $summaryfile

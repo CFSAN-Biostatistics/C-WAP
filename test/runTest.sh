@@ -11,10 +11,12 @@ for srr in "${srrList[@]}"; do
 	mv fastq/${srr}_2.fastq fastq/${srr}_R2.fastq
 done
 
-echo Compressing files...
+echo Compressing downloaded input files...
 gzip -v ./fastq/*.fastq
 
-../startWorkflow.nf --platform i --in ./fastq --out ./ --primerBedFile ../covidRefSequences/none.bed 
+
+../startWorkflow.nf --platform i --in ./fastq --out ./ 
+
 
 echo "All done, hopefully well done."
 echo Please compare the contents of the analysisResults folder that was generated on your system \

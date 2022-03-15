@@ -46,6 +46,8 @@ tr:nth-child(even) {
 		display: flex;
 		align-items: center;
 		justify-content:center;
+		vertical-align: middle;
+		text-align: justify;
 	}
 	#figdiv {
 		display:inline-block;
@@ -84,6 +86,8 @@ tr:nth-child(even) {
 		display: flex;
 		align-items: center;
 		justify-content:center;
+		vertical-align: middle;
+		text-align: justify;
 	}
 	#figdiv {
 		display:inline-block;
@@ -103,6 +107,7 @@ tr:nth-child(even) {
 
 </style>
 
+
 <title>Wastewater report</title>
 <link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
 </head>
@@ -112,28 +117,37 @@ tr:nth-child(even) {
 <br><br>
 <h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
 <h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
-<h2>SUMMARY</h2>
+<h2>Summary</h2>
 <table>
 <tr>
-<th>Sample#</th><th>Sample name</th><th>Total #reads</th><th>% covid hits</th><th>Genomic coordinates 0X</th><th>Genomic coordinates <10X</th>
+<th>Sample#</th><th>Sample name</th><th>Total #reads</th><th>Reads aligned PF*</th><th>Genomic coordinates 0X</th><th>Genomic coordinates <10X</th>
 </tr>
 <tr>
 <td>1</td><td><a href="./SRR16828013/SRR16828013_report/report.html">SRR16828013</a></td>
-<td>906676</td><td>0.79</td><td>18832</td><td>28129</td>
+<td>906676</td><td>3399 (0%)</td><td>18832nt (62%)</td><td>28129nt (94%)</td>
 </tr>
 <tr>
 <td>2</td><td><a href="./SRR16828014/SRR16828014_report/report.html">SRR16828014</a></td>
-<td>4096</td><td>13.77</td><td>22376</td><td>29615</td>
+<td>4096</td><td>154 (3%)</td><td>22376nt (74%)</td><td>29615nt (99%)</td>
 </tr>
 <tr>
 <td>3</td><td><a href="./SRR16828015/SRR16828015_report/report.html">SRR16828015</a></td>
-<td>1366018</td><td>8.62</td><td>6793</td><td>12997</td>
+<td>1366018</td><td>54184 (3%)</td><td>6793nt (22%)</td><td>12997nt (43%)</td>
 </tr>
 <tr>
 <td>4</td><td><a href="./SRR16828016/SRR16828016_report/report.html">SRR16828016</a></td>
-<td>1114642</td><td>1.68</td><td>15002</td><td>24582</td>
+<td>1114642</td><td>7861 (0%)</td><td>15002nt (50%)</td><td>24582nt (82%)</td>
 </tr>
 </table>
+<br><br><br>
+<div>
+   <div id="figdiv">
+      <img src="./covidReadsSummary.png" alt="Num. SC2 reads" width="100%" class="center">
+   </div>
+   <div id="figdiv" style="padding-left: 5%; width: 45%;">
+       *Quantity of raw reads that align to the reference sequence and pass filter, i.e. the read length after adaptor trimming &#8805;30 and minimum read quality &#8805;20 within a sliding window of width 4. SNR refers to the ratio of SC2-mapping reads aligned that pass filter in the sample vs. that in the auto-detected negative control samples (if any). The dashed line represents the baseline level of covid reads detected from the negative control or their average if multiple negative controls we included.
+   </div>
+</div>
 <br><br><br>
 <span style="float:left;"><a href="./SRR16828013/SRR16828013_report/report.html">SRR16828013</a></span>
 <span style="float:right;"><a href="./SRR16828014/SRR16828014_report/report.html">
@@ -154,8 +168,8 @@ samtools 1.13 Using htslib 1.13,
 iVar version 1.3.1, 
 Kraken version 2.1.2, 
 kallisto, version 0.48.0.
-Lineage definitions were compiled on 2022-02-09 from <a href="https://github.com/cov-lineages/constellations/tree/main/constellations/definitions">constellations</a>.
-Lineage signature file was compiled on 2022-02-09 and includes lineages: A.23.1, A.23.1+E484K, AV1, AY.4, AY.4.2, Alpha, B.1.1.318, B.1.1.7+E484K, B.1.617.1, B.1.617.2+K417N, B.1.617.3, Beta, Delta, Epsilon, Eta, Gamma, Iota, Lambda, Mu, Omicron, Theta, Zeta, wt.
-Lineage assignment to the consensus sequence was performed by pangolin 3.1.20 using the classification tree of pangoLEARN 2022-02-02.
+Lineage definitions were compiled on 2022-03-14 from <a href="https://github.com/cov-lineages/constellations/tree/main/constellations/definitions">constellations</a>.
+Lineage signature file was compiled on 2022-03-14 and includes lineages: A.23.1, A.23.1+E484K, AV1, AY.4, AY.4.2, B.1.1.318, B.1.1.529, B.1.1.7, B.1.1.7+E484K, B.1.351, B.1.427, B.1.429, B.1.525, B.1.526, B.1.617.1, B.1.617.2, B.1.617.2+K417N, B.1.617.3, B.1.621, BA.1, BA.2, BA.3, C.37, P.1, P.2, P.3, wt.
+Lineage assignment to the consensus sequence was performed by pangolin 3.1.20 using the classification tree of pangoLEARN 2022-02-28.
 </body>
 </html>
