@@ -383,7 +383,7 @@ process kallistoVariantCaller {
 					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz || true
 		else
 			echo target_id\$'\t'length\$'\t'eff_length\$'\t'est_counts tpm > abundance.tsv
-			echo Error\$'\t'29903\$'\t'29903\$'\t'0\$'\t'NaN >> abundance.tsv
+			echo Error\$'\t'29903\$'\t'29903\$'\t'100\$'\t'100 >> abundance.tsv
 		fi
 		mv abundance.tsv kallisto_abundance.tsv
 	"""
@@ -436,8 +436,6 @@ process freyjaVariantCaller {
 	output:
 		tuple val(sampleName), path('freyja.demix') into freyja_out
 		
-	// Due to a potential bug, some big fastqs result in a pandas error.
-	// Start by generating an empty file to circumvent such failure cases
 	shell:
 	"""
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
@@ -447,8 +445,13 @@ process freyjaVariantCaller {
 			echo Demixing variants by Freyja
 			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix
 		else
+			# Due to a potential bug, some big fastqs result in a pandas error.
+			# Generate an empty file to circumvent such failure cases
 			echo FATAL ERROR > freyja.demix
 			echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
+			echo lineages\$'\t'"['Error']" >> freyja.demix
+			echo abundances\$'\t'"[1.00]" >> freyja.demix
+			echo resid\$'\t'-1 >> freyja.demix
 		fi
 	"""
 }

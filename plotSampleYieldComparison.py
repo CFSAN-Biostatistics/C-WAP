@@ -34,7 +34,7 @@ else:
 # SNR calculation
 # Check if there is a negative control sample
 def is_neg_control(name):
-    for neg_word in ['water', 'negative', 'blank']:
+    for neg_word in ['water', 'negative', 'blank', 'ntc']:
         if neg_word in name.lower():
             return True
     return False

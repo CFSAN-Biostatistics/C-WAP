@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import to_hex
 import sys
 import csv
+import pandas as pd
 import numpy as np
 import pickle
 
@@ -41,7 +42,8 @@ with open(variantDBfilename, 'rb') as file:
 pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427': 'Epsilon', 'B.1.429': 'Epsilon',
                 'B.1.525': 'Eta', 'B.1.526': 'Iota', 'B.1.617.1': 'Kappa', 'B.1.621': 'Mu', 'B.1.621.1': 'Mu',
                 'P.2': 'Zeta', 'B.1.617.3': 'B.1.617.3', 'B.1.617.2': 'Delta', 'AY': 'Delta',
-                'B.1.1.529': 'Omicron', 'BA.1': 'BA.1', 'BA.2': 'BA.2', 'BA.3': 'BA.3', 'wt': 'wt', 'wt-wuhan': 'wt',
+                'B.1.1.529': 'Omicron', 'BA.1.1': 'BA.1.1', 'BA.1': 'BA.1', 'BA.2': 'BA.2', 
+                'BA.3': 'BA.3', 'wt': 'wt', 'wt-wuhan': 'wt',
                 'A.21': 'Bat', 'other': 'Other', 'A': 'wt', 'Error':'Error'}
 
 
@@ -65,7 +67,7 @@ def getDisplayName(pangolinName):
 
 
 # Assign a pre-determined color to each display name
-rgbColors = plt.get_cmap('tab20').colors + plt.get_cmap('Accent').colors
+rgbColors = plt.get_cmap('tab20b').colors + plt.get_cmap('tab20c').colors[0:16]
 colorCycle = [to_hex(color) for color in rgbColors]
 def getColor (var_name):
     if var_name.lower() == 'other':
@@ -82,15 +84,18 @@ def getColor (var_name):
 def drawPieChart(names2percentages, outfilename, title=''):
     minPlotThreshold = 5  # in %
 
-    colors2plot = []
     percentages2plot = []
     names2plot = []
     for name in names2percentages.keys():
         dname = getDisplayName(name)
         freq = names2percentages[name]
         if dname != 'Other' and freq >= minPlotThreshold:
-            names2plot.append(dname)
-            percentages2plot.append(freq)
+            if dname in names2plot:
+                var_idx = names2plot.index(dname)
+                percentages2plot[var_idx] += freq
+            else:
+                names2plot.append(dname)
+                percentages2plot.append(freq)
 
     # Cumulate all other infrequent variants under "other" category
     other_pct = 100-np.sum(percentages2plot)
@@ -197,26 +202,20 @@ drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_majorCovid.png',
 
 ########################################################
 # Process the abundance estimates by Freyja
-with open(freyjaOutputFile, 'r') as infile:
-    reader = csv.reader(infile, delimiter="\t")
-    next(reader)  # Skip header, from freyja.demix
-    varname_pct = next(reader)[1]
+freyja_raw = pd.read_table(freyjaOutputFile, index_col=0)
 
-varname_pct = varname_pct.replace("(", "")
-varname_pct = varname_pct.replace(")", "")
-varname_pct = varname_pct.replace("'", "")
-varname_pct = varname_pct.replace("[", "")
-varname_pct = varname_pct.replace("]", "")
-varname_pct = varname_pct.replace(" ", "")
-varname_pct = varname_pct.split(',')
+# Option A: summary reported by Freyja with WHO names
+# var_pct = eval( pd.Series(freyja_raw.loc['summarized'][0])[0] )
 
-if '' in varname_pct:
-    varname_pct.remove('')
+# Option B: detailed subvariant breakdown
+lineages = eval( pd.Series(freyja_raw.loc['lineages'][0])[0].replace(' ', ',') )
+abundances = eval( ','.join(pd.Series(freyja_raw.loc['abundances'][0])[0].split()) )
+var_pct = tuple(zip(lineages, abundances))
 
 freyjaHits = {}
-for i in range(0, len(varname_pct), 2):
-    name = varname_pct[i]
-    pct = 100*float(varname_pct[i+1])
+for var in var_pct:
+    name = var[0]
+    pct = 100*var[1]
     freyjaHits[name] = pct
 
 drawPieChart(freyjaHits, outputDirectory+'/pieChart_freyja.png',
