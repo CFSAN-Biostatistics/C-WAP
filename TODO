@@ -1,5 +1,0 @@
-Check if peptide to genomic coordinates can be handled by this: https://github.com/rpetit3/vcf-annotator
-
-For kallisto interpretation, try different approaches such as maximum, sum, mean, median of subvariants.
-
-Check if it is possible to trim multiplexed PCR primers if the protocol involves fragmentation.

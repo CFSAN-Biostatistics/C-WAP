@@ -52,12 +52,12 @@ exit 0
 kmer=111
 
 # Index the allCovidDB for kraken2
-kraken2-build --db allCovidDB --add-to-library $k2FASTAfile 
+kraken2-build --db allCovidDB --add-to-library $k2FASTAfile
 kraken2-build --build --db allCovidDB --kmer-len $kmer
 bracken-build -d allCovidDB -t 10 -k $kmer
 
 # Index the majorCovidDB for kraken2
-kraken2-build --db majorCovidDB --add-to-library $k2FASTAfile 
+kraken2-build --db majorCovidDB --add-to-library $k2FASTAfile
 kraken2-build --build --db majorCovidDB --kmer-len $kmer
 bracken-build -d majorCovidDB -t 10 -k $kmer
 

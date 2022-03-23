@@ -136,7 +136,7 @@ plt.plot(posIdx[readDepth < 10], readDepth[readDepth < 10], '.', color='k')
 plt.plot(posIdx, readDepthMA, '-', color='m')
 
 # If coverage is too high, scale the axes for a better view
-if np.mean(readDepth) > 1000:
+if np.max(readDepth) > 5000:
     plt.ylabel('Coverage depth (1000)')
     locs, labels = plt.yticks()
     plt.yticks(locs, (locs/1000).astype('int') )
@@ -158,6 +158,7 @@ for i in range(0, gapCounter):
              1.01*ymax, '*', color='r', weight='bold', size=20)
 
 plt.ylim([0, ymax])
+plt.tight_layout()
 plt.savefig(outputDirectory + '/coverage.png', dpi=200)
 plt.close()
 
@@ -165,7 +166,7 @@ plt.close()
 #################################################################
 # Generate a histogram for the sequencing depth and save in a file
 pctBelowThreshold = 100*len([x for x in readDepth if x < 100]) / len(quality)
-if np.mean(readDepth) > 1000:
+if np.max(readDepth) > 5000:
     plt.hist(readDepth/1000, bins=50, color=FDAblue,
              edgecolor=None, density=True)
     (ymin, ymax) = plt.gca().get_ylim()
