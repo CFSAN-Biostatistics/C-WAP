@@ -1,0 +1,24 @@
+Check if peptide to genomic coordinates can be handled by this: https://github.com/rpetit3/vcf-annotator
+
+For kallisto interpretation, try different approaches such as maximum, sum, mean, median of subvariants.
+
+Check if it is possible to trim multiplexed PCR primers if the protocol involves fragmentation.
+
+
+QC_issues
+low quality sequence
+sequenced contaminated
+low average coverage 
+uneven sequence coverage
+low % genome captured
+read lengths shorter than expected
+sequence amplification artifacts
+signal to noise ratio low
+
+
+QC_determination
+passed
+failed
+contains issues
+not performed
+
