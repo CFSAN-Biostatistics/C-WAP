@@ -55,7 +55,7 @@ if len(neg_control_idx)>0:
     text_ylevel = max(1.2*mean_bg_reads, ylocs[-1]/3)
     for i in range(len(sample_names)):
         if i not in neg_control_idx:
-            plt.text(i+1, text_ylevel, 'SNR=%.1f' % (numCovidReads[i]/mean_bg_reads), rotation=90,
+            plt.text(i+1, text_ylevel, 'SNR=%d' % (numCovidReads[i]/mean_bg_reads), rotation=90,
                     horizontalalignment='center', verticalalignment='center')
         else:
             plt.text(i+1, text_ylevel, '-control', rotation=90, horizontalalignment='center',

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Plots a histogram of all reads in a provided list of integers (i.e. lengths)
 
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,4 +1,4 @@
-#! /bin/bash	
+#! /bin/bash -e
 
 # Prepare an html report. The html file header and standard page banner are copied from a stored file for simplicity.
 

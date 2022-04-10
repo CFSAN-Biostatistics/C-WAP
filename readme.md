@@ -21,9 +21,16 @@ The process includes the following:
 6. Determine composition of variants via kallisto, linear regression, kraken2/bracken and freyja
 7. Generate an html and pdf formatted summary of results
 
+
+
 ### Dependencies
 
+User provided:
+* [Conda3] (https://docs.conda.io/en/latest/miniconda.html)
 * [NextFlow v21.0+](https://www.nextflow.io/docs/latest/index.html)
+* [ghostscript](https://www.ghostscript.com)
+
+Auto-fetched by C-WAP:
 * [kraken2 v2.1.2 ](https://github.com/DerrickWood/kraken2)
 * [bracken](https://github.com/jenniferlu717/Bracken)
 * [samtools v1.13 ](https://github.com/samtools/)
@@ -31,20 +38,19 @@ The process includes the following:
 * [ivar](https://github.com/andersen-lab/ivar)
 * [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml)
 * [minimap2 v2.22](https://github.com/lh3/minimap2)
-* [edirect](https://www.ncbi.nlm.nih.gov/books/NBK179288/)
+* [entrez-direct](https://www.ncbi.nlm.nih.gov/books/NBK179288/)
 * [pangolin](https://github.com/cov-lineages/pangolin)
 * [Freyja](https://github.com/andersen-lab/Freyja)
 * [kallisto](https://github.com/pachterlab/kallisto)
 * [wkhtmltopdf](https://github.com/wkhtmltopdf)
-* [ghostscript](https://www.ghostscript.com)
 
-The configuration file `prepareEnvironment.sh` enumerates the 
-dependencies the other scripts assume that all referred
-executables are available in the search path. 
+./startWorkflow.nf assumes that conda, nextflow and gs executables are available in the search path. All other dependencies are imported via conda during runtime. Acquisition of the dependencies and creating of the env's might cause the very first execution attempt to take a substantially long time (potentially hours). Subsequent runs will make use of the cached env's stored under the c-wap/conda subdirectory and are expected to finish substantially faster.
+
 
 ### Installation
 
-Download and save
+Install nextflow and conda. Afterwards, download c-wap repository and save.
+
 
 ### Usage 
 
@@ -74,13 +80,16 @@ C-WAP produces a number of files from the various processing steps.
 `k2-std.out` - kraken2 output with standard database  
 `report` - standalone directory containing html and pdf summary report  
 
+
 ### Note about variant composition
 
 Variant composition analyses should be interpreted with caution where they should be treated as suspect if there are substantial gaps in coverage across the reference genome and/or a lack of sequencing depth.  The linear deconvolution and kraken2/bracken covid method are internally developed methods and under testing and validation.  
 
+
 ### Citing C-WAP
 This work is currently unpublished. If you are making use of this package, 
 we would appreciate if you gave credit to our repository. 
+
 
 ### License
 

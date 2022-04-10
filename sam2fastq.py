@@ -1,4 +1,4 @@
-#! /bin/env python3
+#! /bin/env python
 
 # A custom script to obtain a fastq file from a sam file via CIGAR strings
 # This is useful when there is a bam file with soft clipping

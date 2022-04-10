@@ -1,2 +1,4 @@
-wkhtmltopdf
+conda/*
+.nextflow*
+.nfs*
 CFSANonly/*
