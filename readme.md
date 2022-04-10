@@ -49,7 +49,9 @@ Auto-fetched by C-WAP:
 
 ### Installation
 
-Install nextflow and conda. Afterwards, download c-wap repository and save.
+Install nextflow and conda. Afterwards, download c-wap repository and save. In addition, also obtain a copy of the kraken2 standard DB (~50GB). You can either download a copy from here: https://benlangmead.github.io/aws-indexes/k2 or you can compile your own version following the instructions under the "Standard Kraken2 Database" section here: https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown
+
+Afterwards, set $KRAKEN2_DEFAULT_DB to your download location.
 
 
 ### Usage 

@@ -336,7 +336,12 @@ process krakenVariantCaller {
 	
 	shell:
 	"""
-		numThreads=\$SLURM_CPUS_ON_NODE
+		if [[ -n \$SLURM_CPUS_ON_NODE ]]; then
+			numThreads=\$SLURM_CPUS_ON_NODE
+		else
+			numThreads=\$(nproc)
+		fi
+
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ \$numReads -gt 10 ]]; then
 			kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
@@ -457,8 +462,6 @@ process kallistoVariantCaller {
 
 // https://github.com/rvalieris/LCS
 process LCSvariantCaller {
-	time = '1 min'
-	
 	input:
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_c 
 	
@@ -466,6 +469,7 @@ process LCSvariantCaller {
 		tuple val(sampleName), path('LCS/outputs/decompose/lcs.out') into lcs_out
 		
 	conda "$projectDir/LCS/conda.env.yaml"
+	time = '15 min'
 	
 	shell:
 	"""
