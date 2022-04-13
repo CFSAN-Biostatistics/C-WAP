@@ -113,7 +113,7 @@ FQs
 
 // Align the reads to the reference sequence to obtain a sorted bam file
 process referenceAlignment {
-	cpus 20
+	cpus 10
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_a
@@ -287,7 +287,7 @@ process plotCoverageQC {
 	output:
 		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('terminiDensity.png') into QChists
 	
-	conda 'matplotlib'
+	conda 'matplotlib numpy'
 	
 	shell:
 	"""
@@ -306,8 +306,8 @@ process readLengthHist {
 	output:
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
 
-	conda 'matplotlib'
-		
+	conda 'matplotlib numpy'
+	
 	shell:
 	"""
 		gzip -dc R1.fastq.gz > allreads.fastq
@@ -546,7 +546,7 @@ process getNCBImetadata {
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
 	// Wait some random time so that threads go out of sync.
 	errorStrategy { sleep(1000 * Math.random() as long); return 'retry' }
-	maxRetries = 55
+	maxRetries = 15
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_c
@@ -559,7 +559,7 @@ process getNCBImetadata {
 	shell:
 	"""
 	srrNumber=$sampleName
-	if [[ $task.attempt -lt 50 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
+	if [[ $task.attempt -lt 10 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
 		# The tool returns error: too many requests, bypassing by redirection of error		
 		sraQueryResult=\$(esearch -db sra -query \$srrNumber 2>/dev/null)
 		sleep 1
@@ -567,9 +567,7 @@ process getNCBImetadata {
 		if echo \$sraQueryResult | grep -q "<Count>1</Count>"; then
 			# Get runinfo from SRA
 			echo Downloading metadata for \$srrNumber...	
-			echo "\$sraQueryResult" | efetch --format runinfo
-			sleep 1
-			SRRmetadata=\$(echo "\$sraQueryResult" | efetch --format runinfo 2>/dev/null | grep \$srrNumber)
+			SRRmetadata=\$(echo "\$sraQueryResult" | efetch -format runinfo 2>/dev/null | grep \$srrNumber)
 			
 			echo Parsing...
 			libraryProtocol=\$(echo \$SRRmetadata | awk -F ',' '{print \$13}')

@@ -83,19 +83,25 @@ def getColor (var_name):
 # Less frequent variants will be cumulated under 'other' category
 def drawPieChart(names2percentages, outfilename, title=''):
     minPlotThreshold = 5  # in %
-
+    
+    # Lookup the display name (e.g. WHO label), cumulate minor subvariants
+    names2pct_combined = {}
+    for (name, freq) in names2percentages.items():
+        dname = getDisplayName(name)
+        if dname != 'Other':
+            if dname in names2pct_combined:
+                names2pct_combined[dname] += freq
+            else:
+                names2pct_combined[dname] = freq
+    
+    # Eliminate infrequent variants and cast as two lists to plot
     percentages2plot = []
     names2plot = []
-    for name in names2percentages.keys():
-        dname = getDisplayName(name)
-        freq = names2percentages[name]
-        if dname != 'Other' and freq >= minPlotThreshold:
-            if dname in names2plot:
-                var_idx = names2plot.index(dname)
-                percentages2plot[var_idx] += freq
-            else:
-                names2plot.append(dname)
-                percentages2plot.append(freq)
+    for (name, pct) in names2pct_combined.items():
+        if pct >= minPlotThreshold:
+            names2plot.append(name)
+            percentages2plot.append(pct)
+
 
     # Cumulate all other infrequent variants under "other" category
     other_pct = 100-np.sum(percentages2plot)
