@@ -59,8 +59,8 @@ qualityjumpSignal = np.absolute(np.convolve(quality, stepKernel, 'same'))
 
 # Import the list of uncovered genome regions due to kit design
 gaps = findUncoveredCoordinates.findUncoveredCoordinates(bedfile, True)
-gapStart = [gaps[0][0], gaps[1][0]]
-gapEnd = [gaps[0][1], gaps[1][1]]
+gapStart = [ gaps[i][0] for i in range(len(gaps)) ]
+gapEnd = [ gaps[i][1] for i in range(len(gaps)) ]
 
 posIdx = np.arange(1, GENOME_SIZE+1, 1)
 FDAblue = (0, 124/255, 186/255)  # RGB color representation of the logo
