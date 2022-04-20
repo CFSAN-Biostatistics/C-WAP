@@ -49,19 +49,29 @@ for name_idx in range(len(sample_names)):
 # If it was clearly marked, then draw baseline levels as well.
 if len(neg_control_idx)>0:
     mean_bg_reads = np.mean([ numCovidReads[x] for x in neg_control_idx ])
+    SNR = [ int(x/mean_bg_reads) for x in numCovidReads]
+    
     plt.plot([0,numSamples+1], [mean_bg_reads,mean_bg_reads], 'k--')
     plt.xlim(0,numSamples+1)
     
     text_ylevel = max(1.2*mean_bg_reads, ylocs[-1]/3)
     for i in range(len(sample_names)):
         if i not in neg_control_idx:
-            plt.text(i+1, text_ylevel, 'SNR=%d' % (numCovidReads[i]/mean_bg_reads), rotation=90,
+            plt.text(i+1, text_ylevel, 'SNR=%d' % SNR[i], rotation=90,
                     horizontalalignment='center', verticalalignment='center')
         else:
             plt.text(i+1, text_ylevel, '-control', rotation=90, horizontalalignment='center',
                     verticalalignment='center')
+else:
+    SNR = 1000000*np.ones(len(numCovidReads))
 
 
+# Print the SNR's of individual samples to stdout
+print(SNR)
+
+# Save the bar plot to file
 plt.tight_layout()
 plt.savefig('./covidReadsSummary.png', dpi=200)
+
+
 

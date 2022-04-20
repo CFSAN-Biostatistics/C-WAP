@@ -45,16 +45,18 @@ echo "Sample#,Sample name,Total #reads,Reads aligned PF,Genomic coordinates 0X,G
 sampleNames=()
 plottingData=()
 coverageFiles=()
+QCflags=()
+
 for sampleName in $(ls */ -d | tr -d '/'); do
 	sampleNames+=($sampleName)
 	
 	# Extract some of the statistics from individual report files
 	reportFileName=$sampleName/${sampleName}_report/report.html
-	numReads=$(cat $reportFileName | grep "Total number of reads:" | awk -F '>' '{ print $4 }' | awk -F '<' '{print $1}')
-	readsMapped=$(cat $reportFileName | grep "Reads passing filter" | awk -F '>' '{ print $4 }' | awk -F '<' '{ print $1 }')
+	numReads=$(cat $reportFileName | grep "Total number of reads:" | awk -F '>' '{print $4}' | awk -F '<' '{print $1}')
+	readsMapped=$(cat $reportFileName | grep "Reads passing filter" | awk -F '>' '{print $4}' | awk -F '<' '{print $1}')
 	pctMapped=$(echo $readsMapped | awk '{print $2}' | tr -d '()%')
-	numUncovered=$(cat $reportFileName | grep "All genomic coordinates:" | awk -F '>' '{ print $4 }' | awk -F '<' '{ print $1 }')
-	numPoorlyCovered=$(cat $reportFileName | grep "All genomic coordinates:" | awk -F '>' '{ print $6 }' | awk -F '<' '{ print $1 }')
+	numUncovered=$(cat $reportFileName | grep "All genomic coordinates:" | awk -F '>' '{print $4}' | awk -F '<' '{print $1}')
+	numPoorlyCovered=$(cat $reportFileName | grep "All genomic coordinates:" | awk -F '>' '{print $6}' | awk -F '<' '{print $1}')
 	
 	plottingData+=($sampleName $(echo $readsMapped | awk '{print $1}' | tr -d 'nt'))
 	coverageFiles+=($sampleName/${sampleName}_pos-coverage-quality.tsv)
@@ -65,11 +67,17 @@ for sampleName in $(ls */ -d | tr -d '/'); do
 	echo "<td>$numReads</td><td>$readsMapped</td><td>$numUncovered</td><td>$numPoorlyCovered</td>" >> $summaryfile
 	echo "</tr>" >> $summaryfile
 	
-	QC_determination="not_performed" # not_performed / passed / failed / contains_issues
-	QC_flags="None" # None / low_quality_sequence / sequence_contaminated / low_average_coverage / uneven_sequence_coverage
-	# low_coverage_breadth / truncated_reads / sequence_amplification_artifacts / signal_to_noise_ratio_low
+	#QC_determination="not_performed" # not_performed / passed / failed / contains_issues
+	flags=($(cat $sampleName/${sampleName}_qc-flags.txt | tr '\n' ',' | sed 's/,/<br>/g'))
+	if [[ -z $flags ]]; then
+		QC_determination=passed
+		QC_flags+=(None)
+	else
+		QC_determination=contains_issues
+		QC_flags+=($flags)
+	fi
 	
-	echo "${#sampleNames[@]},$sampleName,$numReads,$readsMapped,$numUncovered,$numPoorlyCovered,${QC_determination},${QC_flags[@]}" >> $csvFile
+	echo "${#sampleNames[@]},$sampleName,$numReads,$readsMapped,$numUncovered,$numPoorlyCovered,${QC_determination},${flags[@]}" >> $csvFile
 done
 
 echo '</table>' >> $summaryfile
@@ -80,7 +88,7 @@ echo "<br><br><br>" >> $summaryfile
 #######################################################
 # Insert a bar plot comparing covid reads in all samples of this run.
 echo Generating sample load comparison plots...
-$rootDir/plotSampleYieldComparison.py ${plottingData[@]}
+SNRs=($( $rootDir/plotSNR.py ${plottingData[@]} | tr -d ',[]' ))
 
 echo "<div>" >> $summaryfile
 echo "   <div id=\"figdiv\">" >> $summaryfile
@@ -97,8 +105,62 @@ echo "<br><br><br>" >> $summaryfile
 echo Executing QC-bot...
 $rootDir/AI/predictAccuracy.py $rootDir/AI/trainedModel.pkl ${coverageFiles[@]}
 
+
 echo >> $summaryfile
-echo "<h2>QC-bot (Not yet functional)</h2>" >> $summaryfile
+echo "<h2>QC-bot (Experimental)</h2>" >> $summaryfile
+
+echo '<table>' >> $summaryfile
+echo "<tr>" >> $summaryfile
+echo "<th>QC category</th><th>Subjective definition</th><th>Objective metrics</th>" >> $summaryfile
+echo "</tr>" >> $summaryfile
+
+echo "<tr>" >> $summaryfile
+echo "   <td>A</td><td>No QC issues evident</td><td>0x coordinates <1% <br> 10x coordinates <5% <br> average coverage > 100X <br> average quality score >35 for Illumina, >15 if ONT, >70 if PacBio HiFi <br> most abundant taxon is coronovirinae</td>" >> $summaryfile
+echo "</tr>" >> $summaryfile
+	
+echo "<tr>" >> $summaryfile
+echo "   <td>B</td><td>Some QC issues, but accurate variant calling possible</td><td>0x coordinates <20% <br> 10X coordinates < 40% <br> >80% of diverse SNPs covered <br> average coverage > 10X <br> average quality score >35 for Illumina <br> >15 if ONT, >70 if PacBio HiFi</td>" >> $summaryfile 
+echo "</tr>" >> $summaryfile
+	
+echo "<tr>" >> $summaryfile
+echo "   <td>C</td><td>Some QC issues, and accurate variant calling impossible</td><td>0x coordinates <99% <br> 10X coordinates <95%</td>" >> $summaryfile
+echo "</tr>" >> $summaryfile
+
+echo "<tr>" >> $summaryfile
+echo "   <td>F</td><td>Significant QC/study design issues</td><td>Contamination (SNR<50) <br> No/negligible coverage (< 1X) <br> Biological/technical replicates' results are irreconcileable.</td>" >> $summaryfile
+echo "</tr>" >> $summaryfile
+
+echo '</table>' >> $summaryfile
+echo "<br><br><br>" >> $summaryfile
+
+
+
+echo '<table>' >> $summaryfile
+echo "<tr>" >> $summaryfile
+echo "<th>Sample Number</th><th>Suggested category</th><th>Suggested QC flags</th>" >> $summaryfile
+echo "</tr>" >> $summaryfile
+
+for (( sample_id=1; sample_id<=${#sampleNames[@]}; sample_id++ )); do
+	if [[ ${SNRs[${sample_id}-1]} -lt 50 ]]; then
+		QC_flags[${sample_id}-1]=sample_contamination
+		category=F
+	else
+		if [[ ${QC_flags[${sample_id}-1]} == None ]]; then
+			category=A
+		else
+			category=B/C
+			# TODO: Incorporate some machine learning output here
+		fi
+	fi
+	
+	echo "<tr>" >> $summaryfile
+	echo "   <td>${sample_id}</td><td>$category</td><td>${QC_flags[${sample_id}-1]}</td>" >> $summaryfile
+	echo "</tr>" >> $summaryfile
+done
+
+echo '</table>' >> $summaryfile
+echo "<br><br><br>" >> $summaryfile
+
 
 echo "<div>" >> $summaryfile
 echo "   <div id=\"figdiv\">" >> $summaryfile
@@ -155,7 +217,6 @@ done
 #echo Lineage assignment to the consensus sequence was performed by $pangolinVersion using the classification tree of $pangolearnVersion. >> $summaryfile
 
 
-#cp $headerFile $summaryfile
 echo "</body>" >> $summaryfile
 echo "</html>" >> $summaryfile
 

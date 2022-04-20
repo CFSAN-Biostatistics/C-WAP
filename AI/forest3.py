@@ -70,7 +70,6 @@ def makeTree (tree_id):
     # Split the data into test/training sets
     # x_train, x_test, y_train, y_test = train_test_split(masks, tvs, train_size=0.8) 
     
-
     # Model is supposed to predict the behaviour of f in y=f(x)    
     func_evaluations = []
     def trainTree (param):

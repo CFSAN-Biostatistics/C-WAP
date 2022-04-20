@@ -70,11 +70,10 @@ def makeTree (tree_id):
     # Split the data into test/training sets
     # x_train, x_test, y_train, y_test = train_test_split(masks, tvs, train_size=0.8) 
     
-
     # Model is supposed to predict the behaviour of f in y=f(x)    
     func_evaluations = []
     def trainTree (param):
-        clf = tree.DecisionTreeRegressor(ccp_alpha=param, random_state=0)
+        clf = tree.DecisionTreeRegressor(ccp_alpha=param, random_state=0, min_samples_leaf=2)
         clf = clf.fit(x_train, y_train)
 
         # Test the performance on the training set itself

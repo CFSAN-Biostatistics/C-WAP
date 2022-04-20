@@ -13,8 +13,9 @@ for line in sys.stdin:
 plt.rcParams.update({'font.size': 14})
 FDAblue = (0, 124/255, 186/255)  # RGB color representation of the logo
 
-plt.hist(histValues, 100, color=FDAblue)
+plt.hist(histValues, np.arange(0,2000,20), color=FDAblue)
 plt.xlabel('Read length')
+plt.xlim(0,2000)
 
 locs, labels = plt.yticks()
 if locs[-1] > 2000:

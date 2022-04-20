@@ -4,10 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 import sys
+import findUncoveredCoordinates
 
 
 pileupFilename = sys.argv[1]
-outputDirectory = sys.argv[2]
+bedfile = sys.argv[2]
+
 
 GENOME_SIZE = 29903
 quality = np.zeros(GENOME_SIZE)
@@ -56,17 +58,9 @@ qualityjumpSignal = np.absolute(np.convolve(quality, stepKernel, 'same'))
 
 
 # Import the list of uncovered genome regions due to kit design
-gapStart = np.empty(GENOME_SIZE)
-gapEnd = np.empty(GENOME_SIZE)
-gapCounter = 0
-gapfilename = sys.argv[3]
-gapfile = open(gapfilename, 'r')
-for line in gapfile.readlines():
-    if len(line) > 1:
-        gapStart[gapCounter], gapEnd[gapCounter] = line.split()
-        gapCounter += 1
-gapfile.close()
-
+gaps = findUncoveredCoordinates.findUncoveredCoordinates(bedfile, True)
+gapStart = [gaps[0][0], gaps[1][0]]
+gapEnd = [gaps[0][1], gaps[1][1]]
 
 posIdx = np.arange(1, GENOME_SIZE+1, 1)
 FDAblue = (0, 124/255, 186/255)  # RGB color representation of the logo
@@ -89,7 +83,7 @@ plt.xticks(np.arange(0, GENOME_SIZE, 5000), ["%d" % (
 
 # Add shading for uncovered regions
 ymax = plt.gca().get_ylim()[1]
-for i in range(0, gapCounter):
+for i in range(0, len(gaps)):
     plt.fill([gapStart[i], gapEnd[i], gapEnd[i], gapStart[i]], [
              0, 0, ymax, ymax], 'r', alpha=1, edgecolor='none')
     plt.text((gapStart[i]+gapEnd[i])/2-GENOME_SIZE/60,
@@ -97,8 +91,9 @@ for i in range(0, gapCounter):
 
 plt.ylim([0, ymax])
 
-plt.savefig(outputDirectory + '/quality.png', dpi=200)
+plt.savefig('quality.png', dpi=200)
 plt.close()
+
 
 
 #################################################################
@@ -124,7 +119,7 @@ plt.xlabel('Average read quality')
 plt.ylabel('Frequency')
 plt.yticks([])
 
-plt.savefig(outputDirectory + '/qualityHistogram.png', dpi=200)
+plt.savefig('qualityHistogram.png', dpi=200)
 plt.close()
 
 
@@ -151,7 +146,7 @@ plt.xticks(np.arange(0, GENOME_SIZE, 5000), ["%d" % (
 
 # Add shading for uncovered regions
 ymax = plt.gca().get_ylim()[1]
-for i in range(0, gapCounter):
+for i in range(0, len(gaps)):
     plt.fill([gapStart[i], gapEnd[i], gapEnd[i], gapStart[i]], [
              0, 0, ymax, ymax], 'r', alpha=1, edgecolor='none')
     plt.text((gapStart[i]+gapEnd[i])/2-GENOME_SIZE/60,
@@ -159,7 +154,7 @@ for i in range(0, gapCounter):
 
 plt.ylim([0, ymax])
 plt.tight_layout()
-plt.savefig(outputDirectory + '/coverage.png', dpi=200)
+plt.savefig('coverage.png', dpi=200)
 plt.close()
 
 
@@ -202,7 +197,7 @@ else:
 
 plt.ylabel('Frequency')
 plt.yticks([])
-plt.savefig(outputDirectory + '/depthHistogram.png', dpi=200)
+plt.savefig('depthHistogram.png', dpi=200)
 plt.close()
 
 
@@ -226,14 +221,14 @@ plt.xticks(np.arange(0, GENOME_SIZE, 5000), ["%d" % (
     x/1000) for x in np.arange(0, GENOME_SIZE, 5000)])
 
 plt.tight_layout()
-plt.savefig(outputDirectory + '/terminiDensity.png', dpi=200)
+plt.savefig('discontinuitySignal.png', dpi=200)
 plt.close()
 
 
 
 #################################################################
 # Export a csv file for pos; coverage; quality
-outfilename = outputDirectory + "/pos-coverage-quality.tsv"
+outfilename = "pos-coverage-quality.tsv"
 with open(outfilename, 'w') as outfile:
     writer = csv.writer(outfile, delimiter="\t")
     for i in range(0, GENOME_SIZE):

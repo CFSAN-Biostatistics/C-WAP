@@ -113,7 +113,7 @@ FQs
 
 // Align the reads to the reference sequence to obtain a sorted bam file
 process referenceAlignment {
-	cpus 10
+	label 'high_cpu'
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_a
@@ -125,7 +125,6 @@ process referenceAlignment {
 		conda 'bowtie2'
 	else
 		conda 'minimap2'
-		
 	
 	shell:
 	refSeqBasename = params.referenceSequence.replaceAll('.fa$', '')
@@ -160,7 +159,7 @@ process referenceAlignment {
 
 // Align the reads to the reference sequence to obtain a sorted bam file
 process trimming {
-	cpus 10
+	label 'high_cpu'
 	
 	input:
 		tuple val(sampleName), file('aligned.sam') from aligned_sam
@@ -213,8 +212,15 @@ process trimmedBam2Fastq {
 	
 	shell:
 	"""
-		# include -h for header
-		samtools view --threads 2 resorted.bam -o resorted.sam
+		if [[ \$numReads -gt 1000000 ]]; then
+			# A maximum of 1 000 000 reads are kept to limit the computation time of variant calling processes.
+			echo Subsampling the dataset...
+			retentionRatio=\$(echo 3k 1000000 \$numReads /p | dc)
+			samtools view --threads 2 --subsample \$retentionRatio resorted.bam -o resorted.sam
+		else
+			samtools view --threads 2 resorted.bam -o resorted.sam
+		fi
+		
 		$projectDir/sam2fastq.py resorted.sam resorted.fastq
 		gzip resorted.fastq
 		rm resorted.sam
@@ -285,15 +291,14 @@ process plotCoverageQC {
 		tuple val(sampleName), path('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('terminiDensity.png') into QChists
+		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png') into QChists
 	
 	conda 'matplotlib numpy'
 	
 	shell:
 	"""
-		primerBedFileLocal=$primerBedFile
-		gapfilename=\${primerBedFileLocal%.*}.uncovered
-		python3 $projectDir/plotCoverageQualityPerPos.py pile.up ./ \$gapfilename
+		#uncoveredCoordinates=\$(python3 $projectDir/findUncoveredCoordinates.py $primerBedFile)
+		python3 $projectDir/plotCoverageQualityPerPos.py pile.up $primerBedFile
 	"""
 }
 
@@ -330,9 +335,9 @@ process krakenVariantCaller {
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_a
 	
 	output:
-		tuple val(sampleName), path('k2-allCovid_bracken_phylums.out'), path('k2-majorCovid_bracken_phylums.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
+		tuple val(sampleName), path('k2-allCovid_bracken*.out'), path('k2-majorCovid_bracken*.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
 	
-	conda 'kraken2 bracken=2.5'
+	conda 'kraken2 bracken=2.5.3'
 	
 	shell:
 	"""
@@ -357,12 +362,12 @@ process krakenVariantCaller {
 				# There is a bug in our bracken that fails if no hits.
 				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
 			else
-				bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l P
+				bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l C
 			fi
 		else
 			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken_phylums.out
 			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'Error >> k2-allCovid_bracken_phylums.out
-			cp k2-allCovid_bracken_phylums.out k2-majorCovid_bracken_phylums.out
+			cp k2-allCovid_bracken_phylums.out k2-majorCovid_bracken_classes.out
 			cp k2-allCovid_bracken_phylums.out k2-allCovid.out
 			cp k2-allCovid_bracken_phylums.out k2-majorCovid.out
 		fi
@@ -484,11 +489,9 @@ process LCSvariantCaller {
 			mkdir -p outputs/variants_table
 			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.124.tsv.gz > outputs/variants_table/pango-markers-table.tsv
 			
-			# A maximum of 100 000 reads are fed into the algorithm to keep the computation time reasonable.
 			echo Preparing the sample dataset...
 			mkdir data/fastq
-			gzip -dc ../resorted.fastq.gz | head -n 400000 > data/fastq/resorted.fastq
-			gzip data/fastq/resorted.fastq
+			mv ../resorted.fastq.gz data/fastq/resorted.fastq.gz
 			echo "resorted" > data/tags_pool_lcs
 			
 			echo Executing LCS...
@@ -511,7 +514,7 @@ process freyjaVariantCaller {
 		tuple val(sampleName), path('freyja.demix') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja samtools=1.15'
+	conda 'freyja=1.3.5 samtools=1.15'
 	
 	shell:
 	"""
@@ -653,7 +656,7 @@ process generateReport {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
 		path('sorted.stats'), path('resorted.stats'),
 		path('k2-std.out'),
-		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('terminiDensity.png'),
+		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'),
 		path('readLengthHist.png'),
 		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
@@ -675,7 +678,7 @@ process generateReport {
 		
 		export kallistoTopName=\$(cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }')
 		
-		$projectDir/generateReport.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd $params.primerBedFile $projectDir
+		$projectDir/generateReport.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd $primerBedFile $projectDir
 	"""
 }
 
@@ -692,7 +695,6 @@ process summaryPage {
 
 	conda 'matplotlib scikit-learn openssl=1.0 wkhtmltopdf'
 	publishDir "$params.out", mode: 'copy', overwrite: true
-	executor = 'local'
 	
 	shell:
 	"""

@@ -1,3 +1,4 @@
 conda/*
 .nextflow*
 .nfs*
+__*
