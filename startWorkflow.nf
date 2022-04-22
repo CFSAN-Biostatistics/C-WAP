@@ -319,7 +319,9 @@ process readLengthHist {
 		if $isPairedEnd; then
 			gzip -dc R2.fastq.gz >> allreads.fastq
 		fi
-		cat allreads.fastq | awk 'NR%4==2' | awk "{ print length}" | python3 $projectDir/plotLengthHist.py
+		
+		# Only up to 1 million reads will be considered.
+		head -n 4000000 allreads.fastq | awk 'NR%4==2' | awk "{print length}" | python3 $projectDir/plotLengthHist.py
 		rm allreads.fastq
 	"""
 }

@@ -48,7 +48,7 @@ for name_idx in range(len(sample_names)):
 
 # If it was clearly marked, then draw baseline levels as well.
 if len(neg_control_idx)>0:
-    mean_bg_reads = np.mean([ numCovidReads[x] for x in neg_control_idx ])
+    mean_bg_reads = max(0.001,np.mean([ numCovidReads[x] for x in neg_control_idx ]))
     SNR = [ int(x/mean_bg_reads) for x in numCovidReads]
     
     plt.plot([0,numSamples+1], [mean_bg_reads,mean_bg_reads], 'k--')
