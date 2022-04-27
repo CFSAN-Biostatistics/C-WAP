@@ -1,5 +1,5 @@
 Sample#,Sample name,Total #reads,Reads aligned PF,Genomic coordinates 0X,Genomic coordinates <10X, QC_determination, QC_issues
-1,SRR16828013,906676,3399 (0%),18832nt (62%),28129nt (94%),not_performed,None
-2,SRR16828014,4096,154 (3%),22376nt (74%),29615nt (99%),not_performed,None
-3,SRR16828015,1366018,54184 (3%),6793nt (22%),12997nt (43%),not_performed,None
-4,SRR16828016,1114642,7861 (0%),15002nt (50%),24582nt (82%),not_performed,None
+1,SRR18910147,343476,196284 (57%),18nt (0%),554nt (1%),passed,
+2,SRR18910148,344810,199154 (57%),85nt (0%),1166nt (3%),passed,
+3,SRR18910149,321719,158671 (49%),82nt (0%),1776nt (5%),passed,
+4,SRR18910150,427492,234986 (54%),10nt (0%),1317nt (4%),passed,

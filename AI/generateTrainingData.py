@@ -35,7 +35,7 @@ def subsample_freyja_inputs (mask, mask_idx, file_dir='.'):
         outfile.writelines(vars2print)
     
 
-def parse_freyja_output (file_name):
+def parse_freyja_output_old (file_name):
     freyja_raw = pd.read_table(file_name, index_col=0)
     full_var_calls = dict(eval( pd.Series(freyja_raw.loc['summarized'][0])[0].replace('inf', '0').replace('nan', '0') ))
     
@@ -45,9 +45,24 @@ def parse_freyja_output (file_name):
         return 0
 
 
-sample_name = 'CFSANSMP000113119'
-num_samples = 100000
-samples_per_batch = 20
+def parse_freyja_output (file_name):
+    freyja_raw = pd.read_table(file_name, index_col=0)
+    full_var_calls = dict(eval( pd.Series(freyja_raw.loc['lineages'][0])[0].replace('inf', '0').replace('nan', '0') ))
+    
+    lineages = eval( pd.Series(freyja_raw.loc['lineages'][0])[0].replace(' ', ','))
+    abundances = eval( ','.join(pd.Series(freyja_raw.loc['abundances'][0])[0].split()) )
+
+    # Calculate the total frequency of BA.1 and BA.2 sub-sublineages
+    BA1_cumulated = 0
+    BA2_cumulated = 0
+    for (var,freq) in zip(lineage,abundances):
+        if 'BA.1' in var:
+            BA1_cumulated += freq
+        if 'BA.2' in var:
+            BA2_cumulated += freq
+    
+    return (BA1_cumulated, BA2_cumulated)
+
 
 
 # Import the tsv and .depths file used for this computation
@@ -78,6 +93,7 @@ if os.path.exists(in_dir):
     print('Deleting the previous %s...' % in_dir)
     shutil.rmtree(in_dir)
 os.mkdir(in_dir)
+
 
 print('Generating subsampling mashes for the training sets...')
 masks = np.empty((num_samples,num_features))
@@ -117,6 +133,17 @@ with open('./%s-trainingData.pkl' % sample_name, 'wb') as file:
     pickle.dump(masks, file)
     pickle.dump(freyja_truths, file)
     pickle.dump(full_var_call, file)
+
+
+
+
+
+num_samples = 100000
+samples_per_batch = 20
+
+for sample_name in ['CFSANSMP000113119']:
+    process_file(sample_name)
+
 
 print('Done')
 

@@ -10,7 +10,6 @@ import sys, pickle, csv
 # https://scikit-learn.org/stable/modules/tree.html
 from sklearn import tree 
 
-
 # Get and test input parameters
 if len(sys.argv) < 3:
     raise Exception('Incorrect call to the script.')
@@ -18,6 +17,8 @@ if len(sys.argv) < 3:
 model_filename = sys.argv[1]
 sample_filenames = sys.argv[2:]
 num_samples = len(sample_filenames)
+
+
 
 # Import the trained tree from file
 with open(model_filename, 'rb') as file:
@@ -66,4 +67,8 @@ plt.ylabel('Predicted deviation (percentage points)')
 
 plt.savefig('QC_predictions.png', dpi=200)
 plt.close()
+
+
+# Print the predicted deviations to stdout
+# print( ('%d '*len(predictions)) % predictions)
 

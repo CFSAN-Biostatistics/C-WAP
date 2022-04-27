@@ -123,20 +123,20 @@ tr:nth-child(even) {
 <th>Sample#</th><th>Sample name</th><th>Total #reads</th><th>Reads aligned PF*</th><th>Genomic coordinates 0X</th><th>Genomic coordinates <10X</th>
 </tr>
 <tr>
-<td>1</td><td><a href="./SRR16828013/SRR16828013_report/report.html">SRR16828013</a></td>
-<td>906676</td><td>3399 (0%)</td><td>18832nt (62%)</td><td>28129nt (94%)</td>
+<td>1</td><td><a href="./SRR18910147/SRR18910147_report/report.html">SRR18910147</a></td>
+<td>343476</td><td>196284 (57%)</td><td>18nt (0%)</td><td>554nt (1%)</td>
 </tr>
 <tr>
-<td>2</td><td><a href="./SRR16828014/SRR16828014_report/report.html">SRR16828014</a></td>
-<td>4096</td><td>154 (3%)</td><td>22376nt (74%)</td><td>29615nt (99%)</td>
+<td>2</td><td><a href="./SRR18910148/SRR18910148_report/report.html">SRR18910148</a></td>
+<td>344810</td><td>199154 (57%)</td><td>85nt (0%)</td><td>1166nt (3%)</td>
 </tr>
 <tr>
-<td>3</td><td><a href="./SRR16828015/SRR16828015_report/report.html">SRR16828015</a></td>
-<td>1366018</td><td>54184 (3%)</td><td>6793nt (22%)</td><td>12997nt (43%)</td>
+<td>3</td><td><a href="./SRR18910149/SRR18910149_report/report.html">SRR18910149</a></td>
+<td>321719</td><td>158671 (49%)</td><td>82nt (0%)</td><td>1776nt (5%)</td>
 </tr>
 <tr>
-<td>4</td><td><a href="./SRR16828016/SRR16828016_report/report.html">SRR16828016</a></td>
-<td>1114642</td><td>7861 (0%)</td><td>15002nt (50%)</td><td>24582nt (82%)</td>
+<td>4</td><td><a href="./SRR18910150/SRR18910150_report/report.html">SRR18910150</a></td>
+<td>427492</td><td>234986 (54%)</td><td>10nt (0%)</td><td>1317nt (4%)</td>
 </tr>
 </table>
 <br><br><br>
@@ -150,7 +150,43 @@ tr:nth-child(even) {
 </div>
 <br><br><br>
 
-<h2>QC-bot (Not yet functional)</h2>
+<h2>QC-bot (Experimental)</h2>
+<table>
+<tr>
+<th>QC category</th><th>Subjective definition</th><th>Objective metrics</th>
+</tr>
+<tr>
+   <td>A</td><td>No QC issues evident</td><td>0x coordinates <1% <br> 10x coordinates <5% <br> average coverage > 100X <br> average quality score >35 for Illumina, >15 if ONT, >70 if PacBio HiFi <br> most abundant taxon is coronovirinae</td>
+</tr>
+<tr>
+   <td>B</td><td>Some QC issues, but accurate variant calling possible</td><td>0x coordinates <20% <br> 10X coordinates < 40% <br> >80% of diverse SNPs covered <br> average coverage > 10X <br> average quality score >35 for Illumina <br> >15 if ONT, >70 if PacBio HiFi</td>
+</tr>
+<tr>
+   <td>C</td><td>Some QC issues, and accurate variant calling impossible</td><td>0x coordinates <99% <br> 10X coordinates <95%</td>
+</tr>
+<tr>
+   <td>F</td><td>Significant QC/study design issues</td><td>Contamination (SNR<50) <br> No/negligible coverage (< 1X) <br> Biological/technical replicates' results are irreconcileable.</td>
+</tr>
+</table>
+<br><br><br>
+<table>
+<tr>
+<th>Sample Number</th><th>Suggested category</th><th>Suggested QC flags</th>
+</tr>
+<tr>
+   <td>1</td><td>A</td><td>None</td>
+</tr>
+<tr>
+   <td>2</td><td>A</td><td>None</td>
+</tr>
+<tr>
+   <td>3</td><td>A</td><td>None</td>
+</tr>
+<tr>
+   <td>4</td><td>A</td><td>None</td>
+</tr>
+</table>
+<br><br><br>
 <div>
    <div id="figdiv">
       <img src="./QC_predictions.png" alt="Num. SC2 reads" width="100%" class="center">
@@ -161,18 +197,18 @@ tr:nth-child(even) {
 </div>
 <br><br><br>
 
-<span style="float:left;"><a href="./SRR16828013/SRR16828013_report/report.html">SRR16828013</a></span>
-<span style="float:right;"><a href="./SRR16828014/SRR16828014_report/report.html">
-SRR16828014</a></span><br>
-<img src="./SRR16828013/SRR16828013_report/quality.png" width="49%" class="center">
-<img src="./SRR16828014/SRR16828014_report/quality.png" width="49%" class="center">
+<span style="float:left;"><a href="./SRR18910147/SRR18910147_report/report.html">SRR18910147</a></span>
+<span style="float:right;"><a href="./SRR18910148/SRR18910148_report/report.html">
+SRR18910148</a></span><br>
+<img src="./SRR18910147/SRR18910147_report/quality.png" width="49%" class="center">
+<img src="./SRR18910148/SRR18910148_report/quality.png" width="49%" class="center">
 <br><br><br>
 
-<span style="float:left;"><a href="./SRR16828015/SRR16828015_report/report.html">SRR16828015</a></span>
-<span style="float:right;"><a href="./SRR16828016/SRR16828016_report/report.html">
-SRR16828016</a></span><br>
-<img src="./SRR16828015/SRR16828015_report/quality.png" width="49%" class="center">
-<img src="./SRR16828016/SRR16828016_report/quality.png" width="49%" class="center">
+<span style="float:left;"><a href="./SRR18910149/SRR18910149_report/report.html">SRR18910149</a></span>
+<span style="float:right;"><a href="./SRR18910150/SRR18910150_report/report.html">
+SRR18910150</a></span><br>
+<img src="./SRR18910149/SRR18910149_report/quality.png" width="49%" class="center">
+<img src="./SRR18910150/SRR18910150_report/quality.png" width="49%" class="center">
 <br><br><br>
 </body>
 </html>

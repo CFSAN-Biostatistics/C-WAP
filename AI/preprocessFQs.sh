@@ -1,9 +1,11 @@
 #! /bin/bash
 
 source ~/c-wap/CFSANonly/prepareEnvironment.sh
+
+
 numThreads=20
 
-for fqfile in $(ls inputs/fastq/*_R1*.gz); do
+for fqfile in $(ls fastq/*_R1*.gz); do
 	echo Now processing $fqfile...
 	bowtie2 --no-unal --threads $numThreads -x ~/c-wap/covidRefSequences/wuhan -1 $fqfile -2 $(echo $fqfile | sed 's/\_R1/\_R2/') -S aligned.sam
 	samtools sort aligned.sam -o sorted.bam -@ $numThreads

@@ -1,2 +1,0 @@
-taxon,lineage,conflict,ambiguity_score,scorpio_call,scorpio_support,scorpio_conflict,scorpio_notes,version,pangolin_version,scorpio_version,constellation_version,is_designated,qc_status,qc_notes,note
-"NC_045512.2 Severe acute respiratory syndrome coronavirus 2 isolate Wuhan-Hu-1, complete genome",B,0.5,,,,,,PUSHER-v1.3,4.0.5,0.3.16,v0.1.6,False,pass,Ambiguous_content:0.02,Usher placements: B(1/2) B.4(1/2)

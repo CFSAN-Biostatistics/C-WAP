@@ -427,12 +427,6 @@ echo "</body>" >> $reportFile
 echo "</html>" >> $reportFile
 
 
-######################################
-echo Generating a pdf version of the report...
-wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 \
-	--margin-left 0 --margin-right 0 --print-media-type --title "Wastewater report" \
-	report.html report.pdf
-
 
 # Re-organise the folder so that it is ready to export.
 mkdir report

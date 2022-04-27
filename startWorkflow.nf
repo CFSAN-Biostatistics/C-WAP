@@ -293,7 +293,8 @@ process plotCoverageQC {
 	output:
 		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png') into QChists
 	
-	conda 'matplotlib numpy'
+	conda 'matplotlib scikit-learn pandas'
+
 	
 	shell:
 	"""
@@ -311,7 +312,8 @@ process readLengthHist {
 	output:
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
 
-	conda 'matplotlib numpy'
+	conda 'matplotlib scikit-learn pandas'
+
 	
 	shell:
 	"""
@@ -430,7 +432,7 @@ process linearDeconVariantCaller {
 	output:
 		tuple val(sampleName), path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2) into linearDeconvolution_out
 
-	conda 'scikit-learn'
+	conda 'matplotlib scikit-learn pandas'
 		
 	shell:
 	"""
@@ -476,7 +478,7 @@ process LCSvariantCaller {
 		tuple val(sampleName), path('LCS/outputs/decompose/lcs.out') into lcs_out
 		
 	conda "$projectDir/LCS/conda.env.yaml"
-	time = '15 min'
+	time = '5 min'
 	
 	shell:
 	"""
@@ -669,8 +671,8 @@ process generateReport {
 	
 	output:
 		file "outfolder" into reportCh
-
-	conda 'matplotlib pandas openssl=1.0 wkhtmltopdf'
+		
+	conda 'matplotlib scikit-learn pandas'
 	
 	shell:
 	"""
@@ -693,15 +695,55 @@ process summaryPage {
 		file 'report' from reportCh.collect()
 	
 	output:
-		file "analysisResults" into analysisResults
+		file "analysisResults" into results_with_summary
 
-	conda 'matplotlib scikit-learn openssl=1.0 wkhtmltopdf'
-	publishDir "$params.out", mode: 'copy', overwrite: true
-	
+	conda 'matplotlib scikit-learn pandas'
+		
 	shell:
 	"""
 		$projectDir/generateSummary.sh $projectDir/htmlHeader.html $params.variantDBfile $projectDir
 	"""
 }
 
+
+
+// OPTIONAL: convert html reports into pdf and then generate a combined pdf of all results.
+// Useful if need to share the result with external collaborators
+process html2pdf {
+	input:
+		file "analysisResults" from results_with_summary
+	
+	output:
+		file "analysisResults" into analysisResults
+
+	conda 'openssl=1.0 wkhtmltopdf ghostscript'
+	label 'high_cpu'
+	publishDir "$params.out", mode: 'copy', overwrite: true	
+	
+	shell:
+	"""
+		echo Generating report.pdf...
+		cd analysisResults
+		for sampleName in \$(ls */ -d | tr -d '/'); do
+			awk '1; /Detected mutations/{exit}' \$sampleName/\${sampleName}_report/report.html > \$sampleName/\${sampleName}_report/temp.html
+			echo "Excluded from this pdf version due to file size limitations." >> \$sampleName/\${sampleName}_report/temp.html
+			echo "<br>"\$'\n'"</body>"\$'\n'"</html>" >> \$sampleName/\${sampleName}_report/temp.html
+			
+			wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 --margin-left 0 \
+				--margin-right 0 --print-media-type --title "Wastewater report" \$sampleName/\${sampleName}_report/temp.html \
+				\$sampleName/\${sampleName}_report/report.pdf &
+		done
+		
+		echo Generating summary.pdf...
+		wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 \
+			--margin-left 0 --margin-right 0 --print-media-type --title "Wastewater report" summary.html summary.pdf &
+		
+		echo Waiting for the conversion processes to complete
+		wait
+		rm ./*/*/temp.html
+		
+		echo Merging PDFs...
+		gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOUTPUTFILE=./consolidated.pdf -dBATCH ./summary.pdf ./*/*report/report.pdf
+	"""
+}
 

@@ -2,7 +2,7 @@
 
 headerFile=$1
 variantDBfile=$2
-rootDir=$3
+projectDir=$3
 
 summaryfile=./summary.html
 cp $headerFile $summaryfile
@@ -88,7 +88,7 @@ echo "<br><br><br>" >> $summaryfile
 #######################################################
 # Insert a bar plot comparing covid reads in all samples of this run.
 echo Generating sample load comparison plots...
-SNRs=($( $rootDir/plotSNR.py ${plottingData[@]} | tr -d ',[]' ))
+SNRs=($( $projectDir/plotSNR.py ${plottingData[@]} | tr -d ',[]' ))
 
 echo "<div>" >> $summaryfile
 echo "   <div id=\"figdiv\">" >> $summaryfile
@@ -103,7 +103,7 @@ echo "<br><br><br>" >> $summaryfile
 
 # Run the coverage stats through the machine learning-based QC model to predict the accuracy of the samples given their coverage pattern.
 echo Executing QC-bot...
-$rootDir/AI/predictAccuracy.py $rootDir/AI/trainedModel.pkl ${coverageFiles[@]}
+$projectDir/AI/predictAccuracy.py $projectDir/AI/trainedModel.pkl ${coverageFiles[@]}
 
 
 echo >> $summaryfile
@@ -209,7 +209,7 @@ done
 #echo $(kraken2 -v | head -n 1)", " >> $summaryfile
 #echo $(kallisto version)"." >> $summaryfile
 
-#allIncludedLineages=$($rootDir/listVariantsAvail.py $variantDBfile)
+#allIncludedLineages=$($projectDir/listVariantsAvail.py $variantDBfile)
 #echo Lineage definitions were compiled on $(date +%Y-%m-%d -r $variantDBfile) \
 #		"from <a href=\"https://github.com/cov-lineages/constellations/tree/main/constellations/definitions\">constellations</a>." >> $summaryfile
 #echo Lineage signature file was compiled on $(date +%Y-%m-%d -r $variantDBfile) \
@@ -222,15 +222,6 @@ echo "</html>" >> $summaryfile
 
 
 #######################################################
-echo Consolidating reports...
-wkhtmltopdf --enable-local-file-access --page-size Letter --margin-top 10mm --margin-bottom 0 \
-		--margin-left 0 --margin-right 0 --print-media-type --title "Wastewater report" \
-		summary.html summary.pdf
-
-gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOUTPUTFILE=consolidated.pdf \
-	-dBATCH summary.pdf ./*/*report/report.pdf
-
-
 mkdir analysisResults
 shopt -s extglob
 mv ./!(analysisResults) ./analysisResults/
