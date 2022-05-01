@@ -1,0 +1,28 @@
+package:
+  name: c-wap
+  version: 0.0
+
+source:
+  git_url: https://github.com/CFSAN-Biostatistics/C-WAP
+
+requirements:
+  run:
+    - nextflow
+  test:
+    requires:
+        -sratoolkit
+    commands:
+        - test/run_test.sh
+    
+    
+
+  run:
+    - python
+
+test:
+  imports:
+    -
+
+about:
+  home:
+  license: CC0
