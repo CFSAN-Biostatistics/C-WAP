@@ -134,7 +134,7 @@ train_size = 50000
 test_size = 10000
 num_trees = 100
 
-# Spawn mutliple processes
+# Spawn multiple processes
 pool = Pool(processes=20, maxtasksperchild=1)
 models_R2 = pool.map(makeTree, range(num_trees))
 

@@ -264,6 +264,7 @@ process variantCalling {
 
 process kraken2stdDB {
 	memory '70 GB'
+	time '3 h' // Due to an IT issue, CFSAN's k2 takes very long to execute.
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b
@@ -274,11 +275,11 @@ process kraken2stdDB {
 	conda 'kraken2'
 	
 	shell:
-	"""
+	"""	
 		if $isPairedEnd; then
 			kraken2 --paired R1.fastq.gz R2.fastq.gz --db \$K2_STD_DB_PATH --threads 2 --report k2-std.out > /dev/null
 		else
-			kraken2 R1.fastq.gz --db \$K2_STD_DB_PATH --threads 2 --report k2-std.out > /dev/null		
+			kraken2 R1.fastq.gz --db \$K2_STD_DB_PATH --threads 2 --report k2-std.out > /dev/null
 		fi	
 	"""
 }
@@ -408,7 +409,7 @@ process pangolinVariantCaller {
 	output:
 		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv'), path('consensus.fa') into pangolin_out
 	
-	conda 'pangolin'
+	conda 'pangolin=4.0.6'
 	
 	shell:
 	"""
@@ -518,7 +519,7 @@ process freyjaVariantCaller {
 		tuple val(sampleName), path('freyja.demix') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.5 samtools=1.15'
+	conda 'freyja=1.3.6 samtools=1.15'
 	
 	shell:
 	"""
@@ -527,7 +528,7 @@ process freyjaVariantCaller {
 			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths --ref $params.referenceSequence
 			
 			echo Demixing variants by Freyja
-			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix
+			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix --confirmedonly
 		else
 			# Due to a potential bug, some big fastqs result in a pandas error.
 			# Generate an empty file to circumvent such failure cases
@@ -676,12 +677,14 @@ process generateReport {
 	
 	shell:
 	"""
+		echo Making pie charts...
 		export PYTHONHASHSEED=0
 		$projectDir/plotPieChartsforAbundance.py ./ $params.variantDBfile linearDeconvolution_abundance.csv \
 				kallisto_abundance.tsv k2-allCovid_bracken.out k2-majorCovid_bracken.out freyja.demix lcs.out
 		
 		export kallistoTopName=\$(cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }')
 		
+		echo generating report.html...
 		$projectDir/generateReport.sh $sampleName $projectDir/htmlHeader.html $isPairedEnd $primerBedFile $projectDir
 	"""
 }
@@ -721,6 +724,7 @@ process html2pdf {
 	publishDir "$params.out", mode: 'copy', overwrite: true	
 	
 	shell:
+	if (params.make_pdfs) {
 	"""
 		echo Generating report.pdf...
 		cd analysisResults
@@ -745,5 +749,11 @@ process html2pdf {
 		echo Merging PDFs...
 		gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOUTPUTFILE=./consolidated.pdf -dBATCH ./summary.pdf ./*/*report/report.pdf
 	"""
+	}
+	else {
+	"""
+		echo make_pdfs was set to false, so skipped the pdf generation.
+	"""
+	}
 }
 

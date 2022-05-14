@@ -61,10 +61,10 @@ if [[ -z $numClassified ]]; then
 fi
 
 # Calculation of total number of reads
-let "numReads = $numUnclassified + $numClassified"
+let "numReads = $numUnclassified + $numClassified" || true
 if $isPairedEnd; then
 # Correction for undercounting by kraken2 in the paired mode
-	let "numReads = 2 * $numReads"
+	let "numReads = 2 * $numReads" || true
 fi
 
 
@@ -169,6 +169,7 @@ fi
 
 # Evaluation of number of genomic coordinates that could not be amplified due to being
 # out of range of the amplicon kit.
+echo Assessing completeness of coverage...
 numUncoveredLociByDesign=0
 while read line; do
     gapBegin=$(echo $line | awk '{print $1}')
