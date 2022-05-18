@@ -264,7 +264,6 @@ process variantCalling {
 
 process kraken2stdDB {
 	memory '70 GB'
-	time '3 h' // Due to an IT issue, CFSAN's k2 takes very long to execute.
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b

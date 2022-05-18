@@ -318,8 +318,14 @@ if [[ $numReads -le 100 ]]; then
 	echo 'low_sequencing_depth' >> $qc_flags
 fi
 
-if [[ $avgCoveragePassed -le 100 ]]; then
-	echo 'low_average_coverage' >> $qc_flags
+# Avg. coverage < 2X -> F
+# Avg. coverage < 100X -> warning
+if [[ $avgCoveragePassed -le 2 ]]; then
+	echo 'insufficient_average_coverage' >> $qc_flags
+else
+	if [[ $avgCoveragePassed -le 100 ]]; then
+		echo 'low_average_coverage' >> $qc_flags
+	fi
 fi
 
 if [[ $avgLengthPassed -le 70 ]]; then
