@@ -27,6 +27,11 @@ echo "    <td>Date generated:</td><td>$timestamp</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
+echo "    <td>Timestamp of C-WAP version used:</td><td>$(git log -n 1 | grep Date: | sed 's/Date:   //g')</td>" >> $reportFile
+echo "</tr>" >> $reportFile
+
+
+echo "<tr>" >> $reportFile
 echo "    <td>Executed by:</td><td>$fullName (<a href=\\"mailto:$USER@fda.hhs.gov?subject=Wastewater report generated on $timestamp\\">$USER@fda.hhs.gov</a>)</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
