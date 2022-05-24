@@ -27,7 +27,7 @@ echo "    <td>Date generated:</td><td>$timestamp</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
-echo "    <td>Timestamp of C-WAP version used:</td><td>$(git log -n 1 | grep Date: | sed 's/Date:   //g')</td>" >> $reportFile
+echo "    <td>Timestamp of C-WAP version used:</td><td>$(git --git-dir $projectDir/.git log -n 1 | grep Date: | sed 's/Date:   //g')</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
 

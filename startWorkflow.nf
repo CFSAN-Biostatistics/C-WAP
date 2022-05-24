@@ -523,11 +523,14 @@ process freyjaVariantCaller {
 	shell:
 	"""
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
-			echo Pileup generation for Freyja
-			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths --ref $params.referenceSequence
+			echo Pileup generation for Freyja...
+			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
 			
-			echo Demixing variants by Freyja
-			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix --confirmedonly
+			echo Demixing variants by Freyja...
+			freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly
+			
+			#echo Bootstrapping...
+			#freyja boot freyja.variants.tsv freyja.depths.tsv --nt 2 --nb 100 --output_base freyja_bootstrap
 		else
 			# Due to a potential bug, some big fastqs result in a pandas error.
 			# Generate an empty file to circumvent such failure cases
@@ -553,7 +556,7 @@ process getNCBImetadata {
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
 	// Wait some random time so that threads go out of sync.
 	errorStrategy { sleep(1000 * Math.random() as long); return 'retry' }
-	maxRetries = 15
+	maxRetries = 105
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_c
@@ -566,7 +569,7 @@ process getNCBImetadata {
 	shell:
 	"""
 	srrNumber=$sampleName
-	if [[ $task.attempt -lt 10 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
+	if [[ $task.attempt -lt 100 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
 		# The tool returns error: too many requests, bypassing by redirection of error		
 		sraQueryResult=\$(esearch -db sra -query \$srrNumber 2>/dev/null)
 		sleep 1
@@ -746,7 +749,7 @@ process html2pdf {
 		rm ./*/*/temp.html
 		
 		echo Merging PDFs...
-		gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOUTPUTFILE=./consolidated.pdf -dBATCH ./summary.pdf ./*/*report/report.pdf
+		gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -dPreserveAnnots=false -dBATCH -sOUTPUTFILE=./consolidated.pdf ./summary.pdf ./*/*report/report.pdf
 	"""
 	}
 	else {
