@@ -721,7 +721,7 @@ process html2pdf {
 	output:
 		file "analysisResults" into analysisResults
 
-	conda 'openssl=1.0 wkhtmltopdf ghostscript'
+	conda 'openssl=1.0 wkhtmltopdf ghostscript=9.54'
 	label 'high_cpu'
 	publishDir "$params.out", mode: 'copy', overwrite: true	
 	
@@ -749,7 +749,7 @@ process html2pdf {
 		rm ./*/*/temp.html
 		
 		echo Merging PDFs...
-		gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -dPreserveAnnots=false -dBATCH -sOUTPUTFILE=./consolidated.pdf ./summary.pdf ./*/*report/report.pdf
+		gs -dNOPAUSE -dQUIET -dBATCH -sDEVICE=pdfwrite -dPreserveAnnots=false -sOUTPUTFILE=./consolidated.pdf ./summary.pdf ./*/*report/report.pdf
 	"""
 	}
 	else {
