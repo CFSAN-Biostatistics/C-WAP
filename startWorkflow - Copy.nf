@@ -165,7 +165,7 @@ process trimming {
 		tuple val(sampleName), file('aligned.sam') from aligned_sam
 	
 	output:
-		tuple val(sampleName), env(numReads), path('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
+		tuple val(sampleName), env(numReads), path('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c
 		tuple val(sampleName), path('sorted.stats'), path('resorted.stats') into samtools_stats
 	
 	// Compatible version of samtools is automatically provided by ivar's dependency
@@ -251,6 +251,7 @@ process variantCalling {
 	
 	output:
 		tuple val(sampleName), path('rawVarCalls.tsv') into ivar_out
+		tuple val(sampleName), path('rawVarCalls.tsv'), path('depths.tsv') into ivar_out_2_freyja
 	
 	conda 'ivar'
 	
@@ -258,6 +259,8 @@ process variantCalling {
 	"""
 		cat pile.up | ivar variants -p rawVarCalls -g $projectDir/covidRefSequences/covidGenomeAnnotation-NCBI.gff \
 		-r $params.referenceSequence -m 10
+		
+		sed '1d' pile.up | awk '{print $1"\t"$2"\t"$3"\t"$4}' > depths.tsv
 	"""
 }
 
@@ -514,27 +517,23 @@ process freyjaVariantCaller {
 	label 'high_cpu'
 
 	input:
-		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_d
+		tuple val(sampleName), path('freyja.variants.tsv'), path('freyja.depths.tsv') from ivar_out_2_freyja
 		
 	output:
 		tuple val(sampleName), path('freyja.demix'), path('freyja_bootstrap.png') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.6 samtools=1.15'
+	conda 'freyja=1.3.7 samtools=1.15'
 	
 	shell:
 	"""
-		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
-			echo Pileup generation for Freyja...
-			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
-			
+		if [[ $task.attempt -lt 2 ]]; then		
 			echo Demixing variants by Freyja and bootstrapping
 			freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly &
 			freyja boot freyja.variants.tsv freyja.depths.tsv --nt \$(nproc) --nb 1000 --output_base freyja_boot
 			wait
 			
 			echo Parsing bootstrapping output...
-			export PYTHONHASHSEED=0
 			python3 $projectDir/parseFreyjaBootstraps.py freyja.demix freyja_boot_lineages.csv freyja_bootstrap.png
 		else
 			# Due to a potential bug, some big fastqs result in a pandas error.

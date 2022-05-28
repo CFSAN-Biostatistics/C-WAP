@@ -226,6 +226,58 @@ plt.close()
 
 
 
+
+#################################################################
+# Generate a bar plot to show breakdown of uncovered/undercovered loci into viral genes and save in a file
+
+# GeneName:(start_inclusive,end_inclusive)
+gene_start_end = {"5' UTR":(1,265), 'ORF1ab':(266,21555), 'S':(21563,25384), 'ORF3a':(25393,26220), 'E':(26245,26472), 'M':(26523,27191), 'ORF6':(27202,27387), 'ORF7ab':(27394,27887), 'ORF8':(27894,28259), 'N':(28274,29533), 'ORF10':(29558,29674), "3' UTR":(29675,29903)}
+
+def coordinate2gene (coordinate):   
+    for gene_name in gene_start_end:
+        (start,end) = gene_start_end[gene_name]
+        if coordinate>=start and coordinate<=end:
+            return gene_name
+    
+    # If the coordinate is not contained in any of the pre-defined genes...
+    return 'Other'
+
+gene_names = gene_start_end.keys()
+gene_lengths = np.array([(gene_start_end[name][1]-gene_start_end[name][0]) for name in gene_names ])/1000.0
+
+uncovered_genes = [coordinate2gene(x+1) for x in range(len(readDepth)) if readDepth[x]==0]
+uncovered_gene_counts = np.array([ uncovered_genes.count(name) for name in gene_names ])
+undercovered_genes = [coordinate2gene(x+1) for x in range(len(readDepth)) if readDepth[x]<10]
+undercovered_gene_counts = np.array([ undercovered_genes.count(name) for name in gene_names ])
+
+# Absolute genomic coordinate counts per gene
+plt.bar(gene_names, undercovered_gene_counts, color=FDAblue)
+plt.bar(gene_names, uncovered_gene_counts, color='k')
+plt.legend(['<10X', '0X'], labelcolor='markerfacecolor', frameon=False, ncol=2)
+plt.xticks(rotation = 60)
+plt.xlabel('Genes')
+plt.ylabel('#Genomic coordinates')
+
+plt.tight_layout()
+plt.savefig('genesVSuncovered_abscounts.png', dpi=200)
+plt.close()
+
+
+# Missing genomic coordinate counts per gene scaled with gene length
+plt.bar(gene_names, undercovered_gene_counts/gene_lengths, color=FDAblue)
+plt.bar(gene_names, uncovered_gene_counts/gene_lengths, color='k')
+plt.legend(['<10X', '0X'], labelcolor='markerfacecolor', frameon=False, ncol=2)
+plt.xticks(rotation = 60)
+plt.xlabel('Genes')
+plt.ylabel('#Genomic coordinates per kbp')
+
+plt.tight_layout()
+plt.savefig('genesVSuncovered_scaled.png', dpi=200)
+plt.close()
+
+
+
+
 #################################################################
 # Export a csv file for pos; coverage; quality
 outfilename = "pos-coverage-quality.tsv"
