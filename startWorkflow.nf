@@ -252,7 +252,7 @@ process variantCalling {
 	output:
 		tuple val(sampleName), path('rawVarCalls.tsv') into ivar_out
 	
-	conda 'ivar'
+	conda 'ivar=1.3.1'
 	
 	shell:
 	"""
@@ -299,7 +299,7 @@ process plotCoverageQC {
 	shell:
 	"""
 		#uncoveredCoordinates=\$(python3 $projectDir/findUncoveredCoordinates.py $primerBedFile)
-		python3 $projectDir/plotCoverageQualityPerPos.py pile.up $primerBedFile
+		python3 $projectDir/plotQC.py pile.up $primerBedFile
 	"""
 }
 
@@ -517,10 +517,10 @@ process freyjaVariantCaller {
 		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_d
 		
 	output:
-		tuple val(sampleName), path('freyja.demix'), path('freyja_bootstrap.png') into freyja_out
+		tuple val(sampleName), path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.6 samtools=1.15'
+	conda 'freyja=1.3.7 samtools=1.15'
 	
 	shell:
 	"""
@@ -545,11 +545,11 @@ process freyjaVariantCaller {
 			echo abundances\$'\t'"[1.00]" >> freyja.demix
 			echo resid\$'\t'-1 >> freyja.demix
 			
+			echo "ERROR" > freyja_boot_lineages.csv 
 			touch freyja_bootstrap.png
 		fi
 	"""
 }
-
 
 
 // A metadata fetch attemp from NCBI via Entrez-Direct
@@ -676,7 +676,7 @@ process generateReport {
 		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
 		env(consensusLineage), path('lineage_report.csv'), path('consensus.fa'),
 		path('kallisto_abundance.tsv'),
-		path('freyja.demix'), path('freyja_bootstrap.png'),
+		path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png'),
 		path('lcs.out') from reportInputCh
 	
 	output:

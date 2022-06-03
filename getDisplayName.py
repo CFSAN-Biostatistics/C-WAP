@@ -11,6 +11,7 @@ pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427'
                 'A.21': 'Bat', 'other': 'Other', 'A': 'wt', 'Error':'Error'}
 
 
+
 # Convert each variant to a WHO-compatible name, if one exists
 def getDisplayName(pangolinName):
     if pangolinName in pangolin2WHO.keys():
@@ -45,6 +46,19 @@ def getColor (var_name):
     else:
         color_idx = hash(var_name)%len(colorCycle)
         return colorCycle[color_idx]
+
+
+
+# Process the original abundance estimates by Freyja
+import pandas as pd
+def import_freyja_demix(filename):
+    freyja_raw = pd.read_table(filename, index_col=0)
+
+    # Parse the rows with the detailed subvariant breakdown
+    lineages = freyja_raw.loc['lineages'][0].split(' ')
+    abundances = [float(x) for x in freyja_raw.loc['abundances'][0].split(' ')]
+    freyja_names = [ getDisplayName(x) for x in lineages ]
+    return (lineages, abundances, freyja_names)
 
 
 

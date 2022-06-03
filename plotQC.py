@@ -252,7 +252,7 @@ undercovered_gene_counts = np.array([ undercovered_genes.count(name) for name in
 
 # Absolute genomic coordinate counts per gene
 plt.bar(gene_names, undercovered_gene_counts, color=FDAblue)
-plt.bar(gene_names, uncovered_gene_counts, color='k')
+plt.bar(gene_names, uncovered_gene_counts, color='k', width=0.5)
 plt.legend(['<10X', '0X'], labelcolor='markerfacecolor', frameon=False, ncol=2)
 plt.xticks(rotation = 60)
 plt.xlabel('Genes')
@@ -265,7 +265,7 @@ plt.close()
 
 # Missing genomic coordinate counts per gene scaled with gene length
 plt.bar(gene_names, undercovered_gene_counts/gene_lengths, color=FDAblue)
-plt.bar(gene_names, uncovered_gene_counts/gene_lengths, color='k')
+plt.bar(gene_names, uncovered_gene_counts/gene_lengths, color='k', width=0.5)
 plt.legend(['<10X', '0X'], labelcolor='markerfacecolor', frameon=False, ncol=2)
 plt.xticks(rotation = 60)
 plt.xlabel('Genes')

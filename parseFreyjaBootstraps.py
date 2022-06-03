@@ -29,16 +29,10 @@ percentile25 = list(freyja_boot.iloc[index25])
 percentile50 = list(freyja_boot.iloc[index50])
 percentile75 = list(freyja_boot.iloc[index75])
 
- 
- 
-########################################################
-# Process the original abundance estimates by Freyja
-freyja_raw = pd.read_table(freyjaOutputFile, index_col=0)
 
-# Import the detailed subvariant breakdown
-lineages = eval( pd.Series(freyja_raw.loc['lineages'][0])[0].replace(' ', ',') )
-abundances = eval( ','.join(pd.Series(freyja_raw.loc['abundances'][0])[0].split()) )
-freyja_names = [ getDisplayName(x) for x in lineages ]
+# Import the freyja file
+(lineages, abundances, freyja_names) = import_freyja_demix(freyjaOutputFile)
+
 
 freyja_hits = []
 for dname in set(freyja_names):

@@ -316,7 +316,7 @@ echo "</table>" >> $reportFile
 
 
 #########################################################
-# QC classification, experimental
+# QC classification
 # VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 qc_flags=./qc-flags.txt
 touch $qc_flags
@@ -330,13 +330,18 @@ if [[ $numReads -le 100 ]]; then
 	echo 'low_sequencing_depth' >> $qc_flags
 fi
 
-# Avg. coverage < 2X -> F
-# Avg. coverage < 100X -> warning
-if [[ $avgCoveragePassed -le 2 ]]; then
+# Avg. coverage < 2X -> error, F
+# Avg. coverage < 1000X -> warning, B
+# Avg. coverage < 100X -> warning, C
+if [[ $avgCoveragePassed -lt 2 ]]; then
 	echo 'insufficient_average_coverage' >> $qc_flags
 else
-	if [[ $avgCoveragePassed -le 100 ]]; then
+	if [[ $avgCoveragePassed -lt 100 ]]; then
 		echo 'low_average_coverage' >> $qc_flags
+	else
+		if [[ $avgCoveragePassed -lt 1000 ]]; then
+			echo 'suboptimal_average_coverage' >> $qc_flags
+		fi
 	fi
 fi
 

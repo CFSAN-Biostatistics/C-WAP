@@ -169,6 +169,7 @@ drawPieChart(brackenHits, outputDirectory+'/pieChart_k2_majorCovid.png',
              title='Abundance of variants by\n kraken2+bracken, using majorCovid DB')
 
 
+
 ########################################################
 # Process the abundance estimates by Freyja
 freyja_raw = pd.read_table(freyjaOutputFile, index_col=0)
@@ -177,8 +178,7 @@ freyja_raw = pd.read_table(freyjaOutputFile, index_col=0)
 # var_pct = eval( pd.Series(freyja_raw.loc['summarized'][0])[0] )
 
 # Option B: detailed subvariant breakdown
-lineages = eval( pd.Series(freyja_raw.loc['lineages'][0])[0].replace(' ', ',') )
-abundances = eval( ','.join(pd.Series(freyja_raw.loc['abundances'][0])[0].split()) )
+(lineages, abundances, freyja_names) = import_freyja_demix(freyjaOutputFile)
 var_pct = tuple(zip(lineages, abundances))
 
 freyjaHits = {}
@@ -188,7 +188,7 @@ for var in var_pct:
     freyjaHits[name] = pct
 
 drawPieChart(freyjaHits, outputDirectory+'/pieChart_freyja.png',
-             title='Abundance of variants by Freyja')
+                title='Abundance of variants by Freyja')
 
 
 

@@ -112,11 +112,11 @@ echo "<th>QC category</th><th>Subjective definition</th><th>Objective metrics</t
 echo "</tr>" >> $summaryfile
 
 echo "<tr>" >> $summaryfile
-echo "   <td>A</td><td>No QC issues evident</td><td>0x coordinates <1% <br> 10x coordinates <5% <br> average coverage > 100X <br> average quality score >35 for Illumina, >15 if ONT, >70 if PacBio HiFi <br> most abundant taxon is coronovirinae</td>" >> $summaryfile
+echo "   <td>A</td><td>No QC issues evident</td><td>0x coordinates <1% <br> 10x coordinates <5% <br> average coverage > 1000X <br> average quality score >35 for Illumina, >15 if ONT, >70 if PacBio HiFi <br> most abundant taxon is coronovirinae</td>" >> $summaryfile
 echo "</tr>" >> $summaryfile
 	
 echo "<tr>" >> $summaryfile
-echo "   <td>B</td><td>Some QC issues, but accurate variant calling possible</td><td>0x coordinates <20% <br> 10X coordinates < 40% <br> >80% of diverse SNPs covered <br> average coverage > 10X <br> average quality score >35 for Illumina <br> >15 if ONT, >70 if PacBio HiFi</td>" >> $summaryfile 
+echo "   <td>B</td><td>Some QC issues, but accurate variant calling possible</td><td>0x coordinates <20% <br> 10X coordinates < 40% <br> >80% of diverse SNPs covered <br> average coverage > 100X <br> average quality score >35 for Illumina <br> >15 if ONT, >70 if PacBio HiFi</td>" >> $summaryfile 
 echo "</tr>" >> $summaryfile
 	
 echo "<tr>" >> $summaryfile
@@ -138,20 +138,25 @@ echo "<th>Sample Number</th><th>Suggested category</th><th>Suggested QC flags</t
 echo "</tr>" >> $summaryfile
 
 for (( sample_id=1; sample_id<=${#sampleNames[@]}; sample_id++ )); do
-	if [[ ${SNRs[${sample_id}-1]} -lt 50 || ${QC_flags[${sample_id}-1]} == *"insufficient_average_coverage"* ]]; then
-		QC_flags[${sample_id}-1]=sample_contamination
+	flags=${QC_flags[${sample_id}-1]}
+	if [[ ${SNRs[${sample_id}-1]} -lt 50 || $flags == *"insufficient_average_coverage"* ]]; then
+		flags=sample_contamination
 		category=F
 	else
-		if [[ ${QC_flags[${sample_id}-1]} == None ]]; then
+		if [[ $flags == None ]]; then
 			category=A
 		else
-			category=B/C
-			# TODO: Incorporate some machine learning output here
+			if [[ $flags == *"low_average_coverage"* ]]; then
+				category=C
+			else
+				category=B/C
+				# TODO: Incorporate some machine learning output here
+			fi
 		fi
 	fi
 	
 	echo "<tr>" >> $summaryfile
-	echo "   <td>${sample_id}</td><td>$category</td><td>${QC_flags[${sample_id}-1]}</td>" >> $summaryfile
+	echo "   <td>${sample_id}</td><td>$category</td><td>$flags</td>" >> $summaryfile
 	echo "</tr>" >> $summaryfile
 done
 
