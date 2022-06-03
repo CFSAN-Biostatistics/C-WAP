@@ -40,7 +40,7 @@ echo "</tr>" >> $summaryfile
 
 # Also generate a separate csv file containing the summary table 
 csvFile=./summaryTable.csv
-echo "Sample#,Sample name,Total #reads,Reads aligned PF,Genomic coordinates 0X,Genomic coordinates <10X, QC_determination, QC_issues" >> $csvFile
+echo "Sample#,Sample name,Total #reads,Reads aligned PF,Genomic coordinates 0X,Genomic coordinates <10X,QC_issues" >> $csvFile
 
 sampleNames=()
 plottingData=()
@@ -67,17 +67,14 @@ for sampleName in $(ls */ -d | tr -d '/'); do
 	echo "<td>$numReads</td><td>$readsMapped</td><td>$numUncovered</td><td>$numPoorlyCovered</td>" >> $summaryfile
 	echo "</tr>" >> $summaryfile
 	
-	#QC_determination="not_performed" # not_performed / passed / failed / contains_issues
 	flags=($(cat $sampleName/${sampleName}_qc-flags.txt | tr '\n' ',' | sed 's/,/<br>/g'))
 	if [[ -z $flags ]]; then
-		QC_determination=passed
 		QC_flags+=(None)
 	else
-		QC_determination=contains_issues
 		QC_flags+=($flags)
 	fi
 	
-	echo "${#sampleNames[@]},$sampleName,$numReads,$readsMapped,$numUncovered,$numPoorlyCovered,${QC_determination},${flags[@]}" >> $csvFile
+	echo "${#sampleNames[@]},$sampleName,$numReads,$readsMapped,$numUncovered,$numPoorlyCovered,${flags[@]}" >> $csvFile
 done
 
 echo '</table>' >> $summaryfile
@@ -115,11 +112,11 @@ echo "<th>QC category</th><th>Subjective definition</th><th>Objective metrics</t
 echo "</tr>" >> $summaryfile
 
 echo "<tr>" >> $summaryfile
-echo "   <td>A</td><td>No QC issues evident</td><td>0x coordinates <1% <br> 10x coordinates <5% <br> average coverage > 100X <br> average quality score >35 for Illumina, >15 if ONT, >70 if PacBio HiFi <br> most abundant taxon is coronovirinae</td>" >> $summaryfile
+echo "   <td>A</td><td>No QC issues evident</td><td>0x coordinates <1% <br> 10x coordinates <5% <br> average coverage > 1000X <br> average quality score >35 for Illumina, >15 if ONT, >70 if PacBio HiFi <br> most abundant taxon is coronovirinae</td>" >> $summaryfile
 echo "</tr>" >> $summaryfile
 	
 echo "<tr>" >> $summaryfile
-echo "   <td>B</td><td>Some QC issues, but accurate variant calling possible</td><td>0x coordinates <20% <br> 10X coordinates < 40% <br> >80% of diverse SNPs covered <br> average coverage > 10X <br> average quality score >35 for Illumina <br> >15 if ONT, >70 if PacBio HiFi</td>" >> $summaryfile 
+echo "   <td>B</td><td>Some QC issues, but accurate variant calling possible</td><td>0x coordinates <20% <br> 10X coordinates < 40% <br> >80% of diverse SNPs covered <br> average coverage > 100X <br> average quality score >35 for Illumina <br> >15 if ONT, >70 if PacBio HiFi</td>" >> $summaryfile 
 echo "</tr>" >> $summaryfile
 	
 echo "<tr>" >> $summaryfile
@@ -141,20 +138,25 @@ echo "<th>Sample Number</th><th>Suggested category</th><th>Suggested QC flags</t
 echo "</tr>" >> $summaryfile
 
 for (( sample_id=1; sample_id<=${#sampleNames[@]}; sample_id++ )); do
-	if [[ ${SNRs[${sample_id}-1]} -lt 50 ]]; then
-		QC_flags[${sample_id}-1]=sample_contamination
+	flags=${QC_flags[${sample_id}-1]}
+	if [[ ${SNRs[${sample_id}-1]} -lt 50 || $flags == *"insufficient_average_coverage"* ]]; then
+		flags=sample_contamination
 		category=F
 	else
-		if [[ ${QC_flags[${sample_id}-1]} == None ]]; then
+		if [[ $flags == None ]]; then
 			category=A
 		else
-			category=B/C
-			# TODO: Incorporate some machine learning output here
+			if [[ $flags == *"low_average_coverage"* ]]; then
+				category=C
+			else
+				category=B/C
+				# TODO: Incorporate some machine learning output here
+			fi
 		fi
 	fi
 	
 	echo "<tr>" >> $summaryfile
-	echo "   <td>${sample_id}</td><td>$category</td><td>${QC_flags[${sample_id}-1]}</td>" >> $summaryfile
+	echo "   <td>${sample_id}</td><td>$category</td><td>$flags</td>" >> $summaryfile
 	echo "</tr>" >> $summaryfile
 done
 

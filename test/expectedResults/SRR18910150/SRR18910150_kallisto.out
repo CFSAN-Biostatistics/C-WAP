@@ -5,8 +5,11 @@ Gamma	0.5
 Eta	0.3
 Epsilon	0.5
 Delta	0.3
-Iota	0.9
+Iota	0.8
 Kappa	0.3
-BA.1	28.7
-BA.2	65.5
-BA.3	1.8
+BA.1	28.1
+BA.2	53.3
+BA.3	1.7
+BA.4	6.5
+BA.5	5.0
+BA.2.12	1.6

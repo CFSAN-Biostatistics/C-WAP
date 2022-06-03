@@ -27,6 +27,11 @@ echo "    <td>Date generated:</td><td>$timestamp</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
+echo "    <td>Timestamp of C-WAP version used:</td><td>$(git --git-dir $projectDir/.git log -n 1 | grep Date: | sed 's/Date:   //g')</td>" >> $reportFile
+echo "</tr>" >> $reportFile
+
+
+echo "<tr>" >> $reportFile
 echo "    <td>Executed by:</td><td>$fullName (<a href=\\"mailto:$USER@fda.hhs.gov?subject=Wastewater report generated on $timestamp\\">$USER@fda.hhs.gov</a>)</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
@@ -253,6 +258,13 @@ echo '</table>' >> $reportFile
 echo "SNPs refer to the polymorphic sites currently in circulation that were detected out of recent GISAID entries. The sites that differ from the SC2 reference sequence are denoted as \"common\" if [90%, 100%] of the submissions carry this mutation, whereas those that are prevalent in [0%,10%] of the submissions are grouped under the \"rare\" category. The population is still diverse at the mutation sites that are observed in (10%,90%) of the entries and these coordinates are grouped under the \"diverse\" category." >> $reportFile
 
 
+# Plots of missing spot counts, grouped w.r.t. SC2 genes.
+echo "<br><br><br><br>" >> $reportFile
+echo "<img src=\"./genesVSuncovered_abscounts.png\" alt=\"Uncovered genome coordinates per gene, absolute counts\" width=\"49%\" class=\"center\">" >> $reportFile
+echo "<img src=\"./genesVSuncovered_scaled.png\" alt=\"Uncovered genome coordinates per gene, counts per kb\" width=\"49%\" class=\"center\">" >> $reportFile
+echo "<br><br><br><br>" >> $reportFile
+
+
 #######################################################
 # Taxonomic classification results of the reads
 numCovid=$(cat k2-std.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $2 }')
@@ -304,7 +316,7 @@ echo "</table>" >> $reportFile
 
 
 #########################################################
-# QC classification, experimental
+# QC classification
 # VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 qc_flags=./qc-flags.txt
 touch $qc_flags
@@ -318,8 +330,19 @@ if [[ $numReads -le 100 ]]; then
 	echo 'low_sequencing_depth' >> $qc_flags
 fi
 
-if [[ $avgCoveragePassed -le 100 ]]; then
-	echo 'low_average_coverage' >> $qc_flags
+# Avg. coverage < 2X -> error, F
+# Avg. coverage < 1000X -> warning, B
+# Avg. coverage < 100X -> warning, C
+if [[ $avgCoveragePassed -lt 2 ]]; then
+	echo 'insufficient_average_coverage' >> $qc_flags
+else
+	if [[ $avgCoveragePassed -lt 100 ]]; then
+		echo 'low_average_coverage' >> $qc_flags
+	else
+		if [[ $avgCoveragePassed -lt 1000 ]]; then
+			echo 'suboptimal_average_coverage' >> $qc_flags
+		fi
+	fi
 fi
 
 if [[ $avgLengthPassed -le 70 ]]; then
@@ -395,6 +418,19 @@ echo "    </div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./pieChart_lcs.png\" alt=\"Abundance of variants by LCS\"\
 				width=\"100%\">" >> $reportFile
+echo "    </div>" >> $reportFile
+echo "</div>" >> $reportFile
+echo "<br>" >> $reportFile
+
+
+echo "<br>" >> $reportFile
+echo "<div>" >> $reportFile
+echo "    <div id=\"figdiv\">" >> $reportFile
+echo "        <img src=\"./freyja_bootstrap.png\" alt=\"Freyja bootstrapping\"\
+				width=\"100%\">" >> $reportFile
+echo "    </div>" >> $reportFile
+echo "    <div id=\"figdiv\">" >> $reportFile
+echo "        " >> $reportFile
 echo "    </div>" >> $reportFile
 echo "</div>" >> $reportFile
 echo "<br>" >> $reportFile

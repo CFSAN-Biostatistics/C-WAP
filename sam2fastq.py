@@ -3,6 +3,7 @@
 # A custom script to obtain a fastq file from a sam file via CIGAR strings
 # This is useful when there is a bam file with soft clipping
 # that needs to be converted into a fastq file
+# Soft clipped primers will be hard clipped in the output fastq.
 
 import csv, sys, re
 

@@ -252,7 +252,7 @@ process variantCalling {
 	output:
 		tuple val(sampleName), path('rawVarCalls.tsv') into ivar_out
 	
-	conda 'ivar'
+	conda 'ivar=1.3.1'
 	
 	shell:
 	"""
@@ -274,11 +274,11 @@ process kraken2stdDB {
 	conda 'kraken2'
 	
 	shell:
-	"""
+	"""	
 		if $isPairedEnd; then
 			kraken2 --paired R1.fastq.gz R2.fastq.gz --db \$K2_STD_DB_PATH --threads 2 --report k2-std.out > /dev/null
 		else
-			kraken2 R1.fastq.gz --db \$K2_STD_DB_PATH --threads 2 --report k2-std.out > /dev/null		
+			kraken2 R1.fastq.gz --db \$K2_STD_DB_PATH --threads 2 --report k2-std.out > /dev/null
 		fi	
 	"""
 }
@@ -291,7 +291,7 @@ process plotCoverageQC {
 		tuple val(sampleName), path('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png') into QChists
+		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png') into QChists
 	
 	conda 'matplotlib scikit-learn pandas'
 
@@ -299,7 +299,7 @@ process plotCoverageQC {
 	shell:
 	"""
 		#uncoveredCoordinates=\$(python3 $projectDir/findUncoveredCoordinates.py $primerBedFile)
-		python3 $projectDir/plotCoverageQualityPerPos.py pile.up $primerBedFile
+		python3 $projectDir/plotQC.py pile.up $primerBedFile
 	"""
 }
 
@@ -408,7 +408,7 @@ process pangolinVariantCaller {
 	output:
 		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv'), path('consensus.fa') into pangolin_out
 	
-	conda 'pangolin'
+	conda 'pangolin=4.0.6'
 	
 	shell:
 	"""
@@ -511,23 +511,31 @@ process LCSvariantCaller {
 
 
 process freyjaVariantCaller {
+	label 'high_cpu'
+
 	input:
 		tuple val(sampleName), env(numReads), path('resorted.bam') from resorted_bam_d
 		
 	output:
-		tuple val(sampleName), path('freyja.demix') into freyja_out
+		tuple val(sampleName), path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.5 samtools=1.15'
+	conda 'freyja=1.3.7 samtools=1.15'
 	
 	shell:
 	"""
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
-			echo Pileup generation for Freyja
-			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths --ref $params.referenceSequence
+			echo Pileup generation for Freyja...
+			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
 			
-			echo Demixing variants by Freyja
-			freyja demix freyja.variants.tsv freyja.depths --output freyja.demix
+			echo Demixing variants by Freyja and bootstrapping
+			freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly &
+			freyja boot freyja.variants.tsv freyja.depths.tsv --nt \$(nproc) --nb 1000 --output_base freyja_boot
+			wait
+			
+			echo Parsing bootstrapping output...
+			export PYTHONHASHSEED=0
+			python3 $projectDir/parseFreyjaBootstraps.py freyja.demix freyja_boot_lineages.csv freyja_bootstrap.png
 		else
 			# Due to a potential bug, some big fastqs result in a pandas error.
 			# Generate an empty file to circumvent such failure cases
@@ -536,10 +544,12 @@ process freyjaVariantCaller {
 			echo lineages\$'\t'"['Error']" >> freyja.demix
 			echo abundances\$'\t'"[1.00]" >> freyja.demix
 			echo resid\$'\t'-1 >> freyja.demix
+			
+			echo "ERROR" > freyja_boot_lineages.csv 
+			touch freyja_bootstrap.png
 		fi
 	"""
 }
-
 
 
 // A metadata fetch attemp from NCBI via Entrez-Direct
@@ -553,7 +563,7 @@ process getNCBImetadata {
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
 	// Wait some random time so that threads go out of sync.
 	errorStrategy { sleep(1000 * Math.random() as long); return 'retry' }
-	maxRetries = 15
+	maxRetries = 105
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_c
@@ -566,7 +576,7 @@ process getNCBImetadata {
 	shell:
 	"""
 	srrNumber=$sampleName
-	if [[ $task.attempt -lt 10 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
+	if [[ $task.attempt -lt 100 ]] && [[ \${srrNumber:0:3} == 'SRR' ]]; then
 		# The tool returns error: too many requests, bypassing by redirection of error		
 		sraQueryResult=\$(esearch -db sra -query \$srrNumber 2>/dev/null)
 		sleep 1
@@ -660,13 +670,13 @@ process generateReport {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
 		path('sorted.stats'), path('resorted.stats'),
 		path('k2-std.out'),
-		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'),
+		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'),
 		path('readLengthHist.png'),
 		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
 		env(consensusLineage), path('lineage_report.csv'), path('consensus.fa'),
 		path('kallisto_abundance.tsv'),
-		path('freyja.demix'),
+		path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png'),
 		path('lcs.out') from reportInputCh
 	
 	output:
@@ -718,11 +728,12 @@ process html2pdf {
 	output:
 		file "analysisResults" into analysisResults
 
-	conda 'openssl=1.0 wkhtmltopdf ghostscript'
+	conda 'openssl=1.0 wkhtmltopdf ghostscript=9.54'
 	label 'high_cpu'
 	publishDir "$params.out", mode: 'copy', overwrite: true	
 	
 	shell:
+	if (params.make_pdfs) {
 	"""
 		echo Generating report.pdf...
 		cd analysisResults
@@ -745,7 +756,13 @@ process html2pdf {
 		rm ./*/*/temp.html
 		
 		echo Merging PDFs...
-		gs -dNOPAUSE -dPDFSETTINGS=/prepress -sDEVICE=pdfwrite -sOUTPUTFILE=./consolidated.pdf -dBATCH ./summary.pdf ./*/*report/report.pdf
+		gs -dNOPAUSE -dQUIET -dBATCH -sDEVICE=pdfwrite -dPreserveAnnots=false -sOUTPUTFILE=./consolidated.pdf ./summary.pdf ./*/*report/report.pdf
 	"""
+	}
+	else {
+	"""
+		echo make_pdfs was set to false, so skipped the pdf generation.
+	"""
+	}
 }
 

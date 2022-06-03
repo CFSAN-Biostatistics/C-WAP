@@ -12,8 +12,9 @@ import os
 # Pre-process the genomic features of covid genome.
 # Generate a mapping between ORF/gene names and genomic coordinates.
 # Each entry in the dict is name->(startPos, endPos)
-# constellationsDir = "/projects/covidtrakr/software/constellations/constellations"
-constellationsDir = "/projects/covidtrakr/software/miniconda3/envs/pangolin/lib/python3.8/site-packages/constellations"
+
+# Path to pangolin conda env dir > constellations
+constellationsDir = "conda/env-63ad63ac5b417801059157467fc8e0e8/lib/python3.8/site-packages/constellations"
 
 file = open(constellationsDir + "/data/SARS-CoV-2.json", 'r')
 fileContents = json.load(file)
@@ -150,7 +151,7 @@ for filename in glob.iglob(constellationsDir + "/definitions/*.json"):
     #        break
     
     # Alternatively, manual decision based on common variants in press.
-    if variantName.upper() in ['B.1.617.2', 'AY.4', 'AY.4.2', 'BA.1', 'BA.2', 'BA.3']:
+    if variantName.upper() in ['B.1.617.2', 'BA.1', 'BA.2', 'BA.3', 'BA.4', 'BA.5']:
         importantVars["VOC"].append(variantName)
     
 # Include the wt sequence in the list, which has no mutations at all (mostly for normalisation purposes)

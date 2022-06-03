@@ -122,13 +122,16 @@ tr:nth-child(even) {
     <td>Sample name:</td><td>SRR18910147</td>
 </tr>
 <tr>
-    <td>Date generated:</td><td>2022-04-27, 16:25:26 EDT</td>
+    <td>Date generated:</td><td>2022-06-03, 15:21:21 UTC</td>
 </tr>
 <tr>
-    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-04-27, 16:25:26 EDT\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
+    <td>Timestamp of C-WAP version used:</td><td>Sat May 28 00:55:30 2022 +0000</td>
 </tr>
 <tr>
-    <td>Executed on:</td><td>172.20.44.180 (aka n180.raven.cfsan)</td>
+    <td>Executed by:</td><td>tunc kayikcioglu (<a href=\mailto:tunc.kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-06-03, 15:21:21 UTC\>tunc.kayikcioglu@fda.hhs.gov</a>)</td>
+</tr>
+<tr>
+    <td>Executed on:</td><td>172.20.17.184 (aka compute-dy-r54xlarge-1)</td>
 </tr>
 </table>
 
@@ -205,29 +208,33 @@ A read passes filter if the read length after adaptor trimming &#8805; 30 and mi
     <td>Common SNPs:</td><td>0nt (0%)</td> <td>0nt (0%)</td>
 </tr>
 <tr>
-    <td>Diverse SNPs:</td><td>0nt (0%)</td> <td>34nt (6%)</td>
+    <td>Diverse SNPs:</td><td>0nt (0%)</td> <td>29nt (5%)</td>
 </tr>
 <tr>
-    <td>Rare SNPs:</td><td>0nt (0%)</td> <td>6nt (0%)</td>
+    <td>Rare SNPs:</td><td>0nt (0%)</td> <td>11nt (0%)</td>
 </tr>
 </table>
 SNPs refer to the polymorphic sites currently in circulation that were detected out of recent GISAID entries. The sites that differ from the SC2 reference sequence are denoted as "common" if [90%, 100%] of the submissions carry this mutation, whereas those that are prevalent in [0%,10%] of the submissions are grouped under the "rare" category. The population is still diverse at the mutation sites that are observed in (10%,90%) of the entries and these coordinates are grouped under the "diverse" category.
+<br><br><br><br>
+<img src="./genesVSuncovered_abscounts.png" alt="Uncovered genome coordinates per gene, absolute counts" width="49%" class="center">
+<img src="./genesVSuncovered_scaled.png" alt="Uncovered genome coordinates per gene, counts per kb" width="49%" class="center">
+<br><br><br><br>
 <table>
 <tr>
-    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>193667 reads (56.38%) </td>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>193672 reads (56.39%) </td>
 </tr>
 <tr>
-    <td>Hits to human genome (kraken2):</td><td>2420 reads (0.70%)</td>
+    <td>Hits to human genome (kraken2):</td><td>2431 reads (0.71%)</td>
 </tr>
 <tr>
     <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>0 reads (0.00%)</td>
 </tr>
 <tr>
-    <td>Most abundant organisms (kraken2, family level):</td><td>Coronaviridae (56.38%)<br>
-Campylobacteraceae (18.99%)<br>
-Pseudomonadaceae (2.48%)<br>
-Comamonadaceae (1.44%)<br>
-Bacteroidaceae (1.23%)<br></td>
+    <td>Most abundant organisms (kraken2, family level):</td><td>Coronaviridae (56.39%)<br>
+Campylobacteraceae (19.04%)<br>
+Pseudomonadaceae (2.49%)<br>
+Comamonadaceae (1.46%)<br>
+Flavobacteriaceae (1.05%)<br></td>
 </tr>
 </table>
 <br>
@@ -242,7 +249,7 @@ Bacteroidaceae (1.23%)<br></td>
 </div>
 <div id="caption">
     <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a> 
-	is estimated to constitute 68.28% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.61.	Variants that were detected less than 5% were grouped under "Other"
+	is estimated to constitute 71.06% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.62.	Variants that were detected less than 5% were grouped under "Other"
     <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=Unassigned">Unassigned</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
     <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=BA.2"	>BA.2</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
 </div>
@@ -267,6 +274,16 @@ Bacteroidaceae (1.23%)<br></td>
     </div>
 </div>
 <br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./freyja_bootstrap.png" alt="Freyja bootstrapping"				width="100%">
+    </div>
+    <div id="figdiv">
+        
+    </div>
+</div>
+<br>
 <p> Under the assumption that the presence of a variant requires the detection
     of all respective mutations of the variant, the characteric mutations which support the presence of
     the respective variant are indicated in the respective column of the table. Numbers show the number
@@ -274,9 +291,9 @@ Bacteroidaceae (1.23%)<br></td>
     variant definitions.
 <table>
 <tr>
-    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a></td><td><a href="https://outbreak.info/situation-reports?pango=AY.4.2">AY.4.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td></tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td></tr>
 <tr>
-    <td>Characteristic mutations <br> detected</td><td>(1 of 19)<br>ORF1AB:T3255I<br></td><td>(0 of 3)<br></td><td>(2 of 13)<br>S:G142D<br>S:T478K<br></td><td>(12 of 23)<br>NUC:C15240T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:T13195C<br>NUC:T5386G<br>ORF1AB:A2710T<br>ORF1AB:I3758V<br>S:G446S<br>S:G496S<br>S:L981F<br>S:N856K<br>S:T547K<br></td><td>(21 of 28)<br>N:S413R<br>NUC:A20055G<br>NUC:A9424G<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C26858T<br>NUC:C4321T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:L3027F<br>ORF1AB:L3201F<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:R408S<br>S:S371F<br>S:T19I<br>S:T376A<br></td><td>(10 of 19)<br>N:S413R<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C26858T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>S:D405N<br>S:G446S<br>S:S371F<br></td>
+    <td>Characteristic mutations <br> detected</td><td>(2 of 13)<br>S:G142D<br>S:T478K<br></td><td>(13 of 26)<br>NUC:C15240T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:T13195C<br>NUC:T5386G<br>ORF1AB:A2710T<br>ORF1AB:I3758V<br>S:G446S<br>S:G496S<br>S:L981F<br>S:N856K<br>S:Q493R<br>S:T547K<br></td><td>(22 of 31)<br>N:S413R<br>NUC:A20055G<br>NUC:A9424G<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C26858T<br>NUC:C4321T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:L3027F<br>ORF1AB:L3201F<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:Q493R<br>S:R408S<br>S:S371F<br>S:T19I<br>S:T376A<br></td><td>(11 of 21)<br>N:S413R<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C26858T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>S:D405N<br>S:G446S<br>S:Q493R<br>S:S371F<br></td><td>(18 of 31)<br>N:S413R<br>NUC:A20055G<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C26858T<br>NUC:C4321T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:S371F<br>S:T19I<br>S:T376A<br>S:V213G<br></td><td>(17 of 28)<br>N:S413R<br>NUC:A20055G<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C4321T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:S371F<br>S:T19I<br>S:T376A<br>S:V213G<br></td>
 </tr>
 </table>
 <br>
@@ -691,7 +708,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>2789</td> <td>A</td> <td>-C</td> <td>0.139</td> <td nowrap>2.45E-13</td><td>DEL:2789:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>2790</td> <td>C</td> <td>T</td> <td>0.984</td> <td nowrap>1.29E-128</td><td>ORF1AB:T842I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>2790</td> <td>C</td> <td>T</td> <td>0.984</td> <td nowrap>1.29E-128</td><td>ORF1AB:T842I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>2809</td> <td>G</td> <td>-A</td> <td>0.078</td> <td nowrap>4.00E-10</td><td>DEL:2809:1</td> <td>None found</td>
@@ -883,7 +900,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>4148</td> <td>G</td> <td>-T</td> <td>0.090</td> <td nowrap>5.41E-11</td><td>DEL:4148:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>4184</td> <td>G</td> <td>A</td> <td>0.158</td> <td nowrap>5.03E-18</td><td>ORF1AB:G1307S</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>4184</td> <td>G</td> <td>A</td> <td>0.158</td> <td nowrap>5.03E-18</td><td>ORF1AB:G1307S</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>4206</td> <td>C</td> <td>G</td> <td>0.060</td> <td nowrap>6.99E-03</td><td>ORF1AB:A1314G</td> <td>None found</td>
@@ -922,7 +939,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>4319</td> <td>G</td> <td>-C</td> <td>0.091</td> <td nowrap>5.78E-21</td><td>DEL:4319:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>4321</td> <td>C</td> <td>T</td> <td>0.269</td> <td nowrap>1.68E-31</td><td>NUC:C4321T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>4321</td> <td>C</td> <td>T</td> <td>0.269</td> <td nowrap>1.68E-31</td><td>NUC:C4321T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>4344</td> <td>T</td> <td>-C</td> <td>0.077</td> <td nowrap>1.22E-05</td><td>DEL:4344:1</td> <td>None found</td>
@@ -1111,7 +1128,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>5368</td> <td>A</td> <td>+G</td> <td>0.051</td> <td nowrap>7.25E-26</td><td>NUC:A5368+G</td> <td>None found</td>
 </tr>
 <tr>
-    <td>5386</td> <td>T</td> <td>G</td> <td>0.303</td> <td nowrap>1.86E-78</td><td>NUC:T5386G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
+    <td>5386</td> <td>T</td> <td>G</td> <td>0.303</td> <td nowrap>1.86E-78</td><td>NUC:T5386G</td> <td><a href="https://outbreak.info/situation-reports?pango=XE-parent1">XE-parent1</a>, <a href="https://outbreak.info/situation-reports?pango=XE">XE</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
 </tr>
 <tr>
     <td>5392</td> <td>C</td> <td>-T</td> <td>0.183</td> <td nowrap>3.92E-131</td><td>DEL:5392:1</td> <td>None found</td>
@@ -1471,7 +1488,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>8371</td> <td>G</td> <td>T</td> <td>0.575</td> <td nowrap>9.58E-48</td><td>ORF1AB:Q2702H</td> <td>None found</td>
 </tr>
 <tr>
-    <td>8393</td> <td>G</td> <td>A</td> <td>0.430</td> <td nowrap>3.05E-30</td><td>ORF1AB:A2710T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
+    <td>8393</td> <td>G</td> <td>A</td> <td>0.430</td> <td nowrap>3.05E-30</td><td>ORF1AB:A2710T</td> <td><a href="https://outbreak.info/situation-reports?pango=XE-parent1">XE-parent1</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
 </tr>
 <tr>
     <td>8442</td> <td>G</td> <td>-A</td> <td>0.052</td> <td nowrap>1.08E-06</td><td>DEL:8442:1</td> <td>None found</td>
@@ -1654,7 +1671,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>9519</td> <td>T</td> <td>-C</td> <td>0.084</td> <td nowrap>4.93E-91</td><td>DEL:9519:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>9534</td> <td>C</td> <td>T</td> <td>0.614</td> <td nowrap>0.00E+00</td><td>ORF1AB:T3090I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>9534</td> <td>C</td> <td>T</td> <td>0.614</td> <td nowrap>0.00E+00</td><td>ORF1AB:T3090I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>9587</td> <td>A</td> <td>-T</td> <td>0.083</td> <td nowrap>7.92E-114</td><td>DEL:9587:1</td> <td>None found</td>
@@ -1753,7 +1770,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>10168</td> <td>T</td> <td>-C</td> <td>0.093</td> <td nowrap>8.67E-75</td><td>DEL:10168:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>10198</td> <td>C</td> <td>T</td> <td>0.357</td> <td nowrap>8.10E-269</td><td>NUC:C10198T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>10198</td> <td>C</td> <td>T</td> <td>0.357</td> <td nowrap>8.10E-269</td><td>NUC:C10198T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>10202</td> <td>C</td> <td>T</td> <td>0.063</td> <td nowrap>3.24E-09</td><td>ORF1AB:L3313F</td> <td>None found</td>
@@ -1792,7 +1809,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>10423</td> <td>T</td> <td>A</td> <td>0.445</td> <td nowrap>0.00E+00</td><td>NUC:T10423A</td> <td>None found</td>
 </tr>
 <tr>
-    <td>10447</td> <td>G</td> <td>A</td> <td>0.470</td> <td nowrap>0.00E+00</td><td>NUC:G10447A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>10447</td> <td>G</td> <td>A</td> <td>0.470</td> <td nowrap>0.00E+00</td><td>NUC:G10447A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>10449</td> <td>C</td> <td>A</td> <td>0.987</td> <td nowrap>0.00E+00</td><td>ORF1AB:P3395H</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
@@ -2194,7 +2211,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>12859</td> <td>G</td> <td>-A</td> <td>0.059</td> <td nowrap>1.97E-58</td><td>DEL:12859:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>12880</td> <td>C</td> <td>T</td> <td>0.477</td> <td nowrap>0.00E+00</td><td>NUC:C12880T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>12880</td> <td>C</td> <td>T</td> <td>0.477</td> <td nowrap>0.00E+00</td><td>NUC:C12880T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a>, <a href="https://outbreak.info/situation-reports?pango=XE">XE</a></td>
 </tr>
 <tr>
     <td>12900</td> <td>C</td> <td>+T</td> <td>0.076</td> <td nowrap>7.10E-90</td><td>NUC:C12900+T</td> <td>None found</td>
@@ -2605,7 +2622,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>15672</td> <td>G</td> <td>T</td> <td>0.269</td> <td nowrap>0.00E+00</td><td>ORF1AB:E735D</td> <td>None found</td>
 </tr>
 <tr>
-    <td>15714</td> <td>C</td> <td>T</td> <td>0.248</td> <td nowrap>3.03E-226</td><td>NUC:C15714T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>15714</td> <td>C</td> <td>T</td> <td>0.248</td> <td nowrap>3.03E-226</td><td>NUC:C15714T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>15716</td> <td>C</td> <td>-T</td> <td>0.066</td> <td nowrap>2.41E-103</td><td>DEL:15716:1</td> <td>None found</td>
@@ -3304,7 +3321,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>20034</td> <td>T</td> <td>-A</td> <td>0.058</td> <td nowrap>1.22E-65</td><td>DEL:20034:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>20055</td> <td>A</td> <td>G</td> <td>0.377</td> <td nowrap>2.82E-262</td><td>NUC:A20055G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>20055</td> <td>A</td> <td>G</td> <td>0.377</td> <td nowrap>2.82E-262</td><td>NUC:A20055G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>20064</td> <td>T</td> <td>-A</td> <td>0.116</td> <td nowrap>4.60E-89</td><td>DEL:20064:1</td> <td>None found</td>
@@ -3565,7 +3582,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>21610</td> <td>T</td> <td>C</td> <td>0.195</td> <td nowrap>1.17E-142</td><td>NUC:T21610C</td> <td>None found</td>
 </tr>
 <tr>
-    <td>21618</td> <td>C</td> <td>T</td> <td>0.629</td> <td nowrap>0.00E+00</td><td>S:T19I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>21618</td> <td>C</td> <td>T</td> <td>0.629</td> <td nowrap>0.00E+00</td><td>S:T19I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>21632</td> <td>T</td> <td>-TACCCCCTG</td> <td>0.484</td> <td nowrap>0.00E+00</td><td>DEL:21632:9</td> <td>None found</td>
@@ -3715,7 +3732,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>22199</td> <td>G</td> <td>-T</td> <td>0.087</td> <td nowrap>3.07E-90</td><td>DEL:22199:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>22200</td> <td>T</td> <td>G</td> <td>0.614</td> <td nowrap>1.76E-228</td><td>S:V213G</td> <td>None found</td>
+    <td>22200</td> <td>T</td> <td>G</td> <td>0.614</td> <td nowrap>1.76E-228</td><td>S:V213G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td>
 </tr>
 <tr>
     <td>22202</td> <td>C</td> <td>T</td> <td>0.105</td> <td nowrap>8.39E-34</td><td>S:R214C</td> <td>None found</td>
@@ -3808,7 +3825,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>22671</td> <td>A</td> <td>+T</td> <td>0.080</td> <td nowrap>6.73E-113</td><td>NUC:A22671+T</td> <td>None found</td>
 </tr>
 <tr>
-    <td>22674</td> <td>C</td> <td>T</td> <td>0.920</td> <td nowrap>0.00E+00</td><td>S:S371F</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>22674</td> <td>C</td> <td>T</td> <td>0.920</td> <td nowrap>0.00E+00</td><td>S:S371F</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>22679</td> <td>T</td> <td>C</td> <td>0.975</td> <td nowrap>0.00E+00</td><td>S:S373P</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
@@ -3823,7 +3840,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>22686</td> <td>C</td> <td>T</td> <td>0.947</td> <td nowrap>0.00E+00</td><td>S:S375F</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
 </tr>
 <tr>
-    <td>22688</td> <td>A</td> <td>G</td> <td>0.967</td> <td nowrap>0.00E+00</td><td>S:T376A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>22688</td> <td>A</td> <td>G</td> <td>0.967</td> <td nowrap>0.00E+00</td><td>S:T376A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>22704</td> <td>G</td> <td>-A</td> <td>0.064</td> <td nowrap>7.42E-88</td><td>DEL:22704:1</td> <td>None found</td>
@@ -3847,10 +3864,10 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>22771</td> <td>A</td> <td>-G</td> <td>0.125</td> <td nowrap>4.83E-281</td><td>DEL:22771:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>22775</td> <td>G</td> <td>A</td> <td>0.820</td> <td nowrap>0.00E+00</td><td>S:D405N</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>22775</td> <td>G</td> <td>A</td> <td>0.820</td> <td nowrap>0.00E+00</td><td>S:D405N</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
-    <td>22786</td> <td>A</td> <td>C</td> <td>0.750</td> <td nowrap>0.00E+00</td><td>S:R408S</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+    <td>22786</td> <td>A</td> <td>C</td> <td>0.750</td> <td nowrap>0.00E+00</td><td>S:R408S</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>22794</td> <td>C</td> <td>-T</td> <td>0.060</td> <td nowrap>2.08E-131</td><td>DEL:22794:1</td> <td>None found</td>
@@ -3922,7 +3939,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>23034</td> <td>C</td> <td>-T</td> <td>0.100</td> <td nowrap>9.37E-21</td><td>DEL:23034:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>23040</td> <td>A</td> <td>G</td> <td>0.994</td> <td nowrap>3.60E-230</td><td>S:Q493R</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+    <td>23040</td> <td>A</td> <td>G</td> <td>0.994</td> <td nowrap>3.60E-230</td><td>S:Q493R</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
 </tr>
 <tr>
     <td>23047</td> <td>T</td> <td>+A</td> <td>0.065</td> <td nowrap>1.52E-11</td><td>NUC:T23047+A</td> <td>None found</td>
@@ -4258,7 +4275,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>24981</td> <td>C</td> <td>-T</td> <td>0.198</td> <td nowrap>0.00E+00</td><td>DEL:24981:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>25000</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>NUC:C25000T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
+    <td>25000</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>NUC:C25000T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
 </tr>
 <tr>
     <td>25006</td> <td>C</td> <td>-A</td> <td>0.079</td> <td nowrap>8.43E-108</td><td>DEL:25006:1</td> <td>None found</td>
@@ -4387,7 +4404,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>25563</td> <td>G</td> <td>-A</td> <td>0.060</td> <td nowrap>2.51E-110</td><td>DEL:25563:1</td> <td>None found</td>
 </tr>
 <tr>
-    <td>25584</td> <td>C</td> <td>T</td> <td>0.972</td> <td nowrap>0.00E+00</td><td>NUC:C25584T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
+    <td>25584</td> <td>C</td> <td>T</td> <td>0.972</td> <td nowrap>0.00E+00</td><td>NUC:C25584T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td>
 </tr>
 <tr>
     <td>25587</td> <td>C</td> <td>-AA</td> <td>0.085</td> <td nowrap>9.08E-125</td><td>DEL:25587:2</td> <td>None found</td>
@@ -4639,7 +4656,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>26838</td> <td>A</td> <td>-CG</td> <td>0.071</td> <td nowrap>2.15E-188</td><td>DEL:26838:2</td> <td>None found</td>
 </tr>
 <tr>
-    <td>26858</td> <td>C</td> <td>T</td> <td>0.452</td> <td nowrap>0.00E+00</td><td>NUC:C26858T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>26858</td> <td>C</td> <td>T</td> <td>0.452</td> <td nowrap>0.00E+00</td><td>NUC:C26858T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>26861</td> <td>T</td> <td>-C</td> <td>0.060</td> <td nowrap>2.75E-117</td><td>DEL:26861:1</td> <td>None found</td>
@@ -5179,7 +5196,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>29491</td> <td>A</td> <td>+T</td> <td>0.050</td> <td nowrap>3.54E-131</td><td>NUC:A29491+T</td> <td>None found</td>
 </tr>
 <tr>
-    <td>29510</td> <td>A</td> <td>C</td> <td>0.536</td> <td nowrap>0.00E+00</td><td>N:S413R</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td>
+    <td>29510</td> <td>A</td> <td>C</td> <td>0.536</td> <td nowrap>0.00E+00</td><td>N:S413R</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
 </tr>
 <tr>
     <td>29519</td> <td>T</td> <td>-C</td> <td>0.072</td> <td nowrap>2.41E-220</td><td>DEL:29519:1</td> <td>None found</td>

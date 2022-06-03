@@ -4,18 +4,23 @@ mkdir ./fastq
 
 srrList=(SRR18910147 SRR18910148 SRR18910149 SRR18910150)
 
-for srr in "${srrList[@]}"; do			
+for srr in "${srrList[@]}"; do
 	echo Downloading $srr...
 	fasterq-dump -p $srr -O ./fastq
 	# mv fastq/${srr}_1.fastq fastq/${srr}_R1.fastq
 	# mv fastq/${srr}_2.fastq fastq/${srr}_R2.fastq
+	gzip ./fastq/${srr}*.fastq &
 done
 
-echo Compressing downloaded input files...
-gzip -v ./fastq/*.fastq
+echo Waiting for the compression of the downloaded fastq files...
+wait
 
 
-../startWorkflow.nf --platform n --in ./fastq --out ./ 
+# Choose a profile suitable for your system configuration in the below line.
+# You might also need to edit nextflow.config file, if none of the pre-defined
+# settings reflect your CPU core count and/or RAM available.
+# predefined profiles: aws, standard (HPC cluster with slurm) or local_only (e.g. PC without nodes)
+../startWorkflow.nf --platform n --in ./fastq --out ./ -profile aws
 
 
 echo "All done, hopefully well done."
