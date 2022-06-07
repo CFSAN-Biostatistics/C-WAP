@@ -450,7 +450,7 @@ process kallistoVariantCaller {
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_b
 
 	output:
-		tuple val(sampleName), path('kallisto_abundance.tsv') into kallisto_out
+		tuple val(sampleName), path('abundance.tsv') into kallisto_out
 		
 	conda 'kallisto'
 		
@@ -459,12 +459,11 @@ process kallistoVariantCaller {
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 10 ]]; then
 			kallisto quant --index $projectDir/customDBs/variants.kalIdx --output-dir ./ \
-					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz || true
+					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz
 		else
 			echo target_id\$'\t'length\$'\t'eff_length\$'\t'est_counts tpm > abundance.tsv
 			echo Error\$'\t'29903\$'\t'29903\$'\t'100\$'\t'100 >> abundance.tsv
 		fi
-		mv abundance.tsv kallisto_abundance.tsv
 	"""
 }
 
