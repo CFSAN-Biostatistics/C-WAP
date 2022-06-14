@@ -540,9 +540,10 @@ process freyjaVariantCaller {
 			# Generate an empty file to circumvent such failure cases
 			echo FATAL ERROR > freyja.demix
 			echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
-			echo lineages\$'\t'"['Error']" >> freyja.demix
-			echo abundances\$'\t'"[1.00]" >> freyja.demix
+			echo lineages\$'\t'Error >> freyja.demix
+			echo abundances\$'\t'1.00 >> freyja.demix
 			echo resid\$'\t'-1 >> freyja.demix
+			echo coverage\$'\t'-1 >> freyja.demix
 			
 			echo "ERROR" > freyja_boot_lineages.csv 
 			touch freyja_bootstrap.png
