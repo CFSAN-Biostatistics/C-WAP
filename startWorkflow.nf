@@ -71,7 +71,7 @@ def getSampleName(filename) {
 	
 	// For complicated file names involving underscores that cannot be eliminated
 	// Ex: /path/to/dir/some_thing_R1.fastq -> some-thing	
-	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
+	sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
 	
 	// If there are special fixed substrings available within all file names.
 	// Ex: /path/to/dir/some_thing_1art_out_R1.fastq -> some-thing-1
