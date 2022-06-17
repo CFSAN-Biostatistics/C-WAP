@@ -71,7 +71,7 @@ def getSampleName(filename) {
 	
 	// For complicated file names involving underscores that cannot be eliminated
 	// Ex: /path/to/dir/some_thing_R1.fastq -> some-thing	
-	sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
+	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
 	
 	// If there are special fixed substrings available within all file names.
 	// Ex: /path/to/dir/some_thing_1art_out_R1.fastq -> some-thing-1
@@ -262,8 +262,10 @@ process variantCalling {
 }
 
 
-process kraken2stdDB {
+// Kraken2-based taxonomic classification
+process k2stdDB {
 	memory '70 GB'
+	maxForks 1 // Execute only a few at a time, reduces storage IO by avoiding concurrent read access.
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b
@@ -557,7 +559,8 @@ process freyjaVariantCaller {
 process getNCBImetadata {
 	// Allow access to this section only 1 thread at a time to avoid network congestion.
 	executor = 'local'
-	queueSize = 1
+	// queueSize = 1
+	maxForks 1
 	submitRateLimit = '3/1min'
 	
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
