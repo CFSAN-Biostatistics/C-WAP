@@ -9,39 +9,33 @@ import numpy as np
 from multiprocessing import Pool, Lock, shared_memory
 
 
-
-if len(sys.argv) != 3:
+if len(sys.argv) != 4:
     raise Exception('Incorrect call to the script.')
 
 mask_file = sys.argv[1]
-num_total_masks = sys.argv[2]
+num_masks = int(sys.argv[2])
+ncores = int(sys.argv[3])
 num_features = 29903 # SC2 genome length
 
 
-def make_mask ():
-    masks = np.empty((1,num_features))
-    for i in range(num_masks):
-        # Random number of loci at random locations are selected to be missing
-        loci_present = np.ones(num_features)
-        fail_ratio = np.random.rand()
+def make_mask (mask_id):
+    # Random number of loci at random locations are selected to be missing
+    loci_present = np.ones(num_features)
+    coverage_ratio = np.random.rand() # % genome covered, needs tuning
         
-        cursor = 0
-        while cursor < num_features:
-            prev_cursor = cursor
-            cursor += np.random.randint(0,501)
-            if np.random.rand() < fail_ratio:
-                loci_present[prev_cursor:cursor] = 0
-        
-        subsample_freyja_inputs(loci_present, i, file_dir=in_dir)
-        masks[i,:] = loci_present
-		
+    cursor = 0
+    while cursor < num_features:
+        prev_cursor = cursor
+        cursor += np.random.randint(0,501) # Range of gap lengths, needs tuning
+        if np.random.rand() < coverage_ratio:
+            loci_present[prev_cursor:cursor] = 0
+    
+    return loci_present
+
  
 # Spawn multiple processes
-num_processes = 20
-num_masks_per_core = 
-pool = Pool(processes=20, maxtasksperchild=1)
-masks = pool.map(makeTree, range(num_trees))
-all_masks = 
+pool = Pool(processes=ncores)
+masks = pool.map(make_mask, range(num_masks))
 
 
 # Wait for all processes to complete
@@ -49,5 +43,7 @@ pool.close()
 pool.join()
 
 
+# Record the simulated masks to a file
 with open(mask_file, 'wb') as file:
-    pickle.dump(all_masks, file)
+    pickle.dump(masks, file)
+

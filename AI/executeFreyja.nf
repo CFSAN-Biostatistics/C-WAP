@@ -6,25 +6,26 @@ inSubfolders = Channel.fromPath("$params.inpath/*", type: 'any', checkIfExists: 
 
 process freyja {
 	time = '20 min'
-	cpus = 1
+	cpus = 2
 	memory = '8 GB'
 	errorStrategy = 'retry'
 	maxRetries = 10
 	
-	publishDir "$params.outpath/", mode: 'copy', overwrite: true
 	input:
 		path('subfolder') from inSubfolders
 	
 	output:
 		path('demix/*') into outfiles
-		
+	
+	publishDir "$params.outpath/", mode: 'copy', overwrite: true
+	conda 'freyja=1.3.7 samtools=1.15'
+	
 	shell:
 	"""
 		unset PYTHONPATH
-		freyjaBin=/projects/covidtrakr/software/miniconda3/envs/freyja-env/bin/freyja
 		mkdir ./demix
 		for fileIdx in \$(ls subfolder/depths/* | awk -F '/' '{print \$NF}' | awk -F '.' '{print \$1}'); do
-			\$freyjaBin demix subfolder/variants/\$fileIdx.tsv subfolder/depths/\$fileIdx.tsv --output ./demix/\$fileIdx
+			freyja demix subfolder/variants/\$fileIdx.tsv subfolder/depths/\$fileIdx.tsv --output ./demix/\$fileIdx --confirmedonly
 		done
 	"""
 }

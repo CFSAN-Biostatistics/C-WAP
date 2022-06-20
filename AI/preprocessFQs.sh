@@ -3,7 +3,7 @@
 source ~/c-wap/CFSANonly/prepareEnvironment.sh
 
 
-numThreads=20
+numThreads=15
 
 for fqfile in $(ls fastq/*_R1*.gz); do
 	echo Now processing $fqfile...

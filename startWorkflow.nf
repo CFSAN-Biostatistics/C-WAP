@@ -768,5 +768,7 @@ process html2pdf {
 }
 
 
-println('Pipeline execution complete. Thank you for choosing C-WAP')
+analysisResults.subscribe onComplete: {
+	println('Pipeline execution complete. Thank you for choosing C-WAP')
+}
 

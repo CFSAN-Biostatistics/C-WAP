@@ -153,15 +153,13 @@ def isVarSupported(varname):
             if sigMutationMatrix[i, varID] == 1:
                 if freqVec[i] < 0.001:
                     # At least one of the mutations does not exist (below threshold presence)
-                    relevantMuts['unsupporting'].append(
-                        uniqueMutationLabels[i])
+                    relevantMuts['unsupporting'].append(uniqueMutationLabels[i])
                 else:
                     # This mutation is present to sufficient degree.
                     relevantMuts['supporting'].append(uniqueMutationLabels[i])
 
     else:
-        raise LookupError(
-            "The mutation signatures for variant %s not found" % var)
+        raise LookupError("The mutation signatures for variant %s not found" % var)
     return relevantMuts
 
 
@@ -180,13 +178,12 @@ def buildVarSupportTable(varGenre):
         outfile.write("<td>%s</td>" % ("<a href=\"https://outbreak.info/situation-reports?pango=" +
                       varname + "\">" + varname + "</a>"))
 
-    outfile.write(
-        "</tr>\n<tr>\n    <td>Characteristic mutations <br> detected</td>")
+    outfile.write("</tr>\n<tr>\n    <td>Characteristic mutations <br> detected</td>")
     for varname in importantVars[varGenre]:
         mutSupport = isVarSupported(varname)
         outfile.write("<td>")
         outfile.write('(%d of %d)<br>' % (len(mutSupport['supporting']),
-                len(mutSupport['supporting'])+len(mutSupport['unsupporting'])))
+                len(mutSupport['supporting']) + len(mutSupport['unsupporting'])))
         for mut in mutSupport['supporting']:
             outfile.write('%s<br>' % mut)
         outfile.write("</td>")
@@ -201,5 +198,44 @@ if len(importantVars["VOI"]) > 0:
 
 if len(importantVars["VUI"]) > 0:
     buildVarSupportTable("VUI")
+    
+
+
+#################################################################################
+# Jaccard index to compute pairwise similarity measured between important variant groups.
+def jaccard_index (list1, list2):
+    intersection = len(list(set(list1).intersection(list2)))
+    union = len(list1) + len(list2) - intersection
+    return float(intersection) / union
+
+
+def calculate_variant_jaccards (var1, var2):
+    muts1 = isVarSupported(var1)
+    muts2 = isVarSupported(var2)    
+    measured_jaccard = jaccard_index(muts1['supporting'], muts2['supporting'])
+    expected_jaccard = jaccard_index(muts1['supporting']+muts1['unsupporting'], muts2['supporting']+muts2['unsupporting'])
+    return (measured_jaccard, expected_jaccard)
+
+
+# Export an html table showing Jaccard Index between VOCs measured(expected -> href Venn diagram)
+outfile.write('\n<br>\n<a href=\"https://en.wikipedia.org/wiki/Jaccard_index">Jaccard Index</a> is a measure of similarity between two sets A and B, reaching the maximum value of 1 if A=B and minimum value of 0 if A &cap; B = {}. In the c(d) representation below, c represents the Jaccard index of the set of mutations that were experimentally detected for this sample as listed above, whereas d refers to the ideal value of the Jaccard index expected from complete genome coverage without any sequencing errors.<br>')
+
+
+outfile.write("<table>\n<tr>\n")
+outfile.write("    <td></td>")
+vars2plot = importantVars["VOC"]
+for var in vars2plot:
+    outfile.write("<td>%s</td>" % var)
+outfile.write("</tr>\n")
+
+for var1 in vars2plot:
+    outfile.write('<tr>\n')
+    outfile.write('    <td>%s</td>' % var1)
+    for var2 in vars2plot:
+        (measured_jaccard, expected_jaccard) = calculate_variant_jaccards(var1, var2)
+        url = 'https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=%s&pangoLineage1=%s&analysisMode=CompareEquals&' % (var1,var2)
+        outfile.write('    <td>%.2f (<a href=\"%s\">%.2f</a>)</td>' % (measured_jaccard, url, expected_jaccard))
+    outfile.write('</tr>\n')
+outfile.write("</table>\n<br>\n")
 
 outfile.close()
