@@ -156,6 +156,7 @@ echo "<img src=\"./depthHistogram.png\" alt=\"Coverage histogram\" width=\"49%\"
 echo "<img src=\"./qualityHistogram.png\" alt=\"Quality histogram\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<br><br><br><br>" >> $reportFile
 echo "<img src=\"./readLengthHist.png\" alt=\"Read length histogram\" width=\"49%\" class=\"center\">" >> $reportFile
+echo "<img src=\"./breadthVSdepth.png\" alt=\"Depth vs breadth plot\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<img src=\"./discontinuitySignal.png\" alt=\"Coverage discontinuity signal\" width=\"49%\" class=\"center\">" >> $reportFile
 
 echo >> $reportFile
@@ -263,6 +264,7 @@ echo "<br><br><br><br>" >> $reportFile
 echo "<img src=\"./genesVSuncovered_abscounts.png\" alt=\"Uncovered genome coordinates per gene, absolute counts\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<img src=\"./genesVSuncovered_scaled.png\" alt=\"Uncovered genome coordinates per gene, counts per kb\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<br><br><br><br>" >> $reportFile
+
 
 
 #######################################################

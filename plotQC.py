@@ -14,7 +14,7 @@ bedfile = sys.argv[2]
 GENOME_SIZE = 29903
 quality = np.zeros(GENOME_SIZE)
 readDepth = np.zeros(GENOME_SIZE)
-numTermini = np.zeros(GENOME_SIZE)
+# numTermini = np.zeros(GENOME_SIZE)
 
 # Import the pile-up file and record the coverage and average quality per position
 with open(pileupFilename) as infile:
@@ -38,7 +38,7 @@ with open(pileupFilename) as infile:
         
         # Count the number of read termini at this location
         # This happens by checking for ^ and $ signs in the pileup file.
-        numTermini[pos] = row[4].count('^') + row[4].count('$')
+        # numTermini[pos] = row[4].count('^') + row[4].count('$')
 
 
 # Calculate moving averages to smooth out patterns
@@ -275,6 +275,24 @@ plt.tight_layout()
 plt.savefig('genesVSuncovered_scaled.png', dpi=200)
 plt.close()
 
+
+
+# Coverage depth vs. breadth plot
+depth_bins = [2**x for x in range(0,15,1)]
+breadth_pdf = np.histogram(readDepth, bins=depth_bins)[0]
+breadth_cdf = np.cumsum(np.flip(breadth_pdf)) * 100.0 / GENOME_SIZE
+
+plt.plot(np.flip(depth_bins[0:-1]), breadth_cdf, '-', color=FDAblue)
+plt.plot(np.flip(depth_bins[0:-1]), breadth_cdf, 'o', color=FDAblue)
+
+plt.xlabel('coverage depth (X, cumulative)')
+plt.xscale('log')
+plt.ylabel('Coverage breadth (%)')
+plt.ylim(0,100)
+
+plt.tight_layout()
+plt.savefig('breadthVSdepth.png', dpi=200)
+plt.close()
 
 
 

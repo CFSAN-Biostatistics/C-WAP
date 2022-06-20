@@ -265,7 +265,7 @@ process variantCalling {
 // Kraken2-based taxonomic classification
 process k2stdDB {
 	memory '70 GB'
-	maxForks 1 // Execute only a few at a time, reduces storage IO by avoiding concurrent read access.
+	label 'high_IO'
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b
@@ -288,19 +288,17 @@ process k2stdDB {
 
 // The pileup file is parsed to calculate the positionwise quality and depth parameters.
 // The result is stored as png files that are added to the html report
-process plotCoverageQC {
+process QCplots {
 	input:
 		tuple val(sampleName), path('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png') into QChists
+		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png') into QChists
 	
 	conda 'matplotlib scikit-learn pandas'
-
 	
 	shell:
 	"""
-		#uncoveredCoordinates=\$(python3 $projectDir/findUncoveredCoordinates.py $primerBedFile)
 		python3 $projectDir/plotQC.py pile.up $primerBedFile
 	"""
 }
@@ -315,8 +313,8 @@ process readLengthHist {
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
 
 	conda 'matplotlib scikit-learn pandas'
+	label 'high_IO'
 
-	
 	shell:
 	"""
 		gzip -dc R1.fastq.gz > allreads.fastq
@@ -525,7 +523,7 @@ process freyjaVariantCaller {
 	
 	shell:
 	"""
-		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
+		if [[ $task.attempt -lt 3 ]] && [[ \$numReads -gt 100 ]]; then
 			echo Pileup generation for Freyja...
 			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
 			
@@ -673,7 +671,7 @@ process generateReport {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
 		path('sorted.stats'), path('resorted.stats'),
 		path('k2-std.out'),
-		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'),
+		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png'),
 		path('readLengthHist.png'),
 		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
@@ -768,4 +766,7 @@ process html2pdf {
 	"""
 	}
 }
+
+
+println('Pipeline execution complete. Thank you for choosing C-WAP')
 
