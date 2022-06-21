@@ -206,7 +206,10 @@ if len(importantVars["VUI"]) > 0:
 def jaccard_index (list1, list2):
     intersection = len(list(set(list1).intersection(list2)))
     union = len(list1) + len(list2) - intersection
-    return float(intersection) / union
+    if union == 0:
+        return -1
+    else:
+        return float(intersection) / union
 
 
 def calculate_variant_jaccards (var1, var2):
