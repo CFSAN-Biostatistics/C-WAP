@@ -11,9 +11,8 @@ import pickle, os, sys, csv
 import pandas as pd
 
 
-scratch_dir = '/projects/covidtrakr/projects_scratch'
-# username = os.getlogin()
-# scratch_dir = '/hpc/scratch/%s/' % username
+from getScratchPath import *
+scratch_dir = getScratchPath()
 
 
 # Functions to interact with freyja   
@@ -92,7 +91,7 @@ def import_input_files (sample_name):
 
 def make_freyja_dirs (sample_name):
     in_dir = '%s/%s-freyja-input/' % (scratch_dir, sample_name)
-    out_dir = '%s/%s-freyja-output/' % (scratch_dir, sample_name)
+    # out_dir = '%s/%s-freyja-output/' % (scratch_dir, sample_name)
     if os.path.exists(in_dir):
         print('Deleting the previous %s...' % in_dir)
         os.system("rm -r %s" % in_dir)
@@ -134,7 +133,7 @@ def process_file(sample_name, masks):
     full_var_call = parse_freyja_output(file_name='./inputs/%s/freyja.demix' % sample_name)
     
     print('Exporting the training data to file...')
-    with open('./%s_training_data.pkl' % sample_name, 'wb') as file:
+    with open('%s/%s_training_data.pkl' % (scratch_dir, sample_name), 'wb') as file:
         pickle.dump(freyja_truths, file)
         pickle.dump(full_var_call, file)
         
@@ -143,7 +142,7 @@ def process_file(sample_name, masks):
 # Set of binary vectors (i.e. 0-1 matrix).
 # 0: genomic coordinate was not sequenced
 # 1: genomic coordinate was sequenced at least 1X
-def generate_random_masks(mask_file='./masks.pkl', num_masks=100, ncores=15):
+def generate_random_masks(mask_file='./masks.pkl', num_masks=100, ncores=20):
     print('Generating subsampling mashes for the training sets...')
     os.system("srun -c %d ./generateMasks.py %s %d %d" % (ncores, mask_file, num_masks, ncores))
     with open(mask_file, 'rb') as file:
@@ -151,7 +150,7 @@ def generate_random_masks(mask_file='./masks.pkl', num_masks=100, ncores=15):
     return masks
     
 
-masks = generate_random_masks()
+masks = generate_random_masks(mask_file='%s/masks.pkl' % scratch_dir, num_masks=10000)
 for sample_name in ['CFSANSMP000113119']:
     process_file(sample_name, masks)
 

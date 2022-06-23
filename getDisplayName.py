@@ -51,12 +51,20 @@ def getColor (var_name):
 
 # Process the original abundance estimates by Freyja
 import pandas as pd
+import numpy as np
+
 def import_freyja_demix(filename):
     freyja_raw = pd.read_table(filename, index_col=0)
 
     # Parse the rows with the detailed subvariant breakdown
-    lineages = freyja_raw.loc['lineages'][0].split(' ')
-    abundances = [float(x) for x in freyja_raw.loc['abundances'][0].split(' ')]
+    lineages = np.array(freyja_raw.loc['lineages'][0].split(' '))
+    abundances = np.array([float(x) for x in freyja_raw.loc['abundances'][0].split(' ')])
+    
+    # Freyja sometimes throws nan or inf for abundance. Eliminate such entries, if exist.
+    valid = np.isfinite(abundances)
+    lineages = lineages[valid]
+    abundances = abundances[valid]
+    
     freyja_names = [ getDisplayName(x) for x in lineages ]
     return (lineages, abundances, freyja_names)
 

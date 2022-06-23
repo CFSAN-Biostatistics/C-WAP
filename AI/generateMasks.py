@@ -44,6 +44,7 @@ pool.join()
 
 
 # Record the simulated masks to a file
+masks = np.array(masks)
 with open(mask_file, 'wb') as file:
     pickle.dump(masks, file)
 

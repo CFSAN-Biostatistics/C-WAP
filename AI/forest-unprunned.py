@@ -4,13 +4,11 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
+import pickle, os
 from multiprocessing import Pool, Lock, shared_memory
 
-import os
-hostname = os.popen('hostname').readlines()[0].strip()
-print('Hostname: %s' % hostname)
-
+from getScratchPath import *
+scratch_dir = getScratchPath()
 
 
 # Model training
@@ -20,19 +18,28 @@ from sklearn import tree
 
 
 num_features = 29903
-all_masks = np.empty((0,num_features))
 all_tvs = np.empty(0)
-for sample_name in ['CFSANSMP000113116', 'CFSANSMP000113117', 'CFSANSMP000113118', 'CFSANSMP000113119']:
-    filename = '/hpc/scratch/Tunc.Kayikcioglu/%s-trainingData.pkl' % sample_name
+for sample_name in ['CFSANSMP000113119']:
+    filename = '%s/%s_training_data.pkl' % (scratch_dir, sample_name)
     print('Importing training data from %s' % filename)
-
-    with open(filename, 'rb') as file:
-        masks = pickle.load(file)
-        freyja_deviations = pickle.load(file)
-        full_var_call = pickle.load(file)
     
-    all_masks = np.vstack((all_masks, masks)) # Coverage pattern obtained/simulated
-    all_tvs = np.hstack((all_tvs, 100*np.abs(freyja_deviations-full_var_call))) # True values to predict
+    with open(filename, 'rb') as file:
+        freyja_subsampling_results = pickle.load(file)
+        full_var_call = pickle.load(file)
+   
+    all_tvs = np.hstack((all_tvs, 100*np.sum(np.abs(freyja_subsampling_results-full_var_call),1))) # True values to predict
+
+
+# Coverage pattern obtained/simulated
+with open('%s/masks.pkl' % scratch_dir, 'rb') as file:
+    all_masks = pickle.load(file)
+
+
+for i in range(len(all_tvs)):
+    if np.isnan(all_tvs[i]):
+        print (i)
+        print (freyja_subsampling_results[i])
+        
 
 
 # Generate a shared memory to store the input DB so that the data does not get copied
@@ -68,8 +75,8 @@ def makeTree (tree_id):
 
     test_selected_entries = np.random.choice(num_samples, test_size, replace=False)
     x_test = all_masks[test_selected_entries]
-    y_test = all_tvs[test_selected_entries]   
-
+    y_test = all_tvs[test_selected_entries]
+    
     # Model is supposed to predict the behaviour of f in y=f(x)    
     def trainTree (param):
         clf = tree.DecisionTreeRegressor(ccp_alpha=param, random_state=0)
@@ -107,8 +114,8 @@ def makeTree (tree_id):
 
 # Evaluate each tree on a separate thread
 critical_lock = Lock()
-train_size = 1000
-test_size = 2000
+train_size = 10000
+test_size = 10000
 num_trees = 1000
 
 # Spawn mutliple processes
@@ -119,7 +126,9 @@ models_R2 = pool.map(makeTree, range(num_trees))
 pool.close()
 pool.join()
 
+
 # Sort the models w.r.t. R2_test and keep the best (i.e. highest R2) ones only
+# Ignore trees with the sub-par performance.
 models_R2.sort(key = lambda x: x[1], reverse=True)
 minimum_R2 = 0.8*models_R2[0][1]
 models = [ x[0] for x in models_R2 if x[1] >= minimum_R2 ]
@@ -145,8 +154,9 @@ def multi_model_prediction(data):
     return np.median(predictions)
 
 
+###############################################
 print('Assessing the final quality by bootstrapping...')
-test_size = 10000
+test_size = 1000
 selected_entries = np.random.choice(num_samples, test_size, replace=False)
 predictions = [ multi_model_prediction(all_masks[x,:].reshape(1,-1)) for x in selected_entries ]
 tvs = all_tvs[selected_entries]
@@ -160,16 +170,20 @@ plt.xlabel('Ground truth')
 plt.xlim(0,100)
 plt.ylabel('Model prediction')
 plt.ylim(0,100)
-plt.title('Bootstrapping set (R^2 = %.5f)' % R2)
+plt.title('Bootstrapping set (R^2 = %.3f)' % R2)
 
 plt.savefig('./bootstrapping.png', dpi=200)
 plt.close()
 
 
-print('All done')
+
+###############################################
+print('Releasing all allocated shared memory...')
 shm_masks.close()
 shm_masks.unlink()
-
 shm_tvs.close()
 shm_tvs.unlink()
+
+
+print('All done')
 
