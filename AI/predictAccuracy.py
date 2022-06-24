@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-# Trains an AI model that predicts the accuracy of the variant calling based on the coverage pattern.
+# Uses a pre-trained AI model recorded in a pickled file to predict the accuracy of the variant 
+# calling based on the coverage patchiness pattern of the experimental input.
 
 import matplotlib.pyplot as plt
 import numpy as np

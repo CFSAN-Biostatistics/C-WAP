@@ -262,8 +262,10 @@ process variantCalling {
 }
 
 
-process kraken2stdDB {
+// Kraken2-based taxonomic classification
+process k2stdDB {
 	memory '70 GB'
+	label 'high_IO'
 	
 	input:
 		tuple val(sampleName), file('R1.fastq.gz'), file('R2.fastq.gz') from input_fq_b
@@ -286,19 +288,17 @@ process kraken2stdDB {
 
 // The pileup file is parsed to calculate the positionwise quality and depth parameters.
 // The result is stored as png files that are added to the html report
-process plotCoverageQC {
+process QCplots {
 	input:
 		tuple val(sampleName), path('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png') into QChists
+		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png') into QChists
 	
 	conda 'matplotlib scikit-learn pandas'
-
 	
 	shell:
 	"""
-		#uncoveredCoordinates=\$(python3 $projectDir/findUncoveredCoordinates.py $primerBedFile)
 		python3 $projectDir/plotQC.py pile.up $primerBedFile
 	"""
 }
@@ -313,8 +313,8 @@ process readLengthHist {
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
 
 	conda 'matplotlib scikit-learn pandas'
+	label 'high_IO'
 
-	
 	shell:
 	"""
 		gzip -dc R1.fastq.gz > allreads.fastq
@@ -450,7 +450,7 @@ process kallistoVariantCaller {
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_b
 
 	output:
-		tuple val(sampleName), path('kallisto_abundance.tsv') into kallisto_out
+		tuple val(sampleName), path('abundance.tsv') into kallisto_out
 		
 	conda 'kallisto'
 		
@@ -459,12 +459,11 @@ process kallistoVariantCaller {
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 10 ]]; then
 			kallisto quant --index $projectDir/customDBs/variants.kalIdx --output-dir ./ \
-					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz || true
+					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz
 		else
 			echo target_id\$'\t'length\$'\t'eff_length\$'\t'est_counts tpm > abundance.tsv
 			echo Error\$'\t'29903\$'\t'29903\$'\t'100\$'\t'100 >> abundance.tsv
 		fi
-		mv abundance.tsv kallisto_abundance.tsv
 	"""
 }
 
@@ -524,7 +523,7 @@ process freyjaVariantCaller {
 	
 	shell:
 	"""
-		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 100 ]]; then
+		if [[ $task.attempt -lt 3 ]] && [[ \$numReads -gt 100 ]]; then
 			echo Pileup generation for Freyja...
 			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
 			
@@ -541,9 +540,10 @@ process freyjaVariantCaller {
 			# Generate an empty file to circumvent such failure cases
 			echo FATAL ERROR > freyja.demix
 			echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
-			echo lineages\$'\t'"['Error']" >> freyja.demix
-			echo abundances\$'\t'"[1.00]" >> freyja.demix
+			echo lineages\$'\t'Error >> freyja.demix
+			echo abundances\$'\t'1.00 >> freyja.demix
 			echo resid\$'\t'-1 >> freyja.demix
+			echo coverage\$'\t'-1 >> freyja.demix
 			
 			echo "ERROR" > freyja_boot_lineages.csv 
 			touch freyja_bootstrap.png
@@ -557,7 +557,8 @@ process freyjaVariantCaller {
 process getNCBImetadata {
 	// Allow access to this section only 1 thread at a time to avoid network congestion.
 	executor = 'local'
-	queueSize = 1
+	// queueSize = 1
+	maxForks 1
 	submitRateLimit = '3/1min'
 	
 	// NCBI bandwidth limit might cause lookup failures. If so, the next attempt should start with a time delay.
@@ -670,7 +671,7 @@ process generateReport {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
 		path('sorted.stats'), path('resorted.stats'),
 		path('k2-std.out'),
-		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'),
+		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png'),
 		path('readLengthHist.png'),
 		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
@@ -764,5 +765,10 @@ process html2pdf {
 		echo make_pdfs was set to false, so skipped the pdf generation.
 	"""
 	}
+}
+
+
+analysisResults.subscribe onComplete: {
+	println('Pipeline execution complete. Thank you for choosing C-WAP')
 }
 
