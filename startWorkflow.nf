@@ -68,7 +68,7 @@ def getSampleName(filename) {
 	// Typical for most users using Illumina output as is
 	// Ex: /path/to/dir/something_S1_L2_R1.fastq -> something
 	sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_")[0]
-	
+    	
 	// For complicated file names involving underscores that cannot be eliminated
 	// Ex: /path/to/dir/some_thing_R1.fastq -> some-thing	
 	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
@@ -76,6 +76,11 @@ def getSampleName(filename) {
 	// If there are special fixed substrings available within all file names.
 	// Ex: /path/to/dir/some_thing_1art_out_R1.fastq -> some-thing-1
 	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("art_out")[0].replace('_','-')
+    
+    // PacBio Lima output pattern
+    // some-name.bc1234.fastq.gz
+    // sampleName = filename.name.split("/")[-1].split("\\.")[1].split("--")[0]
+
 	
 	// Check if there is name collision and immediately abort the execution if this is the case.
 	if (allSampleNames.contains(sampleName)) {
@@ -273,7 +278,7 @@ process k2stdDB {
 	output:
 		tuple val(sampleName), path('k2-std.out') into k2_std_out
 	
-	conda 'kraken2'
+	conda 'kraken2=2.1.2'
 	
 	shell:
 	"""	
@@ -519,7 +524,7 @@ process freyjaVariantCaller {
 		tuple val(sampleName), path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.7 samtools=1.15'
+	conda 'freyja=1.3.8 samtools=1.15'
 	
 	shell:
 	"""
