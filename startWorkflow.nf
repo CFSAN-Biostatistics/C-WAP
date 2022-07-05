@@ -316,6 +316,8 @@ process readLengthHist {
 	
 	output:
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
+        // tuple val(sampleName), path('readLengthHist.png'), path('timeVSreadcounts.png') into readLengthHist_out
+
 
 	conda 'matplotlib scikit-learn pandas'
 	label 'high_IO'
@@ -327,9 +329,20 @@ process readLengthHist {
 			gzip -dc R2.fastq.gz >> allreads.fastq
 		fi
 		
-		# Only up to 1 million reads will be considered.
+		# Only up to 1 million reads will be considered for the length histogram
 		head -n 4000000 allreads.fastq | awk 'NR%4==2' | awk "{print length}" | python3 $projectDir/plotLengthHist.py
 		rm allreads.fastq
+        
+        # If this is an ONT run, also plot read count w.r.t time to show if the data collection
+        # was essentially complete.
+   		# if [[ $platform == ONT ]]; then
+        #   cat allreads.fastq | grep start_time | awk -F 'start_time' '{print \$2}' | awk -F '=' '{print \$2}' > timestamps
+        #   plotTimeVSreadcounts.py ./timestamps timeVSreadcounts.png
+        # else
+        #    touch timeVSreadcounts.png
+        # fi
+        
+        # @b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 runid=52014692ae58b6d24cb1dcd29fd35d118e5f6a42 read=16 ch=304 start_time=2022-06-29T15:57:00.583046-04:00 flow_cell_id=FAT09511 protocol_group_id=VSS_spikein_June22toJune28_062922 sample_id=no_sample barcode=barcode49 barcode_alias=barcode49 parent_read_id=b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 basecall_model_version_id=2021-05-17_dna_r9.4.1_minion_96_29d8704b
 	"""
 }
 
@@ -413,7 +426,7 @@ process pangolinVariantCaller {
 	output:
 		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv'), path('consensus.fa') into pangolin_out
 	
-	conda 'pangolin=4.0.6'
+	conda 'pangolin=4.1.1'
 	
 	shell:
 	"""
@@ -661,8 +674,10 @@ process getNCBImetadata {
 // Computation is now mostly over. All threads need to synchronise here.
 // We will group based on the sample name and pass everything to the report
 // generation steps.
-reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).join(readLengthHist_png).join(linearDeconvolution_out)
-						.join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out).join(lcs_out)
+reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists)
+                        .join(readLengthHist_png).join(linearDeconvolution_out)
+                        .join(k2_covid_out).join(pangolin_out).join(kallisto_out)
+                        .join(freyja_out).join(lcs_out)
 
 
 ///////////////////////////////////////////////
