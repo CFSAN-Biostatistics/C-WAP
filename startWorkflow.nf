@@ -541,31 +541,43 @@ process freyjaVariantCaller {
 	
 	shell:
 	"""
-		if [[ $task.attempt -lt 3 ]] && [[ \$numReads -gt 100 ]]; then
-			echo Pileup generation for Freyja...
-			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
-			
-			echo Demixing variants by Freyja and bootstrapping
-			freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly &
-			freyja boot freyja.variants.tsv freyja.depths.tsv --nt \$(nproc) --nb 1000 --output_base freyja_boot
-			wait
-			
-			echo Parsing bootstrapping output...
-			export PYTHONHASHSEED=0
-			python3 $projectDir/parseFreyjaBootstraps.py freyja.demix freyja_boot_lineages.csv freyja_bootstrap.png
-		else
-			# Due to a potential bug, some big fastqs result in a pandas error.
-			# Generate an empty file to circumvent such failure cases
-			echo FATAL ERROR > freyja.demix
-			echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
-			echo lineages\$'\t'Error >> freyja.demix
-			echo abundances\$'\t'1.00 >> freyja.demix
-			echo resid\$'\t'-1 >> freyja.demix
-			echo coverage\$'\t'-1 >> freyja.demix
-			
-			echo "ERROR" > freyja_boot_lineages.csv 
-			touch freyja_bootstrap.png
-		fi
+        if [[ \$numReads -lt 100 ]]; then
+            echo INSUFFICIENT DATA > freyja.demix
+            echo summarized\$'\t'"[('Undetermined', 1.00)]" >> freyja.demix
+            echo lineages\$'\t'Undetermined >> freyja.demix
+            echo abundances\$'\t'1.00 >> freyja.demix
+            echo resid\$'\t'-1 >> freyja.demix
+            echo coverage\$'\t'-1 >> freyja.demix
+            
+            echo "Undetermined" > freyja_boot_lineages.csv 
+            touch freyja_bootstrap.png
+        else 
+            if [[ $task.attempt -lt 3 ]]; then
+                echo Pileup generation for Freyja...
+                freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
+                
+                echo Demixing variants by Freyja and bootstrapping
+                freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly &
+                freyja boot freyja.variants.tsv freyja.depths.tsv --nt \$(nproc) --nb 1000 --output_base freyja_boot
+                wait
+                
+                echo Parsing bootstrapping output...
+                export PYTHONHASHSEED=0
+                python3 $projectDir/parseFreyjaBootstraps.py freyja.demix freyja_boot_lineages.csv freyja_bootstrap.png
+            else
+                # Due to a potential bug, some big fastqs result in a pandas error.
+                # Generate an empty file to circumvent such failure cases
+                echo FATAL ERROR > freyja.demix
+                echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
+                echo lineages\$'\t'Error >> freyja.demix
+                echo abundances\$'\t'1.00 >> freyja.demix
+                echo resid\$'\t'-1 >> freyja.demix
+                echo coverage\$'\t'-1 >> freyja.demix
+                
+                echo "ERROR" > freyja_boot_lineages.csv 
+                touch freyja_bootstrap.png
+            fi
+        fi
 	"""
 }
 
