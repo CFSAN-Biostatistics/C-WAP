@@ -68,7 +68,7 @@ def getSampleName(filename) {
 	// Typical for most users using Illumina output as is
 	// Ex: /path/to/dir/something_S1_L2_R1.fastq -> something
 	sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_")[0]
-	
+    	
 	// For complicated file names involving underscores that cannot be eliminated
 	// Ex: /path/to/dir/some_thing_R1.fastq -> some-thing	
 	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("_R")[0].replace('_','-')
@@ -76,6 +76,11 @@ def getSampleName(filename) {
 	// If there are special fixed substrings available within all file names.
 	// Ex: /path/to/dir/some_thing_1art_out_R1.fastq -> some-thing-1
 	// sampleName = filename.name.split("/")[-1].split("\\.")[0].split("art_out")[0].replace('_','-')
+    
+    // PacBio Lima output pattern
+    // some-name.bc1234.fastq.gz
+    // sampleName = filename.name.split("/")[-1].split("\\.")[1].split("--")[0]
+
 	
 	// Check if there is name collision and immediately abort the execution if this is the case.
 	if (allSampleNames.contains(sampleName)) {
@@ -273,7 +278,7 @@ process k2stdDB {
 	output:
 		tuple val(sampleName), path('k2-std.out') into k2_std_out
 	
-	conda 'kraken2'
+	conda 'kraken2=2.1.2'
 	
 	shell:
 	"""	
@@ -311,6 +316,8 @@ process readLengthHist {
 	
 	output:
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
+        // tuple val(sampleName), path('readLengthHist.png'), path('timeVSreadcounts.png') into readLengthHist_out
+
 
 	conda 'matplotlib scikit-learn pandas'
 	label 'high_IO'
@@ -322,9 +329,20 @@ process readLengthHist {
 			gzip -dc R2.fastq.gz >> allreads.fastq
 		fi
 		
-		# Only up to 1 million reads will be considered.
+		# Only up to 1 million reads will be considered for the length histogram
 		head -n 4000000 allreads.fastq | awk 'NR%4==2' | awk "{print length}" | python3 $projectDir/plotLengthHist.py
 		rm allreads.fastq
+        
+        # If this is an ONT run, also plot read count w.r.t time to show if the data collection
+        # was essentially complete.
+   		# if [[ $platform == ONT ]]; then
+        #   cat allreads.fastq | grep start_time | awk -F 'start_time' '{print \$2}' | awk -F '=' '{print \$2}' > timestamps
+        #   plotTimeVSreadcounts.py ./timestamps timeVSreadcounts.png
+        # else
+        #    touch timeVSreadcounts.png
+        # fi
+        
+        # @b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 runid=52014692ae58b6d24cb1dcd29fd35d118e5f6a42 read=16 ch=304 start_time=2022-06-29T15:57:00.583046-04:00 flow_cell_id=FAT09511 protocol_group_id=VSS_spikein_June22toJune28_062922 sample_id=no_sample barcode=barcode49 barcode_alias=barcode49 parent_read_id=b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 basecall_model_version_id=2021-05-17_dna_r9.4.1_minion_96_29d8704b
 	"""
 }
 
@@ -408,7 +426,7 @@ process pangolinVariantCaller {
 	output:
 		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv'), path('consensus.fa') into pangolin_out
 	
-	conda 'pangolin=4.0.6'
+	conda 'pangolin=4.1.1'
 	
 	shell:
 	"""
@@ -519,35 +537,47 @@ process freyjaVariantCaller {
 		tuple val(sampleName), path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') into freyja_out
 
 	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.7 samtools=1.15'
+	conda 'freyja=1.3.8 samtools=1.15'
 	
 	shell:
 	"""
-		if [[ $task.attempt -lt 3 ]] && [[ \$numReads -gt 100 ]]; then
-			echo Pileup generation for Freyja...
-			freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
-			
-			echo Demixing variants by Freyja and bootstrapping
-			freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly &
-			freyja boot freyja.variants.tsv freyja.depths.tsv --nt \$(nproc) --nb 1000 --output_base freyja_boot
-			wait
-			
-			echo Parsing bootstrapping output...
-			export PYTHONHASHSEED=0
-			python3 $projectDir/parseFreyjaBootstraps.py freyja.demix freyja_boot_lineages.csv freyja_bootstrap.png
-		else
-			# Due to a potential bug, some big fastqs result in a pandas error.
-			# Generate an empty file to circumvent such failure cases
-			echo FATAL ERROR > freyja.demix
-			echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
-			echo lineages\$'\t'Error >> freyja.demix
-			echo abundances\$'\t'1.00 >> freyja.demix
-			echo resid\$'\t'-1 >> freyja.demix
-			echo coverage\$'\t'-1 >> freyja.demix
-			
-			echo "ERROR" > freyja_boot_lineages.csv 
-			touch freyja_bootstrap.png
-		fi
+        if [[ \$numReads -lt 100 ]]; then
+            echo INSUFFICIENT DATA > freyja.demix
+            echo summarized\$'\t'"[('Undetermined', 1.00)]" >> freyja.demix
+            echo lineages\$'\t'Undetermined >> freyja.demix
+            echo abundances\$'\t'1.00 >> freyja.demix
+            echo resid\$'\t'-1 >> freyja.demix
+            echo coverage\$'\t'-1 >> freyja.demix
+            
+            echo "Undetermined" > freyja_boot_lineages.csv 
+            touch freyja_bootstrap.png
+        else 
+            if [[ $task.attempt -lt 3 ]]; then
+                echo Pileup generation for Freyja...
+                freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
+                
+                echo Demixing variants by Freyja and bootstrapping
+                freyja demix freyja.variants.tsv freyja.depths.tsv --output freyja.demix --confirmedonly &
+                freyja boot freyja.variants.tsv freyja.depths.tsv --nt \$(nproc) --nb 1000 --output_base freyja_boot
+                wait
+                
+                echo Parsing bootstrapping output...
+                export PYTHONHASHSEED=0
+                python3 $projectDir/parseFreyjaBootstraps.py freyja.demix freyja_boot_lineages.csv freyja_bootstrap.png
+            else
+                # Due to a potential bug, some big fastqs result in a pandas error.
+                # Generate an empty file to circumvent such failure cases
+                echo FATAL ERROR > freyja.demix
+                echo summarized\$'\t'"[('Error', 1.00)]" >> freyja.demix
+                echo lineages\$'\t'Error >> freyja.demix
+                echo abundances\$'\t'1.00 >> freyja.demix
+                echo resid\$'\t'-1 >> freyja.demix
+                echo coverage\$'\t'-1 >> freyja.demix
+                
+                echo "ERROR" > freyja_boot_lineages.csv 
+                touch freyja_bootstrap.png
+            fi
+        fi
 	"""
 }
 
@@ -656,8 +686,10 @@ process getNCBImetadata {
 // Computation is now mostly over. All threads need to synchronise here.
 // We will group based on the sample name and pass everything to the report
 // generation steps.
-reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists).join(readLengthHist_png).join(linearDeconvolution_out)
-						.join(k2_covid_out).join(pangolin_out).join(kallisto_out).join(freyja_out).join(lcs_out)
+reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists)
+                        .join(readLengthHist_png).join(linearDeconvolution_out)
+                        .join(k2_covid_out).join(pangolin_out).join(kallisto_out)
+                        .join(freyja_out).join(lcs_out)
 
 
 ///////////////////////////////////////////////

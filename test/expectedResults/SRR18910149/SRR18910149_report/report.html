@@ -122,16 +122,16 @@ tr:nth-child(even) {
     <td>Sample name:</td><td>SRR18910149</td>
 </tr>
 <tr>
-    <td>Date generated:</td><td>2022-06-03, 15:21:21 UTC</td>
+    <td>Date generated:</td><td>2022-07-13, 12:18:13 EDT</td>
 </tr>
 <tr>
-    <td>Timestamp of C-WAP version used:</td><td>Sat May 28 00:55:30 2022 +0000</td>
+    <td>Timestamp of C-WAP version used:</td><td>Wed Jul 13 11:49:46 2022 -0400</td>
 </tr>
 <tr>
-    <td>Executed by:</td><td>tunc kayikcioglu (<a href=\mailto:tunc.kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-06-03, 15:21:21 UTC\>tunc.kayikcioglu@fda.hhs.gov</a>)</td>
+    <td>Executed by:</td><td>Tunc Kayikcioglu (<a href=\mailto:Tunc.Kayikcioglu@fda.hhs.gov?subject=Wastewater report generated on 2022-07-13, 12:18:13 EDT\>Tunc.Kayikcioglu@fda.hhs.gov</a>)</td>
 </tr>
 <tr>
-    <td>Executed on:</td><td>172.20.17.184 (aka compute-dy-r54xlarge-1)</td>
+    <td>Executed on:</td><td>172.20.44.227 (aka n227.raven.cfsan)</td>
 </tr>
 </table>
 
@@ -191,6 +191,7 @@ A read passes filter if the read length after adaptor trimming &#8805; 30 and mi
 <img src="./qualityHistogram.png" alt="Quality histogram" width="49%" class="center">
 <br><br><br><br>
 <img src="./readLengthHist.png" alt="Read length histogram" width="49%" class="center">
+<img src="./breadthVSdepth.png" alt="Depth vs breadth plot" width="49%" class="center">
 <img src="./discontinuitySignal.png" alt="Coverage discontinuity signal" width="49%" class="center">
 
 <br>
@@ -221,20 +222,20 @@ SNPs refer to the polymorphic sites currently in circulation that were detected 
 <br><br><br><br>
 <table>
 <tr>
-    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>156586 reads (48.67%) </td>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>156601 reads (48.68%) </td>
 </tr>
 <tr>
-    <td>Hits to human genome (kraken2):</td><td>2521 reads (0.78%)</td>
+    <td>Hits to human genome (kraken2):</td><td>2514 reads (0.78%)</td>
 </tr>
 <tr>
     <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>0 reads (0.00%)</td>
 </tr>
 <tr>
-    <td>Most abundant organisms (kraken2, family level):</td><td>Coronaviridae (48.67%)<br>
-Campylobacteraceae (22.49%)<br>
-Pseudomonadaceae (4.00%)<br>
-Comamonadaceae (2.18%)<br>
-Flavobacteriaceae (1.91%)<br></td>
+    <td>Most abundant organisms (kraken2, family level):</td><td>Coronaviridae (48.68%)<br>
+Campylobacteraceae (22.44%)<br>
+Pseudomonadaceae (3.98%)<br>
+Comamonadaceae (2.15%)<br>
+Bacteroidaceae (1.97%)<br></td>
 </tr>
 </table>
 <br>
@@ -250,7 +251,7 @@ Flavobacteriaceae (1.91%)<br></td>
 <div id="caption">
     <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a> 
 	is estimated to constitute 63.22% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.53.	Variants that were detected less than 5% were grouped under "Other"
-    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=Unassigned">Unassigned</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
     <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=BA.1"	>BA.1</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
 </div>
 <br>
@@ -295,6 +296,25 @@ Flavobacteriaceae (1.91%)<br></td>
 <tr>
     <td>Characteristic mutations <br> detected</td><td>(3 of 13)<br>ORF3A:S26L<br>S:G142D<br>S:T478K<br></td><td>(15 of 26)<br>NUC:C15240T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:T13195C<br>NUC:T5386G<br>ORF1AB:A2710T<br>ORF1AB:K856R<br>S:A67V<br>S:G446S<br>S:G496S<br>S:L981F<br>S:N856K<br>S:Q493R<br>S:T547K<br>S:T95I<br></td><td>(15 of 31)<br>N:S413R<br>NUC:A9424G<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C26858T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:L3027F<br>ORF1AB:L3201F<br>ORF1AB:T3090I<br>S:Q493R<br>S:S371F<br>S:T19I<br></td><td>(10 of 21)<br>N:S413R<br>NUC:C12880T<br>NUC:C26858T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>S:A67V<br>S:G446S<br>S:Q493R<br>S:S371F<br></td><td>(12 of 31)<br>N:S413R<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C26858T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>S:S371F<br>S:T19I<br>S:V213G<br></td><td>(11 of 28)<br>N:S413R<br>NUC:C10198T<br>NUC:C12880T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:T3090I<br>S:S371F<br>S:T19I<br>S:V213G<br></td>
 </tr>
+</table>
+<br>
+
+<br>
+<a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard Index</a> is a measure of similarity between two sets A and B, reaching the maximum value of 1 if A=B and minimum value of 0 if A &cap; B = {}. In the c(d) representation below, c represents the Jaccard index of the set of mutations that were experimentally detected for this sample as listed above, whereas d refers to the ideal value of the Jaccard index expected from complete genome coverage without any sequencing errors.<br><table>
+<tr>
+    <td></td><td>B.1.617.2</td><td>BA.1</td><td>BA.2</td><td>BA.3</td><td>BA.4</td><td>BA.5</td></tr>
+<tr>
+    <td>B.1.617.2</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.02</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.03</a>)</td></tr>
+<tr>
+    <td>BA.1</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.1&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.11 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.10</a>)</td>    <td>0.14 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.21</a>)</td>    <td>0.08 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.08</a>)</td>    <td>0.08 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.08</a>)</td></tr>
+<tr>
+    <td>BA.2</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.11 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.10</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.2&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.47 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.33</a>)</td>    <td>0.69 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.63</a>)</td>    <td>0.62 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.59</a>)</td></tr>
+<tr>
+    <td>BA.3</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.14 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.21</a>)</td>    <td>0.47 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.33</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.3&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.47 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.30</a>)</td>    <td>0.40 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.29</a>)</td></tr>
+<tr>
+    <td>BA.4</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.02</a>)</td>    <td>0.08 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.08</a>)</td>    <td>0.69 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.63</a>)</td>    <td>0.47 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.30</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.4&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.92 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.84</a>)</td></tr>
+<tr>
+    <td>BA.5</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.03</a>)</td>    <td>0.08 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.08</a>)</td>    <td>0.62 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.59</a>)</td>    <td>0.40 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.29</a>)</td>    <td>0.92 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.84</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.5&analysisMode=CompareEquals&">1.00</a>)</td></tr>
 </table>
 <br>
 

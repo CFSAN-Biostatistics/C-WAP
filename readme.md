@@ -26,11 +26,11 @@ The process includes the following:
 ### Dependencies
 
 User provided:
-* [Conda3] (https://docs.conda.io/en/latest/miniconda.html)
+* [Conda3](https://docs.conda.io/en/latest/miniconda.html)
 * [NextFlow v21.0+](https://www.nextflow.io/docs/latest/index.html)
-* [ghostscript](https://www.ghostscript.com)
 
 Auto-fetched by C-WAP:
+* [ghostscript](https://www.ghostscript.com)
 * [kraken2 v2.1.2 ](https://github.com/DerrickWood/kraken2)
 * [bracken](https://github.com/jenniferlu717/Bracken)
 * [samtools v1.13 ](https://github.com/samtools/)

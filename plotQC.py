@@ -42,16 +42,19 @@ with open(pileupFilename) as infile:
 
 
 # Calculate moving averages to smooth out patterns
-window=1000
+def moving_avg(series, window=1001):
+    out = np.convolve(series, np.ones(window)/window, 'same')
+    half_window = int(window/2)
+    out[0:half_window] = np.nan
+    out[-half_window:] = np.nan
+    return out
 
-qualityMA = np.convolve(quality, np.ones(window)/window, 'same')
-qualityMA[0:window] = np.nan
-qualityMA[-window:] = np.nan
+qualityMA = moving_avg(quality)
+readDepthMA = moving_avg(readDepth)
 
-readDepthMA = np.convolve(readDepth, np.ones(window)/window, 'same')
-readDepthMA[0:window] = np.nan
-readDepthMA[-window:] = np.nan
 
+# A Heaviside step function convolution to check if there are any up/down jumps in quality,
+# which acts as a proxy to potential big discontinuities in coverage.
 stepKernel = np.ones(501)
 stepKernel[0:250] = -1
 qualityjumpSignal = np.absolute(np.convolve(quality, stepKernel, 'same'))
