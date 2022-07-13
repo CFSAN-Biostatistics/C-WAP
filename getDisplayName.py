@@ -33,8 +33,6 @@ def getDisplayName(pangolinName):
 
 
 
-
-
 from matplotlib.colors import to_hex
 import matplotlib.pyplot as plt
 
