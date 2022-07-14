@@ -372,7 +372,9 @@ process krakenVariantCaller {
 
 		# Check the number of reads. Ignore if there are too few reads
 		kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
-		if [[ \$(cat k2-allCovid.out | wc -l) -le 3 ]]; then
+		num_covid_hits=\$(cat k2-allCovid.out | grep covid | awk '{print \$2}')
+        # if [[ \$(cat k2-allCovid.out | wc -l) -le 3  ]]; then
+        if [[ \$num_covid_hits -le 20 ]]; then
 			# There is a bug in our bracken that fails if no hits.
 			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
 		else
@@ -380,7 +382,9 @@ process krakenVariantCaller {
 		fi
 
 		kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
-		if [[ \$(cat k2-majorCovid.out | wc -l) -le 3 ]]; then
+		num_covid_hits=\$(cat k2-majorCovid.out | grep covid | awk '{print \$2}')
+		# if [[ \$(cat k2-majorCovid.out | wc -l) -le 3 ]]; then
+        if [[ \$num_covid_hits -le 20 ]]; then
 			# There is a bug in our bracken that fails if no hits.
             echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
 		else
