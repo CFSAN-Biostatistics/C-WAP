@@ -173,8 +173,9 @@ process trimming {
 		tuple val(sampleName), env(numReads), path('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
 		tuple val(sampleName), path('sorted.stats'), path('resorted.stats') into samtools_stats
 	
-	// Compatible version of samtools is automatically provided by ivar's dependency
-	conda 'ivar=1.3.1 samtools=1.15'
+	// An older version of samtools is automatically provided by ivar's dependency
+    // Does one need to provide samtools=1.15 here? 
+	conda 'ivar=1.3.1'
 
 	shell:
 	"""
@@ -528,8 +529,7 @@ process freyjaVariantCaller {
 	output:
 		tuple val(sampleName), path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') into freyja_out
 
-	// By default, Freyja's conda package installs an old samtools and does not work.
-	conda 'freyja=1.3.8 samtools=1.15'
+	conda 'freyja=1.3.8'
 	
 	shell:
 	"""
@@ -753,7 +753,7 @@ process html2pdf {
 	output:
 		file "analysisResults" into analysisResults
 
-	conda 'openssl=1.0 wkhtmltopdf ghostscript=9.54'
+	conda 'openssl=1.0 wkhtmltopdf=0.12.4 ghostscript=9.54'
 	label 'high_cpu'
 	publishDir "$params.out", mode: 'copy', overwrite: true	
 	
