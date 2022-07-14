@@ -359,8 +359,8 @@ process krakenVariantCaller {
 	output:
 		tuple val(sampleName), path('k2-allCovid_bracken*.out'), path('k2-majorCovid_bracken*.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
 	
-	conda 'kraken2 bracken=2.5.3'
-	
+	conda 'kraken2=2.1.2 bracken=2.7'
+    
 	shell:
 	"""
 		if [[ -n \$SLURM_CPUS_ON_NODE ]]; then
@@ -370,29 +370,21 @@ process krakenVariantCaller {
 		fi
 
 		# Check the number of reads. Ignore if there are too few reads
-		if [[ \$numReads -gt 10 ]]; then
-			kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
-			if [[ \$(cat k2-allCovid.out | wc -l) -eq 1 ]]; then
-				# There is a bug in our bracken that fails if no hits.
-				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
-			else
-				bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
-			fi
-
-			kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
-			if [[ \$(cat k2-allCovid.out | wc -l) -eq 1 ]]; then
-				# There is a bug in our bracken that fails if no hits.
-				echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
-			else
-				bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l C
-			fi
+		kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
+		if [[ \$(cat k2-allCovid.out | wc -l) -le 3 ]]; then
+			# There is a bug in our bracken that fails if no hits.
+			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
 		else
-			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken_phylums.out
-			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'Error >> k2-allCovid_bracken_phylums.out
-			cp k2-allCovid_bracken_phylums.out k2-majorCovid_bracken_classes.out
-			cp k2-allCovid_bracken_phylums.out k2-allCovid.out
-			cp k2-allCovid_bracken_phylums.out k2-majorCovid.out
+			bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
 		fi
+
+		kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
+		if [[ \$(cat k2-majorCovid.out | wc -l) -le 3 ]]; then
+			# There is a bug in our bracken that fails if no hits.
+            echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
+		else
+			bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l C
+        fi
 	"""
 }
 

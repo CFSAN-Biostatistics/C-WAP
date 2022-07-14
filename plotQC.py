@@ -52,10 +52,12 @@ def moving_avg(series, window=1001):
 qualityMA = moving_avg(quality)
 readDepthMA = moving_avg(readDepth)
 
-qualityjumpSignal = np.absolute(quality, window=501)
-#stepKernel = np.ones(501)
-#stepKernel[0:250] = -1
-#qualityjumpSignal = np.absolute(np.convolve(quality, stepKernel, 'same'))
+
+# A Heaviside step function convolution to check if there are any up/down jumps in quality,
+# which acts as a proxy to potential big discontinuities in coverage.
+stepKernel = np.ones(501)
+stepKernel[0:250] = -1
+qualityjumpSignal = np.absolute(np.convolve(quality, stepKernel, 'same'))
 
 
 # Import the list of uncovered genome regions due to kit design
