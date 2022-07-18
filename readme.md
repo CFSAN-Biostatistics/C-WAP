@@ -44,14 +44,14 @@ Auto-fetched by C-WAP:
 * [kallisto](https://github.com/pachterlab/kallisto)
 * [wkhtmltopdf](https://github.com/wkhtmltopdf)
 
-./startWorkflow.nf assumes that conda, nextflow and gs executables are available in the search path. All other dependencies are imported via conda during runtime. Acquisition of the dependencies and creating of the env's might cause the very first execution attempt to take a substantially long time (potentially hours). Subsequent runs will make use of the cached env's stored under the c-wap/conda subdirectory and are expected to finish substantially faster.
+./startWorkflow.nf assumes that conda, nextflow and gs executables are available in the search path. All other dependencies are imported via conda. To trigger this installation, execute `c-wap/prepare_envs.sh` (no root privileges needed). The series of acquisition of the dependencies and creating of the env's might take a substantially long time (potentially hours). Analysis calls to C-WAP will make use of the cached env's stored under the c-wap/conda subdirectory and are expected to finish substantially faster. To update the dependencies (more often required for tools with a biological DB) delete the respective environement folder `c-wap/conda/env-<toolName>` and re-execute `c-wap/prepare_envs.sh`.
 
 
 ### Installation
 
 Install nextflow and conda. Afterwards, download c-wap repository and save. In addition, also obtain a copy of the kraken2 standard DB (~50GB). You can either download a copy from here: https://benlangmead.github.io/aws-indexes/k2 or you can compile your own version following the instructions under the "Standard Kraken2 Database" section here: https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown
 
-Afterwards, set $KRAKEN2_DEFAULT_DB to your download location.
+Afterwards, set $K2_STD_DB_PATH to your download location.
 
 
 ### Usage 

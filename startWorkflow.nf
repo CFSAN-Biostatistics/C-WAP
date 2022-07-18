@@ -127,9 +127,9 @@ process referenceAlignment {
 		tuple val(sampleName), file('aligned.sam') into aligned_sam
 
 	if (platform == "Illumina")
-		conda 'bowtie2'
+		conda "$projectDir/conda/env-bowtie2"
 	else
-		conda 'minimap2'
+		conda "$projectDir/conda/env-minimap2"
 	
 	shell:
 	refSeqBasename = params.referenceSequence.replaceAll('.fa$', '')
@@ -175,7 +175,7 @@ process trimming {
 	
 	// An older version of samtools is automatically provided by ivar's dependency
     // Does one need to provide samtools=1.15 here? 
-	conda 'ivar=1.3.1'
+	conda "$projectDir/conda/env-ivar"
 
 	shell:
 	"""
@@ -196,12 +196,13 @@ process trimming {
 		fi
 		
 		samtools sort trimmed.bam -o resorted.bam -@ \$numThreads
-		rm trimmed.bam
 		
 		# Evaluate read statistics
 		samtools stats sorted.bam | grep ^SN | cut -f 2- > sorted.stats
 		samtools stats resorted.bam | grep ^SN | cut -f 2- > resorted.stats
 		numReads=\$(cat resorted.stats | grep "raw total sequences" | awk '{ print \$4 }')
+        
+   		rm sorted.bam trimmed.bam
 	"""
 }
 
@@ -214,7 +215,7 @@ process trimmedBam2Fastq {
 	output:
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') into resorted_fastq_gz_a, resorted_fastq_gz_b, resorted_fastq_gz_c
 	
-	conda 'samtools'
+	conda "$projectDir/conda/env-samtools"
 	
 	shell:
 	"""
@@ -241,7 +242,7 @@ process generatePileup {
 	output:
 		tuple val(sampleName), path('pile.up') into pile_up_a, pile_up_b
 	
-	conda 'samtools'
+	conda "$projectDir/conda/env-samtools"
 	
 	shell:
 	"""
@@ -258,7 +259,7 @@ process variantCalling {
 	output:
 		tuple val(sampleName), path('rawVarCalls.tsv') into ivar_out
 	
-	conda 'ivar=1.3.1'
+	conda "$projectDir/conda/env-ivar"
 	
 	shell:
 	"""
@@ -279,7 +280,7 @@ process k2stdDB {
 	output:
 		tuple val(sampleName), path('k2-std.out') into k2_std_out
 	
-	conda 'kraken2=2.1.2'
+	conda "$projectDir/conda/env-kraken2"
 	
 	shell:
 	"""	
@@ -301,7 +302,7 @@ process QCplots {
 	output:
 		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png') into QChists
 	
-	conda 'matplotlib scikit-learn pandas'
+	conda "$projectDir/conda/env-python"
 	
 	shell:
 	"""
@@ -320,7 +321,7 @@ process readLengthHist {
         // tuple val(sampleName), path('readLengthHist.png'), path('timeVSreadcounts.png') into readLengthHist_out
 
 
-	conda 'matplotlib scikit-learn pandas'
+	conda "$projectDir/conda/env-python"
 	label 'high_IO'
 
 	shell:
@@ -332,18 +333,20 @@ process readLengthHist {
 		
 		# Only up to 1 million reads will be considered for the length histogram
 		head -n 4000000 allreads.fastq | awk 'NR%4==2' | awk "{print length}" | python3 $projectDir/plotLengthHist.py
-		rm allreads.fastq
         
         # If this is an ONT run, also plot read count w.r.t time to show if the data collection
         # was essentially complete.
+        # An example ONT fastq entry header with a timestamp looks like this:
+        # @b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 runid=52014692ae58b6d24cb1dcd29fd35d118e5f6a42 read=16 ch=304 start_time=2022-06-29T15:57:00.583046-04:00 flow_cell_id=FAT09511 protocol_group_id=VSS_spikein_June22toJune28_062922 sample_id=no_sample barcode=barcode49 barcode_alias=barcode49 parent_read_id=b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 basecall_model_version_id=2021-05-17_dna_r9.4.1_minion_96_29d8704b
+        
    		# if [[ $platform == ONT ]]; then
-        #   cat allreads.fastq | grep start_time | awk -F 'start_time' '{print \$2}' | awk -F '=' '{print \$2}' > timestamps
+        #   cat allreads.fastq | grep start_time | cut -d ' ' -f 5 | awk -F 'start_time=' '{print $2}' > timestamps
         #   plotTimeVSreadcounts.py ./timestamps timeVSreadcounts.png
         # else
         #    touch timeVSreadcounts.png
         # fi
         
-        # @b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 runid=52014692ae58b6d24cb1dcd29fd35d118e5f6a42 read=16 ch=304 start_time=2022-06-29T15:57:00.583046-04:00 flow_cell_id=FAT09511 protocol_group_id=VSS_spikein_June22toJune28_062922 sample_id=no_sample barcode=barcode49 barcode_alias=barcode49 parent_read_id=b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 basecall_model_version_id=2021-05-17_dna_r9.4.1_minion_96_29d8704b
+   		rm allreads.fastq
 	"""
 }
 
@@ -360,7 +363,7 @@ process krakenVariantCaller {
 	output:
 		tuple val(sampleName), path('k2-allCovid_bracken*.out'), path('k2-majorCovid_bracken*.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
 	
-	conda 'kraken2=2.1.2 bracken=2.7'
+	conda "$projectDir/conda/env-kraken2"
     
 	shell:
 	"""
@@ -372,20 +375,20 @@ process krakenVariantCaller {
 
 		# Check the number of reads. Ignore if there are too few reads
 		kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
-		num_covid_hits=\$(cat k2-allCovid.out | grep covid | awk '{print \$2}')
-        # if [[ \$(cat k2-allCovid.out | wc -l) -le 3  ]]; then
-        if [[ \$num_covid_hits -le 20 ]]; then
-			# There is a bug in our bracken that fails if no hits.
+        num_phylum_hits=\$(cat k2-allCovid.out | grep -w P | cut -f 2 | head -n 1)
+        if [[ -z \${num_phylum_hits} || \${num_phylum_hits} -lt 10 ]]; then
+			# There is a bug in bracken that throws a "no reads found" error, if there
+            # are fewer hits in all target level taxons. We check that there are a minimum of 10 reads.
 			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
 		else
 			bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
 		fi
 
 		kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
-		num_covid_hits=\$(cat k2-majorCovid.out | grep covid | awk '{print \$2}')
-		# if [[ \$(cat k2-majorCovid.out | wc -l) -le 3 ]]; then
-        if [[ \$num_covid_hits -le 20 ]]; then
-			# There is a bug in our bracken that fails if no hits.
+        num_class_hits=\$(cat k2-majorCovid.out | grep -w C | cut -f 2 | head -n 1)
+        if [[ -z \${num_class_hits} || \${num_class_hits} -lt 10 ]]; then
+			# There is a bug in bracken that throws a "no reads found" error, if there
+            # are fewer hits in all target level taxons. We check that there are a minimum of 10 reads.
             echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-majorCovid_bracken.out
 		else
 			bracken -d $projectDir/customDBs/majorCovidDB -i k2-majorCovid.out -o majorCovid.bracken -l C
@@ -402,7 +405,7 @@ process consensusSequence {
 	output:
 		tuple val(sampleName), path('consensus.fa') into consensus_fa
 	
-	conda 'bcftools'
+	conda "$projectDir/conda/env-bcftools"
 	
 	shell:
 	"""		
@@ -423,7 +426,7 @@ process pangolinVariantCaller {
 	output:
 		tuple val(sampleName), env(consensusLineage), path('lineage_report.csv'), path('consensus.fa') into pangolin_out
 	
-	conda 'pangolin=4.1.1'
+	conda "$projectDir/conda/env-pangolin"
 	
 	shell:
 	"""
@@ -447,7 +450,7 @@ process linearDeconVariantCaller {
 	output:
 		tuple val(sampleName), path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2) into linearDeconvolution_out
 
-	conda 'matplotlib scikit-learn pandas'
+	conda "$projectDir/conda/env-python"
 		
 	shell:
 	"""
@@ -467,7 +470,7 @@ process kallistoVariantCaller {
 	output:
 		tuple val(sampleName), path('abundance.tsv') into kallisto_out
 		
-	conda 'kallisto'
+	conda "$projectDir/conda/env-kallisto"
 		
 	shell:
 	"""
@@ -533,7 +536,7 @@ process freyjaVariantCaller {
 	output:
 		tuple val(sampleName), path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') into freyja_out
 
-	conda 'freyja=1.3.8'
+	conda "$projectDir/conda/env-freyja"
 	
 	shell:
 	"""
@@ -598,7 +601,7 @@ process getNCBImetadata {
 	output:
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation) into metadata
 	
-	conda 'entrez-direct'
+	conda "$projectDir/conda/env-entrez-direct"
 	
 	shell:
 	"""
@@ -711,7 +714,7 @@ process generateReport {
 	output:
 		file "outfolder" into reportCh
 		
-	conda 'matplotlib scikit-learn pandas'
+	conda "$projectDir/conda/env-python"
 	
 	shell:
 	"""
@@ -738,8 +741,8 @@ process summaryPage {
 	output:
 		file "analysisResults" into results_with_summary
 
-	conda 'matplotlib scikit-learn pandas'
-		
+	conda "$projectDir/conda/env-python"
+	
 	shell:
 	"""
 		$projectDir/generateSummary.sh $projectDir/htmlHeader.html $params.variantDBfile $projectDir
@@ -757,7 +760,7 @@ process html2pdf {
 	output:
 		file "analysisResults" into analysisResults
 
-	conda 'openssl=1.0 wkhtmltopdf=0.12.4 ghostscript=9.54'
+	conda "$projectDir/conda/env-gs-wkhtmltopdf"
 	label 'high_cpu'
 	publishDir "$params.out", mode: 'copy', overwrite: true	
 	
