@@ -7,6 +7,7 @@ pangolin2WHO = {'B.1.1.7': 'Alpha', 'B.1.351': 'Beta', 'P.1': 'Gamma', 'B.1.427'
                 'B.1.525': 'Eta', 'B.1.526': 'Iota', 'B.1.617.1': 'Kappa', 'B.1.621': 'Mu', 'B.1.621.1': 'Mu',
                 'P.2': 'Zeta', 'B.1.617.3': 'B.1.617.3', 'B.1.617.2': 'Delta', 'AY': 'Delta',
                 'B.1.1.529': 'Omicron', 'BA.1': 'BA.1', 'BA.2': 'BA.2', 'BA.2.12': 'BA.2.12',
+                'BA.2.75':'BA.2.75',
                 'BA.3': 'BA.3', 'BA.4':'BA.4', 'BA.5':'BA.5', 'wt': 'wt', 'wt-wuhan': 'wt',
                 'BC':'BA.1', 'BG': 'BA.2.12', 'BE':'BA.5', 'BF':'BA.5',
                 'A.21': 'Bat', 'other': 'Other', 'A': 'wt', 'Error':'Error'}
