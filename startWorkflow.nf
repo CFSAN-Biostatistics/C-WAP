@@ -318,7 +318,7 @@ process readLengthHist {
 	
 	output:
 		tuple val(sampleName), path('readLengthHist.png') into readLengthHist_png
-        // tuple val(sampleName), path('readLengthHist.png'), path('timeVSreadcounts.png') into readLengthHist_out
+        tuple val(sampleName), path('readLengthHist.png'), path('timeVSreadcounts.png') into readLengthHist_out
 
 
 	conda "$projectDir/conda/env-python"
@@ -334,17 +334,17 @@ process readLengthHist {
 		# Only up to 1 million reads will be considered for the length histogram
 		head -n 4000000 allreads.fastq | awk 'NR%4==2' | awk "{print length}" | python3 $projectDir/plotLengthHist.py
         
-        # If this is an ONT run, also plot read count w.r.t time to show if the data collection
+        # If this is an ONT run with detailed headers, also plot read count w.r.t time to show if the data collection
         # was essentially complete.
         # An example ONT fastq entry header with a timestamp looks like this:
         # @b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 runid=52014692ae58b6d24cb1dcd29fd35d118e5f6a42 read=16 ch=304 start_time=2022-06-29T15:57:00.583046-04:00 flow_cell_id=FAT09511 protocol_group_id=VSS_spikein_June22toJune28_062922 sample_id=no_sample barcode=barcode49 barcode_alias=barcode49 parent_read_id=b6a37669-02b7-4d48-bcff-ad7e2eb4fa06 basecall_model_version_id=2021-05-17_dna_r9.4.1_minion_96_29d8704b
-        
-   		# if [[ $platform == ONT ]]; then
-        #   cat allreads.fastq | grep start_time | cut -d ' ' -f 5 | awk -F 'start_time=' '{print $2}' > timestamps
-        #   plotTimeVSreadcounts.py ./timestamps timeVSreadcounts.png
-        # else
-        #    touch timeVSreadcounts.png
-        # fi
+   		touch timeVSreadcounts.png
+        if [[ $platform == ONT ]]; then
+            cat allreads.fastq | grep start_time | cut -d ' ' -f 5 | awk -F 'start_time=' '{print \$2}' > timestamps
+            if [[ -s timestamps ]]; then
+                $projectDir/plotTimeVSreadcounts.py ./timestamps timeVSreadcounts.png
+            fi
+        fi
         
    		rm allreads.fastq
 	"""
@@ -477,7 +477,7 @@ process kallistoVariantCaller {
 		# Check the number of reads. Ignore if there are too few reads
 		if [[ $task.attempt -lt 2 ]] && [[ \$numReads -gt 10 ]]; then
 			kallisto quant --index $projectDir/customDBs/variants.kalIdx --output-dir ./ \
-					--plaintext -t 2 --single -l 300 -s 50 resorted.fastq.gz
+					--plaintext --threads 2 --single -l 300 -s 50 resorted.fastq.gz
 		else
 			echo target_id\$'\t'length\$'\t'eff_length\$'\t'est_counts tpm > abundance.tsv
 			echo Error\$'\t'29903\$'\t'29903\$'\t'100\$'\t'100 >> abundance.tsv
@@ -686,9 +686,10 @@ process getNCBImetadata {
 // We will group based on the sample name and pass everything to the report
 // generation steps.
 reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists)
-                        .join(readLengthHist_png).join(linearDeconvolution_out)
+                        .join(readLengthHist_out).join(linearDeconvolution_out)
                         .join(k2_covid_out).join(pangolin_out).join(kallisto_out)
                         .join(freyja_out).join(lcs_out)
+
 
 
 ///////////////////////////////////////////////
@@ -703,7 +704,7 @@ process generateReport {
 		path('sorted.stats'), path('resorted.stats'),
 		path('k2-std.out'),
 		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png'),
-		path('readLengthHist.png'),
+		path('readLengthHist.png'), path('timeVSreadcounts.png'),
 		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
 		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
 		env(consensusLineage), path('lineage_report.csv'), path('consensus.fa'),

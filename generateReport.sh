@@ -159,6 +159,12 @@ echo "<img src=\"./readLengthHist.png\" alt=\"Read length histogram\" width=\"49
 echo "<img src=\"./breadthVSdepth.png\" alt=\"Depth vs breadth plot\" width=\"49%\" class=\"center\">" >> $reportFile
 echo "<img src=\"./discontinuitySignal.png\" alt=\"Coverage discontinuity signal\" width=\"49%\" class=\"center\">" >> $reportFile
 
+if [[ -s timeVSreadcounts.png ]]; then 
+    echo "<img src=\"./timeVSreadcounts.png\" alt=\"Passage time histogram of ONT reads\" width=\"49%\" class=\"center\">" >> $reportFile
+else
+    rm timeVSreadcounts.png
+fi
+
 echo >> $reportFile
 echo "<br>" >> $reportFile
 

@@ -288,7 +288,7 @@ breadth_cdf = np.cumsum(np.flip(breadth_pdf)) * 100.0 / GENOME_SIZE
 plt.plot(np.flip(depth_bins[0:-1]), breadth_cdf, '-', color=FDAblue)
 plt.plot(np.flip(depth_bins[0:-1]), breadth_cdf, 'o', color=FDAblue)
 
-plt.xlabel('coverage depth (X, cumulative)')
+plt.xlabel('Coverage depth (X, cumulative)')
 plt.xscale('log')
 plt.ylabel('Coverage breadth (%)')
 plt.ylim(0,100)

@@ -59,6 +59,8 @@ Afterwards, set $K2_STD_DB_PATH to your download location.
 The driver script is `startWorkflow.nf` and a standard execution with paired end illumina reads would be:  
 `startWorkflow.nf --platform i --primers path/to/bed --in path/to/fastq/ --out path/to/outputDir`
 
+Note that the input files need to be compressed fastq.gz formats only and .sam, .bam or uncompressed .fastq files result in a fatal runtime error.
+
 
 ### Output
 

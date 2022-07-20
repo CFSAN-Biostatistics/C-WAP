@@ -25,6 +25,8 @@ timestamps = [mdates.date2num(np.datetime64(x)) for x in list(df[0])]
 
 locator = mdates.AutoDateLocator()
 formatter = mdates.ConciseDateFormatter(locator)
+
+plt.rcParams.update({'font.size': 14})
 FDAblue = (0,124/255,186/255) # RGB color representation of the logo
 plt.rcParams['image.cmap'] = 'binary'
 
@@ -35,7 +37,7 @@ dateLims = plt.xlim()
 dateTicks = np.arange(dateLims[0], dateLims[1], (dateLims[1]-dateLims[0])/10 )
 plt.xticks(dateTicks, rotation=90)
 plt.xlabel('Passage start time')
-plt.ylabel('# reads (1000)')
+plt.ylabel('# Reads (1000)')
 locs, labels = plt.yticks()
 plt.yticks(locs, [int(int(x)/1000) for x in locs ])
 

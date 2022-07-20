@@ -8,11 +8,11 @@ fi
 conda_flags="-c bioconda -c conda-forge -c defaults --mkdir --yes --quiet"
 
 if ! [[ -d conda/env-bowtie2 ]]; then
-    conda create ${conda_flags} --prefix conda/env-bowtie2 bowtie2
+    conda create ${conda_flags} --prefix conda/env-bowtie2 bowtie2=2.4.5
 fi
 
 if ! [[ -d conda/env-minimap2 ]]; then
-    conda create ${conda_flags} --prefix conda/env-minimap2 minimap2
+    conda create ${conda_flags} --prefix conda/env-minimap2 minimap2=2.24
 fi
 
 if ! [[ -d conda/env-ivar ]]; then
@@ -20,7 +20,7 @@ if ! [[ -d conda/env-ivar ]]; then
 fi
 
 if ! [[ -d conda/env-samtools ]]; then
-    conda create ${conda_flags} --prefix conda/env-samtools samtools
+    conda create ${conda_flags} --prefix conda/env-samtools samtools=1.15
 fi
 
 if ! [[ -d conda/env-kraken2 ]]; then
@@ -28,11 +28,11 @@ if ! [[ -d conda/env-kraken2 ]]; then
 fi
 
 if ! [[ -d conda/env-python ]]; then
-    conda create ${conda_flags} --prefix conda/env-python matplotlib scikit-learn pandas
+    conda create ${conda_flags} --prefix conda/env-python matplotlib scikit-learn=1.1.1 pandas
 fi
 
 if ! [[ -d conda/env-bcftools ]]; then
-    conda create ${conda_flags} --prefix conda/env-bcftools bcftools
+    conda create ${conda_flags} --prefix conda/env-bcftools bcftools=1.15
 fi
 
 if ! [[ -d conda/env-pangolin ]]; then
@@ -40,7 +40,7 @@ if ! [[ -d conda/env-pangolin ]]; then
 fi
 
 if ! [[ -d conda/env-kallisto ]]; then
-    conda create ${conda_flags} --prefix conda/env-kallisto kallisto
+    conda create ${conda_flags} --prefix conda/env-kallisto kallisto=0.48
 fi
 
 if ! [[ -d conda/env-freyja ]]; then
@@ -48,7 +48,7 @@ if ! [[ -d conda/env-freyja ]]; then
 fi
 
 if ! [[ -d conda/env-entrez-direct ]]; then
-    conda create ${conda_flags} --prefix conda/env-entrez-direct entrez-direct
+    conda create ${conda_flags} --prefix conda/env-entrez-direct entrez-direct=16.2
 fi
 
 if ! [[ -d conda/env-gs-wkhtmltopdf ]]; then
