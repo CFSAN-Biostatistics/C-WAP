@@ -1,0 +1,7 @@
+.ipynb_checkpoints
+outputs
+.snakemake
+data/pango-designation
+data/ucsc-sars-cov-2
+data/fastq
+data/gisaid.fa.gz

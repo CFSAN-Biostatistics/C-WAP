@@ -82,7 +82,8 @@ Choose one of these 3 options:
 
     This data, gathered by the [UShER](https://github.com/yatisht/usher) team, includes only public sequences, as such they are downloaded by the pipeline automatically.
     
-    The variable `PB_VERSION` on `rules/config.py` controls which version of UCSC data to use.
+    These data trees are updated daily, the variable `PB_VERSION` on `rules/config.py` controls which version of UCSC data to use, make sure to change it to use the most recent data,
+    the download of the data is done automatically by the pipeline so no intermediary step is needed.
 
 ## 3. Prepare your pooled sample dataset
 
@@ -91,9 +92,12 @@ It should look like this:
 
 ```bash
 $ ls data/fastq/
-sample1.fastq.gz
-sample2.fastq.gz
-sample3.fastq.gz
+sample1_1.fastq.gz
+sample1_2.fastq.gz
+sample2_1.fastq.gz
+sample2_2.fastq.gz
+sample3_1.fastq.gz
+sample3_2.fastq.gz
 
 $ cat data/tags_pool_mypool
 sample1
@@ -114,7 +118,7 @@ To execute the pipeline run the command:
 snakemake --config markers=pango dataset=mypool --cores <C> --resources mem_gb=<M>
 ```
 
-The `markers` config indicates which markers table you are using (*pango* or *ucsc*) ahd the `dataset` config should match your tags file `data/tags_pool_mypool` describing your samples.
+The `markers` config indicates which markers table you are using (*pango* or *ucsc*) and the `dataset` config should match your tags file `data/tags_pool_mypool` describing your samples.
 
 You also need to indicate how many cores and memory you have available to run the analysis, snakemake will parallelize the pipeline accordingly.
 

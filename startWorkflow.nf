@@ -508,7 +508,7 @@ process LCSvariantCaller {
 			
 			echo Preparing the DB...
 			mkdir -p outputs/variants_table
-			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.124.tsv.gz > outputs/variants_table/pango-markers-table.tsv
+			zcat data/pre-generated-marker-tables/pango-designation-markers-v1.2.9.tsv.gz > outputs/variants_table/pango-markers-table.tsv
 			
 			echo Preparing the sample dataset...
 			mkdir data/fastq

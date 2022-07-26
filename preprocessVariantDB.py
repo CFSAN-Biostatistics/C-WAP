@@ -14,7 +14,7 @@ import os
 # Each entry in the dict is name->(startPos, endPos)
 
 # Path to pangolin conda env dir > constellations
-constellationsDir = "conda/env-63ad63ac5b417801059157467fc8e0e8/lib/python3.8/site-packages/constellations"
+constellationsDir = "conda/env-pangolin/lib/python3.8/site-packages/constellations"
 
 file = open(constellationsDir + "/data/SARS-CoV-2.json", 'r')
 fileContents = json.load(file)

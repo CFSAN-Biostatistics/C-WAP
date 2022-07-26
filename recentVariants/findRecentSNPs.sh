@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # Script to pick fasta entries of interest out of the full DB dump of GISAID DB
+
+# Download a copy of the GISAID sequences (full unmasked) before starting, and extract.
+
+
 # Some recent covid reports are selected and aligned against the covid ref sequence.
 # The so generated vcf is processed to determine the coordinates of the polymorphic sites.
+
 
 module load minimap2/2.22 samtools/1.13 ivar
 
@@ -13,7 +18,7 @@ GISAIDdir=~/scratch/GISAID/
 # Select recent samples, with intentional 1% subsampling to reduce workload
 # Subsampling is done by only retaining submissions whose IDs end with "00".
 echo Subsampling...
-gisaid_fa=~/scratch/GISAID/msa_0523.fasta
+gisaid_fa=~/scratch/GISAID/msa_0721.fasta
 cat $gisaid_fa | grep -A 1 "00|2022-" | tr -d '-' > $GISAIDdir/subsampled.fa
 
 echo Aligning...
