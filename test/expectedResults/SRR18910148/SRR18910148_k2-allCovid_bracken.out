@@ -1,11 +1,9 @@
-100.00	13762	0	R	1	root
-100.00	13762	0	K	2	  covid
-85.36	11747	0	P	13	    Omicron
+100.00	13755	0	R	1	root
+100.00	13755	0	K	2	  covid
+85.40	11747	0	P	13	    Omicron
 10.72	1475	0	P	6	    Gamma
 1.61	221	0	P	4	    Alpha
 0.91	125	0	P	7	    Eta
 0.61	84	0	P	9	    Delta
 0.57	78	0	P	5	    Beta
 0.18	25	0	P	8	    Epsilon
-0.04	6	0	P	10	    Iota
-0.01	1	0	P	11	    Kappa
