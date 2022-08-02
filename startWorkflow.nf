@@ -171,7 +171,7 @@ process trimming {
 	
 	output:
 		tuple val(sampleName), env(numReads), path('resorted.bam') into resorted_bam_a, resorted_bam_b,  resorted_bam_c,  resorted_bam_d
-		tuple val(sampleName), path('sorted.stats'), path('resorted.stats') into samtools_stats
+		tuple val(sampleName), path('sorted.stats'), path('resorted.stats'), path('primer_hit_counts.tsv') into samtools_stats
 	
 	// An older version of samtools is automatically provided by ivar's dependency
     // Does one need to provide samtools=1.15 here? 
@@ -190,11 +190,15 @@ process trimming {
 		
 		# Nanopore has a much lower read quality, so the quality trimming should be much more lax.
 		if [[ $platform == ONT ]]; then
-			ivar trim -e -b $primerBedFile -p trimmed -i sorted.bam -q 1
+			ivar trim -e -b $primerBedFile -p trimmed -i sorted.bam -q 1 | tee ivar.stdout
 		else
-			ivar trim -e -b $primerBedFile -p trimmed -i sorted.bam
+			ivar trim -e -b $primerBedFile -p trimmed -i sorted.bam | tee ivar.stdout
 		fi
 		
+        # Generate a tsv file tabulating the number of reads vs trimmer primer name in the bed file
+        cat ivar.stdout | grep -A 10000 "Primer Name" | head -n -5 > primer_hit_counts.tsv
+        
+        
 		samtools sort trimmed.bam -o resorted.bam -@ \$numThreads
 		
 		# Evaluate read statistics
@@ -701,7 +705,7 @@ reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists)
 process generateReport {
 	input:
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
-		path('sorted.stats'), path('resorted.stats'),
+		path('sorted.stats'), path('resorted.stats'), path('primer_hit_counts.tsv'),
 		path('k2-std.out'),
 		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png'),
 		path('readLengthHist.png'), path('timeVSreadcounts.png'),
