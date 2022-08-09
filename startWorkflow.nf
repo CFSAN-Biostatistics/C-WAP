@@ -198,7 +198,6 @@ process trimming {
         # Generate a tsv file tabulating the number of reads vs trimmer primer name in the bed file
         cat ivar.stdout | grep -A 10000 "Primer Name" | head -n -5 > primer_hit_counts.tsv
         
-        
 		samtools sort trimmed.bam -o resorted.bam -@ \$numThreads
 		
 		# Evaluate read statistics
@@ -498,7 +497,7 @@ process LCSvariantCaller {
 	output:
 		tuple val(sampleName), path('LCS/outputs/decompose/lcs.out') into lcs_out
 		
-	conda "$projectDir/LCS/conda.env.yaml"
+	conda "$projectDir/conda/env-LCS"
 	time = '5 min'
 	
 	shell:
@@ -555,7 +554,7 @@ process freyjaVariantCaller {
             echo "Undetermined" > freyja_boot_lineages.csv 
             touch freyja_bootstrap.png
         else 
-            if [[ $task.attempt -lt 3 ]]; then
+            if [[ $task.attempt -lt 4 ]]; then
                 echo Pileup generation for Freyja...
                 freyja variants resorted.bam --variants freyja.variants.tsv --depths freyja.depths.tsv --ref $params.referenceSequence
                 
