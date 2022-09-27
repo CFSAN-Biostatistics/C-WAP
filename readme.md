@@ -89,6 +89,8 @@ C-WAP produces a number of files from the various processing steps.
 
 Variant composition analyses should be interpreted with caution where they should be treated as suspect if there are substantial gaps in coverage across the reference genome and/or a lack of sequencing depth.  The linear deconvolution and kraken2/bracken covid method are internally developed methods and under testing and validation.  
 
+### GISAID citation
+GISAID citation here
 
 ### Citing C-WAP
 This work is currently unpublished. If you are making use of this package, 
