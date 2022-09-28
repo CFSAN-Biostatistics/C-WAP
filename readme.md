@@ -90,7 +90,10 @@ C-WAP produces a number of files from the various processing steps.
 Variant composition analyses should be interpreted with caution where they should be treated as suspect if there are substantial gaps in coverage across the reference genome and/or a lack of sequencing depth.  The linear deconvolution and kraken2/bracken covid method are internally developed methods and under testing and validation.  
 
 ### GISAID citation
-GISAID citation here
+We gratefully acknowledge all data contributors, i.e., the Authors and their Originating laboratories responsible for obtaining the specimens, and their Submitting laboratories for generating the genetic sequence and metadata and sharing via the GISAID Initiative, some of which this research utlizes.  
+
+Khare, S., et al (2021) GISAID’s Role in Pandemic Response. China CDC Weekly, 3(49): 1049-1051. doi: 10.46234/ccdcw2021.255 PMCID: 8668406
+
 
 ### Citing C-WAP
 This work is currently unpublished. If you are making use of this package, 
