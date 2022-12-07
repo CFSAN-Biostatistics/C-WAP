@@ -7,6 +7,7 @@
 
 import csv, sys, re
 
+csv.field_size_limit(sys.maxsize) #JA 2022 OCT 11
 
 if len(sys.argv) != 3:
     raise Exception('Incorrect call to the script.')

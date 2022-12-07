@@ -9,10 +9,13 @@
 13	|	BA.3	|		|	scientific name	|
 14	|	BA.4	|		|	scientific name	|
 15	|	BA.5	|		|	scientific name	|
+16	|	BF.7	|		|	scientific name	|
+17	|	BQ.1	|		|	scientific name	|
 101	|	BA.1.1	|		|	scientific name	|
 102	|	BA.2.12	|		|	scientific name	|
 103	|	BA.2.75	|		|	scientific name	|
 104	|	BA.4.6	|		|	scientific name	|
+105	|	BQ.1.1	|		|	scientific name	|
 1101	|	EPI_ISL_8679094	|		|	scientific name	|
 1102	|	EPI_ISL_9408266	|		|	scientific name	|
 1103	|	EPI_ISL_8881737	|		|	scientific name	|
@@ -41,3 +44,12 @@
 1432	|	EPI_ISL_14128869	|		|	scientific name	|
 1433	|	EPI_ISL_14023660	|		|	scientific name	|
 1434	|	EPI_ISL_14150323	|		|	scientific name	|
+1511	|	EPI_ISL_15013500	|		|	scientific name	|
+1512	|	EPI_ISL_15369779	|		|	scientific name	|
+1513	|	EPI_ISL_15288087	|		|	scientific name	|
+1521	|	EPI_ISL_15452250	|		|	scientific name	|
+1522	|	EPI_ISL_15075463	|		|	scientific name	|
+1523	|	EPI_ISL_15114334	|		|	scientific name	|
+1531	|	EPI_ISL_15334252	|		|	scientific name	|
+1532	|	EPI_ISL_15430868	|		|	scientific name	|
+1533	|	EPI_ISL_15437527	|		|	scientific name	|

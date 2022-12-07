@@ -49,7 +49,8 @@ exit 0
 
 
 # kmer length to use for indexing
-kmer=111
+#kmer=111
+kmer=50
 
 # Index the allCovidDB for kraken2
 conda activate c-wap/conda/env-kraken2

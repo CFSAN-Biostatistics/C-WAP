@@ -18,7 +18,7 @@ env_list[env-python]="matplotlib scikit-learn=1.1.1 pandas"
 env_list[env-bcftools]="bcftools=1.15"
 env_list[env-pangolin]="pangolin=4.1.2"
 env_list[env-kallisto]="kallisto=0.48"
-env_list[env-freyja]="freyja=1.3.10"
+env_list[env-freyja]="freyja=1.3.11"
 env_list[env-entrez-direct]="entrez-direct=16.2"
 env_list[env-gs-wkhtmltopdf]="openssl=1.0 wkhtmltopdf=0.12.4 ghostscript=9.54"
 
@@ -36,11 +36,11 @@ for env_name in ${!env_list[@]}; do
 done
 
 
-if ! [[ -d conda/env-LCS ]]; then
-    conda env create --prefix conda/env-LCS --file=./LCS/conda.env.yaml
-else
-    echo env-LCS already exists, skipped.
-fi
+# if ! [[ -d conda/env-LCS ]]; then
+#     conda env create --prefix conda/env-LCS --file=./LCS/conda.env.yaml
+# else
+#     echo env-LCS already exists, skipped.
+# fi
 
 
 exit 0

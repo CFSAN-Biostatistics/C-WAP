@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+table {
+	width: 100%;
+	font-family: sans-serif;
+}
+
+td, th {
+	border: 0.1em solid #DDDDDD;
+	padding: 0.3em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+	background-color: #CCE4F1;
+}
+
+tr:nth-child(even) {
+	background-color: #FFFFFF;
+}
+
+
+@media screen {
+	body {
+		margin-top: 3em;
+		margin-bottom: 7em;
+		margin-left: 10em;
+		margin-right: 10em;
+		
+		font-family:sans-serif;
+		background-color: #F0F0F0;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 20%;
+		background-position: 11em 2em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+		vertical-align: middle;
+		text-align: justify;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 50%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+
+
+@media print {
+	body {
+		margin-top: 0;
+		margin-left: 20mm;
+		margin-right: 20mm;
+		
+		font-family:sans-serif;
+		background-color: #FFFFFF;
+		background-image: url('https://www.fda.gov/media/99813/download');
+		background-repeat: no-repeat;
+		background-size: 30%;
+		background-position: 5em 0em;
+	}
+	
+	div {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content:center;
+		vertical-align: middle;
+		text-align: justify;
+	}
+	#figdiv {
+		display:inline-block;
+		width: 49%;
+	}
+	#caption {
+		display:inline-block;
+		width: 95%;
+		background-color: #CCE4F1;
+		border-left: 1em solid #007CBA;
+		padding-left: 1em;
+		padding-right: 1em;
+		margin-left: 0;
+		text-align: justify;
+	}
+}
+
+</style>
+
+
+<title>Wastewater report</title>
+<link rel="icon" href="https://www.fda.gov/media/105163/download" type="image/x-icon">
+</head>
+
+<body>
+
+<br><br>
+<h2><center>CFSAN/OAO<br>BIOSTATISTICS AND BIOINFORMATICS STAFF</center></h2>
+<h1><center>WASTEWATER SARS-COV2 ANALYSIS REPORT</center></h1>
+<table>
+<tr>
+    <td>Sample name:</td><td>SRR22214908</td>
+</tr>
+<tr>
+    <td>Date generated:</td><td>2022-12-06, 11:55:52 EST</td>
+</tr>
+<tr>
+    <td>Timestamp of C-WAP version used:</td><td>Mon Dec 5 13:25:44 2022 -0500</td>
+</tr>
+<tr>
+    <td>Executed by:</td><td>Jasmine Amirzadegan (<a href=\mailto:Jasmine.Amirzadegan@fda.hhs.gov?subject=Wastewater report generated on 2022-12-06, 11:55:52 EST\>Jasmine.Amirzadegan@fda.hhs.gov</a>)</td>
+</tr>
+<tr>
+    <td>Executed on:</td><td>172.20.44.226 (aka n226.raven.cfsan)</td>
+</tr>
+</table>
+
+<br>
+<h2>Sequencing summary</h2>
+<table>
+<tr>
+    <td>Sequencing chemistry:</td><td>AMPLICON with Illumina MiSeq</td>
+</tr>
+<tr>
+    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3/missing/?">USA: Alabama		(missing,?)</a></td>
+</tr>
+<tr>
+    <td>Sampling date:</td><td>2022-10-25</a></td>
+</tr>
+<tr>
+    <td>Collected by:</td><td>FDA Center for Food Safety and Applied Nutrition</td>
+</tr>
+<tr>
+    <td>Sequenced by:</td><td>Missing</td>
+</tr>
+<tr>
+    <td>Total number of reads:</td><td>3971518</td>
+</tr>
+<tr>
+    <td>Reads aligned:</td><td>3853242 (97%)</td>
+</tr>
+<tr>
+    <td>Average read quality:</td><td>38.1</td>
+</tr>
+<tr>
+    <td>Average read length:</td><td>149</td>
+</tr>
+<tr>
+    <td>Reads passing filter:</td><td>3815695 (96%)</td>
+</tr>
+<tr>
+    <td>Average read quality passing filter:</td><td>38.2</td>
+</tr>
+<tr>
+    <td>Average read length passing filter:</td><td>149</td>
+</tr>
+<tr>
+    <td>Average coverage passing filter:</td><td>19012X</td>
+</tr>
+</table>
+<br>
+A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum 		read quality &#8805; 20 within a sliding window of width 4.
+
+<br><br>
+<h2>Overall sequence characteristics</h2>
+<img src="./coverage.png" alt="Coverage vs. genome coordinate plot" width="49%" class="center">
+<img src="./quality.png" alt="Quality vs. genome coordinate plot" width="49%" class="center">
+<p> NOTE: The red shaded areas marked with a (<font color=red>*</font>) are not covered by the design of the library preparation kit and hence excluded from analyses. <font color=magenta>Magenta</font> curves represent moving average with a window width of 1kb.
+<br><br><br><br>
+<img src="./depthHistogram.png" alt="Coverage histogram" width="49%" class="center">
+<img src="./qualityHistogram.png" alt="Quality histogram" width="49%" class="center">
+<br><br><br><br>
+<img src="./readLengthHist.png" alt="Read length histogram" width="49%" class="center">
+<img src="./breadthVSdepth.png" alt="Depth vs breadth plot" width="49%" class="center">
+<img src="./discontinuitySignal.png" alt="Coverage discontinuity signal" width="49%" class="center">
+
+<br>
+<table>
+<tr>
+    <th></th><th>Uncovered coordinates (0X)</th><th>Poorly covered coordinates (<10X)</th>
+</tr>
+<tr>
+    <td># Inaccessible genomic coordinates by kit design:</td><td>-1nt (0%)</td><td>-1nt (0%)</td>
+</tr>
+<tr>
+    <td>All genomic coordinates:</td><td>478nt (1%)</td><td>538nt (1%)</td>
+</tr>
+<tr>
+    <td>Common SNPs:</td><td>0nt (0%)</td> <td>0nt (0%)</td>
+</tr>
+<tr>
+    <td>Diverse SNPs:</td><td>56nt (24%)</td> <td>56nt (24%)</td>
+</tr>
+<tr>
+    <td>Rare SNPs:</td><td>17nt (1%)</td> <td>17nt (1%)</td>
+</tr>
+</table>
+SNPs refer to the polymorphic sites currently in circulation that were detected out of recent GISAID entries. The sites that differ from the SC2 reference sequence are denoted as "common" if [90%, 100%] of the submissions carry this mutation, whereas those that are prevalent in [0%,10%] of the submissions are grouped under the "rare" category. The population is still diverse at the mutation sites that are observed in (10%,90%) of the entries and these coordinates are grouped under the "diverse" category.
+<br><br><br><br>
+<img src="./genesVSuncovered_abscounts.png" alt="Uncovered genome coordinates per gene, absolute counts" width="49%" class="center">
+<img src="./genesVSuncovered_scaled.png" alt="Uncovered genome coordinates per gene, counts per kb" width="49%" class="center">
+<br><br><br><br>
+<table>
+<tr>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>1939015 reads (97.65%) </td>
+</tr>
+<tr>
+    <td>Hits to human genome (kraken2):</td><td>451 reads (0.02%)</td>
+</tr>
+<tr>
+    <td>Hits to synthetic sequences (kraken2, taxid 28384):</td><td>43 reads (0.00%)</td>
+</tr>
+<tr>
+    <td>Most abundant organisms (kraken2, family level):</td><td>Coronaviridae (97.65%)<br>
+Aeromonadaceae (0.14%)<br>
+Enterobacteriaceae (0.05%)<br>
+Geobacteraceae (0.05%)<br>
+Hominidae (0.02%)<br></td>
+</tr>
+</table>
+<br>
+<h2>Detected variants (Experimental)</h2>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_deconvolution.png" alt="Abundance of variants by deconvolution" width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_kallisto.png" alt="Abundance of variants by kallisto" width="100%">
+    </div>
+</div>
+<div id="caption">
+    <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a> 
+	is estimated to constitute 57.98% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.56.	Variants that were detected less than 5% were grouped under "Other"
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=BA.5.2">BA.5.2</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=BA.5"	>BA.5</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+    </div>
+    <div id="figdiv">
+        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"				width="100%">
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <div id="figdiv">
+        <img src="./freyja_bootstrap.png" alt="Freyja bootstrapping"				width="100%">
+    </div>
+    <div id="figdiv">
+        
+    </div>
+</div>
+<br>
+<p> Under the assumption that the presence of a variant requires the detection
+    of all respective mutations of the variant, the characteric mutations which support the presence of
+    the respective variant are indicated in the respective column of the table. Numbers show the number
+    of mutations detected, if any, and the number of mutations expected to be present based on the
+    variant definitions.
+<table>
+<tr>
+    <td>VOC</td><td><a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a></td><td><a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td></tr>
+<tr>
+    <td>Characteristic mutations <br> detected</td><td>(3 of 13)<br>S:G142D<br>S:L452R<br>S:T478K<br></td><td>(2 of 26)<br>NUC:C25000T<br>NUC:C25584T<br></td><td>(19 of 31)<br>N:S413R<br>NUC:A20055G<br>NUC:A9424G<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C4321T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:L3027F<br>ORF1AB:S135R<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:R408S<br>S:S371F<br>S:T19I<br>S:T376A<br></td><td>(9 of 21)<br>N:S413R<br>NUC:C12880T<br>NUC:C15714T<br>NUC:G10447A<br>ORF1AB:G1307S<br>ORF1AB:S135R<br>ORF1AB:T3090I<br>S:D405N<br>S:S371F<br></td><td>(20 of 31)<br>N:S413R<br>NUC:A20055G<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C4321T<br>NUC:G10447A<br>NUC:G12160A<br>ORF1AB:G1307S<br>ORF1AB:S135R<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:F486V<br>S:L452R<br>S:S371F<br>S:T19I<br>S:T376A<br>S:V213G<br></td><td>(21 of 28)<br>M:D3N<br>N:S413R<br>NUC:A20055G<br>NUC:C12880T<br>NUC:C15714T<br>NUC:C25000T<br>NUC:C25584T<br>NUC:C4321T<br>NUC:G10447A<br>NUC:G12160A<br>ORF1AB:G1307S<br>ORF1AB:S135R<br>ORF1AB:T3090I<br>ORF1AB:T842I<br>S:D405N<br>S:F486V<br>S:L452R<br>S:S371F<br>S:T19I<br>S:T376A<br>S:V213G<br></td>
+</tr>
+</table>
+<br>
+
+<br>
+<a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard Index</a> is a measure of similarity between two sets A and B, reaching the maximum value of 1 if A=B and minimum value of 0 if A &cap; B = {}. In the c(d) representation below, c represents the Jaccard index of the set of mutations that were experimentally detected for this sample as listed above, whereas d refers to the ideal value of the Jaccard index expected from complete genome coverage without any sequencing errors.<br><table>
+<tr>
+    <td></td><td>B.1.617.2</td><td>BA.1</td><td>BA.2</td><td>BA.3</td><td>BA.4</td><td>BA.5</td></tr>
+<tr>
+    <td>B.1.617.2</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.05 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.02</a>)</td>    <td>0.04 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=B.1.617.2&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.03</a>)</td></tr>
+<tr>
+    <td>BA.1</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.1&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.11 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.10</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.21</a>)</td>    <td>0.10 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.08</a>)</td>    <td>0.10 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.1&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.08</a>)</td></tr>
+<tr>
+    <td>BA.2</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.11 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.10</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.2&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.47 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.33</a>)</td>    <td>0.70 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.63</a>)</td>    <td>0.67 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.2&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.59</a>)</td></tr>
+<tr>
+    <td>BA.3</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.00</a>)</td>    <td>0.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.21</a>)</td>    <td>0.47 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.33</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.3&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.45 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.30</a>)</td>    <td>0.43 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.3&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.29</a>)</td></tr>
+<tr>
+    <td>BA.4</td>    <td>0.05 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.02</a>)</td>    <td>0.10 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.08</a>)</td>    <td>0.70 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.63</a>)</td>    <td>0.45 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.30</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.4&analysisMode=CompareEquals&">1.00</a>)</td>    <td>0.95 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.4&pangoLineage1=BA.5&analysisMode=CompareEquals&">0.84</a>)</td></tr>
+<tr>
+    <td>BA.5</td>    <td>0.04 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=B.1.617.2&analysisMode=CompareEquals&">0.03</a>)</td>    <td>0.10 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.1&analysisMode=CompareEquals&">0.08</a>)</td>    <td>0.67 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.2&analysisMode=CompareEquals&">0.59</a>)</td>    <td>0.43 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.3&analysisMode=CompareEquals&">0.29</a>)</td>    <td>0.95 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.4&analysisMode=CompareEquals&">0.84</a>)</td>    <td>1.00 (<a href="https://cov-spectrum.org/explore/World/AllSamples/Past6M/variants?pangoLineage=BA.5&pangoLineage1=BA.5&analysisMode=CompareEquals&">1.00</a>)</td></tr>
+</table>
+<br>
+
+<h2>Detected mutations</h2>
+Only genomic coordinates with at least 10X coverage were considered.
+<br>
+<table>
+<tr>
+    <th>Position</th> <th>Ref. base</th> <th>Alt. base</th> <th>Alt. freq</th> <th>p-value</th> <th>Mutation name</th> <th>Compatible lineages</th>
+</tr>
+<tr>
+    <td>61</td> <td>G</td> <td>-T</td> <td>0.547</td> <td nowrap>6.32E-54</td><td>DEL:61:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>196</td> <td>A</td> <td>T</td> <td>0.111</td> <td nowrap>3.19E-219</td><td>NUC:A196T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>241</td> <td>C</td> <td>T</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>NUC:C241T</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.427">B.1.427</a></td>
+</tr>
+<tr>
+    <td>513</td> <td>A</td> <td>-TGTTATG</td> <td>0.064</td> <td nowrap>1.16E-97</td><td>DEL:513:7</td> <td>None found</td>
+</tr>
+<tr>
+    <td>579</td> <td>G</td> <td>A</td> <td>0.050</td> <td nowrap>3.41E-121</td><td>ORF1AB:G105D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>670</td> <td>T</td> <td>G</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>ORF1AB:S135R</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>738</td> <td>A</td> <td>-AG</td> <td>0.174</td> <td nowrap>2.31E-75</td><td>DEL:738:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>824</td> <td>G</td> <td>A</td> <td>0.051</td> <td nowrap>2.25E-68</td><td>ORF1AB:D187N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1098</td> <td>A</td> <td>T</td> <td>0.084</td> <td nowrap>1.02E-117</td><td>ORF1AB:N278I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1366</td> <td>A</td> <td>T</td> <td>0.098</td> <td nowrap>2.21E-171</td><td>ORF1AB:K367N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1582</td> <td>T</td> <td>-G</td> <td>0.305</td> <td nowrap>0.00E+00</td><td>DEL:1582:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1584</td> <td>G</td> <td>C</td> <td>0.426</td> <td nowrap>0.00E+00</td><td>ORF1AB:G440A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1587</td> <td>A</td> <td>T</td> <td>0.429</td> <td nowrap>0.00E+00</td><td>ORF1AB:E441V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1588</td> <td>A</td> <td>T</td> <td>0.414</td> <td nowrap>0.00E+00</td><td>ORF1AB:E441D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1590</td> <td>G</td> <td>A</td> <td>0.430</td> <td nowrap>0.00E+00</td><td>ORF1AB:G442D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1591</td> <td>T</td> <td>C</td> <td>0.433</td> <td nowrap>0.00E+00</td><td>NUC:T1591C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1593</td> <td>C</td> <td>T</td> <td>0.436</td> <td nowrap>0.00E+00</td><td>ORF1AB:S443F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1596</td> <td>A</td> <td>C</td> <td>0.429</td> <td nowrap>0.00E+00</td><td>ORF1AB:E444A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1757</td> <td>G</td> <td>T</td> <td>0.228</td> <td nowrap>0.00E+00</td><td>ORF1AB:A498S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1769</td> <td>A</td> <td>T</td> <td>0.087</td> <td nowrap>7.30E-247</td><td>ORF1AB:I502F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1811</td> <td>G</td> <td>-C</td> <td>0.447</td> <td nowrap>1.29E-241</td><td>DEL:1811:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1906</td> <td>T</td> <td>C</td> <td>0.059</td> <td nowrap>8.18E-159</td><td>NUC:T1906C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>1931</td> <td>C</td> <td>A</td> <td>0.602</td> <td nowrap>0.00E+00</td><td>ORF1AB:Q556K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2296</td> <td>A</td> <td>G</td> <td>0.086</td> <td nowrap>1.02E-61</td><td>NUC:A2296G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2421</td> <td>A</td> <td>T</td> <td>0.078</td> <td nowrap>6.29E-124</td><td>ORF1AB:K719M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2571</td> <td>C</td> <td>T</td> <td>0.084</td> <td nowrap>1.55E-97</td><td>ORF1AB:P769L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2695</td> <td>C</td> <td>T</td> <td>0.064</td> <td nowrap>3.87E-129</td><td>NUC:C2695T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2706</td> <td>C</td> <td>T</td> <td>0.071</td> <td nowrap>3.22E-144</td><td>ORF1AB:T814I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2760</td> <td>A</td> <td>G</td> <td>0.156</td> <td nowrap>0.00E+00</td><td>ORF1AB:E832G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2790</td> <td>C</td> <td>T</td> <td>0.839</td> <td nowrap>0.00E+00</td><td>ORF1AB:T842I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>2954</td> <td>T</td> <td>C</td> <td>0.444</td> <td nowrap>0.00E+00</td><td>NUC:T2954C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>2962</td> <td>G</td> <td>A</td> <td>0.123</td> <td nowrap>4.01E-249</td><td>NUC:G2962A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3037</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>NUC:C3037T</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.427">B.1.427</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.429">B.1.429</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.526">B.1.526</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.621">B.1.621</a></td>
+</tr>
+<tr>
+    <td>3085</td> <td>G</td> <td>-T</td> <td>0.073</td> <td nowrap>1.04E-17</td><td>DEL:3085:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3208</td> <td>T</td> <td>C</td> <td>0.053</td> <td nowrap>2.26E-134</td><td>NUC:T3208C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3310</td> <td>A</td> <td>G</td> <td>0.073</td> <td nowrap>8.59E-199</td><td>NUC:A3310G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3615</td> <td>T</td> <td>C</td> <td>0.087</td> <td nowrap>2.70E-246</td><td>ORF1AB:V1117A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3711</td> <td>T</td> <td>G</td> <td>0.076</td> <td nowrap>3.80E-83</td><td>ORF1AB:L1149*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3822</td> <td>T</td> <td>C</td> <td>0.154</td> <td nowrap>0.00E+00</td><td>ORF1AB:L1186P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>3863</td> <td>G</td> <td>T</td> <td>0.066</td> <td nowrap>3.55E-181</td><td>ORF1AB:E1200*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4184</td> <td>G</td> <td>A</td> <td>0.997</td> <td nowrap>0.00E+00</td><td>ORF1AB:G1307S</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>4187</td> <td>G</td> <td>T</td> <td>0.338</td> <td nowrap>0.00E+00</td><td>ORF1AB:G1308C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4206</td> <td>C</td> <td>T</td> <td>0.054</td> <td nowrap>9.39E-59</td><td>ORF1AB:A1314V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>4321</td> <td>C</td> <td>T</td> <td>0.775</td> <td nowrap>0.00E+00</td><td>NUC:C4321T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>5230</td> <td>G</td> <td>T</td> <td>0.624</td> <td nowrap>0.00E+00</td><td>ORF1AB:K1655N</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.351">B.1.351</a></td>
+</tr>
+<tr>
+    <td>5239</td> <td>C</td> <td>T</td> <td>0.144</td> <td nowrap>1.34E-235</td><td>NUC:C5239T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5284</td> <td>C</td> <td>T</td> <td>0.119</td> <td nowrap>3.13E-250</td><td>NUC:C5284T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5447</td> <td>G</td> <td>-T</td> <td>0.319</td> <td nowrap>0.00E+00</td><td>DEL:5447:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>5804</td> <td>T</td> <td>C</td> <td>0.141</td> <td nowrap>1.19E-68</td><td>ORF1AB:C1847R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6099</td> <td>C</td> <td>T</td> <td>0.340</td> <td nowrap>0.00E+00</td><td>ORF1AB:T1945I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6179</td> <td>T</td> <td>C</td> <td>0.455</td> <td nowrap>5.72E-03</td><td>ORF1AB:Y1972H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>6313</td> <td>A</td> <td>G</td> <td>0.092</td> <td nowrap>1.26E-68</td><td>NUC:A6313G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7080</td> <td>A</td> <td>G</td> <td>0.058</td> <td nowrap>2.01E-04</td><td>ORF1AB:N2272S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7082</td> <td>T</td> <td>C</td> <td>0.050</td> <td nowrap>4.08E-04</td><td>ORF1AB:S2273P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7145</td> <td>G</td> <td>A</td> <td>0.059</td> <td nowrap>7.81E-67</td><td>ORF1AB:G2294S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7301</td> <td>A</td> <td>G</td> <td>0.131</td> <td nowrap>3.34E-164</td><td>ORF1AB:I2346V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>7703</td> <td>C</td> <td>T</td> <td>0.469</td> <td nowrap>2.11E-67</td><td>ORF1AB:P2480S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8459</td> <td>G</td> <td>A</td> <td>0.069</td> <td nowrap>2.63E-99</td><td>ORF1AB:A2732T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>8980</td> <td>C</td> <td>T</td> <td>0.457</td> <td nowrap>0.00E+00</td><td>NUC:C8980T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>9219</td> <td>G</td> <td>A</td> <td>0.189</td> <td nowrap>0.00E+00</td><td>ORF1AB:R2985K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>9344</td> <td>C</td> <td>T</td> <td>0.995</td> <td nowrap>0.00E+00</td><td>ORF1AB:L3027F</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+</tr>
+<tr>
+    <td>9424</td> <td>A</td> <td>G</td> <td>0.991</td> <td nowrap>1.20E-71</td><td>NUC:A9424G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a></td>
+</tr>
+<tr>
+    <td>9534</td> <td>C</td> <td>T</td> <td>0.993</td> <td nowrap>0.00E+00</td><td>ORF1AB:T3090I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>9803</td> <td>C</td> <td>T</td> <td>0.455</td> <td nowrap>0.00E+00</td><td>NUC:C9803T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>9933</td> <td>C</td> <td>T</td> <td>0.053</td> <td nowrap>9.49E-24</td><td>ORF1AB:T3223I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10029</td> <td>C</td> <td>T</td> <td>0.995</td> <td nowrap>0.00E+00</td><td>ORF1AB:T3255I</td> <td><a href="https://outbreak.info/situation-reports?pango=AY.4">AY.4</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.621">B.1.621</a>, <a href="https://outbreak.info/situation-reports?pango=C.37">C.37</a></td>
+</tr>
+<tr>
+    <td>10447</td> <td>G</td> <td>A</td> <td>0.997</td> <td nowrap>0.00E+00</td><td>NUC:G10447A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>10449</td> <td>C</td> <td>A</td> <td>0.996</td> <td nowrap>0.00E+00</td><td>ORF1AB:P3395H</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>10576</td> <td>C</td> <td>T</td> <td>0.081</td> <td nowrap>1.56E-49</td><td>NUC:C10576T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10599</td> <td>A</td> <td>T</td> <td>1.000</td> <td nowrap>9.61E-08</td><td>ORF1AB:Y3445F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10630</td> <td>A</td> <td>T</td> <td>0.054</td> <td nowrap>6.15E-76</td><td>ORF1AB:Q3455H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>10919</td> <td>G</td> <td>T</td> <td>0.144</td> <td nowrap>2.87E-236</td><td>ORF1AB:D3552Y</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11074</td> <td>C</td> <td>-T</td> <td>0.062</td> <td nowrap>1.51E-49</td><td>DEL:11074:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11179</td> <td>G</td> <td>-TT</td> <td>0.124</td> <td nowrap>1.81E-213</td><td>DEL:11179:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11287</td> <td>G</td> <td>-TCTGGTTTT</td> <td>0.995</td> <td nowrap>0.00E+00</td><td>DEL:11287:9</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.351">B.1.351</a>, <a href="https://outbreak.info/situation-reports?pango=P.1">P.1</a></td>
+</tr>
+<tr>
+    <td>11288</td> <td>T</td> <td>A</td> <td>0.976</td> <td nowrap>0.00E+00</td><td>ORF1AB:S3675T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11291</td> <td>G</td> <td>A</td> <td>0.946</td> <td nowrap>0.00E+00</td><td>ORF1AB:G3676S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11296</td> <td>T</td> <td>G</td> <td>0.994</td> <td nowrap>0.00E+00</td><td>ORF1AB:F3677L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11615</td> <td>T</td> <td>C</td> <td>0.152</td> <td nowrap>2.63E-144</td><td>ORF1AB:C3784R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>11977</td> <td>T</td> <td>C</td> <td>0.262</td> <td nowrap>0.00E+00</td><td>NUC:T11977C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12030</td> <td>A</td> <td>G</td> <td>0.302</td> <td nowrap>3.58E-272</td><td>ORF1AB:Q3922R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12084</td> <td>C</td> <td>A</td> <td>0.283</td> <td nowrap>3.72E-250</td><td>ORF1AB:T3940N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12087</td> <td>T</td> <td>G</td> <td>0.273</td> <td nowrap>5.79E-277</td><td>ORF1AB:L3941*</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12088</td> <td>A</td> <td>G</td> <td>0.277</td> <td nowrap>1.03E-281</td><td>NUC:A12088G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12089</td> <td>C</td> <td>A</td> <td>0.272</td> <td nowrap>1.87E-268</td><td>ORF1AB:Q3942K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12092</td> <td>G</td> <td>-CT</td> <td>0.395</td> <td nowrap>3.49E-208</td><td>DEL:12092:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12097</td> <td>A</td> <td>T</td> <td>0.557</td> <td nowrap>0.00E+00</td><td>NUC:A12097T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12160</td> <td>G</td> <td>A</td> <td>0.996</td> <td nowrap>0.00E+00</td><td>NUC:G12160A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>12310</td> <td>G</td> <td>A</td> <td>0.348</td> <td nowrap>0.00E+00</td><td>NUC:G12310A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12681</td> <td>T</td> <td>C</td> <td>0.054</td> <td nowrap>2.38E-145</td><td>ORF1AB:L4139S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12838</td> <td>G</td> <td>-A</td> <td>0.120</td> <td nowrap>3.97E-22</td><td>DEL:12838:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12850</td> <td>A</td> <td>-T</td> <td>0.070</td> <td nowrap>1.14E-11</td><td>DEL:12850:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>12880</td> <td>C</td> <td>T</td> <td>0.996</td> <td nowrap>0.00E+00</td><td>NUC:C12880T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a>, <a href="https://outbreak.info/situation-reports?pango=XE">XE</a></td>
+</tr>
+<tr>
+    <td>13069</td> <td>T</td> <td>C</td> <td>0.149</td> <td nowrap>1.97E-66</td><td>NUC:T13069C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>13451</td> <td>G</td> <td>T</td> <td>0.237</td> <td nowrap>7.91E-102</td><td>ORF1AB:A4396S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>13514</td> <td>G</td> <td>A</td> <td>0.235</td> <td nowrap>2.17E-101</td><td>ORF1AB:G16D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>13706</td> <td>T</td> <td>C</td> <td>0.112</td> <td nowrap>1.76E-115</td><td>ORF1AB:L80S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14031</td> <td>A</td> <td>G</td> <td>0.255</td> <td nowrap>0.00E+00</td><td>NUC:A14031G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14158</td> <td>T</td> <td>C</td> <td>0.070</td> <td nowrap>1.61E-56</td><td>NUC:T14158C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14170</td> <td>A</td> <td>G</td> <td>0.060</td> <td nowrap>2.42E-48</td><td>ORF1AB:I235V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14257</td> <td>T</td> <td>C</td> <td>0.545</td> <td nowrap>0.00E+00</td><td>ORF1AB:Y264H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14408</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>ORF1AB:P314L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14576</td> <td>C</td> <td>T</td> <td>0.061</td> <td nowrap>2.45E-171</td><td>ORF1AB:A370V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14677</td> <td>G</td> <td>A</td> <td>0.069</td> <td nowrap>1.66E-191</td><td>ORF1AB:G404S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>14959</td> <td>A</td> <td>G</td> <td>0.051</td> <td nowrap>7.06E-37</td><td>ORF1AB:N498D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15167</td> <td>T</td> <td>C</td> <td>0.352</td> <td nowrap>3.28E-149</td><td>ORF1AB:L567S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15454</td> <td>T</td> <td>C</td> <td>0.199</td> <td nowrap>1.64E-102</td><td>ORF1AB:S663P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15654</td> <td>C</td> <td>T</td> <td>0.154</td> <td nowrap>2.71E-164</td><td>NUC:C15654T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15704</td> <td>T</td> <td>A</td> <td>0.081</td> <td nowrap>4.47E-139</td><td>ORF1AB:M746K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>15714</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>NUC:C15714T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>15745</td> <td>A</td> <td>T</td> <td>0.059</td> <td nowrap>2.57E-59</td><td>ORF1AB:T760S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16042</td> <td>C</td> <td>T</td> <td>0.094</td> <td nowrap>1.26E-78</td><td>ORF1AB:P859S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16188</td> <td>G</td> <td>T</td> <td>0.156</td> <td nowrap>1.64E-199</td><td>ORF1AB:W907C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16341</td> <td>A</td> <td>G</td> <td>0.067</td> <td nowrap>4.13E-76</td><td>ORF1AB:I958M</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16504</td> <td>T</td> <td>C</td> <td>0.260</td> <td nowrap>0.00E+00</td><td>ORF1AB:F1013L</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16616</td> <td>C</td> <td>A</td> <td>0.439</td> <td nowrap>0.00E+00</td><td>ORF1AB:T1050N</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16732</td> <td>T</td> <td>-C</td> <td>0.696</td> <td nowrap>0.00E+00</td><td>DEL:16732:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>16734</td> <td>A</td> <td>T</td> <td>0.703</td> <td nowrap>0.00E+00</td><td>NUC:A16734T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17387</td> <td>T</td> <td>C</td> <td>0.334</td> <td nowrap>0.00E+00</td><td>ORF1AB:L1307S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17410</td> <td>C</td> <td>T</td> <td>0.496</td> <td nowrap>0.00E+00</td><td>ORF1AB:R1315C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17764</td> <td>G</td> <td>A</td> <td>0.144</td> <td nowrap>0.00E+00</td><td>ORF1AB:V1433I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>17941</td> <td>A</td> <td>G</td> <td>0.071</td> <td nowrap>2.36E-61</td><td>ORF1AB:K1492E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18019</td> <td>A</td> <td>G</td> <td>0.445</td> <td nowrap>0.00E+00</td><td>ORF1AB:R1518G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18116</td> <td>A</td> <td>G</td> <td>0.091</td> <td nowrap>1.63E-07</td><td>ORF1AB:H1550R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18163</td> <td>A</td> <td>G</td> <td>1.000</td> <td nowrap>8.74E-83</td><td>ORF1AB:I1566V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18197</td> <td>G</td> <td>A</td> <td>0.052</td> <td nowrap>5.44E-03</td><td>ORF1AB:R1577K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18248</td> <td>C</td> <td>A</td> <td>1.000</td> <td nowrap>1.03E-15</td><td>ORF1AB:P1594H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18249</td> <td>T</td> <td>A</td> <td>0.964</td> <td nowrap>2.61E-16</td><td>NUC:T18249A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18273</td> <td>A</td> <td>G</td> <td>0.091</td> <td nowrap>5.04E-184</td><td>NUC:A18273G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18426</td> <td>T</td> <td>C</td> <td>0.054</td> <td nowrap>4.02E-48</td><td>NUC:T18426C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>18729</td> <td>T</td> <td>A</td> <td>0.059</td> <td nowrap>1.73E-15</td><td>NUC:T18729A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19164</td> <td>C</td> <td>-A</td> <td>0.139</td> <td nowrap>1.37E-206</td><td>DEL:19164:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19304</td> <td>A</td> <td>T</td> <td>0.057</td> <td nowrap>3.59E-82</td><td>ORF1AB:N1946I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19346</td> <td>T</td> <td>C</td> <td>0.079</td> <td nowrap>2.50E-209</td><td>ORF1AB:F1960S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19481</td> <td>G</td> <td>A</td> <td>0.144</td> <td nowrap>8.17E-77</td><td>ORF1AB:G2005D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19485</td> <td>T</td> <td>C</td> <td>0.055</td> <td nowrap>1.06E-27</td><td>NUC:T19485C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19581</td> <td>T</td> <td>C</td> <td>0.078</td> <td nowrap>5.83E-218</td><td>NUC:T19581C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19875</td> <td>C</td> <td>T</td> <td>0.113</td> <td nowrap>1.25E-275</td><td>NUC:C19875T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>19955</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>ORF1AB:T2163I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20055</td> <td>A</td> <td>G</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>NUC:A20055G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>20140</td> <td>A</td> <td>T</td> <td>0.068</td> <td nowrap>7.32E-105</td><td>ORF1AB:T2225S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20381</td> <td>T</td> <td>C</td> <td>0.405</td> <td nowrap>0.00E+00</td><td>ORF1AB:L2305P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20544</td> <td>C</td> <td>T</td> <td>0.170</td> <td nowrap>0.00E+00</td><td>NUC:C20544T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20636</td> <td>A</td> <td>G</td> <td>0.056</td> <td nowrap>2.43E-18</td><td>ORF1AB:E2390G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20963</td> <td>A</td> <td>T</td> <td>0.202</td> <td nowrap>0.00E+00</td><td>ORF1AB:D2499V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>20989</td> <td>T</td> <td>C</td> <td>0.200</td> <td nowrap>0.00E+00</td><td>NUC:T20989C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21200</td> <td>A</td> <td>T</td> <td>0.081</td> <td nowrap>7.35E-63</td><td>ORF1AB:Y2578F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21575</td> <td>C</td> <td>T</td> <td>0.641</td> <td nowrap>0.00E+00</td><td>S:L5F</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.526">B.1.526</a></td>
+</tr>
+<tr>
+    <td>21618</td> <td>C</td> <td>T</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:T19I</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>21632</td> <td>T</td> <td>-TACCCCCTG</td> <td>0.951</td> <td nowrap>0.00E+00</td><td>DEL:21632:9</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21633</td> <td>T</td> <td>C</td> <td>0.946</td> <td nowrap>0.00E+00</td><td>S:L24S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21635</td> <td>C</td> <td>T</td> <td>0.946</td> <td nowrap>0.00E+00</td><td>S:P25S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21636</td> <td>C</td> <td>A</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>S:P25H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21638</td> <td>C</td> <td>A</td> <td>0.978</td> <td nowrap>0.00E+00</td><td>S:P26T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21641</td> <td>G</td> <td>C</td> <td>0.304</td> <td nowrap>2.31E-33</td><td>S:A27P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21652</td> <td>T</td> <td>C</td> <td>0.078</td> <td nowrap>3.09E-185</td><td>NUC:T21652C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21691</td> <td>C</td> <td>T</td> <td>0.075</td> <td nowrap>2.00E-108</td><td>NUC:C21691T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21701</td> <td>G</td> <td>-T</td> <td>0.108</td> <td nowrap>6.54E-102</td><td>DEL:21701:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21724</td> <td>G</td> <td>+TTCTT</td> <td>0.060</td> <td nowrap>7.71E-59</td><td>NUC:G21724+TTCTT</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21725</td> <td>T</td> <td>A</td> <td>0.083</td> <td nowrap>3.17E-137</td><td>S:F55I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21726</td> <td>T</td> <td>C</td> <td>0.074</td> <td nowrap>8.39E-121</td><td>S:F55S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21764</td> <td>A</td> <td>-TACATG</td> <td>0.666</td> <td nowrap>0.00E+00</td><td>DEL:21764:6</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21828</td> <td>G</td> <td>A</td> <td>0.097</td> <td nowrap>1.34E-176</td><td>S:G89D</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21894</td> <td>A</td> <td>T</td> <td>0.163</td> <td nowrap>0.00E+00</td><td>S:D111V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>21987</td> <td>G</td> <td>A</td> <td>0.995</td> <td nowrap>0.00E+00</td><td>S:G142D</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td>
+</tr>
+<tr>
+    <td>21992</td> <td>T</td> <td>-ATTACC</td> <td>0.067</td> <td nowrap>6.23E-105</td><td>DEL:21992:6</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22190</td> <td>A</td> <td>G</td> <td>0.152</td> <td nowrap>4.22E-205</td><td>S:I210V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22200</td> <td>T</td> <td>G</td> <td>0.482</td> <td nowrap>0.00E+00</td><td>S:V213G</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>22243</td> <td>A</td> <td>G</td> <td>0.060</td> <td nowrap>2.60E-119</td><td>NUC:A22243G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22341</td> <td>C</td> <td>T</td> <td>0.074</td> <td nowrap>5.71E-192</td><td>S:A260V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22346</td> <td>G</td> <td>T</td> <td>0.083</td> <td nowrap>3.57E-155</td><td>S:A262S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22394</td> <td>A</td> <td>G</td> <td>0.079</td> <td nowrap>1.52E-196</td><td>S:K278E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22450</td> <td>C</td> <td>T</td> <td>0.218</td> <td nowrap>0.00E+00</td><td>NUC:C22450T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22578</td> <td>G</td> <td>A</td> <td>0.996</td> <td nowrap>0.00E+00</td><td>S:G339D</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>22599</td> <td>G</td> <td>T</td> <td>0.083</td> <td nowrap>8.51E-220</td><td>S:R346I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22674</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>S:S371F</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>22679</td> <td>T</td> <td>C</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>S:S373P</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>22686</td> <td>C</td> <td>T</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>S:S375F</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>22688</td> <td>A</td> <td>G</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:T376A</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>22689</td> <td>C</td> <td>-TT</td> <td>0.312</td> <td nowrap>0.00E+00</td><td>DEL:22689:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22775</td> <td>G</td> <td>A</td> <td>0.555</td> <td nowrap>0.00E+00</td><td>S:D405N</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>22786</td> <td>A</td> <td>C</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:R408S</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>22813</td> <td>G</td> <td>T</td> <td>0.603</td> <td nowrap>0.00E+00</td><td>S:K417N</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a></td>
+</tr>
+<tr>
+    <td>22882</td> <td>T</td> <td>G</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>S:N440K</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>22893</td> <td>A</td> <td>G</td> <td>0.345</td> <td nowrap>0.00E+00</td><td>S:K444R</td> <td>None found</td>
+</tr>
+<tr>
+    <td>22917</td> <td>T</td> <td>G</td> <td>0.927</td> <td nowrap>0.00E+00</td><td>S:L452R</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.427">B.1.427</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.429">B.1.429</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.1">B.1.617.1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>22992</td> <td>G</td> <td>A</td> <td>0.977</td> <td nowrap>0.00E+00</td><td>S:S477N</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.526">B.1.526</a></td>
+</tr>
+<tr>
+    <td>22995</td> <td>C</td> <td>A</td> <td>0.976</td> <td nowrap>0.00E+00</td><td>S:T478K</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2+K417N">B.1.617.2+K417N</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td>
+</tr>
+<tr>
+    <td>23013</td> <td>A</td> <td>C</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:E484A</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>23018</td> <td>T</td> <td>G</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:F486V</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>23055</td> <td>A</td> <td>G</td> <td>0.996</td> <td nowrap>0.00E+00</td><td>S:Q498R</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>23063</td> <td>A</td> <td>T</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>S:N501Y</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.7+E484K">B.1.1.7+E484K</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.7">B.1.1.7</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.351">B.1.351</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.621">B.1.621</a>, <a href="https://outbreak.info/situation-reports?pango=P.1">P.1</a>, <a href="https://outbreak.info/situation-reports?pango=P.3">P.3</a></td>
+</tr>
+<tr>
+    <td>23075</td> <td>T</td> <td>C</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:Y505H</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>23088</td> <td>G</td> <td>A</td> <td>0.114</td> <td nowrap>0.00E+00</td><td>S:R509K</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23153</td> <td>A</td> <td>T</td> <td>0.052</td> <td nowrap>1.01E-72</td><td>S:T531S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23234</td> <td>A</td> <td>G</td> <td>0.153</td> <td nowrap>3.44E-219</td><td>S:K558E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23288</td> <td>G</td> <td>A</td> <td>0.062</td> <td nowrap>1.73E-52</td><td>S:V576I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23356</td> <td>A</td> <td>T</td> <td>0.080</td> <td nowrap>2.18E-201</td><td>NUC:A23356T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23360</td> <td>C</td> <td>T</td> <td>0.168</td> <td nowrap>0.00E+00</td><td>S:P600S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23403</td> <td>A</td> <td>G</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:D614G</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.427">B.1.427</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.429">B.1.429</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.526">B.1.526</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.621">B.1.621</a>, <a href="https://outbreak.info/situation-reports?pango=C.37">C.37</a></td>
+</tr>
+<tr>
+    <td>23481</td> <td>C</td> <td>G</td> <td>0.166</td> <td nowrap>4.06E-287</td><td>S:S640C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23525</td> <td>C</td> <td>T</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:H655Y</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>23599</td> <td>T</td> <td>G</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>S:N679K</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>23604</td> <td>C</td> <td>A</td> <td>0.997</td> <td nowrap>0.00E+00</td><td>S:P681H</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.318">B.1.1.318</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.7+E484K">B.1.1.7+E484K</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.7">B.1.1.7</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.621">B.1.621</a>, <a href="https://outbreak.info/situation-reports?pango=P.3">P.3</a></td>
+</tr>
+<tr>
+    <td>23741</td> <td>C</td> <td>T</td> <td>0.122</td> <td nowrap>0.00E+00</td><td>NUC:C23741T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23819</td> <td>T</td> <td>C</td> <td>0.062</td> <td nowrap>6.90E-44</td><td>NUC:T23819C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>23854</td> <td>C</td> <td>A</td> <td>0.957</td> <td nowrap>0.00E+00</td><td>S:N764K</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>23948</td> <td>G</td> <td>T</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:D796Y</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>24424</td> <td>A</td> <td>T</td> <td>0.977</td> <td nowrap>0.00E+00</td><td>S:Q954H</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>24469</td> <td>T</td> <td>A</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>S:N969K</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>24531</td> <td>A</td> <td>G</td> <td>0.093</td> <td nowrap>1.79E-04</td><td>S:E990G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24545</td> <td>A</td> <td>G</td> <td>0.058</td> <td nowrap>4.03E-03</td><td>S:R995G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>24761</td> <td>T</td> <td>C</td> <td>0.201</td> <td nowrap>0.00E+00</td><td>S:Y1067H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>25000</td> <td>C</td> <td>T</td> <td>0.831</td> <td nowrap>0.00E+00</td><td>NUC:C25000T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a>, <a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>25016</td> <td>T</td> <td>C</td> <td>0.061</td> <td nowrap>5.48E-96</td><td>NUC:T25016C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>25565</td> <td>G</td> <td>T</td> <td>0.529</td> <td nowrap>0.00E+00</td><td>ORF3A:S58I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>25584</td> <td>C</td> <td>T</td> <td>0.997</td> <td nowrap>0.00E+00</td><td>NUC:C25584T</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.1">BA.1</a>, <a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>26022</td> <td>C</td> <td>T</td> <td>0.102</td> <td nowrap>1.99E-109</td><td>NUC:C26022T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>26060</td> <td>C</td> <td>T</td> <td>0.687</td> <td nowrap>0.00E+00</td><td>ORF3A:T223I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>26270</td> <td>C</td> <td>T</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>E:T9I</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>26529</td> <td>G</td> <td>A</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>M:D3N</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
+</tr>
+<tr>
+    <td>26577</td> <td>C</td> <td>G</td> <td>0.106</td> <td nowrap>1.38E-82</td><td>M:Q19E</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>26630</td> <td>A</td> <td>-T</td> <td>0.146</td> <td nowrap>5.37E-88</td><td>DEL:26630:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>26709</td> <td>G</td> <td>A</td> <td>0.978</td> <td nowrap>0.00E+00</td><td>M:A63T</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>26729</td> <td>T</td> <td>C</td> <td>0.106</td> <td nowrap>2.57E-299</td><td>NUC:T26729C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27012</td> <td>C</td> <td>T</td> <td>0.926</td> <td nowrap>0.00E+00</td><td>NUC:C27012T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27382</td> <td>G</td> <td>C</td> <td>0.282</td> <td nowrap>2.04E-258</td><td>ORF6:D61H</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27383</td> <td>A</td> <td>T</td> <td>0.281</td> <td nowrap>2.34E-258</td><td>ORF6:D61V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27384</td> <td>T</td> <td>C</td> <td>0.342</td> <td nowrap>0.00E+00</td><td>NUC:T27384C</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.617.3">B.1.617.3</a></td>
+</tr>
+<tr>
+    <td>27513</td> <td>C</td> <td>T</td> <td>0.811</td> <td nowrap>0.00E+00</td><td>NUC:C27513T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27651</td> <td>G</td> <td>T</td> <td>0.117</td> <td nowrap>7.62E-137</td><td>NUC:G27651T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27652</td> <td>T</td> <td>G</td> <td>0.114</td> <td nowrap>2.97E-133</td><td>ORF7A:F87V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27653</td> <td>T</td> <td>+GGACAA</td> <td>0.101</td> <td nowrap>5.28E-83</td><td>NUC:T27653+GGACAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27656</td> <td>T</td> <td>G</td> <td>0.121</td> <td nowrap>4.13E-141</td><td>ORF7A:I88S</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27698</td> <td>T</td> <td>C</td> <td>0.107</td> <td nowrap>2.16E-123</td><td>ORF7A:L102P</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27807</td> <td>C</td> <td>T</td> <td>0.959</td> <td nowrap>0.00E+00</td><td>NUC:C27807T</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>27889</td> <td>C</td> <td>T</td> <td>0.441</td> <td nowrap>0.00E+00</td><td>NUC:C27889T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27953</td> <td>T</td> <td>C</td> <td>0.069</td> <td nowrap>2.32E-83</td><td>NUC:T27953C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>27995</td> <td>T</td> <td>A</td> <td>0.479</td> <td nowrap>0.00E+00</td><td>ORF8:D34E</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28207</td> <td>A</td> <td>T</td> <td>0.211</td> <td nowrap>0.00E+00</td><td>ORF8:Y105F</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28214</td> <td>C</td> <td>+T</td> <td>0.075</td> <td nowrap>3.15E-113</td><td>NUC:C28214+T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28271</td> <td>A</td> <td>T</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>NUC:A28271T</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a></td>
+</tr>
+<tr>
+    <td>28311</td> <td>C</td> <td>T</td> <td>0.997</td> <td nowrap>0.00E+00</td><td>N:P13L</td> <td><a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.526">B.1.526</a>, <a href="https://outbreak.info/situation-reports?pango=C.37">C.37</a></td>
+</tr>
+<tr>
+    <td>28329</td> <td>G</td> <td>-A</td> <td>0.065</td> <td nowrap>4.65E-18</td><td>DEL:28329:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28330</td> <td>A</td> <td>G</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>NUC:A28330G</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28360</td> <td>T</td> <td>-GGAGAACGC</td> <td>0.084</td> <td nowrap>9.78E-39</td><td>DEL:28360:9</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28361</td> <td>G</td> <td>-GAGAACGCA</td> <td>0.884</td> <td nowrap>0.00E+00</td><td>DEL:28361:9</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28370</td> <td>A</td> <td>T</td> <td>0.975</td> <td nowrap>9.13E-299</td><td>N:S33C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28371</td> <td>G</td> <td>T</td> <td>0.086</td> <td nowrap>1.48E-62</td><td>N:S33I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28394</td> <td>C</td> <td>-G</td> <td>0.093</td> <td nowrap>6.20E-57</td><td>DEL:28394:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28728</td> <td>C</td> <td>T</td> <td>0.155</td> <td nowrap>0.00E+00</td><td>N:A152V</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28754</td> <td>C</td> <td>-T</td> <td>0.254</td> <td nowrap>0.00E+00</td><td>DEL:28754:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28759</td> <td>T</td> <td>C</td> <td>0.257</td> <td nowrap>0.00E+00</td><td>NUC:T28759C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28881</td> <td>G</td> <td>A</td> <td>0.998</td> <td nowrap>0.00E+00</td><td>N:R203K</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=C.37">C.37</a></td>
+</tr>
+<tr>
+    <td>28882</td> <td>G</td> <td>A</td> <td>0.997</td> <td nowrap>0.00E+00</td><td>NUC:G28882A</td> <td>None found</td>
+</tr>
+<tr>
+    <td>28883</td> <td>G</td> <td>C</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>N:G204R</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=C.37">C.37</a></td>
+</tr>
+<tr>
+    <td>28897</td> <td>T</td> <td>-AG</td> <td>0.111</td> <td nowrap>3.48E-232</td><td>DEL:28897:2</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29009</td> <td>G</td> <td>A</td> <td>0.137</td> <td nowrap>0.00E+00</td><td>N:V246I</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29179</td> <td>G</td> <td>T</td> <td>0.101</td> <td nowrap>5.04E-301</td><td>NUC:G29179T</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29215</td> <td>C</td> <td>-T</td> <td>0.134</td> <td nowrap>9.11E-305</td><td>DEL:29215:1</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29467</td> <td>A</td> <td>-GATTTGGAT</td> <td>0.130</td> <td nowrap>0.00E+00</td><td>DEL:29467:9</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29510</td> <td>A</td> <td>C</td> <td>0.999</td> <td nowrap>0.00E+00</td><td>N:S413R</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a>, <a href="https://outbreak.info/situation-reports?pango=XE-parent2">XE-parent2</a></td>
+</tr>
+<tr>
+    <td>29626</td> <td>T</td> <td>C</td> <td>0.448</td> <td nowrap>0.00E+00</td><td>NUC:T29626C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29705</td> <td>G</td> <td>+AAA</td> <td>0.054</td> <td nowrap>1.11E-08</td><td>NUC:G29705+AAA</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29706</td> <td>G</td> <td>C</td> <td>0.055</td> <td nowrap>3.51E-16</td><td>NUC:G29706C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29710</td> <td>T</td> <td>+CC</td> <td>0.054</td> <td nowrap>1.06E-08</td><td>NUC:T29710+CC</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29711</td> <td>G</td> <td>C</td> <td>0.055</td> <td nowrap>3.41E-16</td><td>NUC:G29711C</td> <td>None found</td>
+</tr>
+<tr>
+    <td>29713</td> <td>A</td> <td>C</td> <td>0.055</td> <td nowrap>3.60E-16</td><td>NUC:A29713C</td> <td>None found</td>
+</tr>
+</table>
+<br>
+
+</body>
+</html>

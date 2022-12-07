@@ -7,7 +7,7 @@ fi
 mkdir ./fastq
 
 
-srrList=(SRR20753986 SRR20753987 SRR20753988 SRR20753989)
+srrList=(SRR22214907 SRR22214908 SRR22214909 SRR22214910)
 for srr in "${srrList[@]}"; do
 	echo Downloading $srr...
 	fasterq-dump -p $srr -O ./fastq
@@ -15,7 +15,6 @@ for srr in "${srrList[@]}"; do
 	mv fastq/${srr}_2.fastq fastq/${srr}_R2.fastq
 	gzip ./fastq/${srr}*.fastq &
 done
-
 echo Waiting for the compression of the downloaded fastq files...
 wait
 

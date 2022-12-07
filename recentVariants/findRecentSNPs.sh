@@ -19,8 +19,7 @@ GISAIDdir=/hpc/scratch/$USER/GISAID/
 # Select recent samples, with intentional 1% subsampling to reduce workload
 # Subsampling is done by only retaining submissions whose IDs end with "00".
 echo Subsampling...
-#gisaid_fa=~/scratch/GISAID/msa_0721.fasta
-gisaid_fa=/hpc/scratch/$USER/GISAID/msa_0809/msa_0809.fasta
+gisaid_fa=/hpc/scratch/$USER/GISAID/msa_1021/msa_1021.fasta
 cat $gisaid_fa | grep -A 1 "00|2022-" | tr -d '-' > $GISAIDdir/subsampled.fa
 
 echo Aligning...

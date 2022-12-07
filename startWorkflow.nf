@@ -143,19 +143,16 @@ process referenceAlignment {
 		case $platform in
 			Illumina)
 				if $isPairedEnd; then
-					bowtie2 --no-unal --threads \$numThreads -x $refSeqBasename -1 R1.fastq.gz -2 R2.fastq.gz \
-						-S aligned.sam
+					bowtie2 --no-unal --threads \$numThreads -x $refSeqBasename -1 R1.fastq.gz -2 R2.fastq.gz -S aligned.sam
 				else
 					bowtie2 --no-unal --threads \$numThreads -x $refSeqBasename -U R1.fastq.gz -S aligned.sam
 				fi
 				;;
 			ONT)
-				minimap2 -a --sam-hit-only -2 -x map-ont ${refSeqBasename}.mmi R1.fastq.gz \
-						-t \$numThreads -o aligned.sam
+				minimap2 -a --sam-hit-only -2 -x map-ont ${refSeqBasename}.mmi R1.fastq.gz -t \$numThreads -o aligned.sam
 				;;
 			PacBio)
-				minimap2 -a --sam-hit-only -2 -x map-hifi ${refSeqBasename}.mmi R1.fastq.gz \
-						-t \$numThreads -o aligned.sam
+				minimap2 -a --sam-hit-only -2 -x map-hifi ${refSeqBasename}.mmi R1.fastq.gz -t \$numThreads -o aligned.sam
 				;;
 		esac
 	"""
@@ -303,8 +300,8 @@ process QCplots {
 		tuple val(sampleName), path('pile.up') from pile_up_b
 	
 	output:
-		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png') into QChists
-	
+		tuple val(sampleName), path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('absCounts.csv'), path('scaledCounts.csv'), path('breadthVSdepth.png') into QChists
+
 	conda "$projectDir/conda/env-python"
 	
 	shell:
@@ -364,7 +361,8 @@ process krakenVariantCaller {
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_a
 	
 	output:
-		tuple val(sampleName), path('k2-allCovid_bracken*.out'), path('k2-majorCovid_bracken*.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
+		//tuple val(sampleName), path('k2-allCovid_bracken*.out'), path('k2-majorCovid_bracken*.out'), path('k2-allCovid.out'), path('k2-majorCovid.out') into k2_covid_out
+		tuple val(sampleName), path('k2-majorCovid_bracken*.out'), path('k2-majorCovid.out') into k2_covid_out
 	
 	conda "$projectDir/conda/env-kraken2"
     
@@ -376,16 +374,16 @@ process krakenVariantCaller {
 			numThreads=\$(nproc)
 		fi
 
-		# Check the number of reads. Ignore if there are too few reads
-		kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
-        num_phylum_hits=\$(cat k2-allCovid.out | grep -w P | cut -f 2 | head -n 1)
-        if [[ -z \${num_phylum_hits} || \${num_phylum_hits} -lt 10 ]]; then
-			# There is a bug in bracken that throws a "no reads found" error, if there
-            # are fewer hits in all target level taxons. We check that there are a minimum of 10 reads.
-			echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
-		else
-			bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
-		fi
+		## Check the number of reads. Ignore if there are too few reads
+		#kraken2 resorted.fastq.gz --db $projectDir/customDBs/allCovidDB --threads \$numThreads --report k2-allCovid.out > /dev/null
+        #num_phylum_hits=\$(cat k2-allCovid.out | grep -w P | cut -f 2 | head -n 1)
+        #if [[ -z \${num_phylum_hits} || \${num_phylum_hits} -lt 10 ]]; then
+		#	# There is a bug in bracken that throws a "no reads found" error, if there
+        #    # are fewer hits in all target level taxons. We check that there are a minimum of 10 reads.
+		#	echo 100.00\$'\t'0\$'\t'0\$'\t'R\$'\t'1\$'\t'root > k2-allCovid_bracken.out
+		#else
+		#	bracken -d $projectDir/customDBs/allCovidDB -i k2-allCovid.out -o allCovid.bracken -l P
+		#fi
 
 		kraken2 resorted.fastq.gz --db $projectDir/customDBs/majorCovidDB --threads \$numThreads --report k2-majorCovid.out > /dev/null
         num_class_hits=\$(cat k2-majorCovid.out | grep -w C | cut -f 2 | head -n 1)
@@ -490,7 +488,7 @@ process kallistoVariantCaller {
 
 
 // https://github.com/rvalieris/LCS
-process LCSvariantCaller {
+/*process LCSvariantCaller {
 	input:
 		tuple val(sampleName), env(numReads), path('resorted.fastq.gz') from resorted_fastq_gz_c 
 	
@@ -498,7 +496,7 @@ process LCSvariantCaller {
 		tuple val(sampleName), path('LCS/outputs/decompose/lcs.out') into lcs_out
 		
 	conda "$projectDir/conda/env-LCS"
-	time = '5 min'
+	time = '1 min'
 	
 	shell:
 	"""
@@ -527,7 +525,7 @@ process LCSvariantCaller {
 			echo ERROR\$'\t'Error\$'\t'1\$'\t'1\$'\t'1 >> LCS/outputs/decompose/lcs.out
 		fi
 	"""
-}
+} */
 
 
 process freyjaVariantCaller {
@@ -691,7 +689,7 @@ process getNCBImetadata {
 reportInputCh = metadata.join(samtools_stats).join(k2_std_out).join(QChists)
                         .join(readLengthHist_out).join(linearDeconvolution_out)
                         .join(k2_covid_out).join(pangolin_out).join(kallisto_out)
-                        .join(freyja_out).join(lcs_out)
+                        .join(freyja_out)/*.join(lcs_out)*/
 
 
 
@@ -706,14 +704,13 @@ process generateReport {
 		tuple val(sampleName), env(libraryProtocol), env(seqInstrument), env(isolate), env(collectionDate), env(collectedBy), env(sequencedBy), env(sampleLatitude), env(sampleLongitude), env(sampleLocation),
 		path('sorted.stats'), path('resorted.stats'), path('primer_hit_counts.tsv'),
 		path('k2-std.out'),
-		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('breadthVSdepth.png'),
+		path('pos-coverage-quality.tsv'), path('coverage.png'), path('depthHistogram.png'), path('quality.png'), path('qualityHistogram.png'), path('discontinuitySignal.png'), path('genesVSuncovered_abscounts.png'), path('genesVSuncovered_scaled.png'), path('absCounts.csv'), path('scaledCounts.csv'),path('breadthVSdepth.png'),
 		path('readLengthHist.png'), path('timeVSreadcounts.png'),
 		path('linearDeconvolution_abundance.csv'), path('mutationTable.html'), path('VOC-VOIsupportTable.html'), env(mostAbundantVariantPct), env(mostAbundantVariantName), env(linRegressionR2),
-		path('k2-allCovid_bracken.out'), path('k2-majorCovid_bracken.out'), path('k2-allCovid.out'), path('k2-majorCovid.out'),
+		path('k2-majorCovid_bracken.out'), path('k2-majorCovid.out'),
 		env(consensusLineage), path('lineage_report.csv'), path('consensus.fa'),
 		path('kallisto_abundance.tsv'),
-		path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png'),
-		path('lcs.out') from reportInputCh
+		path('freyja.demix'), path('freyja_boot_lineages.csv'), path('freyja_bootstrap.png') from reportInputCh
 	
 	output:
 		file "outfolder" into reportCh
@@ -724,8 +721,7 @@ process generateReport {
 	"""
 		echo Making pie charts...
 		export PYTHONHASHSEED=0
-		$projectDir/plotPieChartsforAbundance.py ./ $params.variantDBfile linearDeconvolution_abundance.csv \
-				kallisto_abundance.tsv k2-allCovid_bracken.out k2-majorCovid_bracken.out freyja.demix lcs.out
+		$projectDir/plotPieChartsforAbundance.py ./ $params.variantDBfile linearDeconvolution_abundance.csv kallisto_abundance.tsv k2-majorCovid_bracken.out freyja.demix
 		
 		export kallistoTopName=\$(cat kallisto.out | sort -k 2 -n | tail -n 1 | awk '{ print \$1 }')
 		

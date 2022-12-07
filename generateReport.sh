@@ -407,28 +407,17 @@ echo "<br>" >> $reportFile
 echo "<br>" >> $reportFile
 echo "<div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
-echo "        <img src=\"./pieChart_k2_allCovid.png\" alt=\"Abundance of variants by kraken2+bracken\"\
-					width=\"100%\">" >> $reportFile
-echo "    </div>" >> $reportFile
-echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./pieChart_k2_majorCovid.png\" alt=\"Abundance of variants by kraken2+bracken\"\
 					width=\"100%\">" >> $reportFile
 echo "    </div>" >> $reportFile
-echo "</div>" >> $reportFile
-echo "<br>" >> $reportFile
-
-echo "<br>" >> $reportFile
-echo "<div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./pieChart_freyja.png\" alt=\"Abundance of variants by Freyja\"\
 				width=\"100%\">" >> $reportFile
 echo "    </div>" >> $reportFile
-echo "    <div id=\"figdiv\">" >> $reportFile
-echo "        <img src=\"./pieChart_lcs.png\" alt=\"Abundance of variants by LCS\"\
-				width=\"100%\">" >> $reportFile
-echo "    </div>" >> $reportFile
 echo "</div>" >> $reportFile
 echo "<br>" >> $reportFile
+
+
 
 
 echo "<br>" >> $reportFile

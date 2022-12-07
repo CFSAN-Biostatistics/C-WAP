@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import csv
 import sys
 import findUncoveredCoordinates
+import pandas as pd #JA 2022 11 07
 
 
 pileupFilename = sys.argv[1]
@@ -265,7 +266,6 @@ plt.tight_layout()
 plt.savefig('genesVSuncovered_abscounts.png', dpi=200)
 plt.close()
 
-
 # Missing genomic coordinate counts per gene scaled with gene length
 plt.bar(gene_names, undercovered_gene_counts/gene_lengths, color=FDAblue)
 plt.bar(gene_names, uncovered_gene_counts/gene_lengths, color='k', width=0.5)
@@ -277,8 +277,27 @@ plt.ylabel('#Genomic coordinates per kbp')
 plt.tight_layout()
 plt.savefig('genesVSuncovered_scaled.png', dpi=200)
 plt.close()
+#################################################################
+# Export a csv tables for genes uncov plots
+# JA 2022 11 07
 
+#abs counts
+uncovered_gene_counts2list = uncovered_gene_counts.tolist()
+undercovered_gene_counts2list = undercovered_gene_counts.tolist()
+jaa={'Genes':gene_names,'genesUnCovered':uncovered_gene_counts2list, 'genesUnderCovered':undercovered_gene_counts2list}
+jadf=pd.DataFrame.from_dict(jaa,orient='index')
+jadf.to_csv("absCounts.csv", sep = ",", index = True, header=False, na_rep = "")
 
+#scaled
+scaledUncovCounts=uncovered_gene_counts/gene_lengths
+scaledUndercovCounts=undercovered_gene_counts/gene_lengths
+
+scaledUncovCounts2list = scaledUncovCounts.tolist()
+scaledUndercovCounts2list = scaledUndercovCounts.tolist()
+scaledjaa={'Genes':gene_names,'genesUnCovered':scaledUncovCounts2list, 'genesUnderCovered':scaledUndercovCounts2list}
+scaledjadf=pd.DataFrame.from_dict(scaledjaa,orient='index')
+scaledjadf.to_csv("scaledCounts.csv", sep = ",", index = True, header=False, na_rep = "")
+#################################################################
 
 # Coverage depth vs. breadth plot
 depth_bins = [2**x for x in range(0,15,1)]
