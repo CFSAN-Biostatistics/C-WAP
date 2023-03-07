@@ -95,8 +95,7 @@ We gratefully acknowledge all data contributors, i.e., the Authors and their Ori
 Khare, S., et al (2021) GISAID’s Role in Pandemic Response. China CDC Weekly, 3(49): 1049-1051. doi: 10.46234/ccdcw2021.255 PMCID: 8668406
 
 ### Citing C-WAP
-This work is currently unpublished. If you are making use of this package, 
-we would appreciate if you gave credit to our repository. 
+Kayikcioglu T, Amirzadegan J, Rand H, Tesfaldet B, Timme RE, Pettengill JB. Performance of methods for SARS-CoV-2 variant detection and abundance estimation within mixed population samples. PeerJ. 2023 Jan 26;11:e14596. doi: 10.7717/peerj.14596. PMID: 36721781; PMCID: PMC9884472.
 
 
 ### License
