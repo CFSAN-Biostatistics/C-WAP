@@ -1,7 +1,9 @@
 # C-WAP
 # CFSAN Wastewater Analysis Pipeline
 
-C-WAP is a bash-based bioinformatics pipeline for the analysis of either long-read (ONT or PacBio) or short-read (Illumina) whole genome sequencing
+[Kayikcioglu T, Amirzadegan J, Rand H, Tesfaldet B, Timme RE, Pettengill JB. Performance of methods for SARS-CoV-2 variant detection and abundance estimation within mixed population samples. PeerJ. 2023 Jan 26;11:e14596. doi: 10.7717/peerj.14596. PMID: 36721781; PMCID: PMC9884472.](https://pubmed.ncbi.nlm.nih.gov/36721781/)
+
+C-WAP is a Nextflow, Python, and bash-based bioinformatics pipeline for the analysis of either long-read (ONT or PacBio) or short-read (Illumina) whole genome sequencing
 data of DNA extracted from wastewater. It was developed for SARS-CoV2 and its variants.
 
 C-WAP was developed by the United States Food and Drug Administration, Center for Food Safety and Applied Nutrition.
@@ -95,8 +97,7 @@ We gratefully acknowledge all data contributors, i.e., the Authors and their Ori
 Khare, S., et al (2021) GISAID’s Role in Pandemic Response. China CDC Weekly, 3(49): 1049-1051. doi: 10.46234/ccdcw2021.255 PMCID: 8668406
 
 ### Citing C-WAP
-Kayikcioglu T, Amirzadegan J, Rand H, Tesfaldet B, Timme RE, Pettengill JB. Performance of methods for SARS-CoV-2 variant detection and abundance estimation within mixed population samples. PeerJ. 2023 Jan 26;11:e14596. doi: 10.7717/peerj.14596. PMID: 36721781; PMCID: PMC9884472.
-
+[Kayikcioglu T, Amirzadegan J, Rand H, Tesfaldet B, Timme RE, Pettengill JB. Performance of methods for SARS-CoV-2 variant detection and abundance estimation within mixed population samples. PeerJ. 2023 Jan 26;11:e14596. doi: 10.7717/peerj.14596. PMID: 36721781; PMCID: PMC9884472.](https://pubmed.ncbi.nlm.nih.gov/36721781/)
 
 ### License
 
