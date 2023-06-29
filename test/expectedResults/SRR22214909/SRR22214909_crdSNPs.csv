@@ -1,0 +1,6 @@
+genomicSNPMetric, nts_uncoveredCoordinates0X, pct_uncoveredCoordinates0X, nts_poorlyCoveredCoordinates<10X, pct_poorlyCoveredCoordinates<10X
+UncoveredLociByDesign, -1, 0, -1, 0
+allGenomicCoordinates, 1, 0, 1, 0
+commonSNPs, 0, 0, 0, 0
+rareSNPs, 1, 0, 1, 0
+diverseSNPs, 8, 3, 19, 8

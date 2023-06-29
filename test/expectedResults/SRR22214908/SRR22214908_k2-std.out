@@ -1,48 +1,45 @@
-  2.07	41174	41174	U	0	unclassified
- 97.93	1944585	25	R	1	root
- 97.65	1939016	0	D	10239	  Viruses
- 97.65	1939015	0	D1	2559587	    Riboviria
- 97.65	1939015	0	K	2732396	      Orthornavirae
- 97.65	1939015	0	P	2732408	        Pisuviricota
- 97.65	1939015	0	C	2732506	          Pisoniviricetes
- 97.65	1939015	0	O	76804	            Nidovirales
- 97.65	1939015	0	O1	2499399	              Cornidovirineae
- 97.65	1939015	0	F	11118	                Coronaviridae
- 97.65	1939015	0	F1	2501931	                  Orthocoronavirinae
- 97.65	1939015	0	G	694002	                    Betacoronavirus
- 97.65	1939015	2	G1	2509511	                      Sarbecovirus
- 97.65	1939013	16	S	694009	                        Severe acute respiratory syndrome-related coronavirus
- 97.64	1938955	1938955	S1	2697049	                          Severe acute respiratory syndrome coronavirus 2
+  2.07	41176	41176	U	0	unclassified
+ 97.93	1944583	28	R	1	root
+ 97.65	1939012	0	D	10239	  Viruses
+ 97.65	1939011	0	D1	2559587	    Riboviria
+ 97.65	1939011	0	K	2732396	      Orthornavirae
+ 97.65	1939011	0	P	2732408	        Pisuviricota
+ 97.65	1939011	0	C	2732506	          Pisoniviricetes
+ 97.65	1939011	0	O	76804	            Nidovirales
+ 97.65	1939011	0	O1	2499399	              Cornidovirineae
+ 97.65	1939011	0	F	11118	                Coronaviridae
+ 97.65	1939011	0	F1	2501931	                  Orthocoronavirinae
+ 97.65	1939011	0	G	694002	                    Betacoronavirus
+ 97.65	1939011	2	G1	2509511	                      Sarbecovirus
+ 97.65	1939009	3	S	694009	                        Severe acute respiratory syndrome-related coronavirus
+ 97.64	1938964	1938964	S1	2697049	                          Severe acute respiratory syndrome coronavirus 2
   0.00	42	0	S1	2901879	                          Severe acute respiratory syndrome coronavirus
   0.00	42	42	S2	227984	                            SARS coronavirus Tor2
   0.00	1	0	D1	2731341	    Duplodnaviria
   0.00	1	0	K	2731360	      Heunggongvirae
   0.00	1	0	P	2731618	        Uroviricota
   0.00	1	0	C	2731619	          Caudoviricetes
-  0.00	1	0	O	28883	            Caudovirales
-  0.00	1	0	F	10699	              Siphoviridae
-  0.00	1	0	G	1982355	                Pamexvirus
-  0.00	1	0	S	1982357	                  Pamexvirus PaMx28
-  0.00	1	1	S1	1175659	                    Pseudomonas phage PaMx28
-  0.28	5501	13	R1	131567	  cellular organisms
-  0.25	5037	195	D	2	    Bacteria
+  0.00	1	0	G	1982355	            Pamexvirus
+  0.00	1	0	S	1982357	              Pamexvirus PaMx28
+  0.00	1	1	S1	1175659	                Pseudomonas phage PaMx28
+  0.28	5500	13	R1	131567	  cellular organisms
+  0.25	5038	194	D	2	    Bacteria
   0.24	4755	0	P	1224	      Proteobacteria
   0.19	3681	4	C	1236	        Gammaproteobacteria
   0.14	2726	0	O	135624	          Aeromonadales
   0.14	2726	0	F	84642	            Aeromonadaceae
   0.14	2722	2589	G	642	              Aeromonas
-  0.00	42	42	S	648	                Aeromonas caviae
+  0.00	43	43	S	648	                Aeromonas caviae
   0.00	42	42	S	652	                Aeromonas schubertii
   0.00	8	8	S	650	                Aeromonas jandaei
   0.00	8	8	S	651	                Aeromonas media
   0.00	7	7	S	218936	                Aeromonas simiae
-  0.00	6	0	G1	257493	                unclassified Aeromonas
-  0.00	3	3	S	2778067	                  Aeromonas sp. FDAARGOS 1418
-  0.00	1	1	S	2778065	                  Aeromonas sp. FDAARGOS 1416
-  0.00	1	1	S	1758179	                  Aeromonas sp. ASNIH5
-  0.00	1	1	S	2778054	                  Aeromonas sp. FDAARGOS 1405
   0.00	6	6	S	654	                Aeromonas veronii
   0.00	6	6	S	73010	                Aeromonas encheleia
+  0.00	5	0	G1	257493	                unclassified Aeromonas
+  0.00	3	3	S	2778067	                  Aeromonas sp. FDAARGOS 1418
+  0.00	1	1	S	1758179	                  Aeromonas sp. ASNIH5
+  0.00	1	1	S	2778054	                  Aeromonas sp. FDAARGOS 1405
   0.00	4	4	S	644	                Aeromonas hydrophila
   0.00	2	2	S	645	                Aeromonas salmonicida
   0.00	2	2	S	29489	                Aeromonas enteropelogenes
@@ -52,16 +49,13 @@
   0.05	942	2	O	91347	          Enterobacterales
   0.05	938	0	F	543	            Enterobacteriaceae
   0.04	704	13	G	547	              Enterobacter
-  0.03	649	9	G1	354276	                Enterobacter cloacae complex
+  0.03	650	11	G1	354276	                Enterobacter cloacae complex
   0.02	447	447	S	208224	                  Enterobacter kobei
   0.01	185	183	S	550	                  Enterobacter cloacae
   0.00	2	0	S1	69219	                    Enterobacter cloacae subsp. dissolvens
   0.00	2	2	S2	1104326	                      Enterobacter cloacae subsp. dissolvens SDM
-  0.00	6	6	S	61645	                  Enterobacter asburiae
-  0.00	2	2	S	1812935	                  Enterobacter roggenkampii
+  0.00	7	7	S	61645	                  Enterobacter asburiae
   0.00	41	41	S	885040	                Enterobacter soli
-  0.00	1	0	G1	2608935	                unclassified Enterobacter
-  0.00	1	1	S	2831892	                  Enterobacter sp. JBIWA008
   0.01	217	0	G	590	              Salmonella
   0.01	217	217	S	28901	                Salmonella enterica
   0.00	14	0	F1	2890311	              Klebsiella/Raoultella group
@@ -138,9 +132,8 @@
   0.00	45	0	C	200643	            Bacteroidia
   0.00	45	0	O	171549	              Bacteroidales
   0.00	39	0	F	815	                Bacteroidaceae
-  0.00	39	1	G	816	                  Bacteroides
+  0.00	39	3	G	816	                  Bacteroides
   0.00	36	36	S	46506	                    Bacteroides stercoris
-  0.00	2	2	G1	2646097	                    unclassified Bacteroides
   0.00	3	0	F	171552	                Prevotellaceae
   0.00	3	0	G	838	                  Prevotella
   0.00	1	1	S	28129	                    Prevotella denticola
@@ -149,8 +142,8 @@
   0.00	3	0	F	1853231	                Odoribacteraceae
   0.00	3	0	G	283168	                  Odoribacter
   0.00	3	3	S	28118	                    Odoribacter splanchnicus
-  0.00	34	0	D1	1783272	      Terrabacteria group
-  0.00	19	0	P	1239	        Firmicutes
+  0.00	36	0	D1	1783272	      Terrabacteria group
+  0.00	21	0	P	1239	        Firmicutes
   0.00	11	0	C	91061	          Bacilli
   0.00	6	0	O	1385	            Bacillales
   0.00	6	0	F	90964	              Staphylococcaceae
@@ -170,6 +163,11 @@
   0.00	7	7	S	292800	                  Flavonifractor plautii
   0.00	1	0	G	2892397	                Pusillibacter
   0.00	1	1	S	2714358	                  Pusillibacter faecalis
+  0.00	2	0	C	909932	          Negativicutes
+  0.00	2	0	O	1843488	            Acidaminococcales
+  0.00	2	0	F	909930	              Acidaminococcaceae
+  0.00	2	0	G	33024	                Phascolarctobacterium
+  0.00	2	2	S	626940	                  Phascolarctobacterium succinatutens
   0.00	14	0	P	201174	        Actinobacteria
   0.00	14	5	C	1760	          Actinomycetia
   0.00	9	0	O	85007	            Corynebacteriales
@@ -193,35 +191,35 @@
   0.00	6	0	G	1348508	                Roseimicrobium
   0.00	6	0	G1	2711230	                  unclassified Roseimicrobium
   0.00	6	6	S	2711231	                    Roseimicrobium sp. ORNL1
-  0.02	451	0	D	2759	    Eukaryota
-  0.02	451	0	D1	33154	      Opisthokonta
-  0.02	451	0	K	33208	        Metazoa
-  0.02	451	0	K1	6072	          Eumetazoa
-  0.02	451	0	K2	33213	            Bilateria
-  0.02	451	0	K3	33511	              Deuterostomia
-  0.02	451	0	P	7711	                Chordata
-  0.02	451	0	P1	89593	                  Craniata
-  0.02	451	0	P2	7742	                    Vertebrata
-  0.02	451	0	P3	7776	                      Gnathostomata
-  0.02	451	0	P4	117570	                        Teleostomi
-  0.02	451	0	P5	117571	                          Euteleostomi
-  0.02	451	0	P6	8287	                            Sarcopterygii
-  0.02	451	0	P7	1338369	                              Dipnotetrapodomorpha
-  0.02	451	0	P8	32523	                                Tetrapoda
-  0.02	451	0	P9	32524	                                  Amniota
-  0.02	451	0	C	40674	                                    Mammalia
-  0.02	451	0	C1	32525	                                      Theria
-  0.02	451	0	C2	9347	                                        Eutheria
-  0.02	451	0	C3	1437010	                                          Boreoeutheria
-  0.02	451	0	C4	314146	                                            Euarchontoglires
-  0.02	451	0	O	9443	                                              Primates
-  0.02	451	0	O1	376913	                                                Haplorrhini
-  0.02	451	0	O2	314293	                                                  Simiiformes
-  0.02	451	0	O3	9526	                                                    Catarrhini
-  0.02	451	0	O4	314295	                                                      Hominoidea
-  0.02	451	0	F	9604	                                                        Hominidae
-  0.02	451	0	F1	207598	                                                          Homininae
-  0.02	451	0	G	9605	                                                            Homo
-  0.02	451	451	S	9606	                                                              Homo sapiens
+  0.02	449	0	D	2759	    Eukaryota
+  0.02	449	0	D1	33154	      Opisthokonta
+  0.02	449	0	K	33208	        Metazoa
+  0.02	449	0	K1	6072	          Eumetazoa
+  0.02	449	0	K2	33213	            Bilateria
+  0.02	449	0	K3	33511	              Deuterostomia
+  0.02	449	0	P	7711	                Chordata
+  0.02	449	0	P1	89593	                  Craniata
+  0.02	449	0	P2	7742	                    Vertebrata
+  0.02	449	0	P3	7776	                      Gnathostomata
+  0.02	449	0	P4	117570	                        Teleostomi
+  0.02	449	0	P5	117571	                          Euteleostomi
+  0.02	449	0	P6	8287	                            Sarcopterygii
+  0.02	449	0	P7	1338369	                              Dipnotetrapodomorpha
+  0.02	449	0	P8	32523	                                Tetrapoda
+  0.02	449	0	P9	32524	                                  Amniota
+  0.02	449	0	C	40674	                                    Mammalia
+  0.02	449	0	C1	32525	                                      Theria
+  0.02	449	0	C2	9347	                                        Eutheria
+  0.02	449	0	C3	1437010	                                          Boreoeutheria
+  0.02	449	0	C4	314146	                                            Euarchontoglires
+  0.02	449	0	O	9443	                                              Primates
+  0.02	449	0	O1	376913	                                                Haplorrhini
+  0.02	449	0	O2	314293	                                                  Simiiformes
+  0.02	449	0	O3	9526	                                                    Catarrhini
+  0.02	449	0	O4	314295	                                                      Hominoidea
+  0.02	449	0	F	9604	                                                        Hominidae
+  0.02	449	0	F1	207598	                                                          Homininae
+  0.02	449	0	G	9605	                                                            Homo
+  0.02	449	449	S	9606	                                                              Homo sapiens
   0.00	43	0	R1	2787854	  other entries
   0.00	43	43	R2	28384	    other sequences

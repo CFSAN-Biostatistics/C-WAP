@@ -57,22 +57,26 @@ let "avgCoveragePassed = $avgLengthPassed * $numPassedQuality / 29903" || true
 # Use taxid column, i.e. column 5
 numUnclassified=$(head k2-std.out | awk '$5==0' | awk '{ print $2 }')
 if [[ -z $numUnclassified ]]; then
-	numUnclassified=0
+    numUnclassified=0
 fi
 
 numClassified=$(head k2-std.out | awk '$5==1' | awk '{ print $2 }')
 if [[ -z $numClassified ]]; then
-	numClassified=0
+    numClassified=0
 fi
 
 # Calculation of total number of reads
 let "numReads = $numUnclassified + $numClassified" || true
 if $isPairedEnd; then
 # Correction for undercounting by kraken2 in the paired mode
-	let "numReads = 2 * $numReads" || true
+    let "numReads = 2 * $numReads" || true
 fi
 
-
+##############################################################################################################
+# add csv table for seq summary stats JA 2023 01 06
+echo 'avgReadQualPassFilt, avgReadLenPassFilt, avgCovPassFilt' >> seqSummary.csv
+echo $avgQualityPassed',' $avgLengthPassed',' $avgCoveragePassed >> seqSummary.csv
+##############################################################################################################
 ####################################################################
 echo >> $reportFile
 echo "<br>" >> $reportFile
@@ -86,7 +90,7 @@ echo "</tr>" >> $reportFile
 # Catchment site the sample was collected from
 echo "<tr>" >> $reportFile
 echo "    <td>Source site:</td><td><a href=\"https://www.openstreetmap.org/#map=3/$sampleLatitude/$sampleLongitude\">$sampleLocation\
-		($sampleLatitude,$sampleLongitude)</a></td>" >> $reportFile
+        ($sampleLatitude,$sampleLongitude)</a></td>" >> $reportFile
 echo "</tr>" >> $reportFile	
 
 # Date the WW sample was collected from the sanitary system
@@ -122,7 +126,7 @@ echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
 echo "    <td>Reads passing filter:</td><td>$numPassedQuality ($(expr 100 \* $numPassedQuality / $numReads)%)</td>" \
-		>> $reportFile
+        >> $reportFile
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
@@ -140,10 +144,10 @@ echo "</table>" >> $reportFile
 
 echo "<br>" >> $reportFile
 echo "A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum \
-		read quality &#8805; 20 within a sliding window of width 4." >> $reportFile
+        read quality &#8805; 20 within a sliding window of width 4." >> $reportFile
 
+####################################################################
 
-#######################################################
 echo >> $reportFile
 echo "<br><br>" >> $reportFile
 echo "<h2>Overall sequence characteristics</h2>" >> $reportFile
@@ -170,7 +174,7 @@ echo "<br>" >> $reportFile
 
 # Check for coverage data. If the coverage is too low, any variant calling will be inaccurate
 if [ $avgCoveragePassed -lt 10 ]; then
-	echo "<p> <font color=\"red\"> WARNING: The sequence coverage is very low (${avgCoveragePassed}X) </font>" >> $reportFile
+    echo "<p> <font color=\"red\"> WARNING: The sequence coverage is very low (${avgCoveragePassed}X) </font>" >> $reportFile
 fi
 
 
@@ -199,12 +203,12 @@ commonSNPuncov=()
 commonSNPpoorlycov=()
 numCommonSNP=$(cat $projectDir/recentVariants/commonSNPpos | wc -l)
 for locus in $(cat $projectDir/recentVariants/commonSNPpos); do
-	if echo ${poorlyCoveredLoci[@]} | grep -q -w $locus; then
-		commonSNPpoorlycov+=(locus)
-	fi
-	if echo ${uncoveredLoci[@]} | grep -q -w $locus; then
-		commonSNPuncov+=(locus)
-	fi
+    if echo ${poorlyCoveredLoci[@]} | grep -q -w $locus; then
+        commonSNPpoorlycov+=(locus)
+    fi
+    if echo ${uncoveredLoci[@]} | grep -q -w $locus; then
+        commonSNPuncov+=(locus)
+    fi
 done
 
 # Substitutions present (10%,90%) of GISAID submissions
@@ -212,12 +216,12 @@ rareSNPuncov=()
 rareSNPpoorlycov=()
 numDiverseSNP=$(cat $projectDir/recentVariants/diverseSNPpos | wc -l)
 for locus in $(cat $projectDir/recentVariants/diverseSNPpos); do
-	if echo ${poorlyCoveredLoci[@]} | grep -q -w $locus; then
-		diverseSNPpoorlycov+=(locus)
-	fi
-	if echo ${uncoveredLoci[@]} | grep -q -w $locus; then
-		diverseSNPuncov+=(locus)
-	fi
+    if echo ${poorlyCoveredLoci[@]} | grep -q -w $locus; then
+        diverseSNPpoorlycov+=(locus)
+    fi
+    if echo ${uncoveredLoci[@]} | grep -q -w $locus; then
+        diverseSNPuncov+=(locus)
+    fi
 done
 
 # Substitutions present <=10% of GISAID submissions
@@ -225,13 +229,23 @@ rareSNPuncov=()
 rareSNPpoorlycov=()
 numRareSNP=$(cat $projectDir/recentVariants/rareSNPpos | wc -l)
 for locus in $(cat $projectDir/recentVariants/rareSNPpos); do
-	if echo ${poorlyCoveredLoci[@]} | grep -q -w $locus; then
-		rareSNPpoorlycov+=(locus)
-	fi
-	if echo ${uncoveredLoci[@]} | grep -q -w $locus; then
-		rareSNPuncov+=(locus)
-	fi
+    if echo ${poorlyCoveredLoci[@]} | grep -q -w $locus; then
+        rareSNPpoorlycov+=(locus)
+    fi
+    if echo ${uncoveredLoci[@]} | grep -q -w $locus; then
+        rareSNPuncov+=(locus)
+    fi
 done
+
+##############################################################################################################
+# add csv table for common, rare, and diverse snps JA 2023 01 06
+echo 'genomicSNPMetric, nts_uncoveredCoordinates0X, pct_uncoveredCoordinates0X, nts_poorlyCoveredCoordinates<10X, pct_poorlyCoveredCoordinates<10X' >> crdSNPs.csv
+echo 'UncoveredLociByDesign,' $numUncoveredLociByDesign',' $(expr 100 \* $numUncoveredLociByDesign / 29903)',' $numUncoveredLociByDesign',' $(expr 100 \* $numUncoveredLociByDesign / 29903) >> crdSNPs.csv
+echo 'allGenomicCoordinates,' $uncoveredLoci',' $(expr 100 \* $uncoveredLoci / 29903)',' $poorlyCoveredLoci',' $(expr 100 \* $poorlyCoveredLoci / 29903) >> crdSNPs.csv
+echo 'commonSNPs,' ${#commonSNPuncov[@]}',' $(expr 100 \* ${#commonSNPuncov[@]} / $numCommonSNP)',' ${#commonSNPpoorlycov[@]}',' $(expr 100 \* ${#commonSNPpoorlycov[@]} / $numCommonSNP) >> crdSNPs.csv
+echo 'rareSNPs,' ${#rareSNPuncov[@]}',' $(expr 100 \* ${#rareSNPuncov[@]} / $numRareSNP)',' ${#rareSNPpoorlycov[@]}',' $(expr 100 \* ${#rareSNPpoorlycov[@]} / $numRareSNP) >> crdSNPs.csv
+echo 'diverseSNPs,' ${#diverseSNPuncov[@]}',' $(expr 100 \* ${#diverseSNPuncov[@]} / $numDiverseSNP)',' ${#diverseSNPpoorlycov[@]}',' $(expr 100 \* ${#diverseSNPpoorlycov[@]} / $numDiverseSNP) >> crdSNPs.csv
+##############################################################################################################
 
 echo '<table>' >> $reportFile
 echo "<tr>" >> $reportFile
@@ -248,17 +262,17 @@ echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
 echo "    <td>Common SNPs:</td><td>${#commonSNPuncov[@]}nt ($(expr 100 \* ${#commonSNPuncov[@]} / $numCommonSNP)%)</td>" \
-				"<td>${#commonSNPpoorlycov[@]}nt ($(expr 100 \* ${#commonSNPpoorlycov[@]} / $numCommonSNP)%)</td>" >> $reportFile
+                "<td>${#commonSNPpoorlycov[@]}nt ($(expr 100 \* ${#commonSNPpoorlycov[@]} / $numCommonSNP)%)</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile
 echo "    <td>Diverse SNPs:</td><td>${#diverseSNPuncov[@]}nt ($(expr 100 \* ${#diverseSNPuncov[@]} / $numDiverseSNP)%)</td>" \
-				"<td>${#diverseSNPpoorlycov[@]}nt ($(expr 100 \* ${#diverseSNPpoorlycov[@]} / $numDiverseSNP)%)</td>" >> $reportFile
+                "<td>${#diverseSNPpoorlycov[@]}nt ($(expr 100 \* ${#diverseSNPpoorlycov[@]} / $numDiverseSNP)%)</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 
 echo "<tr>" >> $reportFile	
 echo "    <td>Rare SNPs:</td><td>${#rareSNPuncov[@]}nt ($(expr 100 \* ${#rareSNPuncov[@]} / $numRareSNP)%)</td>" \
-				"<td>${#rareSNPpoorlycov[@]}nt ($(expr 100 \* ${#rareSNPpoorlycov[@]} / $numRareSNP)%)</td>" >> $reportFile
+                "<td>${#rareSNPpoorlycov[@]}nt ($(expr 100 \* ${#rareSNPpoorlycov[@]} / $numRareSNP)%)</td>" >> $reportFile
 echo "</tr>" >> $reportFile
 echo '</table>' >> $reportFile
 
@@ -280,24 +294,24 @@ numHuman=$(cat k2-std.out | grep sapiens | awk '{ print $2 }')
 numSynthetic=$(cat k2-std.out | grep other | grep 28384 | awk '{ print $2 }')
 
 if [[ -z $numCovid ]]; then
-	pctCovid=0.00
-	numCovid=0
+    pctCovid=0.00
+    numCovid=0
 else
-	pctCovid=$(cat k2-std.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $1 }')
+    pctCovid=$(cat k2-std.out | grep Orthocoronavirinae | grep -v unclass | awk '{ print $1 }')
 fi
 
 if [[ -z $numHuman ]]; then
-	pctHuman=0.00
-	numHuman=0
+    pctHuman=0.00
+    numHuman=0
 else
-	pctHuman=$(cat k2-std.out | grep sapiens | awk '{ print $1 }')
+    pctHuman=$(cat k2-std.out | grep sapiens | awk '{ print $1 }')
 fi
 
 if [[ -z $numSynthetic ]]; then
-	pctSynthetic=0.00
-	numSynthetic=0
+    pctSynthetic=0.00
+    numSynthetic=0
 else
-	pctSynthetic=$(cat k2-std.out | grep other | grep 28384 | awk '{ print $1 }')
+    pctSynthetic=$(cat k2-std.out | grep other | grep 28384 | awk '{ print $1 }')
 fi
 
 k2hits=$(cat k2-std.out | sort -k 1 -rn | awk '$4=="F" {print $6 " (" $1 "%)<br>"}' | head -n 5)
@@ -331,45 +345,45 @@ touch $qc_flags
 
 dominantOrganism=$(echo $k2hits | head -n 1 | awk '{print $1}')
 if [[ $dominantOrganism != "Coronaviridae" ]]; then
-	echo 'unspecific_amplification' >> $qc_flags
+    echo 'unspecific_amplification' >> $qc_flags
 fi
 
 if [[ $numReads -le 100 ]]; then
-	echo 'low_sequencing_depth' >> $qc_flags
+    echo 'low_sequencing_depth' >> $qc_flags
 fi
 
 # Avg. coverage < 2X -> error, F
 # Avg. coverage < 1000X -> warning, B
 # Avg. coverage < 100X -> warning, C
 if [[ $avgCoveragePassed -lt 2 ]]; then
-	echo 'insufficient_average_coverage' >> $qc_flags
+    echo 'insufficient_average_coverage' >> $qc_flags
 else
-	if [[ $avgCoveragePassed -lt 100 ]]; then
-		echo 'low_average_coverage' >> $qc_flags
-	else
-		if [[ $avgCoveragePassed -lt 1000 ]]; then
-			echo 'suboptimal_average_coverage' >> $qc_flags
-		fi
-	fi
+    if [[ $avgCoveragePassed -lt 100 ]]; then
+        echo 'low_average_coverage' >> $qc_flags
+    else
+        if [[ $avgCoveragePassed -lt 1000 ]]; then
+            echo 'suboptimal_average_coverage' >> $qc_flags
+        fi
+    fi
 fi
 
 if [[ $avgLengthPassed -le 70 ]]; then
-	echo 'truncated_reads' >> $qc_flags
+    echo 'truncated_reads' >> $qc_flags
 fi
 
 # 0x coordinates > 1%
 if [[ ${#uncoveredLoci[@]} -gt 300 ]]; then
-	echo 'low_coverage_breadth' >> $qc_flags
+    echo 'low_coverage_breadth' >> $qc_flags
 fi
 
 # 10X coordinates > 5%
 if [[ ${#uncoveredLoci[@]} -gt 1500 ]]; then
-	echo 'uneven_sequence_coverage' >> $qc_flags
+    echo 'uneven_sequence_coverage' >> $qc_flags
 fi
 
 # Adjust for PB/Nanopore
 if [[ $avgQualityPassed -lt 30 ]]; then
-	echo 'sequence_quality_low' >> $qc_flags
+    echo 'sequence_quality_low' >> $qc_flags
 fi
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -390,29 +404,29 @@ echo "</div>" >> $reportFile
 
 echo "<div id=\"caption\">" >> $reportFile
 echo "    <p> Based on deconvolution, <a href=\"https://outbreak.info/situation-reports?pango=$mostAbundantVariantName\">$mostAbundantVariantName</a> 
-	is estimated to constitute $mostAbundantVariantPct% of the viral\
-	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was $linRegressionR2.\
-	Variants that were detected less than 5% were grouped under \"Other\"" >> $reportFile
+    is estimated to constitute $mostAbundantVariantPct% of the viral\
+    particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was $linRegressionR2.\
+    Variants that were detected less than 5% were grouped under \"Other\"" >> $reportFile
 echo "    <p> Based on the consensus sequence of the observed reads, the \"ensemble-averaged sequence\" most closely resembles \
-	the <a href=\"https://outbreak.info/situation-reports?pango=$consensusLineage\">$consensusLineage</a> lineage. \
-	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources \
-	are infected with the same variant, the sample is dominated by this variant." >> $reportFile
+    the <a href=\"https://outbreak.info/situation-reports?pango=$consensusLineage\">$consensusLineage</a> lineage. \
+    If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources \
+    are infected with the same variant, the sample is dominated by this variant." >> $reportFile
 echo "    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, \
-	kallisto predicts that the sample is dominated by <a href=\"https://outbreak.info/situation-reports?pango=$kallistoTopName\"\
-	>$kallistoTopName</a> lineage. Accuracy of this measure is expected to improve if the \
-	input data consists of long reads as opposed to convolution." >> $reportFile
+    kallisto predicts that the sample is dominated by <a href=\"https://outbreak.info/situation-reports?pango=$kallistoTopName\"\
+    >$kallistoTopName</a> lineage. Accuracy of this measure is expected to improve if the \
+    input data consists of long reads as opposed to convolution." >> $reportFile
 echo "</div>" >> $reportFile
 echo "<br>" >> $reportFile
-	
+    
 echo "<br>" >> $reportFile
 echo "<div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./pieChart_k2_majorCovid.png\" alt=\"Abundance of variants by kraken2+bracken\"\
-					width=\"100%\">" >> $reportFile
+                    width=\"100%\">" >> $reportFile
 echo "    </div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./pieChart_freyja.png\" alt=\"Abundance of variants by Freyja\"\
-				width=\"100%\">" >> $reportFile
+                width=\"100%\">" >> $reportFile
 echo "    </div>" >> $reportFile
 echo "</div>" >> $reportFile
 echo "<br>" >> $reportFile
@@ -424,7 +438,7 @@ echo "<br>" >> $reportFile
 echo "<div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        <img src=\"./freyja_bootstrap.png\" alt=\"Freyja bootstrapping\"\
-				width=\"100%\">" >> $reportFile
+                width=\"100%\">" >> $reportFile
 echo "    </div>" >> $reportFile
 echo "    <div id=\"figdiv\">" >> $reportFile
 echo "        " >> $reportFile
@@ -449,13 +463,13 @@ echo "<table>" >> $reportFile
 echo "<tr>" >> $reportFile
 echo "    <th>Position</th> <th>Ref. base</th> <th>Alt. base</th> <th>Alt. freq</th> <th>p-value</th> <th>Mutation name</th> <th>Compatible lineages</th>" >> $reportFile
 echo "</tr>" >> $reportFile
-	
+    
 # Copy the list of mutations from the temporary file generated by python
 cat mutationTable.html >> $reportFile
 rm mutationTable.html
 echo "</table>" >> $reportFile
 echo "<br>" >> $reportFile
-	
+    
 echo >> $reportFile
 echo "</body>" >> $reportFile
 echo "</html>" >> $reportFile

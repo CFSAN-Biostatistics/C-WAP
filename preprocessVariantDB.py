@@ -194,3 +194,4 @@ with open('./covidRefSequences/varDefinitions.pkl', 'wb') as file:
 print('Mutation definitions were imported for:')
 print(uniqueVarNames)
 print(importantVars)
+print(var2mut)

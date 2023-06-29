@@ -122,16 +122,16 @@ tr:nth-child(even) {
     <td>Sample name:</td><td>SRR22214910</td>
 </tr>
 <tr>
-    <td>Date generated:</td><td>2022-12-06, 11:59:30 EST</td>
+    <td>Date generated:</td><td>2023-06-29, 17:47:46 EDT</td>
 </tr>
 <tr>
-    <td>Timestamp of C-WAP version used:</td><td>Mon Dec 5 13:25:44 2022 -0500</td>
+    <td>Timestamp of C-WAP version used:</td><td>Thu Jun 29 16:12:34 2023 -0400</td>
 </tr>
 <tr>
-    <td>Executed by:</td><td>Jasmine Amirzadegan (<a href=\mailto:Jasmine.Amirzadegan@fda.hhs.gov?subject=Wastewater report generated on 2022-12-06, 11:59:30 EST\>Jasmine.Amirzadegan@fda.hhs.gov</a>)</td>
+    <td>Executed by:</td><td>Jasmine Amirzadegan (<a href=\mailto:Jasmine.Amirzadegan@fda.hhs.gov?subject=Wastewater report generated on 2023-06-29, 17:47:46 EDT\>Jasmine.Amirzadegan@fda.hhs.gov</a>)</td>
 </tr>
 <tr>
-    <td>Executed on:</td><td>172.20.44.224 (aka n224.raven.cfsan)</td>
+    <td>Executed on:</td><td>172.20.44.122 (aka n122.raven.cfsan)</td>
 </tr>
 </table>
 
@@ -142,7 +142,7 @@ tr:nth-child(even) {
     <td>Sequencing chemistry:</td><td>AMPLICON with Illumina MiSeq</td>
 </tr>
 <tr>
-    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3/missing/?">USA: Alabama		(missing,?)</a></td>
+    <td>Source site:</td><td><a href="https://www.openstreetmap.org/#map=3/missing/?">USA: Alabama        (missing,?)</a></td>
 </tr>
 <tr>
     <td>Sampling date:</td><td>2022-10-25</a></td>
@@ -179,7 +179,7 @@ tr:nth-child(even) {
 </tr>
 </table>
 <br>
-A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum 		read quality &#8805; 20 within a sliding window of width 4.
+A read passes filter if the read length after adaptor trimming &#8805; 30 and minimum         read quality &#8805; 20 within a sliding window of width 4.
 
 <br><br>
 <h2>Overall sequence characteristics</h2>
@@ -222,7 +222,7 @@ SNPs refer to the polymorphic sites currently in circulation that were detected 
 <br><br><br><br>
 <table>
 <tr>
-    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>1895228 reads (96.84%) </td>
+    <td>Hits to SARS-Cov2 genome (kraken2):</td><td>1895226 reads (96.84%) </td>
 </tr>
 <tr>
     <td>Hits to human genome (kraken2):</td><td>345 reads (0.02%)</td>
@@ -232,7 +232,7 @@ SNPs refer to the polymorphic sites currently in circulation that were detected 
 </tr>
 <tr>
     <td>Most abundant organisms (kraken2, family level):</td><td>Coronaviridae (96.84%)<br>
-Geobacteraceae (0.08%)<br>
+Bacillaceae (0.32%)<br>
 Akkermansiaceae (0.04%)<br>
 Desulfovibrionaceae (0.02%)<br>
 Enterobacteriaceae (0.02%)<br></td>
@@ -250,25 +250,25 @@ Enterobacteriaceae (0.02%)<br></td>
 </div>
 <div id="caption">
     <p> Based on deconvolution, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a> 
-	is estimated to constitute 55.67% of the viral	particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.57.	Variants that were detected less than 5% were grouped under "Other"
-    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles 	the <a href="https://outbreak.info/situation-reports?pango=BA.5.2">BA.5.2</a> lineage. 	If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources 	are infected with the same variant, the sample is dominated by this variant.
-    <p> Based on mapping individual reads to the variant consensus sequences in the reference database, 	kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=BA.5"	>BA.5</a> lineage. Accuracy of this measure is expected to improve if the 	input data consists of long reads as opposed to convolution.
+    is estimated to constitute 55.67% of the viral    particles and hence is the most abundant variant in the sample. The R<sup>2</sup> for the linear regression was 0.57.    Variants that were detected less than 5% were grouped under "Other"
+    <p> Based on the consensus sequence of the observed reads, the "ensemble-averaged sequence" most closely resembles     the <a href="https://outbreak.info/situation-reports?pango=BA.5.2">BA.5.2</a> lineage.     If this is a sample consisting of a single source of pathogens or an overwhelming majority of the different sources     are infected with the same variant, the sample is dominated by this variant.
+    <p> Based on mapping individual reads to the variant consensus sequences in the reference database,     kallisto predicts that the sample is dominated by <a href="https://outbreak.info/situation-reports?pango=BA.5"    >BA.5</a> lineage. Accuracy of this measure is expected to improve if the     input data consists of long reads as opposed to convolution.
 </div>
 <br>
 <br>
 <div>
     <div id="figdiv">
-        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"					width="100%">
+        <img src="./pieChart_k2_majorCovid.png" alt="Abundance of variants by kraken2+bracken"                    width="100%">
     </div>
     <div id="figdiv">
-        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"				width="100%">
+        <img src="./pieChart_freyja.png" alt="Abundance of variants by Freyja"                width="100%">
     </div>
 </div>
 <br>
 <br>
 <div>
     <div id="figdiv">
-        <img src="./freyja_bootstrap.png" alt="Freyja bootstrapping"				width="100%">
+        <img src="./freyja_bootstrap.png" alt="Freyja bootstrapping"                width="100%">
     </div>
     <div id="figdiv">
         
@@ -334,7 +334,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>314</td> <td>A</td> <td>G</td> <td>0.061</td> <td nowrap>8.80E-07</td><td>ORF1AB:S17G</td> <td>None found</td>
 </tr>
 <tr>
-    <td>355</td> <td>C</td> <td>T</td> <td>0.183</td> <td nowrap>2.29E-19</td><td>NUC:C355T</td> <td>None found</td>
+    <td>355</td> <td>C</td> <td>T</td> <td>0.182</td> <td nowrap>2.36E-19</td><td>NUC:C355T</td> <td>None found</td>
 </tr>
 <tr>
     <td>670</td> <td>T</td> <td>G</td> <td>1.000</td> <td nowrap>0.00E+00</td><td>ORF1AB:S135R</td> <td><a href="https://outbreak.info/situation-reports?pango=BA.2">BA.2</a>, <a href="https://outbreak.info/situation-reports?pango=BA.3">BA.3</a>, <a href="https://outbreak.info/situation-reports?pango=BA.4">BA.4</a>, <a href="https://outbreak.info/situation-reports?pango=BA.5">BA.5</a></td>
@@ -487,7 +487,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>7414</td> <td>G</td> <td>A</td> <td>0.065</td> <td nowrap>4.09E-138</td><td>ORF1AB:M2383I</td> <td>None found</td>
 </tr>
 <tr>
-    <td>7528</td> <td>C</td> <td>T</td> <td>0.087</td> <td nowrap>6.32E-242</td><td>NUC:C7528T</td> <td>None found</td>
+    <td>7528</td> <td>C</td> <td>T</td> <td>0.086</td> <td nowrap>1.53E-241</td><td>NUC:C7528T</td> <td>None found</td>
 </tr>
 <tr>
     <td>7693</td> <td>G</td> <td>-TT</td> <td>0.130</td> <td nowrap>3.19E-124</td><td>DEL:7693:2</td> <td>None found</td>
@@ -826,7 +826,7 @@ Only genomic coordinates with at least 10X coverage were considered.
     <td>21987</td> <td>G</td> <td>A</td> <td>0.993</td> <td nowrap>0.00E+00</td><td>S:G142D</td> <td><a href="https://outbreak.info/situation-reports?pango=AV1">AV1</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.1.529">B.1.1.529</a>, <a href="https://outbreak.info/situation-reports?pango=B.1.617.2">B.1.617.2</a></td>
 </tr>
 <tr>
-    <td>21995</td> <td>T</td> <td>-ACC</td> <td>0.162</td> <td nowrap>2.14E-263</td><td>DEL:21995:3</td> <td>None found</td>
+    <td>21995</td> <td>T</td> <td>-ACC</td> <td>0.162</td> <td nowrap>2.00E-263</td><td>DEL:21995:3</td> <td>None found</td>
 </tr>
 <tr>
     <td>22190</td> <td>A</td> <td>G</td> <td>0.142</td> <td nowrap>0.00E+00</td><td>S:I210V</td> <td>None found</td>

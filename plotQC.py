@@ -278,7 +278,7 @@ plt.tight_layout()
 plt.savefig('genesVSuncovered_scaled.png', dpi=200)
 plt.close()
 #################################################################
-# Export a csv tables for genes uncov plots
+# Export a csv table for genes uncov plots
 # JA 2022 11 07
 
 #abs counts
@@ -298,7 +298,6 @@ scaledjaa={'Genes':gene_names,'genesUnCovered':scaledUncovCounts2list, 'genesUnd
 scaledjadf=pd.DataFrame.from_dict(scaledjaa,orient='index')
 scaledjadf.to_csv("scaledCounts.csv", sep = ",", index = True, header=False, na_rep = "")
 #################################################################
-
 # Coverage depth vs. breadth plot
 depth_bins = [2**x for x in range(0,15,1)]
 breadth_pdf = np.histogram(readDepth, bins=depth_bins)[0]
@@ -315,9 +314,16 @@ plt.ylim(0,100)
 plt.tight_layout()
 plt.savefig('breadthVSdepth.png', dpi=200)
 plt.close()
-
-
-
+#################################################################
+# Export a csv table for breadth v cov plots
+# JA 2022 01 04
+breadth_pdf2list = breadth_pdf.tolist()
+breadth_cdf2list = breadth_cdf.tolist()
+#breadthTbl = {'depth_bins':depth_bins[0:-1], 'breadth_pdf':breadth_pdf2list, 'breadth_cdf':breadth_cdf2list}
+#breadthTbl = {'depth_bins':depth_bins[0:-1], 'breadth_cdf':breadth_cdf2list}
+breadthTbl = {'depth_bins':depth_bins[0:-1], 'breadth_cdf':breadth_cdf2list[::-1]}
+breadthDf = pd.DataFrame.from_dict(breadthTbl, orient='index')
+breadthDf.to_csv('breadthVcov.csv', sep =",", index = True, header=False, na_rep = "")
 #################################################################
 # Export a csv file for pos; coverage; quality
 outfilename = "pos-coverage-quality.tsv"

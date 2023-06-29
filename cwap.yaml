@@ -1,6 +1,6 @@
 package:
   name: c-wap
-  version: 0.0
+  version: 1.0.0
 
 source:
   git_url: https://github.com/CFSAN-Biostatistics/C-WAP

@@ -32,7 +32,9 @@ NUM_VARIANTS = len(uniqueVarNames)
 # Parse the variant call file (vcf from samtools or tsv from iVar) and
 # retain the statistically highly significant mutations detected.
 outfile = open(outputDirectory+"/mutationTable.html", 'w')
-with open(variantFilename, encoding='cp1252') as infile:
+#with open(variantFilename, 'r', encoding='unicode_escape') as infile: #
+#with open(variantFilename, encoding='cp1252') as infile:
+with open(variantFilename, 'r', encoding='latin1') as infile:
     reader = csv.reader(infile, delimiter="\t")
     infile.readline()  # Skip header line
     # Loop over all detected variants and tabulate their identity.
@@ -118,7 +120,7 @@ with open(variantFilename, encoding='cp1252') as infile:
                 outfile.write("</tr>\n")
 outfile.close()
 
-# Tle last entry of vector is set to 1000 to serve for normalisation constraint
+# The last entry of vector is set to 1000 to serve for normalisation constraint
 freqVec[-1] = 1000
 
 # Perform linear regression to estimate variant prevalences
@@ -199,8 +201,6 @@ if len(importantVars["VOI"]) > 0:
 if len(importantVars["VUI"]) > 0:
     buildVarSupportTable("VUI")
     
-
-
 #################################################################################
 # Jaccard index to compute pairwise similarity measured between important variant groups.
 def jaccard_index (list1, list2):
@@ -242,3 +242,30 @@ for var1 in vars2plot:
 outfile.write("</table>\n<br>\n")
 
 outfile.close()
+
+#################################################################################
+## Build csv version of variant table ###########################################
+## 2023 01 09 JA ################################################################
+#################################################################################
+mutCSV = open(outputDirectory+"/mutationTable.csv", 'w')
+def buildVarCSV(varGenre):
+    for varname in importantVars[varGenre]:
+        #mutCSV.write('%s_' % varGenre)
+        mutCSV.write('\n%s, ' % varname )
+        mutSupport = isVarSupported(varname)
+        mutCSV.write('(%d of %d)' % (len(mutSupport['supporting']),
+                len(mutSupport['supporting']) + len(mutSupport['unsupporting'])))
+        for mut in mutSupport['supporting']:
+            mutCSV.write(', %s' % mut)
+
+if len(importantVars["VOC"]) > 0:
+    buildVarCSV("VOC")
+
+if len(importantVars["VOI"]) > 0:
+    buildVarCSV("VOI")
+
+if len(importantVars["VUI"]) > 0:
+    buildVarCSV("VUI")
+
+mutCSV.close()
+#################################################################################
