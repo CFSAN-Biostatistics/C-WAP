@@ -44,7 +44,7 @@ Auto-fetched by C-WAP:
 * [Pangolin v4.1.2](https://github.com/cov-lineages/pangolin)
 * [Kallisto v0.48](https://github.com/pachterlab/kallisto)
 * [Entrez-direct v16.2](https://www.ncbi.nlm.nih.gov/books/NBK179288/)
-* [Freyja v1.4.2](https://github.com/andersen-lab/Freyja)
+* [Freyja v1.4.4](https://github.com/andersen-lab/Freyja)
 * [Wkhtmltopdf v0.12.4](https://github.com/wkhtmltopdf)
 * [Ghostscript v9.54](https://www.ghostscript.com)
 
