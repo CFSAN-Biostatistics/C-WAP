@@ -152,7 +152,7 @@ process referenceAlignment {
                 minimap2 -a --sam-hit-only -2 -x map-ont ${refSeqBasename}.mmi R1.fastq.gz -t \$numThreads -o aligned.sam
                 ;;
             PacBio)
-                minimap2 -a --sam-hit-only -2 -x map-hifi ${refSeqBasename}.mmi R1.fastq.gz -t \$numThreads -o aligned.sam
+                minimap2 -a --sam-hit-only -2 -x map-hifi $projectDir/covidRefSequences/PacBioHiFi.mmi R1.fastq.gz -t \$numThreads -o aligned.sam
                 ;;
         esac
     """
