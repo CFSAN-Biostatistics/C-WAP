@@ -1,14 +1,12 @@
-# C-WAP
-# CFSAN Wastewater Analysis Pipeline
- **Given the [project timeline](https://www.fda.gov/food/whole-genome-sequencing-wgs-program/wastewater-surveillance-sars-cov-2-variants), C-WAP will no longer be under active development or maintenance come June 30, 2023. Please refer to the C-WAP successor [Aquascope](https://github.com/CDCgov/aquascope) for an actively supported workflow. [Freyja](https://github.com/andersen-lab/Freyja) or [Kallisto](https://github.com/pachterlab/kallisto) (two of the tools C-WAP incorporates) may also be of interest. Thank you for joining us on our analytic journey.** 
+# CFSAN Wastewater Analysis Pipeline 
+## C-WAP
 
-C-WAP is a Nextflow, Python, and Bash-based bioinformatics pipeline for the analysis of either long-read (Oxford Nanopore Technologies or PacBio) or short-read (Illumina) whole genome sequencing data of DNA extracted from wastewater. It was developed for SARS-CoV-2 and its variants.
-
-C-WAP was developed by the United States Food and Drug Administration, Center for Food Safety and Applied Nutrition.
+| **Given the [project timeline](https://www.fda.gov/food/whole-genome-sequencing-wgs-program/wastewater-surveillance-sars-cov-2-variants), C-WAP will no longer be under active development or maintenance come June 30, 2023. Please refer to the C-WAP successor [Aquascope](https://github.com/CDCgov/aquascope) for an actively supported workflow. [Freyja](https://github.com/andersen-lab/Freyja) or [Kallisto](https://github.com/pachterlab/kallisto) (two of the tools C-WAP incorporates) may also be of interest. Thank you for joining us on our analytic journey.**  | 
+|:------ |
 
 ## Introduction
 
-The CFSAN Wastewater Analysis Pipeline uses a reference-based alignment to create a matrix of SNPs for a given set of samples and estimate the percentage of SARS-CoV-2 variants in the sample. 
+The CFSAN Wastewater Analysis Pipeline (C-WAP) uses a reference-based alignment to create a matrix of SNPs for a given set of samples and estimate the percentage of SARS-CoV-2 variants in the sample. 
 
 The process includes the following:
 1. Designating a reference and NGS data in fastq format
@@ -18,6 +16,10 @@ The process includes the following:
 5. Detection of variant positions with iVar
 6. Determine composition of variants via Kallisto, Linear Regression, Kraken2/Bracken and Freyja
 7. Generate an HTML and PDF formatted summary of results
+
+C-WAP is a Nextflow, Python, and Bash-based bioinformatics pipeline for the analysis of either long-read (Oxford Nanopore Technologies or PacBio) or short-read (Illumina) whole genome sequencing data of DNA extracted from wastewater. It was developed for SARS-CoV-2 and its variants.
+
+C-WAP was developed by the United States Food and Drug Administration, Center for Food Safety and Applied Nutrition.
 
 ## Installation
 
@@ -91,8 +93,8 @@ Variant composition analyses should be interpreted with caution where they shoul
 
 ## Citing C-WAP
 
-### **[Kayikcioglu T, Amirzadegan J, Rand H, Tesfaldet B, Timme RE, Pettengill JB. Performance of methods for SARS-CoV-2 variant detection and abundance estimation within mixed population samples. PeerJ. 2023 Jan 26;11:e14596. doi: 10.7717/peerj.14596. PMID: 36721781; PMCID: PMC9884472.](https://pubmed.ncbi.nlm.nih.gov/36721781/)**
-
+| **Kayikcioglu T, Amirzadegan J, Rand H, Tesfaldet B, Timme RE, Pettengill JB. [Performance of methods for SARS-CoV-2 variant detection and abundance estimation within mixed population samples.](https://pubmed.ncbi.nlm.nih.gov/36721781/) ***PeerJ. 2023 Jan 26;11:e14596.*** doi: 10.7717/peerj.14596. PMID: 36721781; PMCID: PMC9884472.** | 
+|:------ | 
 
 ### GISAID citation
 
