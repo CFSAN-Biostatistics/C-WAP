@@ -1,6 +1,6 @@
 # C-WAP
 
-#### **Given the [project timeline](https://www.fda.gov/food/whole-genome-sequencing-wgs-program/wastewater-surveillance-sars-cov-2-variants), C-WAP will no longer be under active development or maintenance come June 30, 2023. Please refer to the C-WAP successor [aquascope](https://github.com/CDCgov/aquascope) for an actively supported workflow. [Freyja](https://github.com/andersen-lab/Freyja) or [Kallisto](https://github.com/pachterlab/kallisto) (two of the tools C-WAP incorporates) may also be of interest. Thank you for joining us on our analytic journey.**
+#### **Given the [project timeline](https://www.fda.gov/food/whole-genome-sequencing-wgs-program/wastewater-surveillance-sars-cov-2-variants), C-WAP will no longer be under active development or maintenance come June 30, 2023. Please refer to the C-WAP successor [Aquascope](https://github.com/CDCgov/aquascope) for an actively supported workflow. [Freyja](https://github.com/andersen-lab/Freyja) or [Kallisto](https://github.com/pachterlab/kallisto) (two of the tools C-WAP incorporates) may also be of interest. Thank you for joining us on our analytic journey.**
 
 # 
 
